@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Italian Event Planners</title>
 <meta name="description" content="Weddings and celebrations across Italy since 2009.">
-<link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css"><link rel="stylesheet" href="css/site.css"><link rel="stylesheet" href="css/v2.css"><link rel="stylesheet" href="css/v3.css">
+<link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=cfbab9c4"><link rel="stylesheet" href="css/v2.css?v=51f4b01b"><link rel="stylesheet" href="css/v3.css?v=b418b175">
 <style>
 /* events */
 section.ev{
@@ -82,34 +82,37 @@ section.ev{
 /* the print */
 .cv-fig{grid-column:2;grid-row:1/3;margin:0;display:grid;grid-template-rows:var(--h) auto}
 .cv-img{position:relative;overflow:hidden;background:#d9cfc1}
+.cv-slide.is-on{z-index:2}.cv-slide.is-out{z-index:1}
 .cv-img img{width:100%;height:100%;max-width:none;object-fit:cover;
-  transform:scale(1.035);opacity:0;
-  transition:opacity 1.2s var(--ease),transform 2.4s var(--ease)}
+  transform:scale(1.02);opacity:0;
+  transition:opacity .9s cubic-bezier(.22,1,.36,1),transform 2.2s cubic-bezier(.22,1,.36,1)}
 .cv-slide.is-on .cv-img img{opacity:1;transform:scale(1)}
-.cv-slide.is-out .cv-img img{opacity:0;transform:scale(1);transition:opacity .9s var(--ease)}
-.cv-link:hover .cv-img img{transform:scale(1.015);transition:opacity 1.2s var(--ease),transform 1.4s var(--ease)}
+.cv-slide.is-out .cv-img img{opacity:1;transform:scale(1);transition:none}
+@media (hover:hover){.cv-link:has(.cv-hit:hover) .cv-img img{transform:scale(1.03);transition:opacity .9s var(--ease),transform .8s var(--ease)}}
 .cv-fig figcaption{margin-top:16px;font-size:15px;line-height:1.4;letter-spacing:.02em;color:#6E6357;
   opacity:0;transition:opacity 1s var(--ease) .2s}
-.cv-slide.is-on figcaption{opacity:1;transition-delay:.6s}
+.cv-slide.is-on figcaption{opacity:1;transition-delay:.66s}
 .cv-slide.is-out figcaption{opacity:0;transition:opacity .35s var(--ease)}
 
 /* the type: anchored to the bottom edge of the print */
-.cv-type{grid-column:4;grid-row:1;align-self:end;max-width:600px;
-  opacity:0;transform:translateY(14px);transition:opacity 1.1s var(--ease),transform 1.3s var(--ease)}
+.cv-type{grid-column:4;grid-row:1;align-self:end;max-width:600px}
+.cv-type>*{opacity:0;transform:translateY(8px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.cv-slide.is-on .cv-type>*{opacity:1;transform:none}
+.cv-slide.is-on .cv-names{transition-delay:.3s}.cv-slide.is-on .cv-line{transition-delay:.42s}.cv-slide.is-on .cv-read{transition-delay:.54s,.54s,0s}
+.cv-slide.is-out .cv-type>*{opacity:0;transform:none;transition:opacity .3s ease-out}
 /* type leaves first, the next couple's names arrive once it has gone: never two names on screen at once */
-.cv-slide.is-on .cv-type{opacity:1;transform:none;transition-delay:.55s}
-.cv-slide.is-out .cv-type{opacity:0;transform:none;transition:opacity .45s var(--ease)}
+
 .cv-names{font-family:var(--head);font-weight:400;font-size:clamp(60px,7.2vw,104px);line-height:.94;letter-spacing:-.02em;color:var(--ink)}
 .cv-names span{display:block;white-space:nowrap}
 .cv-line{margin:clamp(28px,4.4vh,44px) 0 0}
 /* the couple's own words in the client's raspberry, in Jost; Italiana is kept for names only */
 /* the opening mark is set large in Cormorant italic and hung in the margin, so the words keep a clean left edge */
-.cv-read{display:inline-flex;align-items:center;gap:12px;margin-top:clamp(30px,4.6vh,46px);font-size:17px;font-weight:400;letter-spacing:.01em;color:var(--ink);transition:color .5s var(--ease)}
+.cv-read{display:inline-flex;align-items:center;gap:12px;margin-top:clamp(30px,4.6vh,46px);font-size:17px;font-weight:400;letter-spacing:.01em;color:var(--ink)}
+.cv-slide.is-on .cv-read{transition-property:opacity,transform,color;transition-duration:.7s,.7s,.15s}
 .cv-read svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.3;transition:transform .8s var(--ease)}
-.cv-link:hover .cv-read,.cv-link:focus-visible .cv-read{color:var(--brand)}
-.cv-link:hover .cv-read svg{transform:translateX(5px)}
-.cv-link:focus-visible{outline:none}
-.cv-link:focus-visible .cv-img{outline:1px solid var(--ink);outline-offset:6px}
+.cv-hit{color:inherit;display:block}.cv-names a{display:inline}
+@media (hover:hover){.cv-link:has(.cv-hit:hover) .cv-read{color:var(--brand)}.cv-link:has(.cv-hit:hover) .cv-read svg{transform:translateX(5px)}}
+.cv-read:focus-visible{color:var(--brand);outline:none}.cv-read:focus-visible svg{transform:translateX(5px)}
 
 /* folio: aligned to the top edge of the print, same left edge as the names */
 .cv-folio{position:absolute;z-index:3;top:calc((100vh - var(--h)) / 2 - 18px - 10px);
@@ -151,7 +154,7 @@ section.ev{
   .cv-names{font-size:clamp(54px,7vw,80px)}
 }
 @media (prefers-reduced-motion:reduce){
-  .cv-img img,.cv-type,.cv-fig figcaption,.cv-read svg{transition:opacity .25s linear!important;transform:none!important}
+  .cv-img img,.cv-type>*,.cv-fig figcaption,.cv-read svg{transition:opacity .25s linear!important;transform:none!important}
 }
 
 /* arcade */
@@ -354,7 +357,7 @@ html.shot .ca .reveal{transition:none}
     </div>
   </section>
 </div>
-<script src="js/stories.js"></script>
+<script src="js/stories.js?v=d94364f0"></script>
 <script>
 /* eight names: one place at a time */
 (() => {
@@ -379,7 +382,7 @@ html.shot .ca .reveal{transition:none}
 
 })();
 </script>
-<script src="js/site.js"></script>
+<script src="js/site.js?v=bee083d0"></script>
 <script>
 
 
@@ -393,21 +396,22 @@ html.shot .ca .reveal{transition:none}
   const esc = t => String(t || '').replace(/&(?![a-z#0-9]+;)/gi, '&amp;').replace(/</g, '&lt;');
   const names = c => { const m = String(c || '').split(/\s*&\s*/); return m.length === 2 ? `${esc(m[0])} <span>&amp; ${esc(m[1])}</span>` : esc(c); };
   const place = s => esc(String(s.kicker || '').split('·')[0].trim());
+  const href = s => s.id === 'capri' ? 'story-capri.html' : s.id === 'sardinia' ? 'story-sardinia.html' : s.id === 'sorrento' ? 'story-sorrento.html' : 'story.html?s=' + encodeURIComponent(s.id);
   const arrow = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h17M14 6l6 6-6 6"/></svg>';
 
   stage.innerHTML = S.map((s, i) => `
     <article class="cv-slide${i ? '' : ' is-on'}" role="group" aria-roledescription="slide" aria-label="${i + 1} of ${N}"${i ? ' inert aria-hidden="true"' : ''}>
-      <a class="cv-link" href="${s.id === 'capri' ? 'story-capri.html' : s.id === 'sardinia' ? 'story-sardinia.html' : s.id === 'sorrento' ? 'story-sorrento.html' : 'story.html?s=' + encodeURIComponent(s.id)}">
+      <div class="cv-link">
         <figure class="cv-fig">
-          <div class="cv-img"><img src="img/g/${s.cover}.jpg" alt="${esc(s.alt)}" style="object-position:${FOCUS[s.cover] || '50% 50%'}" ${i ? 'loading="lazy"' : ''}></div>
+          <a class="cv-img cv-hit" href="${href(s)}" tabindex="-1" aria-hidden="true"><img src="img/g/${s.cover}.jpg" alt="${esc(s.alt)}" style="object-position:${FOCUS[s.cover] || '50% 50%'}" ${i ? 'loading="lazy"' : ''}></a>
           ${s.kicker ? `<figcaption>${place(s)}</figcaption>` : ''}
         </figure>
         <div class="cv-type">
-          <h3 class="cv-names">${names(s.couple)}</h3>
+          <h3 class="cv-names"><a class="cv-hit" href="${href(s)}" tabindex="-1">${names(s.couple)}</a></h3>
           ${s.quote && s.quote[0] ? `<blockquote class="pq cv-line"><p>${esc(s.quote[0])}</p></blockquote>` : ''}
-          <span class="cv-read">Read their story ${arrow}</span>
+          <a class="cv-read cv-hit" href="${href(s)}">Read their story ${arrow}</a>
         </div>
-      </a>
+      </div>
     </article>`).join('');
 
   const slides = [...stage.children];
@@ -422,22 +426,33 @@ html.shot .ca .reveal{transition:none}
     next.inert = false; next.removeAttribute('aria-hidden');
     // let the outgoing print begin to fade before the next one arrives: one thing at a time
     requestAnimationFrame(() => requestAnimationFrame(() => next.classList.add('is-on')));
-    outT = setTimeout(() => prev.classList.remove('is-out'), reduce ? 300 : 1200);
+    outT = setTimeout(() => prev.classList.remove('is-out'), reduce ? 300 : 1000);
     cur = k; label(k);
     const img = next.querySelector('img'); img.loading = 'eager';
     const after = slides[(k + 1) % N].querySelector('img'); after.loading = 'eager';
   };
   label(0);
-  sec.querySelector('[data-cv-next]').addEventListener('click', () => go(cur + 1));
-  sec.querySelector('[data-cv-prev]').addEventListener('click', () => go(cur - 1));
+  // auto-advance (Home rhythm, shared with the eight places; HANDOFF.md "Home rhythm"): a long dwell, since there is a quote to read.
+  // Pauses while the pointer or focus is in the section; after Previous/Next it stays on the visitor's choice for a while;
+  // only while on screen and the tab is visible; never with reduced motion; on touch it stops for good at the first tap.
+  const DWELL = 6500, HOLD = 12000, RESUME = 3000;
+  let t = 0, over = false, focused = false, tapped = false, seen = false;
+  new IntersectionObserver(es => es.forEach(e => seen = e.intersectionRatio > .35), {threshold:[0, .35, .7]}).observe(sec);
+  sec.addEventListener('mouseenter', () => over = true); sec.addEventListener('mouseleave', () => { over = false; t = Math.min(t, DWELL - RESUME); });
+  sec.addEventListener('focusin', () => focused = true); sec.addEventListener('focusout', () => focused = false);
+  sec.addEventListener('touchstart', () => tapped = true, {passive:true});
+  if (!reduce) setInterval(() => { if (!seen || document.hidden || over || focused || tapped) return; t += 250; if (t >= DWELL) { t = 0; go(cur + 1); } }, 250);
+  const pick = k => { go(k); t = DWELL - HOLD; };
+  sec.querySelector('[data-cv-next]').addEventListener('click', () => pick(cur + 1));
+  sec.querySelector('[data-cv-prev]').addEventListener('click', () => pick(cur - 1));
 
   // keyboard: arrows while the section holds most of the screen
   let inView = false;
   new IntersectionObserver(es => es.forEach(e => inView = e.intersectionRatio > .5), {threshold:[0, .5, 1]}).observe(sec);
   addEventListener('keydown', e => {
     if (!inView || e.altKey || e.metaKey || e.ctrlKey || /input|textarea|select/i.test(document.activeElement.tagName)) return;
-    if (e.key === 'ArrowRight') { e.preventDefault(); go(cur + 1); }
-    if (e.key === 'ArrowLeft') { e.preventDefault(); go(cur - 1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); pick(cur + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); pick(cur - 1); }
   });
 
   // swipe on touch: horizontal intent only, and a swipe never opens the story
@@ -446,7 +461,7 @@ html.shot .ca .reveal{transition:none}
   stage.addEventListener('touchend', e => {
     if (x0 === null) return;
     const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0; x0 = null;
-    if (Math.abs(dx) > 44 && Math.abs(dx) > Math.abs(dy) * 1.4) { swiped = true; go(cur + (dx < 0 ? 1 : -1)); }
+    if (Math.abs(dx) > 44 && Math.abs(dx) > Math.abs(dy) * 1.4) { swiped = true; pick(cur + (dx < 0 ? 1 : -1)); }
   }, {passive:true});
   stage.addEventListener('click', e => { if (swiped) { e.preventDefault(); swiped = false; } }, true);
 
@@ -457,6 +472,6 @@ html.shot .ca .reveal{transition:none}
 
 
 </script>
-<script src="vendor/gsap.min.js"></script><script src="vendor/ScrollTrigger.min.js"></script><script src="vendor/lenis.min.js"></script><script src="js/motion.js"></script>
+<script src="vendor/gsap.min.js?v=ff86cb55"></script><script src="vendor/ScrollTrigger.min.js?v=2e3b8c36"></script><script src="vendor/lenis.min.js?v=5a44a112"></script><script src="js/motion.js?v=1f160335"></script>
 </body>
 </html>
