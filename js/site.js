@@ -86,7 +86,7 @@
   const r = v => Math.round(v * 1000) / 1000;
   let n = 0;
   function geo(fs, wt){
-    const k = U / fs, travel = fs >= 14 ? 5 : 4;                       // travel in px, as in the original
+    const k = U / fs, travel = .617 * 1.06 * XH * fs;                 // travel = 0.617x the chevron's height: the original's 5px on an 8.1px chevron (14px label), scaled with the label
     const h = 1.06 * XH * U, w = 1.05 * (STEM[wt] || STEM[400]) * U;
     const d = w / Math.SQRT2, o = d / 2, half = (h - d) / 2, vx = o + half, vy = o + half, tip = vx + d, notch = vx - d, t = travel * k;
     return {h, tip, travel, tu: t, svg: id => `<defs><clipPath id="${id}"><rect x="0" y="${r(-k)}" width="${r(tip + t + k)}" height="${r(h + 2 * k)}"/></clipPath></defs>`
@@ -126,4 +126,78 @@
   upgrade(document);
   new MutationObserver(ms => ms.forEach(m => m.addedNodes.forEach(x => { if (x.nodeType === 1) { if (x.tagName === 'svg') upgrade(x.parentNode); else upgrade(x); } })))
     .observe(document.body, {childList: true, subtree: true});
+})();
+
+/* Page transition (16 Nov, replaces js/arch.js and the page fade in js/motion.js). Leaving: the page closes into an arch.
+   Arriving after such a click: it opens from the arch. A flag in sessionStorage, read by a one-line script in each page's <head>,
+   sets the closed state before the first paint, so there is no flash. Back and Forward restore the page open (pageshow),
+   a click on a link to the page you are on scrolls to the top instead of reloading, and the page can never stay clipped. */
+(() => {
+  const h = document.documentElement, page = document.querySelector('.page');
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches, shot = location.search.includes('shot');
+  const on = getComputedStyle(h).getPropertyValue('--arch').trim() === '1' && !still && !shot;
+  try { sessionStorage.removeItem('iep-arch'); } catch (e) {}
+  const open = () => h.classList.remove('arch-ready', 'arch-leave');
+  if (page) page.addEventListener('animationend', e => { if (e.animationName === 'archopen') h.classList.remove('arch-ready'); });
+  setTimeout(() => h.classList.remove('arch-ready'), 1700);                  // never leave the page clipped
+  const reset = () => { open(); leaving = false; const m = document.querySelector('.menu'); if (m) { m.classList.remove('open'); m.setAttribute('aria-hidden', 'true'); } };
+  addEventListener('pageshow', e => { if (e.persisted) reset(); });            // Back/Forward: page open, menu closed
+  let leaving = false;
+  if (!on) { open(); return; }
+  document.addEventListener('click', e => {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const a = e.target.closest('a[href]'); if (!a || (a.target && a.target !== '_self') || a.hasAttribute('download')) return;
+    const u = new URL(a.href, location.href);
+    if (!/^(https?|file):$/.test(u.protocol) || u.origin !== location.origin) return;
+    if (u.pathname === location.pathname) { if (!u.hash) { e.preventDefault(); scrollTo({top: 0, behavior: 'smooth'}); } return; }
+    e.preventDefault(); if (leaving) return; leaving = true;
+    try { sessionStorage.setItem('iep-arch', '1'); } catch (er) {}
+    h.classList.remove('arch-ready'); h.classList.add('arch-leave');
+    setTimeout(() => { location.href = a.href; setTimeout(reset, 2500); }, 700);   // if the browser never leaves, open the page again
+  }, true);
+})();
+
+/* Fixed bar and Home's travelling logo (16 Nov). The bar turns solid (paper, ink, raspberry logo) once it has left the opening photo.
+   On Home the big hero logo is moved to a fixed layer; its position and size are interpolated from where the hero would carry it to
+   the logo slot in the bar, linked to scroll (scrolling up reverses it exactly), and it turns from white to raspberry as it docks. */
+(() => {
+  const bar = document.querySelector('.bar'), page = document.querySelector('.page'); if (!bar || !page) return;
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const paperTop = bar.classList.contains('dark');
+  const first = [...page.children].find(e => e !== bar && e.offsetHeight > 200);
+  const hl = document.querySelector('.hero-logo'), slot = bar.querySelector('.logo .lw');
+  let fly = null, fw, fb;
+  if (hl && slot) {
+    fly = document.createElement('a'); fly.className = 'fly-logo'; fly.href = 'home-v3.html'; fly.tabIndex = -1;
+    fly.setAttribute('aria-label', 'Italian Event Planners, home');
+    fly.innerHTML = '<img class="fw" src="brand/logo-white.svg" alt=""><img class="fb" src="brand/logo-brand.svg" alt="" style="opacity:0">';
+    page.appendChild(fly); fw = fly.children[0]; fb = fly.children[1];
+    hl.style.visibility = 'hidden'; bar.querySelector('.logo').style.visibility = 'hidden';
+  }
+  const clamp = v => Math.max(0, Math.min(1, v)), lerp = (a, b, t) => a + (b - a) * t;
+  let solid = null, queued = false, follow = 0;
+  function frame(){
+    queued = false;
+    const y = scrollY;
+    let edge = paperTop ? 1 : (first ? first.offsetTop + first.offsetHeight - bar.offsetHeight : 1);
+    if (fly) {
+      const N = hl.getBoundingClientRect(), D = slot.getBoundingClientRect();
+      const s1 = Math.max(1, N.top + y - D.top);              // the scroll at which the logo reaches the bar
+      edge = Math.min(edge, s1);
+      let p = clamp(y / s1); if (still) p = p >= 1 ? 1 : 0;
+      const k = lerp(1, D.width / N.width, p);
+      const cx = lerp(N.left + N.width / 2, D.left + D.width / 2, p), cy = lerp(N.top + N.height / 2, D.top + D.height / 2, p);
+      fly.style.width = N.width + 'px'; fly.style.height = N.height + 'px';
+      fly.style.transform = `translate(${cx - k * N.width / 2}px,${cy - k * N.height / 2}px) scale(${k})`;
+      const c = clamp((p - .75) / .25); fb.style.opacity = c; fw.style.opacity = 1 - c;
+      const d = p >= 1; fly.classList.toggle('docked', d); fly.tabIndex = d ? 0 : -1;
+    }
+    const s = y >= edge;
+    if (s !== solid) { solid = s; bar.classList.toggle('solid', s); if (!paperTop) bar.classList.toggle('dark', s); follow = performance.now() + 650; }
+    if (fly && performance.now() < follow) req();             // keep the logo on its slot while the bar's padding eases
+  }
+  const req = () => { if (!queued) { queued = true; requestAnimationFrame(frame); } };
+  addEventListener('scroll', req, {passive: true}); addEventListener('resize', req); addEventListener('load', req);
+  if (document.fonts) document.fonts.ready.then(req);
+  frame();
 })();

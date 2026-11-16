@@ -6,8 +6,6 @@
   const ease = 'expo.out';
   document.querySelectorAll('.reveal').forEach(e => e.classList.add('in'));
   if (shot) return;
-  // page fade in
-  gsap.from('.page', {opacity: 0, duration: 1, ease: 'power2.out'});
   // hero text
   gsap.from('.hero-copy > *, .phero .hero-copy > *', {y: 18, opacity: 0, duration: 1.6, ease, stagger: .12, delay: .2});
   // image reveals: clip from bottom, slow settle
@@ -24,9 +22,4 @@
   gsap.utils.toArray('.band img, .phero img').forEach(img => {
     gsap.fromTo(img, {yPercent: -6}, {yPercent: 6, ease: 'none', scrollTrigger: {trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true}});
   });
-  // page transitions: fade out before leaving
-  document.querySelectorAll('a[href$=".html"], a[href*=".html?"], a[href*=".html#"]').forEach(a => a.addEventListener('click', e => {
-    if (e.metaKey || e.ctrlKey) return; e.preventDefault();
-    gsap.to('.page', {opacity: 0, duration: .45, ease: 'power2.in', onComplete: () => location.href = a.href});
-  }));
 })();

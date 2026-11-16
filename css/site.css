@@ -708,3 +708,34 @@ svg.ha .ha-bar{fill:currentColor;opacity:0;transition:opacity .3s cubic-bezier(.
 .bar .plan-cta:focus-visible{background:var(--brand)!important;color:#fff!important;outline:2px solid currentColor;outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.bar .plan-cta{transition:none}}
 .ha-run{display:inline;white-space:normal}.ha-run svg.ha{margin-left:.3em}   /* hover arrow: words and arrow share one line, so the arrow stands on the baseline */
+
+/* ===== Click targets (Mark, 16 Nov 20:41): pointer-sized on mouse and trackpad, touch-sized only on touch screens. See HANDOFF.md. ===== */
+@media (pointer:fine){
+  .bar .pill,.bar .right .pill{height:36px!important;padding:0 16px!important}
+  .bar .mbtn{gap:10px}
+  .bar .lang{height:36px}
+  .menu .close{height:36px!important;padding:0 16px!important}
+  .pill{height:36px;padding:0 18px}
+  .hv-cta,.st-read,.dp-btn{height:40px;padding:0 20px}
+  .wa{width:40px!important;height:40px!important;right:28px;bottom:28px}
+  .wa svg{width:18px;height:18px}
+}
+
+/* Fixed bar (16 Nov, Mark: "fix the navbar on every page"). js/site.js adds .solid once the bar has left the page's opening photo
+   (from the first scroll on paper-topped pages). Solid = paper background, ink text, raspberry logo, a little less padding. No shadow. */
+.bar{position:fixed!important;top:0!important;left:0!important;right:0!important;z-index:50;transition:background-color .5s var(--ease),padding .5s var(--ease),color .5s var(--ease)}
+.bar.solid{background:var(--paper);padding-top:12px;padding-bottom:12px}
+.bar .pill,.bar .lang{transition:background-color .5s var(--ease),color .5s var(--ease),border-color .5s var(--ease)}
+.bar .logo{position:relative}
+.bar .logo img{transition:opacity .5s var(--ease)}
+.bar .logo .lw{display:block!important}
+.bar .logo .lk{display:block!important;position:absolute;left:0;top:0;opacity:0}
+.bar.dark .logo .lw{opacity:0}.bar.dark .logo .lk{opacity:1}
+.bar.solid .logo img{height:50px}
+/* Home: the hero logo travels into the bar (scroll-linked, one element) */
+.fly-logo{position:fixed;left:0;top:0;z-index:55;transform-origin:0 0;will-change:transform;pointer-events:none}
+.fly-logo img{position:absolute;inset:0;width:100%;height:100%;display:block}
+.fly-logo.docked{pointer-events:auto}
+.fly-logo:focus-visible{outline:2px solid var(--brand);outline-offset:6px}
+@media (max-width:900px){.bar.solid{padding-top:8px;padding-bottom:8px}.bar.solid .logo img{height:44px}}
+@media (prefers-reduced-motion:reduce){.bar,.bar .pill,.bar .lang,.bar .logo img{transition:none}}

@@ -48,11 +48,13 @@
 .v2 footer{margin-top:0}
 @media (max-width:900px){.st-nav{right:auto;left:var(--gut);bottom:5vh}.st-copy{bottom:16vh}.st-title{font-size:52px}}
 /* arch page transitions */
-html.arch-ready{background:#15110E}
-html.arch-ready .page{clip-path:inset(28% 34% 0 34% round 50vw 50vw 0 0);animation:archopen 1.25s cubic-bezier(.7,0,.2,1) .05s forwards}
-@keyframes archopen{to{clip-path:inset(0 0 0 0 round 0 0 0 0)}}
-html.arch-leave .page{animation:archclose .7s cubic-bezier(.6,0,.4,1) forwards}
-@keyframes archclose{from{clip-path:inset(0 0 0 0 round 0 0 0 0)}to{clip-path:inset(30% 36% 0 36% round 50vw 50vw 0 0)}}
+:root{--arch:1}   /* pages with this stylesheet use the arch transition (js/site.js) */
+html.arch-ready,html.arch-leave{background:var(--paper)}
+/* blinds: the page opens from a closed centre line to full width, and closes back to it when leaving (Mark: start fully closed, open fully) */
+html.arch-ready .page{clip-path:inset(0 50% 0 50%);animation:archopen 1.3s cubic-bezier(.22,1,.36,1) .05s forwards}
+@keyframes archopen{from{clip-path:inset(0 50% 0 50%)}to{clip-path:inset(0 0 0 0)}}
+html.arch-leave .page{animation:archclose .7s cubic-bezier(.65,0,.35,1) forwards}
+@keyframes archclose{from{clip-path:inset(0 0 0 0)}to{clip-path:inset(0 50% 0 50%)}}
 @media (prefers-reduced-motion:reduce){html.arch-ready .page,html.arch-leave .page{animation:none;clip-path:none}}
 
 /* audit pass 1: no eyebrows, sentence case, calmer invite */

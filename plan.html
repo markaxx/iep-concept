@@ -580,6 +580,23 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
 /* Mark, 16 Nov 20:37: on the guests pause the heading and paragraph sit higher, as before, with tighter lines */
 .wz.split.reply.pause-g .stage{justify-content:flex-start;padding-top:clamp(128px,16vh,160px)}
 .wz.split.reply .rb{line-height:1.4}
+.wz.split.reply.pause-g .scr{flex:1 0 auto}.wz.split.reply.pause-g .rb{margin-bottom:clamp(28px,4vh,44px)}.wz.split.reply.pause-g .rq{margin-top:auto}   /* Mark, 16 Nov 20:39: paragraph at the top, quote and Continue at the bottom, space between */
+/* Animation fixes (16 Nov 20:50): the ending's arched door has its size before the photo arrives and waits for it to open */
+@media (min-width:901px){.keep .k-door{height:min(72vh,860px);width:auto;max-width:100%}}
+.k-door:not(.ld),.k-door:not(.ld) img{animation-play-state:paused}
+/* Mark, 16 Nov 20:41: targets were phone-sized on desktop. With a mouse (fine pointer) a control is sized from its type,
+   about 2.4x the font size tall with about 1.1em side padding (HANDOFF.md "Click targets"); touch screens of any width keep the large sizes above. */
+@media (hover:hover) and (pointer:fine){
+  .go{height:36px;padding:0 16px}
+  .take-c .opt{padding:6px 14px 6px 6px;gap:12px}
+  .take-c .opt .th{width:44px;height:44px;border-radius:4px}
+  .wz.split.txt .tile{height:40px;padding:0 16px}
+  .wz.split.late .tiles.fnd .tile{min-height:40px;padding:8px 16px}
+  .wz.split.late .slots2 .tile{height:52px;padding:0 16px}
+  .wz.split.late .fnd-o input{height:40px}
+  .gst button,.wz.split.txt .gst button{width:40px;height:40px;font-size:20px}
+  .cf-r input,.cf-r textarea,.pp>button{font-size:18px;padding:4px 0 8px}
+}
 </style>
 <meta name="robots" content="noindex"></head>
 <body class="wizard">
@@ -690,7 +707,8 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   let Z = 1;
   function shot(name){   // show a photo already in the box; the newest sits on top so a crossfade never dips to dark
     want = name; const box = $('#bg'), im = [...box.children].find(x => x.dataset.n === name); if (!im) return false;
-    if (!im.classList.contains('on')) { im.style.zIndex = ++Z; [...box.children].forEach(x => x.classList.toggle('on', x === im)); }
+    const show = () => { if (want !== name || im.classList.contains('on')) return; im.style.zIndex = ++Z; [...box.children].forEach(x => x.classList.toggle('on', x === im)); };
+    if (im.complete && im.naturalWidth) show(); else im.addEventListener('load', show, {once:true});   // a photo still loading never fades in blank; the current one stays until it is ready
     return true;
   }
   let want = '';   // the photo most recently asked for; a slower load never covers it
@@ -743,6 +761,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     }
   }
   const CIMG = {'Lake Como':'n/wq-como', 'Ravello':'n/wq-ravello', 'Positano':'n/wq-positano', 'Capri':'n/wq-capri', 'Tuscany':'n/wq-tuscany', 'Florence':'wz-c-florence', 'Puglia':'wz-c-puglia', 'Italy':'wz-c-italy'};
+  addEventListener('load', () => setTimeout(() => ['w-rings', 'w-grandfather', 'wz-t-wedding', 'wz-t-other', 'w-coast', 'ilaria', ...Object.values(CIMG)].forEach(nm => { const im = new Image(); im.src = `img/g/${nm}.jpg`; }), 1500));   // later screens' photos arrive in the background, so no screen waits on one
   const FOUND = [['friend','A friend or family'],['instagram','Instagram'],['google','Google'],['press','A magazine or blog'],['venue','A venue or supplier'],['other','Somewhere else']];
   // Silent attribution, kept for the whole visit: UTM tags and referrer from the first page the visitor landed on.
   const SRC = (() => {
@@ -880,6 +899,8 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
       h = `<div class="keep"><figure class="k-door"><img src="img/g/${img}.jpg" alt=""></figure><div class="k-text">${text}</div></div>`;
     }
     stage.innerHTML = `<div class="scr">${h}</div>`;
+    const kd = stage.querySelector('.k-door'); if (kd) { const ki = kd.querySelector('img'), ld = () => kd.classList.add('ld'); if (ki.complete && ki.naturalWidth) ld(); else ki.onload = ki.onerror = ld; }   // the door opens once its photo is there
+    if (['plan', 'book'].includes(kind)) { const pre = new Image(); pre.src = `img/g/${ENDIMG[st.type || 'wedding']}.jpg`; }   // warm the ending's photo while the visitor reads
     progress(); strip();
     if (textQ && Q[i].k !== 'guests') bg(CIMG[st.where] || COVER.where);
     if (kind === 'plan') {   // the photo follows the day under the pointer; Saturday (the place) by default
@@ -933,7 +954,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   }
   // Corporate is a shorter flow (coordinator spec, 16 Nov): no guest pause and no setting question, which are written for couples.
   const skip = k => SCR[k] && ((SCR[k][0] === 'q' && pre.has(SCR[k][1])) || (st.type === 'corporate' && (SCR[k][0] === 'pause' || (SCR[k][0] === 'q' && Q[SCR[k][1]].k === 'feel'))));
-  function go(k){ const d = k > n ? 1 : -1; while (skip(k)) k += d; n = Math.max(0, Math.min(SCR.length - 1, k)); render(); scrollTo(0, 0); save(); }
+  function go(k){ const d = k > n ? 1 : -1; while (skip(k)) k += d; n = Math.max(0, Math.min(SCR.length - 1, k)); render(); scrollTo({top: 0, behavior: "instant"}); save(); }
   // Resilience: answers persist in this browser; coming back offers to continue.
   const KEY = 'iep-plan';
   function save(){ try { if (n > 0) localStorage.setItem(KEY, JSON.stringify({st, pick, ans:[...ans], n, at:Date.now()})); } catch (e) {} }
