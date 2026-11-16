@@ -15,9 +15,9 @@
 .jf.c3{grid-column:9/13;grid-row:2;align-self:end}
 .jf.c3 .ph{aspect-ratio:4/5}
 .jf figcaption{margin-top:18px;max-width:36ch}
-.jf figcaption b{display:block;font-weight:400;font-size:19px;line-height:1.35;letter-spacing:.004em;transition:color .6s var(--e)}
+.jf figcaption b{display:block;font-weight:400;font-size:19px;line-height:1.35;letter-spacing:.004em}
 .jf figcaption span{display:block;margin-top:4px;font-size:15px;letter-spacing:.01em;color:var(--soft)}
-.jf:hover figcaption b,.jf:focus-visible figcaption b{color:var(--brand)}
+/* hover and focus: css/site.css, "Photo-link hover (16 Nov)" */
 .jn-guides{grid-row:3;margin-top:clamp(64px,7vw,110px)!important}
 
 /* index lists: two columns of rows; each row is a small square photograph and two lines */
@@ -25,13 +25,11 @@
 .jr-list li[hidden]{display:none}
 .jr-list a{display:flex;align-items:center;gap:20px;padding:14px 0;color:var(--ink)}
 .jr-list .th{flex:0 0 auto;width:76px;aspect-ratio:1;overflow:hidden;background:#E4D9C9}
-.jr-list .th img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--e)}
+.jr-list .th img{width:100%;height:100%;object-fit:cover}
 .jr-list .th.none{display:none}
 .jr-list .tx{display:flex;flex-direction:column;gap:3px;min-width:0}
-.jr-list b{font-weight:400;font-size:18px;line-height:1.3;letter-spacing:.004em;transition:color .6s var(--e)}
+.jr-list b{font-weight:400;font-size:18px;line-height:1.3;letter-spacing:.004em}
 .jr-list small{font-size:14.5px;letter-spacing:.02em;color:var(--soft)}
-.jr-list a:hover b,.jr-list a:focus-visible b{color:var(--brand)}
-@media (hover:hover){ .jr-list a:hover .th img,.jf:hover img{transform:scale(1.04)} }
 .jn-sw{flex-wrap:wrap;column-gap:28px;row-gap:6px}
 
 /* a single post: title and photograph, then a reading column */

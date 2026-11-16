@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Start planning · Italian Event Planners</title>
-<link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=cfbab9c4">
+<link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=306743f3">
 <style>
 .wizard footer,.wizard .wa{display:none}
 .wizard .bar{background:linear-gradient(180deg,rgba(10,8,6,.45),rgba(10,8,6,0))}
@@ -241,7 +241,7 @@
 .k-note{margin-top:34px;max-width:30em;font-size:16px;line-height:1.55;color:#6b5f55;animation:setin .9s ease 3.1s both}
 .k-act{display:flex;align-items:center;gap:30px;margin-top:30px;animation:setin .9s ease 3.3s both}
 .k-act .go{margin-top:0;background:var(--ink);color:#FAF7F2}.k-act .go:hover{background:var(--brand)}
-.k-act .soft{margin-top:0;color:var(--ink)}
+.k-act .soft{margin-top:0;color:var(--ink);padding:0}
 @keyframes setin{from{opacity:0;transform:translateY(14px)}}
 .end .prog2,.end .back2,.end .strip{display:none!important}
 @media (max-width:900px){
@@ -584,19 +584,16 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
 /* Animation fixes (16 Nov 20:50): the ending's arched door has its size before the photo arrives and waits for it to open */
 @media (min-width:901px){.keep .k-door{height:min(72vh,860px);width:auto;max-width:100%}}
 .k-door:not(.ld),.k-door:not(.ld) img{animation-play-state:paused}
-/* Mark, 16 Nov 20:41: targets were phone-sized on desktop. With a mouse (fine pointer) a control is sized from its type,
-   about 2.4x the font size tall with about 1.1em side padding (HANDOFF.md "Click targets"); touch screens of any width keep the large sizes above. */
-@media (hover:hover) and (pointer:fine){
-  .go{height:36px;padding:0 16px}
-  .take-c .opt{padding:6px 14px 6px 6px;gap:12px}
-  .take-c .opt .th{width:44px;height:44px;border-radius:4px}
-  .wz.split.txt .tile{height:40px;padding:0 16px}
-  .wz.split.late .tiles.fnd .tile{min-height:40px;padding:8px 16px}
-  .wz.split.late .slots2 .tile{height:52px;padding:0 16px}
-  .wz.split.late .fnd-o input{height:40px}
-  .gst button,.wz.split.txt .gst button{width:40px;height:40px;font-size:20px}
-  .cf-r input,.cf-r textarea,.pp>button{font-size:18px;padding:4px 0 8px}
-}
+/* Mark, 16 Nov 21:02: functional text in Jost; Italiana only for screen headings */
+.take-c .opt.pl .nm{font-family:var(--sans);font-weight:400;font-size:inherit;line-height:1.25;letter-spacing:0}
+.take-a .opt.pl .nm{font-family:var(--sans);font-weight:300;font-size:clamp(24px,1.9vw,28px);line-height:1.2;letter-spacing:-.005em}
+.gst output,.wz.split.txt .gst output{font-family:var(--sans);font-weight:300;letter-spacing:-.02em;top:0}
+.pday h4{font:400 20px/1.3 var(--sans)}
+.cc-place,.cf-sum2 .cc-place{font-family:var(--sans);font-weight:400;font-size:clamp(22px,1.8vw,26px);line-height:1.15}
+.k-who{font-family:var(--sans);font-weight:300}
+.k-place{font-family:var(--sans);font-weight:300;font-size:clamp(24px,2.1vw,30px);line-height:1.3}
+/* the site bar is fixed (z 50) and turns solid on scroll; the wizard's progress line stays above it, below the open menu (z 60) */
+.prog2,.wz.form .prog2,.final .prog2,.wz.reply .prog2{z-index:55!important}
 </style>
 <meta name="robots" content="noindex"></head>
 <body class="wizard">
@@ -609,9 +606,9 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     <button class="back2" id="back">Back</button>
   </section>
 </div>
-<script src="js/site.js?v=bee083d0"></script>
+<script src="js/site.js?v=beb4a90b"></script>
 <script src="js/countries.js?v=4b133cd4"></script>
-<script src="vendor/gsap.min.js?v=ff86cb55"></script><script src="vendor/ScrollTrigger.min.js?v=2e3b8c36"></script><script src="vendor/lenis.min.js?v=5a44a112"></script><script src="js/motion.js?v=1f160335"></script>
+<script src="vendor/gsap.min.js?v=ff86cb55"></script><script src="vendor/ScrollTrigger.min.js?v=2e3b8c36"></script><script src="vendor/lenis.min.js?v=5a44a112"></script><script src="js/motion.js?v=ef56d6a3"></script>
 <script>
 (() => {
   const $ = s => document.querySelector(s), wz = $('#wz'), stage = $('#stage');
@@ -666,10 +663,13 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   function guestPause(){
     const g = st.guests, b = band(g), wed = (st.type || 'wedding') === 'wedding';
     if (b === 'elope') return wed
-      ? {line:'An elopement.', body:'With two of you, you can marry at sunrise and take a boat to an empty cove for lunch. We take care of the documents and the town hall, so the day stays yours.'}
+      ? {line:'An elopement.', body:'With two of you, you can marry at sunrise and take a boat to an empty cove for lunch. We take care of the documents and the town hall, so the day stays yours.',
+         quote:['The IEP team met us the day before our wedding day to meet at the town hall, and we sat down afterwards over lunch to go through some last minute details.','Amy & Gareth']}
       : {line:'Just the two of you.', body:'A celebration for two can go anywhere: one table on a terrace, a boat for the afternoon. We will suggest the places that do it best.'};
-    if (b === 'intimate') return {line:`An intimate table for ${g}.`, body:'At this size everyone hears every toast, and we can book places that would never take a hundred guests, such as a family\u2019s private garden.'};
-    if (b === 'long') return {line:`One long table for ${g}.`, body:'A real party that still fits around one table. We plan the weekend around it, down to the boat that brings everyone back after dinner.'};
+    if (b === 'intimate') return {line:`An intimate table for ${g}.`, body:'At this size everyone hears every toast, and we can book places that would never take a hundred guests, such as a family\u2019s private garden.',
+      quote:wed && ['They gave us various options for the different services required and looked after us and our guests on our big day which helped make it the most memorable day of our lives.','Iain']};
+    if (b === 'long') return {line:`One long table for ${g}.`, body:'A real party that still fits around one table. We plan the weekend around it, down to the boat that brings everyone back after dinner.',
+      quote:wed && ['All of our guests mentioned how well planned and co ordinated our wedding was and noticed that the planners were very professional. While being professional, they make you feel like they are your friends and really go above and beyond to cater to your needs.','Divya']};
     return {line:`${g} guests.`, body:'At this size the work is in the logistics: boats, rooms, late flights and every guest\u2019s dietary needs. We arrange all of it, and we are there on the day.',
       quote:wed && ['Our wedding was a 3 day event, and they were with us the entire time making sure guests arrived to their hotels safely, and even ensuring that gift bags we created for everyone got into the correct rooms.','Amanda & Giacomo']};
   }
@@ -761,7 +761,11 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     }
   }
   const CIMG = {'Lake Como':'n/wq-como', 'Ravello':'n/wq-ravello', 'Positano':'n/wq-positano', 'Capri':'n/wq-capri', 'Tuscany':'n/wq-tuscany', 'Florence':'wz-c-florence', 'Puglia':'wz-c-puglia', 'Italy':'wz-c-italy'};
-  addEventListener('load', () => setTimeout(() => ['w-rings', 'w-grandfather', 'wz-t-wedding', 'wz-t-other', 'w-coast', 'ilaria', ...Object.values(CIMG)].forEach(nm => { const im = new Image(); im.src = `img/g/${nm}.jpg`; }), 1500));   // later screens' photos arrive in the background, so no screen waits on one
+  // "When would you like to marry?": pointing at a season shows it. The chosen place in that season where we hold one, otherwise Italy in that season (ledger: Wizard: when).
+  const SEASON = {spring:'n/wq-season-spring', summer:'n/wq-season-summer', autumn:'n/wq-season-autumn'};
+  const SEASON_AT = {'Lake Como':{spring:'n/wq-season-como-spring', summer:'n/wq-season-como-summer'}, 'Ravello':{spring:'n/wq-season-ravello-spring', summer:'n/wq-season-ravello-summer'}, 'Positano':{spring:'n/wq-season-coast-spring', summer:'n/wq-season-positano-summer'}, 'Capri':{spring:'n/wq-season-coast-spring', summer:'wz-c-capri'}, 'Tuscany':{summer:'wz-c-tuscany', autumn:'n/wq-season-tuscany-autumn'}};
+  const seasonImg = (v, w) => (SEASON_AT[w] || {})[v] || SEASON[v];
+  addEventListener('load', () => setTimeout(() => ['w-rings', 'w-grandfather', 'wz-t-wedding', 'wz-t-other', 'w-coast', 'ilaria', ...Object.values(CIMG), ...Object.values(SEASON)].forEach(nm => { const im = new Image(); im.src = `img/g/${nm}.jpg`; }), 1500));   // later screens' photos arrive in the background, so no screen waits on one
   const FOUND = [['friend','A friend or family'],['instagram','Instagram'],['google','Google'],['press','A magazine or blog'],['venue','A venue or supplier'],['other','Somewhere else']];
   // Silent attribution, kept for the whole visit: UTM tags and referrer from the first page the visitor landed on.
   const SRC = (() => {
@@ -903,6 +907,13 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     if (['plan', 'book'].includes(kind)) { const pre = new Image(); pre.src = `img/g/${ENDIMG[st.type || 'wedding']}.jpg`; }   // warm the ending's photo while the visitor reads
     progress(); strip();
     if (textQ && Q[i].k !== 'guests') bg(CIMG[st.where] || COVER.where);
+    if (textQ && Q[i].k === 'when') {   // the photo follows the season under the pointer; "Not sure yet" and leaving the tiles return to the place
+      const home = CIMG[st.where] || COVER.where, sp = v => v === 'unsure' ? home : seasonImg(v, st.where), tiles = [...stage.querySelectorAll('.tile[data-v]')];
+      stack(tiles.map(b => sp(b.dataset.v)), home);
+      let hv; const s = (nm, d) => { clearTimeout(hv); hv = setTimeout(() => { if ($('#bg').classList.contains('quick')) shot(nm); }, d); };
+      tiles.forEach(b => { b.addEventListener('pointerenter', () => s(sp(b.dataset.v), 70)); b.addEventListener('focus', () => s(sp(b.dataset.v), 0)); });
+      stage.querySelector('.tiles').addEventListener('pointerleave', () => s(home, 120));
+    }
     if (kind === 'plan') {   // the photo follows the day under the pointer; Saturday (the place) by default
       const pim = window.__pim; stack(pim, pim[1]);
       let hv; stage.querySelectorAll('.pday').forEach(el => { el.addEventListener('pointerenter', () => { clearTimeout(hv); hv = setTimeout(() => shot(el.dataset.img), 70); }); });
@@ -912,7 +923,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
       const q = Q[i], os = opts(q), cur = os.find(o => o[0] === st[q.k]);
       stack(os.map(o => o[2]), cur ? cur[2] : (COVER[q.k] || os[0][2]));
       if (TAKE === 'a' && matchMedia('(max-width:900px)').matches) {   // phone: the pinned photo follows the row the visitor scrolls to, so every place shows its picture without hover
-        const rows = [...stage.querySelectorAll('.opt')], follow = () => { if (!$('#bg').classList.contains('quick')) return; const mx = Math.max(1, document.documentElement.scrollHeight - innerHeight), y = innerHeight * (.6 + .32 * Math.min(1, scrollY / mx)); let best = rows[0], d = 1e9; rows.forEach(r => { const b = r.getBoundingClientRect(), k = Math.abs(b.top + b.height / 2 - y); if (k < d) { d = k; best = r; } }); shot(best.dataset.img); };
+        const rows = [...stage.querySelectorAll('.opt')], follow = () => { if (!$('#bg').classList.contains('quick') || !rows[0].isConnected) return; const mx = Math.max(1, document.documentElement.scrollHeight - innerHeight), y = innerHeight * (.6 + .32 * Math.min(1, scrollY / mx)); let best = rows[0], d = 1e9; rows.forEach(r => { const b = r.getBoundingClientRect(), k = Math.abs(b.top + b.height / 2 - y); if (k < d) { d = k; best = r; } }); shot(best.dataset.img); };
         removeEventListener('scroll', window.__follow || (() => {})); window.__follow = follow; addEventListener('scroll', follow, {passive:true});
       }
       let hv; stage.querySelectorAll('.opt').forEach(b => { const s = d => { clearTimeout(hv); hv = setTimeout(() => { if ($('#bg').classList.contains('quick')) shot(b.dataset.img); }, d); }; b.addEventListener('pointerenter', () => s(70)); b.addEventListener('focus', () => s(0)); });

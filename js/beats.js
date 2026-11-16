@@ -52,7 +52,7 @@
   ${body}
   ${factsShown ? '' : `<section class="bt closing nofig"><div class="txt">${facts()}</div></section>`}
   <section class="bt-end">
-    ${nx ? `<a class="nx" href="${nx.href}"><figure><img src="${I(nx.cover)}" alt=""></figure><div><b>${nx.title}</b><span>${nx.dek || 'Read the next wedding'}</span></div></a>` : ''}
+    ${nx ? `<a class="nx" href="${nx.href}"><figure><img src="${I(nx.cover)}" alt=""></figure><div><b>${nx.title}</b><span>${nx.dek || 'Read the next wedding'} <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>` : ''}
     <div class="bt-plan"><p>Tell us about yours.</p><a href="plan.html">Start planning</a></div>
   </section>`;
 
@@ -73,7 +73,7 @@
     const ims = s.querySelectorAll('.bt-media img'); if (ims.length > 1) ims.forEach((im, j) => im.classList.toggle('on', j === Math.min(k, ims.length - 1))); }), {rootMargin: '-45% 0px -45% 0px'});
   if (!shot) document.querySelectorAll('.split:not(.noimg) .bt-step').forEach(x => io.observe(x));
 
-  addEventListener('load', () => {
+  addEventListener('DOMContentLoaded', () => {   // not 'load': waiting for every photograph let readers see the text, then hid it and faded it in again
     if (shot || !window.gsap || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     gsap.registerPlugin(ScrollTrigger);
     const ease = 'power3.out';

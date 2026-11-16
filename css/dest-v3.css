@@ -120,10 +120,7 @@ html.m-pink .dx{--month:var(--brand)} html.m-terra .dx{--month:#8A5636}
 .dx-close .f .ph{aspect-ratio:4/5}
 .dx-close .t{grid-column:1/6;grid-row:1}
 
-/* hover: the photograph leans in a little, nothing else moves */
-@media (hover:hover){
-  .dst figure:hover img{transform:scale(1.025)}
-}
+/* no hover on these photographs: they are not links, and a photo that leans in means a link ("Photo-link hover (16 Nov)" in css/site.css) */
 
 /* arrival: slow, one thing at a time */
 .dx .reveal{opacity:0;transform:translateY(24px);transition:opacity 1.2s var(--e),transform 1.4s var(--e)}

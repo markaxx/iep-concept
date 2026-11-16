@@ -102,6 +102,9 @@
       if (s.closest('.bar') && s.closest('a[href$="plan.html"]')) return;   // the main Plan CTA keeps its own treatment
       const host = s.closest('a,button,[role=button],.go,.link,label') || s.parentNode, cs = getComputedStyle(s.parentNode);   // the label's own face, size and weight
       if (!/^\s*"?Jost/i.test(cs.fontFamily)) return;                     // geometric labels only
+      // inline text links only (Mark): never inside a solid or outlined button, which keeps its static arrow
+      const hs = getComputedStyle(host), bgA = (hs.backgroundColor.match(/[\d.]+/g) || [0, 0, 0, 0])[3];
+      if (host.matches('button.go,.pill,.hv-cta,.st-read,.dp-btn') || (hs.backgroundColor !== 'transparent' && bgA !== '0' && bgA !== undefined) || hs.backgroundColor.startsWith('rgb(') || (parseFloat(hs.borderTopWidth) > 0 && parseFloat(hs.borderLeftWidth) > 0 && hs.borderTopStyle !== 'none')) return;
       const fs = parseFloat(cs.fontSize) || 16, wt = Math.min(500, Math.max(300, Math.round((parseInt(cs.fontWeight) || 400) / 100) * 100));
       const g = geo(fs, wt);
       // Sit the arrow on the baseline like a letter (Mark: its foot aligns with the bottoms of a, b, c). When the words before it are

@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Italian Event Planners</title>
 <meta name="description" content="Weddings and celebrations across Italy since 2009.">
-<link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=cfbab9c4"><link rel="stylesheet" href="css/v2.css?v=51f4b01b"><link rel="stylesheet" href="css/v3.css?v=b418b175">
+<link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=306743f3"><link rel="stylesheet" href="css/v2.css?v=51f4b01b"><link rel="stylesheet" href="css/v3.css?v=b418b175">
 <style>
 /* events */
 section.ev{
@@ -27,19 +27,34 @@ section.ev{
 
 .ev figure{margin:0}
 .ev .ph{aspect-ratio:3/4;overflow:hidden;background:var(--stone)}
-.ev .ph img{--z:1;width:100%;height:100%;max-width:none;object-fit:cover;transform:scale(var(--z));transition:transform 1.8s var(--ease)}
-.ev a:hover .ph img,.ev a:focus-visible .ph img{transform:scale(calc(var(--z)*1.03))}
+.ev .ph img{--z:1;width:100%;height:100%;max-width:none;object-fit:cover;transform:scale(var(--z));transition:transform var(--pl-zoom-t) var(--pl-ease)}
 .ev a:focus-visible{outline:1px solid var(--ink);outline-offset:6px}
 
 .ev figcaption{padding-top:22px;min-height:84px}
 .ev figcaption b{display:block;font-family:var(--head);font-weight:400;font-size:27px;line-height:1;letter-spacing:-.005em}
 .ev figcaption span{display:block;margin-top:9px;font-family:Jost,sans-serif;font-weight:300;font-size:14.5px;line-height:1.45;letter-spacing:.012em;color:var(--ink-2)}
+.ev figcaption .see{margin-top:14px;font-weight:400;letter-spacing:.01em;color:var(--ink)}
+
+/* hover (16 Nov, Mark: "not exciting, but bring delight. maintain elegance"). Only on a panel itself, never from the space between them.
+   The photo leans in, the name and the "See …" line turn raspberry, the arrow slides (js/site.js), the other two step back.
+   Values: css/site.css, "Photo-link hover (16 Nov)". */
+.ev figure{transition:opacity var(--pl-dim-t) var(--pl-ease)}
+.ev figcaption b{transition:color var(--pl-title-t) var(--pl-ease)}
+.ev figcaption .see{transition:color var(--pl-line-t) ease-out}
+@media (hover:hover){
+  .ev-in>a:hover .ph img{transform:scale(calc(var(--z)*var(--pl-zoom)))}
+  .ev-in>a:hover figcaption b,.ev-in>a:hover .see{color:var(--brand)}
+  .ev-in:has(>a:hover)>a:not(:hover) figure{opacity:var(--pl-dim)}
+}
+.ev-in>a:focus-visible .ph img{transform:scale(calc(var(--z)*var(--pl-zoom)))}
+.ev-in>a:focus-visible figcaption b,.ev-in>a:focus-visible .see{color:var(--brand)}
+.ev-in:has(>a:focus-visible)>a:not(:focus-visible) figure{opacity:var(--pl-dim)}
 
 /* slow staggered arrival, one frame after another */
 .ev .reveal{opacity:0;transform:translateY(28px);transition:opacity 1.2s var(--ease),transform 1.4s var(--ease)}
 .ev .reveal.in{opacity:1;transform:none}
 .ev .reveal.p{transition-delay:.18s}.ev .reveal.c{transition-delay:.36s}.ev h2.reveal{transition-delay:.5s}
-@media (prefers-reduced-motion:reduce){.ev .reveal{opacity:1;transform:none;transition:none}.ev .ph img{transition:none}}
+@media (prefers-reduced-motion:reduce){.ev .reveal{opacity:1;transform:none;transition:none}.ev .ph img{transition:none;transform:scale(var(--z))!important}.ev figure{opacity:1!important;transition:none}}
 
 /* phone: the same 5 : 4 : 3 ratio as widths (100%, 80%, 60%), stepping down in a zigzag, every caption under its frame */
 @media (max-width:760px){
@@ -249,8 +264,14 @@ html.shot .ca .reveal{transition:none}
 .k1 h2 a{display:block;color:var(--ink);transition:color .45s var(--e)}
 .k1 h2 a:hover,.k1 h2 a:focus-visible{color:var(--brand)}
 .k1 .ph{position:absolute;left:11.3vw;top:16.7vw;width:37.4vw;height:38.7vw;margin:0;overflow:hidden;background:#E4D9CA;display:block}
-.k1 .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s var(--e)}
-.k1 .ph img.on{opacity:1}
+.k1 .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0}
+/* the new photo fades in over the one on screen (a true crossfade, no dip to the background); Home rhythm, HANDOFF.md */
+.k1 .ph img.on{opacity:1;transition:opacity 1.2s cubic-bezier(.22,1,.36,1)}
+.k1 .ph img.was{opacity:1}
+/* the place name and its link follow the photo: out quickly as it starts to change, back in with a few pixels of rise a beat later */
+.k1 h2 a[data-name],.k1 .side .go{transition:opacity .7s cubic-bezier(.22,1,.36,1) .3s,transform .7s cubic-bezier(.22,1,.36,1) .3s,color .45s var(--e)}
+.k1 .side .go{transition-delay:.42s,.42s,0s}
+.k1 .k-out,.k1 .side .go.k-out{opacity:0;transform:translateY(8px);transition:opacity .25s ease-out,transform 0s linear .25s,color .45s var(--e)!important}
 .k1 .side{position:absolute;left:55.7vw;top:24.6vw;width:30.5vw}
 .k1 ul{list-style:none;margin:0;padding:0}
 .k1 li button{all:unset;cursor:pointer;display:block;font-family:var(--sans);font-weight:400;font-size:clamp(17px,2.08vw,30px);line-height:1.56;color:var(--grey);transition:color .3s var(--e)}
@@ -290,27 +311,27 @@ html.shot .ca .reveal{transition:none}
       <a class="w reveal" href="weddings-v3.html">
         <figure>
           <div class="ph"><img src="img/g/svc-wedding.jpg" alt="A bride and groom dancing on a castle wall at dusk" style="object-position:42% 50%"></div>
-          <figcaption><b>Weddings</b><span>The vows, the long table, the morning after</span></figcaption>
+          <figcaption><b>Weddings</b><span>The vows, the long table, the morning after</span><span class="see">See weddings <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></figcaption>
         </figure>
       </a>
 
       <a class="p reveal" href="events-v3.html#private">
         <figure>
           <div class="ph"><img src="img/g/g1.jpg" alt="A couple between climbing roses on a white village lane in Puglia" style="object-position:30% 50%"></div>
-          <figcaption><b>Private celebrations</b><span>Vow renewals, anniversaries, birthdays</span></figcaption>
+          <figcaption><b>Private celebrations</b><span>Vow renewals, anniversaries, birthdays</span><span class="see">See private celebrations <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></figcaption>
         </figure>
       </a>
 
       <a class="c reveal" href="events-v3.html">
         <figure>
           <div class="ph"><img src="img/g/svc-corporate.jpg" alt="An infinity pool above the Amalfi Coast in Ravello" style="object-position:72% 50%;filter:saturate(.8)"></div>
-          <figcaption><b>Corporate</b><span>Retreats and launches we run quietly</span></figcaption>
+          <figcaption><b>Corporate</b><span>Retreats and launches we run quietly</span><span class="see">See corporate events <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></figcaption>
         </figure>
       </a>
     </div>
   </section>
   <section class="ar ar-a" aria-label="Destinations" style="padding:0!important">
-    <figure class="bleed"><img src="img/g/ravello-pergola.jpg" alt="A stone pergola hung with bougainvillea, opening onto the sea above Ravello" style="object-position:50% 58%"></figure>
+    <figure class="bleed"><img src="img/g/n/home-vesuvius.jpg" alt="A bride and groom forehead to forehead on a terrace above the Bay of Naples, Vesuvius behind" style="object-position:50% 40%"></figure>
   </section>
   <section class="k k1" aria-labelledby="k1h">
     <h2 id="k1h"><span class="g">Eight places, eight kinds of light.</span><a data-name href="destinations-v3.html#como">Lake Como</a></h2>
@@ -369,20 +390,43 @@ html.shot .ca .reveal{transition:none}
   ph.innerHTML = P.map(([k]) => `<img src="${img(k)}" alt="" data-k="${k}"${k === 'como' ? ' class="on"' : ''}>`).join('');
   idx.innerHTML = P.map(([k, n]) => `<li><button type="button" data-k="${k}" aria-pressed="${k === 'como'}">${n}</button></li>`).join('');
   const pick = k => {
-    const n = P.find(p => p[0] === k)[1];
-    k1.querySelector('[data-name]').textContent = n; k1.querySelector('[data-name]').href = href(k);
-    k1.querySelector('[data-goname]').textContent = 'See ' + n; k1.querySelector('[data-go]').href = href(k); ph.href = href(k);
-    ph.querySelectorAll('img').forEach(i => i.classList.toggle('on', i.dataset.k === k));
+    if (k === curK) return; curK = k;
+    const n = P.find(p => p[0] === k)[1], nm = k1.querySelector('[data-name]'), go = k1.querySelector('[data-go]');
+    nm.href = href(k); go.href = href(k); ph.href = href(k);
+    if (still) { nm.textContent = n; k1.querySelector('[data-goname]').textContent = 'See ' + n; }
+    else {
+      nm.classList.add('k-out'); go.classList.add('k-out'); clearTimeout(swap);     // a rapid change simply re-targets the pending swap
+      swap = setTimeout(() => { const m = P.find(p => p[0] === curK)[1]; nm.textContent = m; k1.querySelector('[data-goname]').textContent = 'See ' + m;
+        nm.classList.remove('k-out'); go.classList.remove('k-out'); }, 260);
+    }
+    ph.querySelectorAll('img').forEach(i => { if (i.classList.contains('on')) { i.classList.remove('on'); i.classList.add('was'); } });
+    const im = ph.querySelector(`img[data-k="${k}"]`); im.classList.remove('was'); im.style.zIndex = ++z; im.classList.add('on');
+    clearTimeout(clean); clean = setTimeout(() => ph.querySelectorAll('img.was').forEach(i => i.classList.remove('was')), 1300);
     idx.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.k === k));
   };
+  let curK = 'como', z = 1, clean, swap; const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   idx.querySelectorAll('button').forEach(b => {
     b.addEventListener('click', () => pick(b.dataset.k)); b.addEventListener('focus', () => pick(b.dataset.k));
     if (matchMedia('(hover:hover)').matches) b.addEventListener('mouseenter', () => pick(b.dataset.k));
   });
+  // auto-advance in index order (Home rhythm, shared with the stories): 4s a place, only while on screen and the tab is visible,
+  // paused while the pointer is on the index, photo or links or focus is in the section, resuming 3s after it leaves; on touch it stops at the first tap
+  const DWELL = 4000, RESUME = 3000;
+  let t = 0, over = false, focused = false, tapped = false, seen = false;
+  new IntersectionObserver(es => es.forEach(e => seen = e.intersectionRatio > .35), {threshold:[0, .35, .7]}).observe(k1);
+  // "hovering" = the pointer on something you can use (the index, the photo, the links), not merely inside the section
+  k1.addEventListener('mouseover', e => { if (e.target.closest('button,a')) over = true; });
+  k1.addEventListener('mouseout', e => { if (e.target.closest('button,a') && !(e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('.k1 button,.k1 a'))) { over = false; t = Math.min(t, DWELL - RESUME); } });
+  k1.addEventListener('focusin', () => focused = true); k1.addEventListener('focusout', () => focused = false);
+  k1.addEventListener('touchstart', () => tapped = true, {passive:true});
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(() => {
+    if (!seen || document.hidden || over || focused || tapped) return;
+    t += 250; if (t >= DWELL) { t = 0; const i = P.findIndex(p => p[0] === curK); pick(P[(i + 1) % P.length][0]); }
+  }, 250);
 
 })();
 </script>
-<script src="js/site.js?v=bee083d0"></script>
+<script src="js/site.js?v=beb4a90b"></script>
 <script>
 
 
@@ -433,12 +477,13 @@ html.shot .ca .reveal{transition:none}
   };
   label(0);
   // auto-advance (Home rhythm, shared with the eight places; HANDOFF.md "Home rhythm"): a long dwell, since there is a quote to read.
-  // Pauses while the pointer or focus is in the section; after Previous/Next it stays on the visitor's choice for a while;
+  // Pauses while the pointer is on a link or control, or focus is in the section; after Previous/Next it stays on the visitor's choice for a while;
   // only while on screen and the tab is visible; never with reduced motion; on touch it stops for good at the first tap.
   const DWELL = 6500, HOLD = 12000, RESUME = 3000;
   let t = 0, over = false, focused = false, tapped = false, seen = false;
   new IntersectionObserver(es => es.forEach(e => seen = e.intersectionRatio > .35), {threshold:[0, .35, .7]}).observe(sec);
-  sec.addEventListener('mouseenter', () => over = true); sec.addEventListener('mouseleave', () => { over = false; t = Math.min(t, DWELL - RESUME); });
+  sec.addEventListener('mouseover', e => { if (e.target.closest('button,a')) over = true; });
+  sec.addEventListener('mouseout', e => { if (e.target.closest('button,a') && !(e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('#stories button,#stories a'))) { over = false; t = Math.min(t, DWELL - RESUME); } });
   sec.addEventListener('focusin', () => focused = true); sec.addEventListener('focusout', () => focused = false);
   sec.addEventListener('touchstart', () => tapped = true, {passive:true});
   if (!reduce) setInterval(() => { if (!seen || document.hidden || over || focused || tapped) return; t += 250; if (t >= DWELL) { t = 0; go(cur + 1); } }, 250);
@@ -472,6 +517,6 @@ html.shot .ca .reveal{transition:none}
 
 
 </script>
-<script src="vendor/gsap.min.js?v=ff86cb55"></script><script src="vendor/ScrollTrigger.min.js?v=2e3b8c36"></script><script src="vendor/lenis.min.js?v=5a44a112"></script><script src="js/motion.js?v=1f160335"></script>
+<script src="vendor/gsap.min.js?v=ff86cb55"></script><script src="vendor/ScrollTrigger.min.js?v=2e3b8c36"></script><script src="vendor/lenis.min.js?v=5a44a112"></script><script src="js/motion.js?v=ef56d6a3"></script>
 </body>
 </html>

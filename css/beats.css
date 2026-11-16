@@ -165,11 +165,9 @@
 /* the invitation sits beside the next story's photograph, level with its middle */
 .bt-end .bt-plan{grid-column:2;grid-row:1;align-self:center}
 .bt-end .nx figure{margin:0;aspect-ratio:3/2;overflow:hidden}
-.bt-end .nx figure img{width:100%;height:100%;object-fit:cover;max-width:none;transition:transform 3s var(--e)}
-.bt-end .nx:hover figure img{transform:scale(1.03)}
+.bt-end .nx figure img{width:100%;height:100%;object-fit:cover;max-width:none}   /* hover and focus: css/site.css, "Photo-link hover (16 Nov)" */
 .bt-end .nx b{display:block;margin-top:5vh;font-family:var(--head);font-weight:400;font-size:clamp(42px,4.2vw,76px);line-height:1;letter-spacing:-.012em}
-.bt-end .nx span{display:inline-block;margin-top:18px;font:400 15px/1.4 var(--sans);color:var(--ink-2);transition:color .3s}
-.bt-end .nx:hover span{color:var(--brand)}
+.bt-end .nx span{display:inline-block;margin-top:18px;font:400 15px/1.4 var(--sans);color:var(--ink-2)}
 .beats .bt-end .bt-plan p{font:300 clamp(40px,3.7vw,66px)/1.1 var(--sans);color:var(--ink);max-width:11ch;margin:0}
 .bt-end .bt-plan a{display:inline-flex;align-items:center;height:64px;padding:0 40px;margin-top:6vh;background:var(--ink);color:var(--paper);font:400 17px/1 var(--sans);letter-spacing:.02em;transition:background .3s}
 .bt-end .bt-plan a:hover{background:var(--brand)}
@@ -196,7 +194,7 @@
   .bt-end{padding-top:0}
   .beats .bt-end{grid-template-rows:auto}.bt-end .nx{grid-row:auto;display:block}.bt-end .bt-plan{grid-column:1;grid-row:auto}
 }
-@media (prefers-reduced-motion:reduce){.bt-media img,.bt-step{transition:none}}
+@media (prefers-reduced-motion:reduce){.bt-media img,.bt-step{transition:none}.bt-step{opacity:1}}
 /* screenshot mode: no sticky photographs, so a full-page capture shows each beat as a reader meets it */
 .shot .bt.split:not(.noimg){min-height:100vh;align-items:center}
 .shot .bt-media{position:relative;height:100vh}

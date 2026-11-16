@@ -709,17 +709,6 @@ svg.ha .ha-bar{fill:currentColor;opacity:0;transition:opacity .3s cubic-bezier(.
 @media (prefers-reduced-motion:reduce){.bar .plan-cta{transition:none}}
 .ha-run{display:inline;white-space:normal}.ha-run svg.ha{margin-left:.3em}   /* hover arrow: words and arrow share one line, so the arrow stands on the baseline */
 
-/* ===== Click targets (Mark, 16 Nov 20:41): pointer-sized on mouse and trackpad, touch-sized only on touch screens. See HANDOFF.md. ===== */
-@media (pointer:fine){
-  .bar .pill,.bar .right .pill{height:36px!important;padding:0 16px!important}
-  .bar .mbtn{gap:10px}
-  .bar .lang{height:36px}
-  .menu .close{height:36px!important;padding:0 16px!important}
-  .pill{height:36px;padding:0 18px}
-  .hv-cta,.st-read,.dp-btn{height:40px;padding:0 20px}
-  .wa{width:40px!important;height:40px!important;right:28px;bottom:28px}
-  .wa svg{width:18px;height:18px}
-}
 
 /* Fixed bar (16 Nov, Mark: "fix the navbar on every page"). js/site.js adds .solid once the bar has left the page's opening photo
    (from the first scroll on paper-topped pages). Solid = paper background, ink text, raspberry logo, a little less padding. No shadow. */
@@ -739,3 +728,57 @@ svg.ha .ha-bar{fill:currentColor;opacity:0;transition:opacity .3s cubic-bezier(.
 .fly-logo:focus-visible{outline:2px solid var(--brand);outline-offset:6px}
 @media (max-width:900px){.bar.solid{padding-top:8px;padding-bottom:8px}.bar.solid .logo img{height:44px}}
 @media (prefers-reduced-motion:reduce){.bar,.bar .pill,.bar .lang,.bar .logo img{transition:none}}
+
+/* Photo-link hover (16 Nov) */
+/* One hover language for every link that is a photograph (Mark, 16 Nov: "not exciting, but bring delight. maintain elegance").
+   It fires only on the link itself (pointer devices: inside (hover:hover); keyboard: :focus-visible), never from empty space around it:
+   - the photo leans in to 1.04 inside its clipped frame, 700ms, cubic-bezier(.22,1,.36,1)
+   - the title turns raspberry (300ms) and the Jost link line turns raspberry (150ms); its hover arrow slides (js/site.js, .ha-host)
+   - only where photos sit in a row of equals, the other photos step back to .58 opacity (500ms)
+   - prefers-reduced-motion: no zoom, no dimming, colour only.
+   Used here for the journal features (.jf), journal list thumbnails (.jr-list) and each story's next-story link (.bt-end .nx).
+   Home's three panels (.ev in home-v3.html) use the same tokens in the page's own <style>. See HANDOFF.md, "Photo-link hover". */
+:root{--pl-zoom:1.04;--pl-ease:cubic-bezier(.22,1,.36,1);--pl-zoom-t:.7s;--pl-dim:.58;--pl-dim-t:.5s;--pl-title-t:.3s;--pl-line-t:.15s}
+.jf .ph,.jr-list .th,.bt-end .nx figure{overflow:hidden}
+a.jf .ph img,.jr-list .th img,.bt-end .nx figure img{transition:transform var(--pl-zoom-t) var(--pl-ease)}   /* a.jf: outranks .dx .ph img in css/dest-v3.css */
+.jf figcaption b,.jr-list a b,.bt-end .nx b{transition:color var(--pl-title-t) var(--pl-ease)}
+.bt-end .nx span{transition:color var(--pl-line-t) ease-out}
+.jf figure{transition:opacity var(--pl-dim-t) var(--pl-ease)}
+@media (hover:hover){
+  .jf:hover .ph img,.jr-list a:hover .th img,.bt-end .nx:hover figure img{transform:scale(var(--pl-zoom))}
+  .jf:hover figcaption b,.jr-list a:hover b,.bt-end .nx:hover b,.bt-end .nx:hover span{color:var(--brand)}
+  .jn-feat:has(.jf:hover) .jf:not(:hover) figure{opacity:var(--pl-dim)}
+}
+.jf:focus-visible .ph img,.jr-list a:focus-visible .th img,.bt-end .nx:focus-visible figure img{transform:scale(var(--pl-zoom))}
+.jf:focus-visible figcaption b,.jr-list a:focus-visible b,.bt-end .nx:focus-visible b,.bt-end .nx:focus-visible span{color:var(--brand)}
+.jn-feat:has(.jf:focus-visible) .jf:not(:focus-visible) figure{opacity:var(--pl-dim)}
+@media (prefers-reduced-motion:reduce){
+  .jf .ph img,.jr-list .th img,.bt-end .nx figure img{transform:none!important;transition:none}
+  .jf figure{opacity:1!important;transition:none}
+}
+
+/* Arrow spacing nudge (Mark, 16 Nov: "a little nudge of space between the story and the chevron"). Scales with the label (em).
+   The big place link in Home's eight places keeps its spacing. Travel and stem are unaffected (they live inside the svg). */
+svg.ha{margin-left:.36em}
+.ha-run svg.ha{margin-left:.42em}
+.k1 .go svg.ha{margin-left:.15em}
+
+/* One hover/focus accent (Mark, 16 Nov: menu hover was terracotta). Raspberry is the only hover and focus colour;
+   terracotta (--gold) from the first concept is not used for any interactive state. The menu items no longer slide on hover. */
+:focus-visible{outline-color:var(--brand)}
+.menu nav a{transition:color .3s var(--ease)}
+@media (hover:hover){.menu nav a:hover{color:var(--brand);transform:none}.link:hover{color:var(--brand)}.pill-gold:hover{background:var(--brand)}}
+.menu nav a:hover{transform:none}
+.menu nav a:focus-visible{color:var(--brand)}
+.uline:focus{border-color:var(--brand)}
+
+/* Hitboxes (Mark, 16 Nov: "hitboxes that dont align with the actual element"). A link's hover and click area is what you see:
+   the text, the photo, the painted button. Block and flex links in columns or rows hug their content instead of the column width. */
+footer a,footer .logo{width:fit-content}
+.bar .logo{width:fit-content;justify-self:center}
+a.go,.go.ha-host{width:fit-content;max-width:100%}
+.jr-list a{width:fit-content;max-width:100%}
+.wd-stories a{display:inline-block;width:fit-content}
+.k1 h2 a{width:fit-content}
+.cv-names a.cv-hit{display:inline-block}
+.cv-read{width:fit-content;align-self:flex-start}

@@ -11,7 +11,7 @@
 <title>Destinations · Italian Event Planners</title>
 <meta name="description" content="Eight places in Italy we know by heart, from Lake Como to Sardinia.">
 <link rel="icon" href="brand/logo-brand.svg">
-<link rel="stylesheet" href="css/site.css?v=cfbab9c4"><link rel="stylesheet" href="css/v2.css?v=51f4b01b"><link rel="stylesheet" href="css/v3.css?v=b418b175"><link rel="stylesheet" href="css/dest-v3.css?v=6cbb6054">
+<link rel="stylesheet" href="css/site.css?v=306743f3"><link rel="stylesheet" href="css/v2.css?v=51f4b01b"><link rel="stylesheet" href="css/v3.css?v=b418b175"><link rel="stylesheet" href="css/dest-v3.css?v=d50833c2">
 <meta name="robots" content="noindex"><script>try{if(sessionStorage.getItem("iep-arch")&&!matchMedia("(prefers-reduced-motion: reduce)").matches&&!location.search.includes("shot"))document.documentElement.classList.add("arch-ready")}catch(e){}</script></head>
 <body class="v2 v3 dx dx-over">
 <div class="page">
@@ -146,12 +146,11 @@
     </div>
   </section>
 </div>
-<script src="js/site.js?v=bee083d0"></script>
+<script src="js/site.js?v=beb4a90b"></script>
 <script>
 (() => { // the bar sits clear over the opening photograph, then settles onto paper with the pink logo once the photograph has passed
   const bar = document.querySelector('.bar'), img = document.querySelector('.hdA-img'); if (!bar || !img) return;
-  const f = () => { const past = img.getBoundingClientRect().bottom < 90; bar.classList.toggle('dark', past); bar.classList.toggle('settled', past); };
-  addEventListener('scroll', f, {passive: true}); f();
+  // the bar's states now come from the site-wide fixed bar in js/site.js; toggling them here as well made the logo flicker
   const v = new URLSearchParams(location.search).get('img'); if (v) img.querySelector('img').src = 'img/g/n/' + v + '.jpg';
 })();
 </script>
