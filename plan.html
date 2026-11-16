@@ -611,7 +611,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
 .k-door img{transform:scale(1.06);animation:doorzoom 2.4s cubic-bezier(.2,.7,.2,1) .1s both}
 .k-who{animation:setin .9s cubic-bezier(.2,.7,.2,1) .35s both}
 .k-place{animation-delay:.5s}.k-l{animation-delay:.6s}.k-l+.k-l{animation-delay:.7s}.k-l.k-call{animation-delay:.8s}.k-note{animation-delay:.9s}.k-act{animation-delay:1s}
-.k-edit{align-self:flex-start;margin-top:16px;padding:0;background:none;border:0;font:400 15px var(--sans);letter-spacing:.02em;color:var(--ink);opacity:.6;text-decoration:underline;text-decoration-color:rgba(42,36,32,.3);text-underline-offset:4px;cursor:pointer;transition:opacity .4s;animation:setin .9s cubic-bezier(.2,.7,.2,1) .85s both}
+.k-edit{align-self:flex-start;margin-top:16px;padding:0;background:none;border:0;font:400 15px var(--sans);letter-spacing:.02em;color:var(--ink);opacity:.68;cursor:pointer;transition:opacity .4s;animation:setin .9s cubic-bezier(.2,.7,.2,1) .85s both}
 .k-edit:hover{opacity:1}
 .k-act.sent{flex-direction:column;align-items:flex-start;row-gap:18px}
 .k-sent{max-width:30em;animation:setin .7s cubic-bezier(.2,.7,.2,1) both}
@@ -637,7 +637,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     <button class="back2" id="back">Back</button>
   </section>
 </div>
-<script src="js/site.js?v=8037800d"></script>
+<script src="js/site.js?v=c05b93b2"></script>
 <script src="js/prefetch.js?v=e788ada9" defer></script>
 <script src="js/countries.js?v=4b133cd4"></script>
 <script src="vendor/gsap.min.js?v=ff86cb55"></script><script src="vendor/ScrollTrigger.min.js?v=2e3b8c36"></script><script src="vendor/lenis.min.js?v=5a44a112"></script><script src="js/motion.js?v=ef56d6a3"></script>
@@ -799,9 +799,9 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   // One big photo per screen, never twice in a run (Mark, 16 Nov late: "why is this same image reused"). The place question shows its own option photo;
   // BIMG rests on "When" and stays still on the budget question; RIMG is the plan-ready pause; CIMG is the contact card (a real photo of the place, not seen before);
   // PIMG is the weekend plan, the finest photo of the place. Ledger: "Wizard: one photo per screen".
-  const CIMG = {'Lake Como':'wz-como-tile', 'Ravello':'wz-ravello-tile', 'Positano':'n/positano-bay', 'Capri':'n/wq-capri-2', 'Tuscany':'wz-tuscany-tile', 'Florence':'wz-c-florence', 'Puglia':'wz-c-puglia', 'Italy':'n/wq-italy-trevi'};
+  const CIMG = {'Lake Como':'wz-c-como', 'Ravello':'wz-ravello-tile', 'Positano':'n/positano-bay', 'Capri':'n/wq-capri-2', 'Tuscany':'wz-tuscany-tile', 'Florence':'wz-c-florence', 'Puglia':'wz-c-puglia', 'Italy':'n/wq-italy-trevi'};
   const BIMG = {'Lake Como':'n/wq-como-2', 'Ravello':'n/wq-ravello-3', 'Positano':'n/wq-coast-lemons', 'Capri':'n/wq-coast-lemons', 'Tuscany':'n/wq-olive-avenue', 'Florence':'n/wq-olive-avenue', 'Puglia':'n/wq-olive-avenue', 'Italy':'n/wq-coast-lemons'};
-  const PIMG = {'Lake Como':'wz-c-como', 'Ravello':'n/wq-ravello-2', 'Positano':'n/wq-positano-2', 'Capri':'wz-capri-tile', 'Tuscany':'wz-italy', 'Florence':'wz-italy', 'Puglia':'wz-puglia', 'Italy':'wz-italy'};
+  const PIMG = {'Lake Como':'wz-como-tile', 'Ravello':'n/wq-ravello-2', 'Positano':'n/wq-positano-2', 'Capri':'wz-capri-tile', 'Tuscany':'wz-italy', 'Florence':'wz-italy', 'Puglia':'wz-puglia', 'Italy':'wz-italy'};
   const RIMG = 'n/ev-candelabra-hall';
   // "When would you like to marry?": pointing at a season shows it. The chosen place in that season where we hold one, otherwise Italy in that season (ledger: Wizard: when).
   const SEASON = {spring:'n/wq-season-spring', summer:'n/wq-season-summer', autumn:'n/wq-season-autumn'};
@@ -956,16 +956,17 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
       const call = st.slot ? `A call with Ilaria, ${st.slot}` : '';
       const after = st.slot ? 'After the call we send the first venues.' : 'Whenever you are ready, we can talk it through.';
       const acts = `<div class="k-act${st.sent ? ' sent' : ''}">${st.sent ? SENT : `<button class="go" id="keep">Email me this plan ${arrow}</button>`}${st.slot ? '<button class="soft" id="ics">Add the call to my calendar</button>' : '<button class="soft" id="rebook">Book a call with Ilaria</button>'}</div>`;
-      const text = `<p class="k-who">${who}</p><p class="k-place">${lines[0]}</p><p class="k-l">${lines[1]}</p><p class="k-l">${lines[2]}</p>${call ? `<p class="k-l k-call">${call}</p>` : ''}<button class="k-edit" id="edit">Change my answers</button><p class="k-note">${after}</p>${acts}`;
+      const text = `<p class="k-who">${who}</p><p class="k-place">${lines[0]}</p><p class="k-l">${lines[1]}</p><p class="k-l">${lines[2]}</p>${call ? `<p class="k-l k-call">${call}</p>` : ''}<button class="k-edit" id="edit">Change my answers ${arrow}</button><p class="k-note">${after}</p>${acts}`;
       h = `<div class="keep"><figure class="k-door"><img src="${GI(img)}" alt=""></figure><div class="k-text">${text}</div></div>`;
     }
     stage.innerHTML = `<div class="scr">${h}</div>`;
     const kd = stage.querySelector('.k-door'); if (kd) { const ki = kd.querySelector('img'), ld = () => kd.classList.add('ld'); if (ki.complete && ki.naturalWidth) ld(); else ki.onload = ki.onerror = ld; }   // the door opens once its photo is there
     if (['plan', 'book'].includes(kind)) { const pre = new Image(); pre.src = `${GI(ENDIMG[st.type || 'wedding'])}`; }   // warm the ending's photo while the visitor reads
     progress(); strip();
-    if (textQ && Q[i].k !== 'guests') bg(BIMG[st.where] || COVER.where);
+    const whenRest = () => seasonImg(st.when && st.when !== 'unsure' ? st.when : 'summer', st.where);   // "When" rests on a season photo of the place, so the budget photo is not seen twice
+    if (textQ && Q[i].k !== 'guests') bg(Q[i].k === 'when' ? whenRest() : BIMG[st.where] || COVER.where);
     if (textQ && Q[i].k === 'when') {   // the photo follows the season under the pointer; "Not sure yet" and leaving the tiles return to the place
-      const home = BIMG[st.where] || COVER.where, sp = v => v === 'unsure' ? home : seasonImg(v, st.where), tiles = [...stage.querySelectorAll('.tile[data-v]')];
+      const home = whenRest(), sp = v => v === 'unsure' ? home : seasonImg(v, st.where), tiles = [...stage.querySelectorAll('.tile[data-v]')];
       stack(tiles.map(b => sp(b.dataset.v)), home);
       let hv; const s = (nm, d) => { clearTimeout(hv); hv = setTimeout(() => { if ($('#bg').classList.contains('quick')) shot(nm); }, d); };
       tiles.forEach(b => { b.addEventListener('pointerenter', () => s(sp(b.dataset.v), 70)); b.addEventListener('focus', () => s(sp(b.dataset.v), 0)); });
@@ -1033,4 +1034,12 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   function saved(){ try { return JSON.parse(localStorage.getItem(KEY)); } catch (e) { return null; } }
   function resumable(){ const d = saved(); return !!(d && d.n > 0 && d.n < SCR.length - 1 && !ans.size); }
   $('#back').onclick = () => go(n - 1);
-  // answers given on Home (?type=wedding&where=Positano&when=May&feel=stone) are filled in and their questions 
+  // answers given on Home (?type=wedding&where=Positano&when=May&feel=stone) are filled in and their questions skipped
+  const P = new URLSearchParams(location.search), pre = new Set();
+  Q.forEach((q, i) => { const o = q.opts && q.opts.find(o => o[0] === P.get(q.k)); if (o) { st[q.k] = o[0]; pick[q.k] = o[2]; pre.add(i); ans.add(q.k); } else if (q.k === 'where' && P.get('where')) { st.where = P.get('where'); pre.add(i); ans.add('where'); } });
+  go(pre.has(0) ? 1 : 0);
+  window.__plan = {go, st, pick, SCR};
+})();
+</script>
+</body>
+</html>

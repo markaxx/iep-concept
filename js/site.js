@@ -23,7 +23,7 @@
       <a href="about-v3.html">About us</a><a href="journal-v3.html">Journal</a><a href="contact.html">Contact</a><a href="plan.html">Start planning</a>
       <div class="m-foot"><span class="m-lang" aria-label="Language"><a href="#" aria-current="true">EN</a><a href="#">IT</a><a href="#">DE</a><a href="#">FR</a></span><span>+39 346 688 2388</span><span>Instagram</span><span>Client login</span></div>
     </nav>
-    <div class="m-img"><img src="img/menu.jpg" alt=""></div>
+    <div class="m-img"><img src="img/menu.jpg" srcset="img/x900/menu.webp 900w, img/x1600/menu.webp 1600w, img/x2400/menu.webp 1800w" sizes="50vw" alt="" decoding="async"></div>
   </div>
   <a class="wa" href="https://wa.me/393466882388" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.2z"/></svg></a>`);
 
@@ -146,14 +146,17 @@
   const reset = () => { open(); leaving = false; const m = document.querySelector('.menu'); if (m) { m.classList.remove('open'); m.setAttribute('aria-hidden', 'true'); } };
   if (page) page.addEventListener('animationend', e => { if (e.animationName === 'archopen') h.classList.remove('arch-ready', 'arch-go'); });
   addEventListener('pageshow', e => { if (e.persisted) reset(); });
-  if (h.classList.contains('arch-ready')) {
+  const arrive = () => {
     // open when the visible part is ready: fonts and the first photo on screen, never later than 900ms
     const go = () => { if (h.classList.contains('arch-go')) return; requestAnimationFrame(() => requestAnimationFrame(() => h.classList.add('arch-go'))); };
     const img = [...document.querySelectorAll('.page img')].find(i => { const r = i.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight && r.width > 80; });
     Promise.all([document.fonts ? document.fonts.ready : 0, img && !img.complete ? (img.decode ? img.decode().catch(() => {}) : new Promise(r => img.addEventListener('load', r, {once: true}))) : 0]).then(go);
     setTimeout(go, 900);
     setTimeout(() => h.classList.remove('arch-ready', 'arch-go'), 2600);   // never leave the page clipped
-  }
+  };
+  if (h.classList.contains('arch-ready')) arrive();
+  // a page prerendered by js/prefetch.js ran its head check before the click: close it as it is shown, then open as usual
+  if (document.prerendering && on) document.addEventListener('prerenderingchange', () => { h.classList.add('arch-ready'); arrive(); }, {once: true});
   if (!on) { open(); return; }
   const prefetched = new Set();
   const prefetch = href => { if (prefetched.has(href)) return; prefetched.add(href); const l = document.createElement('link'); l.rel = 'prefetch'; l.href = href; document.head.appendChild(l); };
