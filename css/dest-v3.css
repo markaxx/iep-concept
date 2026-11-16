@@ -1,0 +1,180 @@
+/* ===== Destinations v3: eight places as one composed sequence =====
+   Grid: 12 columns, 96px margins and 32px gutters at 1440 (the same grid as the events section on Home).
+   Frames: 3:4 or 4:5; two full-bleed moments (Amalfi, Sardinia) and one 16:9 panorama (Sorrento).
+   Type scale (about 1.6x): 15 / 17 / 26 / 42 / 66 / 104. */
+
+
+.dx{
+  --month:#A85A72;                                /* good months: a dusty rose, a quieter relative of the raspberry quotes */
+  --g:clamp(16px,2.222vw,40px);
+  --side:clamp(20px,6.667vw,160px);
+  --w:min(1360px,calc(100vw - 2*var(--side)));
+  --c:calc((var(--w) - 11*var(--g)) / 12);       /* one column */
+  --e:cubic-bezier(.2,.7,.2,1);
+  --sp:clamp(72px,8vw,128px);                     /* half the space between two places */
+  --soft:#6E6357;
+}
+/* sticky index needs the page to clip without becoming a scroll container */
+.dx .page{overflow:clip}
+.dx-grid{width:var(--w);margin:0 auto;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g)}
+
+/* ---------- type ----------
+   Italiana only for the page title and the place names. Everything else is Jost.
+   The words of each place read as one unit: name, line and facts sit close; the months and the action follow as a second, quieter step. */
+.dx h1,.dx h2{font-family:var(--head);font-weight:400;color:var(--ink)}
+.dx h2{font-size:clamp(50px,5vw,74px);line-height:.92;letter-spacing:-.018em;margin-top:-.08em}
+.dx .line{margin-top:18px;font-family:var(--sans);font-weight:300;font-size:clamp(21px,1.6vw,24px);line-height:1.32;letter-spacing:.002em;color:var(--ink)}
+.dx .meta{margin-top:8px;max-width:30ch;font-size:16px;line-height:1.55;letter-spacing:.008em;color:var(--soft)}
+.dx .go{display:inline-flex;align-items:center;gap:12px;margin-top:26px;padding:6px 0;font-size:16px;font-weight:400;letter-spacing:.01em;color:var(--ink);transition:color .8s var(--e)}
+.dx .go svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.3;transition:transform .8s var(--e)}
+.dx .go:hover,.dx .go:focus-visible{color:var(--brand)}
+.dx .go:hover svg{transform:translateX(5px)}
+.dx .go:focus-visible{outline:1px solid var(--ink);outline-offset:4px}
+
+/* when to come: all twelve months on one line, the good ones in dusty rose, the rest pale (Mark's pick, option C) */
+.dx .mo{margin-top:30px}
+.dx .mo .ml{display:block;margin-bottom:10px;font-size:14px;line-height:1;letter-spacing:.02em;color:var(--soft)}
+.dx .mo .mx{display:flex;flex-wrap:wrap;column-gap:12px;row-gap:4px}
+.dx .mo i{font-style:normal;font-weight:300;font-size:16px;line-height:1.3;letter-spacing:.015em;color:#C9BBA8}
+.dx .tone-b .mo i{color:#BFAE98}
+.dx .mo i.on{font-weight:400;color:var(--month)}
+
+html.m-pink .dx{--month:var(--brand)} html.m-terra .dx{--month:#8A5636}
+/* quotes: the couple's own words, exactly as written, in a quiet warm accent.
+   Set larger and lighter than anything around them, with the opening mark hung outside the column
+   so the words themselves keep the left edge. The name follows after an em dash (Mark's one exception). */
+
+/* ---------- frames ---------- */
+.dx figure{margin:0}
+.dx .ph{position:relative;overflow:hidden;background:#E4D9CA}
+.dx .ph img,.dx .bleed img,.dx .half img,.dx .vbig img,.dx .vdet img{display:block;width:100%;height:100%;max-width:none;object-fit:cover;transform:scale(1.001);transition:transform 1.8s var(--e)}
+.dx .pano img{filter:saturate(.86)}
+
+/* ---------- head ---------- */
+.dx-head{background:var(--cream);padding:clamp(150px,15vw,216px) 0 clamp(56px,5.6vw,80px)}
+.dx-head h1{grid-column:1/9;font-size:clamp(52px,7.2vw,104px);line-height:.98;letter-spacing:-.022em}
+.dx-intro{grid-column:9/13;align-self:end;padding-bottom:.6vw;max-width:30ch;font-size:18px;line-height:1.55;letter-spacing:.005em;color:var(--ink-2)}
+
+/* ---------- opening (Mark's pick, A): one sweeping photograph from the very top, under a clear bar; the words on paper beneath ---------- */
+.dx .hdA{padding:0 0 clamp(56px,5.6vw,80px)}
+.hdA-img{position:relative;height:min(86vh,max(520px,62vw));overflow:hidden;background:#E4D9CA}
+.hdA-img::after{content:"";position:absolute;inset:0 0 auto;height:180px;background:linear-gradient(rgba(28,20,12,.34),rgba(28,20,12,0));pointer-events:none}   /* a soft shade under the bar so the white logo reads on a pale sky */
+.hdA-img img{width:100%;height:100%;object-fit:cover;display:block}
+.hdA .dx-grid{margin-top:clamp(44px,4.4vw,64px)}
+.hdA h1{grid-column:1/10;white-space:nowrap}
+.hdA .dx-intro{grid-column:10/13}
+
+/* the bar over the photograph: fixed, clear, white logo; once past the photograph it settles onto paper with the pink logo.
+   Page-scoped (body.dx-over) so the shared header is untouched. */
+.dx-over .bar{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .7s var(--e),box-shadow .7s var(--e),padding .7s var(--e)}
+.dx-over .bar.settled{background:rgba(244,238,230,.9);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(42,36,32,.06);padding-top:14px;padding-bottom:14px}
+.dx-over .bar .logo{position:relative}
+.dx-over .bar .logo .lw,.dx-over .bar .logo .lk{display:block!important;transition:opacity .7s var(--e)}
+.dx-over .bar .logo .lk{position:absolute;inset:0;opacity:0}
+.dx-over .bar.dark .logo .lk{opacity:1}
+.dx-over .bar.dark .logo .lw{opacity:0}
+.dx-over .bar .lang,.dx-over .bar .pill{transition:color .7s var(--e),background .7s var(--e)}
+
+/* ---------- each place ----------
+   Every place is its own band; two paper tones alternate so each one begins and ends cleanly.
+   The name's cap line sits on the photograph's top edge; a quote, where there is one, sits on its foot. */
+.dx section.dst{padding:var(--sp) 0;scroll-margin-top:84px}
+.dx .tone-a{background:#FAF7F2}
+.dx .tone-b{background:#EFE6D9}
+.dst .t{display:flex;flex-direction:column;justify-content:center}
+.dst .t.q{justify-content:center;gap:clamp(56px,5vw,80px)}   /* the quote stays with its place: one centred group, never pinned to the far edge */
+
+.R .t{grid-column:1/6;grid-row:1}
+.R .f{grid-column:7/13;grid-row:1}
+.R .f .ph{aspect-ratio:4/5}
+.L .f{grid-column:1/7;grid-row:1}
+.L .f .ph{aspect-ratio:4/5}
+.L .t{grid-column:8/13;grid-row:1}
+
+/* Amalfi: full bleed, words beneath in two columns */
+.dx section.L-bleed{padding-top:0}
+.L-bleed .bleed{height:clamp(480px,58vw,880px);overflow:hidden;background:#E4D9CA}
+.L-bleed .dx-grid{margin-top:52px}
+.L-bleed .t1{grid-column:1/7}
+.L-bleed .t2{grid-column:8/13;align-self:start;padding-top:calc(clamp(50px,5vw,74px) * .92 + 12px)}   /* the quote's first line sits level with the sensory line */
+
+/* Sorrento: the bay as a panorama (8 cols, 3:2), words to its right */
+.P .pano{grid-column:1/8;grid-row:1}
+.P .pano .ph{aspect-ratio:3/2}
+.P .t{grid-column:9/13;grid-row:1}
+.PR .pano{grid-column:6/13}
+.PR .t{grid-column:1/5}
+
+/* Verona: words left, the stairway large and running off the right edge */
+.dx section.V{display:grid;grid-template-columns:42fr 58fr;align-items:center;padding:0}
+.V .vbig{height:min(1060px,max(760px,64vw));overflow:hidden;background:#E4D9CA}
+.V .vside{display:flex;flex-direction:column;justify-content:center;padding:var(--sp) calc(var(--c) + 2*var(--g)) var(--sp) var(--side)}
+
+/* Sardinia: the photograph runs off the left edge */
+.dx section.L-half{display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:0}
+.L-half .half{aspect-ratio:4/5;max-height:min(940px,100vh);width:100%;overflow:hidden;background:#E4D9CA}
+.L-half .t{padding:0 var(--side) 0 calc(var(--c) + 2*var(--g))}
+
+/* close: the same split as the places, so the page ends on a photograph and an action */
+.dx-close .f{grid-column:7/13;grid-row:1}
+.dx-close .f .ph{aspect-ratio:4/5}
+.dx-close .t{grid-column:1/6;grid-row:1}
+
+/* hover: the photograph leans in a little, nothing else moves */
+@media (hover:hover){
+  .dst figure:hover img{transform:scale(1.025)}
+}
+
+/* arrival: slow, one thing at a time */
+.dx .reveal{opacity:0;transform:translateY(24px);transition:opacity 1.2s var(--e),transform 1.4s var(--e)}
+.dx .reveal.in{opacity:1;transform:none}
+.dx .dst .reveal:nth-child(2){transition-delay:.16s}
+.dx .dst .reveal:nth-child(3){transition-delay:.32s}
+.dx .dst .reveal:nth-child(4){transition-delay:.44s}
+.dx-head .dx-intro{transition-delay:.3s}
+html.shot .dx .reveal{transition:none}
+@media (prefers-reduced-motion:reduce){
+  .dx .reveal{opacity:1;transform:none;transition:none}
+  .dx img,.dx .go svg{transition:none!important}
+}
+
+/* ---------- tablet ---------- */
+@media (max-width:1100px) and (min-width:761px){
+  .R .t{grid-column:1/7}.R .f{grid-column:7/13}
+  .L .t{grid-column:7/13}
+  .L-bleed .t2{grid-column:8/13}
+  .P .pano,.PR .pano{grid-column:1/13}.P .t,.PR .t{grid-column:1/13;grid-row:2;margin-top:32px}
+}
+
+/* ---------- phone ---------- */
+@media (max-width:760px){
+  .dx{--side:20px;--g:12px;--sp:72px}
+  .dx-grid{display:flex;flex-direction:column}
+  .dx .dx-grid>*{align-self:stretch}
+  .dx h2{font-size:48px}
+  .dx-head{padding:118px 0 40px}
+  .hdA-img{height:auto;aspect-ratio:4/5}
+  .hdA h1{white-space:normal}
+  .hdA-img{height:auto;aspect-ratio:4/5}
+  .dx-head h1{font-size:clamp(44px,12.4vw,54px);line-height:1.02}
+  .dx-intro{margin-top:22px;font-size:17px}
+  .dx section.dst{scroll-margin-top:52px}
+  .dst .f,.dst .pano{order:1}
+  .dst .t{order:2;margin-top:30px}
+  .dst .t.q{gap:44px}
+  .dx .mo .mx{column-gap:8px}
+  .dx .mo i{font-size:13.5px}
+  .L-bleed .bleed{height:auto;aspect-ratio:4/5}
+  .L-bleed .bleed img{object-position:86% 40%!important}
+  .L-bleed .dx-grid{margin-top:30px}
+  .P .pano{margin:0 -20px}
+  .dx section.V{display:flex;flex-direction:column}
+  .V .vbig{order:1}.V .vside{order:2}
+  .V .vbig{height:auto;aspect-ratio:4/5}
+  .V .vside{padding:30px 20px var(--sp)}
+  .dx section.L-half{display:block;padding-bottom:var(--sp)}
+  .L-half .half{max-height:none}
+  .L-half .t{padding:30px 20px 0}
+  .dx-close .t{grid-column:auto}
+  .L-bleed .t2{margin-top:56px;padding-top:0}
+}

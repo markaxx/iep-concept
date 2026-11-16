@@ -1,0 +1,79 @@
+/* ===== Weddings v3: built on the Destinations system (dest-v3.css) =====
+   Same grid, tones, type scale, quotes and actions. This file only adds what Weddings needs:
+   the opening split, the editorial detail sequence, the ceremony switch and the three-day weekend. */
+
+/* opening: words left, one photograph right; the title's cap line sits on the photograph's top edge */
+.wd-head{padding:clamp(140px,13vw,196px) 0 var(--sp)}
+.wd-head .t{grid-column:1/6;grid-row:1;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:6px}
+.wd-head h1{font-size:clamp(52px,6.2vw,92px);line-height:.98;letter-spacing:-.022em;max-width:7.5em}
+.wd-head .line{margin-top:28px;max-width:22em}
+.wd-head .go{margin-top:34px}
+.wd-head .f{grid-column:7/13;grid-row:1}
+.wd-head .f .ph{aspect-ratio:4/5}
+
+/* section openings: a name and one line, left, on the grid's first column */
+.wd-intro{grid-column:1/8}
+.wd-intro .line{margin-top:20px}
+
+/* figure captions: a short bold-weight phrase, then one quiet line; they sit under the photo's left edge */
+.wd figcaption{margin-top:18px;max-width:34ch}
+.wd figcaption b{display:block;font-weight:400;font-size:18px;line-height:1.35;letter-spacing:.004em;color:var(--ink)}
+.wd figcaption span{display:block;margin-top:4px;font-size:16px;line-height:1.55;letter-spacing:.008em;color:var(--soft)}
+
+/* the care in small things: two photographs, offset like a magazine spread */
+.dx section.wd-care{padding:var(--sp) 0}
+.wd-care .dx-grid{row-gap:0}
+.wd-care .c1{grid-column:1/8;grid-row:2;margin-top:clamp(48px,5vw,80px)}
+.wd-care .c1 .ph{aspect-ratio:3/2}
+.wd-care .c3{grid-column:9/13;grid-row:2;align-self:end;margin-bottom:clamp(-140px,-8vw,-60px)}
+.wd-care .c3 .ph{aspect-ratio:4/5}
+.dx section.wd-care{padding-bottom:calc(var(--sp) + clamp(60px,8vw,140px))}
+
+/* ceremony switch: three words; the chosen one in ink, the others pale, like the months line */
+.wd-sw{display:flex;gap:30px;margin-top:30px}
+.wd-sw button{display:inline-flex;align-items:center;padding:6px 0;background:none;border:0;cursor:pointer;font:inherit;font-size:16px;letter-spacing:.01em;font-size:17px;color:#B5A691;transition:color .6s var(--e)}
+.wd-sw button[aria-selected=true]{color:var(--ink)}
+.wd-sw button:hover{color:var(--ink)}
+.wd-sw button:focus-visible{outline:1px solid var(--ink);outline-offset:4px}
+#cer-panel{margin-top:22px;min-height:7.4em;transition:opacity .26s var(--e)}
+#cer-panel.swap{opacity:0}
+#cer-panel .line{margin-top:0}
+.wd-stack{aspect-ratio:4/5}
+.wd-stack img{position:absolute;inset:0;opacity:0;transition:opacity 1s var(--e),transform 1.8s var(--e)}
+.wd-stack img.on{opacity:1}
+
+/* the weekend: told as three moments with the About pattern (about-v3.css), never three equal columns */
+
+/* real weddings: the quote, then the three stories as a short list, then the one action */
+.wd-real .pq{margin-top:36px}
+.wd-stories{list-style:none;margin:44px 0 0;padding:0}
+.wd-stories li+li{margin-top:14px}
+.wd-stories a{display:flex;align-items:baseline;gap:14px;color:var(--ink);transition:color .6s var(--e)}
+.wd-stories a span{font-size:19px;letter-spacing:.004em}
+.wd-stories small{font-size:14.5px;letter-spacing:.02em;color:var(--soft)}
+.wd-stories a:hover span,.wd-stories a:focus-visible span{color:var(--brand)}
+.wd-cta{margin-top:44px!important}
+
+@media (hover:hover){ .wd figure:hover img{transform:scale(1.025)} .wd-stack img.on{transform:none} }
+@media (prefers-reduced-motion:reduce){ .wd-stack img,#cer-panel{transition:none} }
+
+/* tablet */
+@media (max-width:1100px) and (min-width:761px){
+  .wd-head .t{grid-column:1/7}
+  .wd-care .c3{grid-column:8/13}
+}
+
+/* phone: everything in one column, photographs first, text left */
+@media (max-width:760px){
+  .wd-head{padding:112px 0 var(--sp)}
+  .wd-head .t{order:2;margin-top:30px;padding:0}
+  .wd-head .f{order:1}
+  .wd-head h1{font-size:clamp(44px,12.4vw,54px);line-height:1.02}
+  .wd-head .line{margin-top:18px}
+  .wd-care .c1{margin-top:40px}
+  .wd-care .c3{margin:44px 0 0;width:78%;align-self:flex-end!important}
+  .dx section.wd-care{padding-bottom:var(--sp)}
+  .wd-sw{gap:22px}
+  #cer-panel{min-height:8.6em}
+  .wd-stories a{flex-direction:column;gap:2px}
+}

@@ -1,0 +1,940 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Start planning · Italian Event Planners</title>
+<link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css"><link rel="stylesheet" href="css/site.css">
+<style>
+.wizard footer,.wizard .wa{display:none}
+.wizard .bar{background:linear-gradient(180deg,rgba(10,8,6,.45),rgba(10,8,6,0))}
+.wz{position:relative;min-height:100vh;color:#fff;background:#14100D;padding:0!important;overflow:hidden}
+.bg{position:fixed;inset:0;z-index:0}
+.bg img{position:absolute;inset:-4%;width:108%;height:108%;max-width:none;object-fit:cover;opacity:0;transition:opacity 1.3s var(--ease),filter 1.3s var(--ease),transform 8s ease-out;filter:blur(26px) brightness(.36) saturate(.7);transform:scale(1.04)}
+.bg img.on{opacity:1;transform:scale(1)}
+.wz.sharp .bg img{filter:none}
+.bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,9,7,.2),rgba(12,9,7,0) 40%,rgba(12,9,7,.25));transition:background 1s}
+.wz.sharp .bg::after{background:linear-gradient(180deg,rgba(12,9,7,.35) 0%,rgba(12,9,7,0) 30%,rgba(12,9,7,.15) 50%,rgba(12,9,7,.78) 100%)}
+.stage{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:150px 6vw 170px}
+.scr{width:100%;display:flex;flex-direction:column;align-items:center;animation:rise .9s var(--ease)}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}}
+@keyframes fadein{from{opacity:0}}
+/* progress, top centre */
+.prog2{position:fixed;top:104px;left:50%;transform:translateX(-50%);z-index:5;display:flex;flex-direction:column;align-items:center;gap:10px;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+.prog2 .tr{width:220px;height:2px;background:rgba(255,255,255,.18);overflow:hidden}
+.prog2 .tr i{display:block;height:100%;width:0;background:var(--brand);transition:width 1.1s var(--ease)}
+.final .prog2{display:none}
+/* question */
+.ql{font-family:var(--head);font-weight:400;font-size:clamp(46px,4.8vw,78px);line-height:1.04;max-width:24ch}
+.qs{margin-top:16px;font-size:16px;color:rgba(255,255,255,.7)}
+/* photo-card answers */
+.cards{display:grid;gap:14px;margin-top:44px;width:100%;justify-content:center}
+.cards.c4{grid-template-columns:repeat(4,minmax(0,230px))}
+.cards.c6{grid-template-columns:repeat(6,minmax(0,170px))}
+.cards.c8{grid-template-columns:repeat(4,minmax(0,250px))}
+.card{position:relative;overflow:hidden;aspect-ratio:3/4;background:#000;color:#fff;text-align:left;outline:1px solid rgba(255,255,255,.14);outline-offset:-1px;transition:transform .6s var(--ease),outline-color .4s}
+.c8 .card{aspect-ratio:4/3}
+.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 2.4s cubic-bezier(.2,.7,.2,1),filter .6s;filter:brightness(.86)}
+.card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.66))}
+.card span{position:absolute;left:18px;right:18px;bottom:16px;z-index:2;font-family:Jost,sans-serif;font-size:16px;line-height:1.3}
+.card:hover{transform:translateY(-4px);outline-color:rgba(255,255,255,.6)}
+.card:hover img{transform:scale(1.07);filter:brightness(1)}
+.card[aria-pressed=true]{outline:2px solid #fff;outline-offset:-2px}
+.card[aria-pressed=true]::before{content:"";position:absolute;top:14px;right:14px;z-index:3;width:28px;height:28px;background:var(--brand) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/16px no-repeat}
+.card:focus-visible{outline:2px solid #fff}
+/* text tiles (budget) */
+.tiles{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:44px;max-width:760px}
+.tile{height:62px;padding:0 30px;background:rgba(16,12,9,.5);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.22);color:#fff;font-family:Jost,sans-serif;font-size:17px;transition:background .35s,color .35s,border-color .35s}
+.tile:hover{background:#fff;color:var(--ink);border-color:#fff}
+.tile[aria-pressed=true]{background:var(--brand);border-color:var(--brand);color:#fff}
+/* guests */
+.gst{display:flex;align-items:center;gap:40px;margin-top:40px}
+.gst output{font-family:var(--head);font-size:150px;line-height:1;min-width:3ch}
+.gst button{width:62px;height:62px;border:1px solid rgba(255,255,255,.5);color:#fff;font-size:26px;transition:background .3s,color .3s}
+.gst button:hover{background:#fff;color:var(--ink)}
+.gdesc{font-family:Rochester,cursive;font-size:38px;margin-top:6px;color:#fff;min-height:48px}
+/* buttons */
+.go{margin-top:44px;height:58px;padding:0 36px;background:#fff;color:var(--ink);font-family:Jost,sans-serif;font-weight:500;font-size:13px;letter-spacing:.24em;text-transform:uppercase;display:inline-flex;align-items:center;gap:14px;transition:background .35s,color .35s}
+.go:hover{background:var(--brand);color:#fff}
+.go svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.6}
+.back2{position:fixed;left:40px;bottom:40px;z-index:5;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.back2:hover{color:#fff}
+/* reply */
+.reply .stage{justify-content:flex-end;padding-bottom:180px}
+.rl{font-family:Rochester,cursive;font-size:clamp(54px,5.4vw,92px);line-height:1.04;max-width:18ch;text-shadow:0 2px 30px rgba(0,0,0,.3)}
+/* your day filmstrip */
+.strip{position:fixed;left:50%;bottom:34px;transform:translateX(-50%);z-index:5;display:flex;align-items:center;gap:10px}
+.strip b{font-family:Rochester,cursive;font-weight:400;font-size:28px;margin-right:8px;color:#fff;white-space:nowrap}
+.strip figure{position:relative;width:52px;height:66px;overflow:hidden;outline:1px solid rgba(255,255,255,.35);animation:drop .8s var(--ease)}
+.strip figure img{width:100%;height:100%;object-fit:cover}
+.strip figure.e{outline:1px dashed rgba(255,255,255,.25);background:rgba(255,255,255,.04);animation:none}
+@keyframes drop{from{opacity:0;transform:translateY(-30px) scale(1.4)}}
+.final .strip,.reply .strip{display:none}
+/* contact */
+.form2{margin-top:36px;width:min(520px,90vw);display:flex;flex-direction:column;gap:6px}
+.form2 input{background:none;border:0;border-bottom:1px solid rgba(255,255,255,.55);color:#fff;font:inherit;font-size:20px;padding:16px 0;text-align:center;outline:0}
+.form2 input:focus{border-color:#fff}
+.form2 input::placeholder{color:rgba(255,255,255,.55)}
+/* weekend plan */
+.plan-h{font-family:var(--head);font-size:clamp(52px,5.6vw,92px);line-height:1}
+.plan-s{margin-top:14px;font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+.days{display:grid;grid-template-columns:1fr 1.35fr 1fr;gap:18px;margin-top:46px;width:min(1180px,100%);align-items:end;text-align:left}
+.day figure{overflow:hidden;position:relative}
+.day img{width:100%;object-fit:cover;display:block;animation:fadein 1.4s var(--ease) both}
+.day:nth-child(1) img,.day:nth-child(3) img{height:330px}
+.day:nth-child(2) img{height:440px}
+.day:nth-child(1){animation:rise 1s var(--ease) .1s both}.day:nth-child(2){animation:rise 1s var(--ease) .3s both}.day:nth-child(3){animation:rise 1s var(--ease) .5s both}
+.day small{display:block;margin-top:18px;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.65)}
+.day h4{font-family:var(--head);font-weight:400;font-size:34px;margin-top:6px}
+.day p{margin-top:6px;font-size:15px;color:rgba(255,255,255,.78);line-height:1.5}
+.plan-foot{display:flex;align-items:center;justify-content:center;gap:34px;margin-top:40px;flex-wrap:wrap}
+.est2{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.est2 b{font-family:var(--head);font-weight:400;font-size:28px;letter-spacing:0;text-transform:none;color:#fff;margin-left:10px}
+.plan-foot .go{margin-top:0}
+/* booking */
+.who{display:flex;align-items:center;gap:22px;margin-top:30px;text-align:left}
+.who img{width:84px;height:104px;object-fit:cover;object-position:50% 20%}
+.who b{display:block;font-family:var(--head);font-weight:400;font-size:28px}
+.who span{font-size:14px;color:rgba(255,255,255,.72)}
+.slots2{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:34px;width:min(620px,90vw)}
+.slots2 .tile{padding:0;height:66px;font-size:15px;line-height:1.3}
+.slots2 .tile small{display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.7}
+/* celebration: a doorway onto their day */
+.door{width:min(300px,60vw);aspect-ratio:3/4;overflow:hidden;border-radius:999px 999px 0 0;margin-bottom:34px;box-shadow:0 0 0 10px rgba(255,255,255,.06),0 0 0 11px rgba(255,255,255,.28);clip-path:inset(100% 0 0 0 round 999px 999px 0 0);animation:dooropen 1.6s cubic-bezier(.7,0,.2,1) .2s forwards}
+.door img{width:100%;height:100%;object-fit:cover;transform:scale(1.25);animation:doorzoom 3.2s cubic-bezier(.2,.7,.2,1) .2s forwards}
+@keyframes dooropen{to{clip-path:inset(0 0 0 0 round 999px 999px 0 0)}}@keyframes doorzoom{to{transform:scale(1)}}
+.final .stage{padding-top:130px}
+
+.ring{width:92px;height:92px;margin-bottom:28px}
+.ring circle{fill:none;stroke-width:2}
+.ring .bgc{stroke:rgba(255,255,255,.18)}
+.ring .fg{stroke:var(--brand);stroke-dasharray:283;stroke-dashoffset:283;transform:rotate(-90deg);transform-origin:50% 50%;animation:fill 1.6s var(--ease) .2s forwards}
+.ring path{fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;animation:tick .6s var(--ease) 1.5s forwards}
+@keyframes fill{to{stroke-dashoffset:0}}@keyframes tick{to{stroke-dashoffset:0}}
+.done{display:grid;grid-template-columns:repeat(5,auto);gap:10px 26px;margin-top:34px;justify-content:center}
+.done span{display:flex;align-items:center;gap:10px;font-size:15px;color:rgba(255,255,255,.88);animation:rise .7s var(--ease) both}
+.done span::before{content:"";width:16px;height:16px;flex:none;background:var(--brand) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/11px no-repeat}
+.next3{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:56px;width:min(900px,100%);border-top:1px solid rgba(255,255,255,.2)}
+.next3 div{padding:24px 20px 0;text-align:left;border-left:1px solid rgba(255,255,255,.12)}
+.next3 div:first-child{border-left:0}
+.next3 small{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.next3 p{margin-top:8px;font-size:16px;line-height:1.45}
+@media (max-width:900px){.cards.c4,.cards.c8{grid-template-columns:repeat(2,minmax(0,1fr))}.cards.c6{grid-template-columns:repeat(3,minmax(0,1fr))}.days{grid-template-columns:1fr}.day img{height:220px!important}.done{grid-template-columns:1fr 1fr}.next3{grid-template-columns:1fr}.strip figure{width:36px;height:46px}.strip b{display:none}.stage{padding:140px 18px 150px}.prog2{top:84px}.back2{left:18px;bottom:auto;top:96px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* v4 (16 Nov): Mark's rules. No caps, no script face, no rules or separators; the planners speak in the first person.
+   Reply screens split: the visitor's photo on the left, Ilaria's words on paper at the right, quotes in raspberry. */
+.prog2,.back2,.go,.plan-s,.day small,.est2,.slots2 .tile small,.strip b{text-transform:none!important;letter-spacing:.02em!important}
+.prog2{font-size:14px}.back2{font-size:15px}
+.go{font-size:15px;font-weight:400;letter-spacing:.02em}
+.strip b{font-family:var(--sans);font-size:15px;font-weight:400;opacity:.85}
+.plan-s{display:flex;gap:28px;justify-content:center;font-size:16px}
+.day small{font-size:14px}
+.est2{font-size:15px}
+.slots2 .tile small{font-size:13px}
+.wizard .bar .right .pill{display:none}
+.note{margin-top:46px;max-width:34em;font-family:var(--sans);font-weight:300;font-size:clamp(19px,1.5vw,22px);line-height:1.5;text-align:left}
+.final .sig{align-self:auto;margin-top:12px;width:min(34em,100%);text-align:left}
+.sig{font-family:var(--sans);font-size:15px;opacity:.8}
+.sig::before{content:"\2014\00a0"}
+/* reply on paper */
+.wz.reply .bg{right:50%}
+.wz.reply .bg img{inset:0;width:100%;height:100%}
+.wz.sharp.reply .bg::after{background:none}
+.wz.reply .stage{margin-left:50%;min-height:100vh;background:#FAF7F2;color:var(--ink);align-items:flex-start;justify-content:center;text-align:left;padding:150px clamp(32px,6vw,110px) 120px}
+.wz.reply .scr{align-items:flex-start}
+.wz.reply .prog2{display:none}
+.rl{font-family:var(--sans)!important;font-weight:300;font-size:clamp(30px,2.6vw,42px);line-height:1.22;letter-spacing:-.01em;max-width:17em;text-shadow:none;color:var(--ink)}
+.wz.reply .sig{margin-top:18px;color:var(--ink);opacity:.7}
+.rq{margin-top:clamp(40px,5vh,64px)}
+.wz.split .rq{max-width:100%;margin-top:clamp(28px,4vh,44px)}
+.wz.split.reply .stage{padding-bottom:clamp(96px,12vh,120px)}
+.wz.reply .go{background:var(--ink);color:#FAF7F2}
+.wz.reply .go:hover{background:var(--brand);color:#fff}
+.on-paper .bar{background:none!important}
+#pl{display:none}.prog2{top:118px}
+.wizard .bar .pill{text-transform:none!important;letter-spacing:.02em!important;font-size:15px}.on-paper .bar .logo{opacity:0;pointer-events:none}.on-paper .bar .right{color:var(--ink)}
+.gdesc{font-family:var(--sans)!important;font-weight:300;font-size:20px!important;margin-top:10px}
+@font-face{font-family:CvMark;src:url(fonts/cormorant-400i.ttf);unicode-range:U+201C-201D;font-display:swap}
+@media (max-width:900px){
+  .wz.reply .bg{right:0;bottom:auto;height:46vh}
+  .wz.reply .stage{margin-left:0;margin-top:46vh;min-height:54vh;padding:40px 22px 120px}
+    .on-paper .bar .right{color:#fff}
+  .wz.reply .back2{color:var(--ink);top:auto;bottom:24px}
+  .plan-s{flex-wrap:wrap;gap:8px 20px}
+  .strip{display:none}
+}
+
+/* r2 (16 Nov): the visitor's plan written as a sentence, a calmer form, a skippable call, and an ending unlike every other screen. */
+.strip{left:50%;bottom:30px;transform:translateX(-50%);display:block;width:min(900px,86vw);text-align:center;pointer-events:none}
+.strip.trail .tl{display:block;font-family:var(--sans);font-size:13px;letter-spacing:.02em;color:rgba(255,255,255,.55);margin-bottom:6px}
+.strip.trail p{font-family:var(--head);font-size:clamp(22px,1.9vw,28px);line-height:1.2;color:#fff}
+.strip.trail span{white-space:pre}
+.strip.trail span.new{display:inline-block;animation:inkin 1.2s cubic-bezier(.2,.7,.2,1) both}
+@keyframes inkin{from{opacity:0;filter:blur(6px);transform:translateY(4px)}}
+.strip.pcard{left:auto;right:28px;bottom:32px;transform:none;width:200px;text-align:left;background:rgba(250,247,242,.96);color:var(--ink);padding:20px 22px 12px}
+.strip.pcard .ct{font-family:var(--head);font-size:24px;margin-bottom:8px}
+.strip.pcard div{display:flex;justify-content:space-between;gap:12px;padding:6px 0;opacity:.38;transition:opacity .8s}
+.strip.pcard div.on{opacity:1}
+.strip.pcard small{font-size:13px;color:#6b5f55}
+.strip.pcard b{font-weight:400;font-size:15px;text-align:right}
+.final .strip,.reply .strip,.form .strip{display:none!important}
+.strip.pcard{background:#FAF7F2}.strip.pcard b{font-family:var(--sans);color:var(--ink);margin:0;white-space:normal}
+.wz.end .bg{opacity:0;transition:opacity .4s}
+.wz.end .bg img:not(.on){opacity:0!important;transition:none}
+.card{transition:transform .9s cubic-bezier(.2,.7,.2,1),box-shadow .9s cubic-bezier(.2,.7,.2,1)}
+.card img{transition:transform 3s cubic-bezier(.2,.7,.2,1),filter .9s ease}
+.card:hover{transform:translateY(-6px);box-shadow:0 26px 50px -24px rgba(0,0,0,.7)}
+.card:hover img{transform:scale(1.06);filter:brightness(1.02) saturate(1.08) sepia(.08)}
+.card span{transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.card:hover span{transform:translateY(-4px)}
+.card:active{transform:translateY(-2px) scale(.985);transition-duration:.2s}
+.card[aria-pressed=true]{outline:1px solid rgba(255,255,255,.9);outline-offset:6px}
+.tile{transition:background .6s ease,color .6s ease,border-color .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+.tile:hover{transform:translateY(-3px)}
+.tile:active{transform:translateY(0) scale(.98);transition-duration:.15s}
+.go{transition:background .6s ease,color .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+.go svg{transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.go:hover svg{transform:translateX(5px)}
+.go:active{transform:scale(.98);transition-duration:.15s}
+.soft{margin-top:18px;font-family:var(--sans);font-size:15px;color:inherit;opacity:.75;padding:8px 0;transition:opacity .5s}
+.soft:hover{opacity:1}
+.bk{display:flex;align-items:center;gap:34px;margin-top:44px}
+.bk .go,.bk .soft{margin-top:0}
+@media (hover:none){.card:active img{transform:scale(1.04)}}
+.wz.form{background:#FAF7F2}
+.wz.form .bg{opacity:0}
+.wz.form .stage{color:var(--ink);align-items:stretch;text-align:left;padding:150px clamp(24px,7vw,140px) 110px}
+.wz.form .scr{align-items:stretch}
+.wz.form .prog2{color:#6b5f55}.wz.form .prog2 .tr{background:rgba(42,36,32,.12)}
+.wz.form .back2{color:#6b5f55}
+.cf{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);column-gap:clamp(40px,7vw,130px);align-items:start;width:min(1240px,100%);margin:0 auto}
+.cf .ql{max-width:12ch}
+.cf .qs{color:#6b5f55;font-size:19px;margin-top:18px}
+.cf-sum{margin-top:44px;font-family:var(--head);font-size:clamp(24px,2vw,30px);line-height:1.25;max-width:18em}
+.cf-r{display:grid;grid-template-columns:1fr 1fr;column-gap:32px;row-gap:34px;padding-top:12px}
+.cf-r label{display:flex;flex-direction:column;gap:10px}
+.cf-r label.wide{grid-column:1/-1}
+.cf-r label span{font-family:var(--sans);font-size:15px;color:#6b5f55}
+.cf-r input,.cf-r textarea{font:inherit;font-family:var(--sans);font-weight:300;font-size:20px;color:var(--ink);background:transparent;border:0;border-bottom:1px solid rgba(42,36,32,.28);padding:8px 0 12px;outline:0;resize:vertical;transition:border-color .5s;text-align:left}
+.cf-r input:focus,.cf-r textarea:focus{border-color:var(--brand)}
+.cf-r input::placeholder{color:rgba(42,36,32,.32)}
+.cf-r .go{grid-column:1/-1;justify-self:start;margin-top:8px;background:var(--ink);color:#FAF7F2}
+.cf-r .go:hover{background:var(--brand)}
+.on-paper .bar{background:none!important}
+.wz.end{background:#14100D}
+.wz.end .bg img{filter:none!important}
+.wz.end .bg::after{background:none!important}
+.wz.end::before{content:"";position:fixed;inset:0;z-index:1;background:#FAF7F2;clip-path:inset(100% 0 0 0);animation:paperup 1.1s cubic-bezier(.7,0,.2,1) .55s forwards}
+@keyframes paperup{to{clip-path:inset(0 0 0 0)}}
+.wz.end .stage{align-items:stretch;text-align:left;padding:120px clamp(24px,6vw,120px) 80px}
+.wz.end .scr{align-items:stretch;animation:none}
+.keep{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);column-gap:clamp(40px,7vw,130px);align-items:center;width:min(1240px,100%);margin:0 auto;color:var(--ink)}
+.k-door{margin:0;aspect-ratio:3/4;max-height:72vh;overflow:hidden;border-radius:999px 999px 0 0;clip-path:inset(100% 0 0 0 round 999px 999px 0 0);animation:dooropen 1.5s cubic-bezier(.7,0,.2,1) 1.1s forwards}
+.k-door img{width:100%;height:100%;object-fit:cover;transform:scale(1.18);animation:doorzoom 3.4s cubic-bezier(.2,.7,.2,1) 1.1s forwards}
+.k-text{display:flex;flex-direction:column}
+.k-who{font-family:var(--head);font-size:clamp(54px,6vw,96px);line-height:1;letter-spacing:-.02em;animation:namein 1.6s cubic-bezier(.2,.7,.2,1) 2.7s both}
+@keyframes namein{from{opacity:0;letter-spacing:.14em;filter:blur(4px)}}
+.k-place{margin-top:30px;font-family:var(--head);font-size:clamp(28px,2.6vw,40px);line-height:1.15;animation:setin .9s cubic-bezier(.2,.7,.2,1) 1.7s both}
+.k-l{margin-top:12px;font-family:var(--sans);font-weight:300;font-size:clamp(19px,1.5vw,22px);line-height:1.4;animation:setin .9s cubic-bezier(.2,.7,.2,1) 1.95s both}
+.k-l+.k-l{animation-delay:2.2s}
+.k-l.k-call{color:var(--brand);animation-delay:2.45s}
+.k-note{margin-top:34px;max-width:30em;font-size:16px;line-height:1.55;color:#6b5f55;animation:setin .9s ease 3.1s both}
+.k-act{display:flex;align-items:center;gap:30px;margin-top:30px;animation:setin .9s ease 3.3s both}
+.k-act .go{margin-top:0;background:var(--ink);color:#FAF7F2}.k-act .go:hover{background:var(--brand)}
+.k-act .soft{margin-top:0;color:var(--ink)}
+@keyframes setin{from{opacity:0;transform:translateY(14px)}}
+.end .prog2,.end .back2,.end .strip{display:none!important}
+@media (max-width:900px){
+  .cf,.keep{grid-template-columns:1fr;row-gap:36px}
+  .cf-r{grid-template-columns:1fr;row-gap:26px}
+  .k-door{width:min(300px,70vw)}
+  .bk{flex-direction:column;align-items:flex-start;gap:16px}
+  .strip.pcard{display:none}
+  .strip.trail{display:none!important}
+  .gst{gap:14px}.gst output{font-size:88px!important;min-width:2.4ch}.gst button{width:52px;height:52px}
+  }
+/* contact v2 (Mark, 16 Nov): the chosen place in a photo, the plan on a card laid over it, the form on warm paper */
+.wz.form{background:#EFE6D9 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .25 0 0 0 0 .2 0 0 0 0 .15 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wz.form .stage{padding:140px clamp(24px,6vw,120px) 100px}
+.cf2{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);column-gap:clamp(64px,8vw,150px);align-items:center;width:min(1260px,100%);margin:0 auto;color:var(--ink)}
+.cf-ph{position:relative;margin:0;height:clamp(460px,calc(100vh - 250px),660px)}
+.cf-im{height:100%;overflow:hidden;clip-path:inset(100% 0 0 0);animation:phup 1.3s cubic-bezier(.7,0,.2,1) .15s forwards}
+.cf-im img{width:100%;height:100%;object-fit:cover;transform:scale(1.14);animation:phzoom 4s cubic-bezier(.2,.7,.2,1) .15s forwards}
+@keyframes phup{to{clip-path:inset(0 0 0 0)}}
+@keyframes phzoom{to{transform:scale(1)}}
+.cf-card{position:absolute;right:clamp(-72px,-4.5vw,-36px);bottom:-44px;width:min(310px,76%);padding:30px 32px 32px;background:#FAF7F2;box-shadow:0 34px 60px -30px rgba(42,36,32,.55),0 2px 6px rgba(42,36,32,.06);animation:cardin 1.2s cubic-bezier(.2,.7,.2,1) 1s both}
+@keyframes cardin{from{opacity:0;transform:translate(-70px,36px) rotate(-3deg)}}
+.cc-place{font-family:var(--head);font-size:clamp(34px,2.8vw,42px);line-height:1;margin-bottom:16px}
+.cf-card p:not(.cc-place){font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.55;color:#4a3f37}
+.cf-f .ql{font-size:clamp(44px,4vw,64px);max-width:13ch;animation:setin .9s cubic-bezier(.2,.7,.2,1) .35s both}
+.cf-f .qs{color:#6b5f55;font-size:19px;margin-top:14px;animation:setin .9s cubic-bezier(.2,.7,.2,1) .5s both}
+.cf-f .cf-r{margin-top:44px;padding-top:0;row-gap:30px}
+.cf-f .cf-r>*{animation:setin .9s cubic-bezier(.2,.7,.2,1) both}
+.cf-f .cf-r>:nth-child(1),.cf-f .cf-r>:nth-child(2){animation-delay:.6s}.cf-f .cf-r>:nth-child(3){animation-delay:.7s}.cf-f .cf-r>:nth-child(4),.cf-f .cf-r>:nth-child(5){animation-delay:.8s}.cf-f .cf-r>:nth-child(n+6){animation-delay:.9s}
+#hfi[readonly]{cursor:pointer}
+.cf-r .fld{display:flex;flex-direction:column;gap:10px;min-width:0}
+.cf-r .fld>span{font-family:var(--sans);font-size:15px;color:#6b5f55}
+.cf-r label span,.cf-r .fld>span{transition:color .4s}
+.cf-r label:focus-within span,.cf-r .fld:focus-within>span{color:var(--ink)}
+.cf-r input,.cf-r textarea{border-bottom-color:rgba(42,36,32,.3)}
+.cf-r input:hover,.cf-r textarea:hover{border-bottom-color:rgba(42,36,32,.6)}
+.cf-r textarea{min-height:58px}
+/* pickers */
+.cp{position:relative}
+.cp>input{width:100%;padding-right:30px!important;cursor:pointer}
+.cp>input:focus{cursor:text}
+.chev{position:absolute;right:2px;bottom:17px;width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.4;opacity:.6;pointer-events:none;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.cp.open .chev{transform:rotate(180deg)}
+.cp-l,.cp-pop{position:absolute;top:calc(100% + 8px);left:0;right:0;z-index:40;background:#FAF7F2;box-shadow:0 28px 50px -24px rgba(42,36,32,.5),0 1px 4px rgba(42,36,32,.08);opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .35s,transform .45s cubic-bezier(.2,.7,.2,1),visibility 0s .45s}
+.cp-l{max-height:300px;overflow-y:auto;list-style:none;margin:0;padding:8px 0;overscroll-behavior:contain}
+.cp.open>.cp-l,.cp.open>.cp-pop{opacity:1;visibility:visible;transform:none;transition:opacity .35s,transform .45s cubic-bezier(.2,.7,.2,1),visibility 0s}
+.cp-l li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:10px 20px;font-family:var(--sans);font-weight:300;font-size:17px;cursor:pointer;transition:background .25s}
+.cp-l li em{font-style:normal;font-size:15px;color:#8a7d72}
+.cp-l li.act,.cp-l li:hover{background:#EFE6D9}
+.cp-l li[aria-selected=true] span{color:var(--brand)}
+.cp-l li.gap{height:10px;padding:0;pointer-events:none;background:none!important}
+.cp-l li.none{color:#8a7d72;cursor:default}
+.tel{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:18px;align-items:end}
+.pp>button{display:flex;align-items:center;gap:10px;height:100%;font-family:var(--sans);font-weight:300;font-size:20px;color:var(--ink);padding:8px 0 12px;border-bottom:1px solid rgba(42,36,32,.3);transition:border-color .4s}
+.pp>button:hover{border-color:rgba(42,36,32,.6)}.pp.open>button{border-color:var(--brand)}
+.pp>button b{font-weight:300}
+.pp>button .chev{position:static;width:14px;height:14px}
+.pp.open>button .chev{transform:rotate(180deg)}
+.pp.pulse b{animation:dialset 1.4s ease}
+@keyframes dialset{0%{color:var(--brand)}100%{color:var(--ink)}}
+.cp-pop{right:auto;width:320px;padding-top:6px}
+.cp-pop input{width:calc(100% - 40px);margin:4px 20px 6px;font-size:17px!important}
+.cp-pop .cp-l{position:static;max-height:260px;box-shadow:none;opacity:1;visibility:inherit;transform:none;padding-top:4px}
+.cf-r .go{margin-top:10px;transition:background .35s,color .35s,transform .35s}
+@media (max-width:900px){
+  .wz.form .stage{padding:112px 20px 80px}
+  .cf2{grid-template-columns:1fr;row-gap:0}
+  .cf-ph{height:auto}
+  .cf-im{aspect-ratio:4/3;height:auto}
+  .cf-card{right:14px;bottom:-56px;width:min(270px,72%);padding:22px 24px 24px}
+  .cc-place{font-size:30px;margin-bottom:10px}
+  .cf-card p:not(.cc-place){font-size:15px}
+  .cf-f{margin-top:96px}
+  .cf-f .ql{font-size:42px}
+  .cf-f .cf-r{margin-top:34px;grid-template-columns:1fr;row-gap:24px}
+  .cp-pop{width:calc(100vw - 40px)}
+  .cp-l li{padding:13px 18px}
+}
+.tiles.fnd{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));max-width:900px}
+.fnd-o{display:flex;align-items:flex-end;gap:24px;margin-top:30px;width:min(620px,100%)}
+.fnd-o[hidden]{display:none}
+.fnd-o input{flex:1;min-width:0;font-family:var(--sans);font-weight:300;font-size:20px;color:#fff;background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.55);padding:8px 0 12px;outline:0}
+.fnd-o input::placeholder{color:rgba(255,255,255,.55)}
+.fnd-o input:focus{border-color:#fff}
+.fnd-o .go{margin-top:0}
+@media (max-width:900px){.tiles.fnd{grid-template-columns:1fr 1fr}.fnd-o{flex-direction:column;align-items:stretch}}
+.cf2{align-items:start}
+.cf-ph{height:clamp(420px,calc(100vh - 300px),640px)}
+.cf-f .ql{font-size:clamp(36px,3vw,46px);max-width:none;white-space:nowrap}
+.cf-f .cf-r{margin-top:40px;row-gap:26px}
+.cf-r textarea{min-height:46px}
+.cf-r>*{position:relative}
+.cf-r>:focus-within,.cf-r>:has(.cp.open){z-index:6}
+.wizard.on-paper .bar .pill{background:transparent!important;color:var(--ink)!important;backdrop-filter:none!important;border:0!important;padding-left:0!important}
+.wizard.on-paper .bar .lang{color:var(--ink)}
+@media (max-width:900px){.cf-f .ql{white-space:normal}.wizard.on-paper .bar .pill{padding:0!important}}
+@media (max-width:900px){
+  .wz.form .stage{padding-top:150px}
+  .wz.form .back2{position:absolute}
+  .cf-ph{height:auto!important}
+  .tiles.fnd{grid-template-columns:1fr;gap:8px;margin-top:30px}
+  .tiles.fnd .tile{height:auto;min-height:54px;padding:14px 20px;text-align:left}
+  .fnd-q{font-size:40px}
+}
+/* Mark, 16 Nov: no shadows, no cards over photos. The answers sit flat under the photo. */
+.cf-ph{height:clamp(340px,calc(100vh - 440px),520px)!important}
+.cf-sum2{margin-top:30px;animation:setin .9s cubic-bezier(.2,.7,.2,1) 1s both}
+.cf-sum2 .cc-place{font-family:var(--head);font-size:clamp(30px,2.4vw,38px);line-height:1;margin-bottom:12px}
+.cf-sum2 p:not(.cc-place){font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.6;color:#4a3f37}
+.cp-l,.cp-pop{box-shadow:none!important;border:1px solid rgba(42,36,32,.16)}
+.cp-pop .cp-l{border:0}
+@media (max-width:900px){.cf-ph{height:auto!important}.cf-sum2{margin-top:24px}.cf-f{margin-top:44px}}
+/* progress, v3 (Mark, 16 Nov): one full-width raspberry line on the edge of the screen, no words */
+.prog2,.wz.form .prog2,.final .prog2,.wz.reply .prog2{display:block;position:fixed!important;left:0;right:0;top:0;bottom:auto;transform:none;width:100%;z-index:30;pointer-events:none}
+.prog2 .tr,.wz.form .prog2 .tr{width:100%;height:8px;background:rgba(255,255,255,.16);overflow:hidden;transition:background .8s}
+.on-paper .prog2 .tr,.wz.form .prog2 .tr{background:rgba(42,36,32,.1)}
+.prog2 .tr i{height:100%;background:var(--brand);transition:width 1.6s cubic-bezier(.7,0,.15,1);transform-origin:left center}
+.prog2.tick .tr{animation:bartick 1.5s cubic-bezier(.2,.7,.2,1)}
+@keyframes bartick{0%{height:8px}35%{height:14px}100%{height:8px}}
+.bar-top.wizard .bar{top:8px}
+.end .prog2{display:none!important}
+@media (max-width:900px){.prog2 .tr,.wz.form .prog2 .tr{height:5px}@keyframes bartick{0%{height:5px}35%{height:10px}100%{height:5px}}}
+.wz .tile,.wz .go,.wz .soft,.gst button{border-radius:6px}
+.cf-im{border-radius:8px}
+/* Split screen (Mark, 16 Nov). The words sit on paper in the left five twelfths, set low so they share the photograph's bottom edge.
+   One photograph bleeds off the top, right and bottom edges, square. Picture questions and their replies share it, so the photo never changes side.
+   Answers are plain typed lines; the photo follows the line under the pointer or focus, and that change is the only hover response. */
+.wz.split{display:flow-root;background:#FAF7F2}
+.wz.split .bg{left:41.667%;right:0;top:0;bottom:0;border-radius:0;overflow:hidden;opacity:1}
+.wz.split .bg::after{display:none}
+.wz.split .bg img{inset:0;width:100%;height:100%;filter:none!important;transform:none!important}
+.wz.split .bg img:not(.on){transition:opacity 0s linear 1.3s}
+.bg.quick img{transition:opacity 0s linear .32s!important}
+.bg.quick img.on{transition:opacity .32s cubic-bezier(.33,1,.68,1)!important}
+.wz.split .stage{margin:0;width:41.667%;min-height:100vh;background:transparent;color:var(--ink);align-items:flex-start;justify-content:flex-end;text-align:left;padding:150px clamp(32px,5vw,96px) clamp(96px,13vh,132px)}
+.wz.split .scr{align-items:flex-start}
+.wz.split .ql{font-size:clamp(40px,3.5vw,58px);max-width:15ch;text-wrap:balance;color:var(--ink)}
+.wz.split .qs{color:#6b5f55;font-size:17px}
+.wz.pick .qs{display:none}   /* no reassurance subtitles under picture questions */
+.wz.split .back2{color:#6b5f55;left:clamp(32px,5vw,96px)}.wz.split .back2:hover{color:var(--ink)}
+.wizard.split-on .bar .lang{display:none}   /* it would sit as white type on the photo; the menu still carries the languages */
+.sq-opts{display:flex;flex-direction:column;align-items:flex-start;margin-top:clamp(26px,4.4vh,46px)}
+.opt{display:inline-flex;align-items:baseline;padding:clamp(8px,1.25vh,13px) 0;text-align:left;font-family:var(--sans);font-weight:300;font-size:clamp(22px,1.7vw,27px);line-height:1.2;letter-spacing:-.005em;color:#7a6d62;transition:color .3s cubic-bezier(.25,1,.5,1)}
+.opt:hover,.opt:focus-visible{color:var(--ink)}
+@media (hover:none){.opt{color:var(--ink)}}
+.opt[aria-pressed=true]{color:var(--brand)}
+.opt:focus-visible{outline:1px solid var(--ink);outline-offset:6px;border-radius:4px}
+@media (max-width:900px){
+  /* phone: the photo sits inset under the header, so the menu stays ink on paper and nothing white lies on the photo */
+  .wz.split .bg{left:0;right:0;top:72px;bottom:auto;height:40vh}
+  .wz.split.pick .bg{height:31vh;z-index:4}   /* pinned above the list, so a tap low on the list still shows its picture */
+  .wz.split.pick::before{content:"";position:fixed;left:0;right:0;top:0;height:calc(72px + 31vh + 6px);background:#FAF7F2;z-index:3}
+  .wz.split .stage{width:100%;margin-top:calc(72px + 40vh);min-height:0;justify-content:flex-start;padding:30px 22px 96px;background:transparent}
+  .wz.split.pick .stage{margin-top:calc(72px + 31vh)}
+  .wz.split .ql{font-size:38px;max-width:none}
+  .wz.split .back2{position:absolute;left:22px;top:auto;bottom:34px}
+  .sq-opts{margin-top:20px}
+  .opt{font-size:21px;padding:9px 0}
+}
+
+/* ===== Round 3 (Mark, 16 Nov 18:30: "straight up words with no indication of clickability ... a buzzkill").
+   Three takes on picture questions, chosen with ?take=a|b|c. Shared: the answers must look clickable at rest, on a phone too. */
+.opt .th{display:none}
+.opt{cursor:pointer}
+.opt .nm{min-width:0}
+
+/* A. The places are the hero: an index set in the title face, each row a clear control with the arrow waiting at its end. */
+.take-a .wz.pick .stage{justify-content:center;padding-top:132px;padding-bottom:110px}
+.take-a .sq-opts{align-items:stretch;width:100%;margin-top:clamp(22px,3.4vh,40px)}
+.take-a .opt{display:flex;align-items:center;justify-content:space-between;width:100%;padding:clamp(7px,1.15vh,12px) 0;color:var(--ink);font-size:clamp(22px,1.7vw,26px)}
+.take-a .opt.pl .nm{font-family:var(--head);font-size:clamp(32px,2.75vw,44px);line-height:1.04;letter-spacing:-.01em}
+.take-a .opt svg.ha{font-size:clamp(28px,2.3vw,36px);margin-left:24px;color:#9b8d80;transition:color .3s cubic-bezier(.25,1,.5,1)}
+.take-a .opt .nm{transition:transform .45s cubic-bezier(.25,1,.5,1),color .3s cubic-bezier(.25,1,.5,1)}
+.take-a .opt:hover svg.ha,.take-a .opt:focus-visible svg.ha{color:var(--ink)}
+.take-a .opt[aria-pressed=true],.take-a .opt[aria-pressed=true] svg.ha{color:var(--brand)}
+.take-a .opt:not(.pl) .nm{font-size:clamp(24px,1.9vw,28px)}
+
+/* B. The photograph is the hero: it fills the screen between the question and a solid bar of answer buttons. */
+.take-b .wz.split.pick{background:#FAF7F2}
+.take-b .wz.split.pick .bg{left:clamp(20px,3.9vw,56px);right:clamp(20px,3.9vw,56px);top:clamp(178px,21vh,196px);bottom:calc(56px + clamp(28px,4vh,40px) + 20px);border-radius:8px}
+.take-b .wz.split.pick .stage{width:100%;min-height:100vh;justify-content:space-between;padding:clamp(104px,13vh,120px) clamp(20px,3.9vw,56px) clamp(28px,4vh,40px)}
+.take-b .wz.pick .ql{max-width:none;font-size:clamp(36px,3vw,48px)}
+.take-b .wz.pick .scr{height:calc(100vh - clamp(104px,13vh,120px) - clamp(28px,4vh,40px));justify-content:space-between}
+.take-b .sq-opts{flex-direction:row;flex-wrap:wrap;align-items:stretch;gap:10px;width:100%;margin:0}
+.take-b .sq-opts .opt{flex:1 1 0;min-width:max-content;justify-content:center;align-items:center;height:56px;padding:0 20px;border:1px solid rgba(42,36,32,.28);border-radius:6px;font-size:17px;font-weight:400;color:var(--ink);background:transparent;transition:background .3s cubic-bezier(.25,1,.5,1),color .3s cubic-bezier(.25,1,.5,1),border-color .3s cubic-bezier(.25,1,.5,1)}
+.take-b .sq-opts.n8{display:grid;grid-template-columns:repeat(8,auto)}
+.take-b .opt svg.ha{display:none}
+.take-b .opt:hover,.take-b .opt:focus-visible{background:var(--ink);border-color:var(--ink);color:#FAF7F2}
+.take-b .opt[aria-pressed=true]{background:var(--brand);border-color:var(--brand);color:#fff}
+.take-b .opt:active{transform:scale(.98)}
+.take-b .wz.split.pick .back2{bottom:auto;top:clamp(104px,13vh,120px);left:auto;right:clamp(20px,3.9vw,56px);line-height:clamp(36px,3vw,48px)}
+
+/* C. Real controls: each answer is a framed row with its own small photograph, so the choice reads even without hover. */
+.take-c .wz.pick .stage{justify-content:center;padding-top:120px;padding-bottom:100px}
+.take-c .sq-opts{display:grid;grid-template-columns:1fr;gap:8px;width:100%;margin-top:clamp(22px,3.4vh,36px)}
+.take-c .sq-opts.n8{grid-template-columns:1fr 1fr}
+.take-c .opt{display:flex;align-items:center;gap:14px;width:100%;padding:8px 16px 8px 8px;border:1px solid rgba(42,36,32,.2);border-radius:8px;font-size:17px;font-weight:400;color:var(--ink);transition:border-color .3s cubic-bezier(.25,1,.5,1),background .3s cubic-bezier(.25,1,.5,1)}
+.take-c .opt .th{display:block;flex:none;width:56px;height:56px;border-radius:5px;overflow:hidden;background:#E4D9CA}
+.take-c .opt .th img{width:100%;height:100%;object-fit:cover}
+.take-c .opt .nm{flex:1;line-height:1.25}
+.take-c .opt svg.ha{color:#9b8d80}
+.take-c .opt:hover,.take-c .opt:focus-visible{border-color:var(--ink);background:#F1EBE2}
+.take-c .opt:hover svg.ha{color:var(--ink)}
+.take-c .opt[aria-pressed=true]{border-color:var(--brand);background:#F6E9EC}
+.take-c .opt[aria-pressed=true] svg.ha{color:var(--brand)}
+.take-c .opt:active{transform:scale(.99)}
+
+@media (max-width:900px){
+  .take-a .opt.pl .nm{font-size:30px}
+  .take-a .opt{padding:8px 0}
+  .take-a .opt svg.ha{font-size:26px}
+  .take-b .wz.split.pick .bg{left:0;right:0;top:72px;height:38vh;bottom:auto;border-radius:0}
+  .take-b .wz.split.pick .stage{margin-top:calc(72px + 38vh);min-height:0;padding:24px 20px 40px}
+  .take-b .wz.pick .scr{height:auto}
+  .take-b .sq-opts,.take-b .sq-opts.n8{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:20px}
+  .take-b .sq-opts .opt{min-width:0;height:52px;font-size:16px;padding:0 10px}
+  .take-c .sq-opts.n8{grid-template-columns:1fr}
+  .take-c .opt .th{width:48px;height:48px}
+  .take-a .wz.pick .stage,.take-c .wz.pick .stage{justify-content:flex-start;padding-top:28px}
+  .take-c .wz.split.pick .bg{height:26vh}
+  .take-c .wz.split.pick::before{height:calc(72px + 26vh + 6px)}
+  .take-c .wz.split.pick .stage{margin-top:calc(72px + 26vh)}
+}
+
+/* Flow v4 (Mark, 16 Nov 18:40): the last answer is acknowledged in one line at the top of the next question, so it costs no tap. */
+.echo{max-width:34em;margin:0 0 clamp(18px,2.6vh,28px);font-family:var(--sans);font-weight:300;font-size:clamp(17px,1.25vw,19px);line-height:1.5;color:rgba(255,255,255,.9);animation:setin .9s cubic-bezier(.2,.7,.2,1) .15s both}
+.wz.split .echo,.wz.form .echo{color:#4a3f37}
+.resume{margin:0 0 22px;opacity:.9}
+.rb{margin-top:22px;max-width:30em;font-family:var(--sans);font-weight:300;font-size:clamp(18px,1.4vw,21px);line-height:1.5;color:var(--ink)}
+.rp{margin-top:18px;max-width:24em;font-family:var(--head);font-size:clamp(26px,2.2vw,34px);line-height:1.2;color:var(--ink)}
+.rs{margin-top:16px;max-width:34em;font-family:var(--sans);font-size:14px;line-height:1.5;color:#6b5f55}
+.wz.reply .go{margin-top:clamp(32px,4.4vh,48px)}
+.gst output{transition:font-size .4s cubic-bezier(.25,1,.5,1)}
+
+/* C, refined: place names in the title face, larger photos, the title near the top of the column */
+.take-c .wz.pick .stage{justify-content:flex-start;padding-top:clamp(128px,16vh,160px)}
+.take-c .opt.pl .nm{font-family:var(--head);font-size:clamp(21px,1.55vw,25px);line-height:1.1}
+.take-c .opt .th{width:60px;height:60px}
+.take-c .sq-opts.n8{grid-auto-rows:1fr}
+.take-c .opt.pl{padding-right:12px;gap:12px}
+.take-c .opt.pl .nm{white-space:nowrap}
+@media (max-width:900px){.take-c .wz.pick .stage{padding-top:28px}.echo{font-size:16px}.rp{font-size:24px}}
+@media print{.bar,.menu,.wa,.prog2,.back2,.strip,.k-act,.bg{display:none!important}.wz.end::before{display:none}.wz,.wz.end{background:#fff!important}*{animation:none!important;clip-path:none!important;opacity:1!important}}
+
+/* Review fixes (16 Nov ~20:15). Text-only questions on paper beside the chosen place; titles of pauses in the display face, the summary in the text face. */
+.wz.split .rl{font-family:var(--head)!important;font-weight:400;font-size:clamp(40px,3.4vw,56px);line-height:1.06;letter-spacing:0}
+.rp{font-family:var(--sans);font-weight:300;font-size:clamp(21px,1.6vw,25px);line-height:1.45}
+.rs{font-size:15px;color:#5e534a}
+.wz.split.txt .qs{color:#6b5f55;margin-top:14px}
+.wz.split.txt .tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));justify-content:stretch;gap:8px;width:100%;max-width:none;margin-top:clamp(24px,3.4vh,36px)}
+.wz.split.txt .tiles .tile:last-child:nth-child(odd){grid-column:1/-1}
+.wz.split.txt .tile{height:60px;padding:0 18px;text-align:left;background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none;border:1px solid rgba(42,36,32,.2);border-radius:8px;color:var(--ink);font-size:17px;transform:none;transition:border-color .3s cubic-bezier(.25,1,.5,1),background .3s cubic-bezier(.25,1,.5,1)}
+.wz.split.txt .tile:hover,.wz.split.txt .tile:focus-visible{background:#F1EBE2;border-color:var(--ink);color:var(--ink);transform:none}
+.wz.split.txt .tile[aria-pressed=true]{border-color:var(--brand);background:#F6E9EC;color:var(--ink)}
+.wz.split.txt .gst{justify-content:flex-start;margin-top:clamp(24px,3.4vh,36px)}
+.wz.split.txt .gst output{color:var(--ink)}
+.wz.split.txt .gst button{border-color:rgba(42,36,32,.3);color:var(--ink);background:transparent}
+.wz.split.txt .gdesc{color:#4a3f37;text-align:left}
+.wz.split.txt .go{margin-top:clamp(24px,3.4vh,36px)}
+.wz.split.txt .go{background:var(--ink);color:#FAF7F2}
+@media (hover:hover){.wz.split.txt .go:hover{background:var(--brand);color:#fff}}
+.wz.split.txt .stage{justify-content:flex-start;padding-top:clamp(128px,16vh,160px)}
+.wz.split.txt .gst{gap:26px}.wz.split.txt .gst output{min-width:2.4ch;text-align:center}
+@media (hover:hover){.wz.split.txt .gst button:hover{background:#F1EBE2;border-color:var(--ink)}}
+@media (hover:none){.gst button:hover{background:transparent;color:inherit}.wz.split.txt .tile:hover{background:transparent;border-color:rgba(42,36,32,.2)}}
+@media (max-width:900px){
+  .wz.split.reply .bg,.wz.split.txt .bg{position:absolute}
+  .wz.split.txt .stage{padding-top:30px}
+  .tiles:not(.fnd){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%}
+  .tiles:not(.fnd) .tile{padding:0 12px}
+  .wz.split .rl{font-size:36px}
+  .cf-l2 .cf-ph{display:none}
+  .cf-sum2{margin-top:0}
+}
+
+/* Mark, 16 Nov 20:11: the words line up with the menu, and the guest number is one size, smaller, centred on the steppers. */
+@media (min-width:901px){
+  .wz.split .stage{padding-left:56px;padding-right:56px}
+  .back2,.wz.split .back2{left:56px}
+  .wz.form .cf2{width:auto;margin:0 56px}
+}
+.gst output,.wz.split.txt .gst output{flex:none;width:1.7em;min-width:0;font-size:112px;line-height:1;text-align:center;position:relative;top:-.085em}
+@media (max-width:900px){.gst output,.wz.split.txt .gst output{font-size:80px!important;width:1.7em;min-width:0}.wz.split .stage{padding-left:18px;padding-right:18px}.wz.split .back2{left:18px}}
+
+/* Late screens on paper (Mark, 16 Nov 20:12: finish the full wizard). How did you find us, the plan and the call share the split layout. */
+.wz.split.late .fnd-q{max-width:15ch}
+.wz.split.late .tiles.fnd{grid-template-columns:repeat(2,minmax(0,1fr))}
+.wz.split.late .tiles.fnd .tile{height:auto;min-height:56px;padding:14px 18px}
+.wz.split.late .soft{color:#6b5f55;margin-top:18px;padding:0;background:none;border:0}
+.wz.split.late .soft:hover{color:var(--ink)}
+.wz.split.late .fnd-o{display:flex;gap:8px;width:100%;margin-top:12px}.wz.split.late .fnd-o[hidden]{display:none}
+.wz.split.late .fnd-o input{flex:1;height:56px;padding:0 14px;border:1px solid rgba(42,36,32,.3);border-radius:6px;background:transparent;color:var(--ink);font:300 17px var(--sans)}
+.wz.split.late .fnd-o .go{margin-top:0}
+.pdays{width:100%;margin-top:clamp(22px,3vh,32px)}
+.pday{padding:14px 0;cursor:default}
+.pday small{display:block;font:400 14px/1.3 var(--sans);color:#6b5f55}
+.pday h4{margin:4px 0 0;font:400 clamp(26px,2vw,32px)/1.1 var(--head);color:var(--ink)}
+.pday p{margin:6px 0 0;font:300 16px/1.45 var(--sans);color:#4a3f37}
+.est3{margin-top:clamp(18px,2.6vh,26px);font:300 16px var(--sans);color:#4a3f37}
+.est3 b{margin-left:10px;font:400 clamp(24px,1.9vw,30px) var(--head);color:var(--ink)}
+.wz.split.late .who{display:flex;align-items:center;gap:14px;margin-top:24px;color:var(--ink);text-align:left}
+.wz.split.late .who img{width:56px;height:56px;border-radius:50%;object-fit:cover}
+.wz.split.late .who b{display:block;font:400 17px var(--sans);color:var(--ink)}
+.wz.split.late .who span{display:block;font:300 15px var(--sans);color:#6b5f55}
+.wz.split.late .slots2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%;margin-top:24px}
+.wz.split.late .slots2 .tile{height:62px;text-align:left;padding:0 18px;line-height:1.25}
+.wz.split.late .slots2 .tile small{display:block;font-size:13px;color:#6b5f55}
+.wz.split.late .bk{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.wz.split.late .bk .soft{margin-top:clamp(24px,3.4vh,36px)}
+.wz.split.late .qs{text-align:left}
+@media (max-width:900px){.wz.split.late .tiles.fnd{grid-template-columns:1fr 1fr}.pday h4{font-size:26px}}
+
+body.on-paper,html:has(body.on-paper){background:#FAF7F2}
+.bg img[data-n="ilaria"]{object-position:50% 18%}
+
+/* Second review (16 Nov ~20:30) */
+.pday p b{font-weight:400;color:var(--ink)}
+.est3 b{font:400 20px var(--sans)}
+.wz.split.late .go:disabled{opacity:.35;pointer-events:none}
+.k-door{animation-delay:.2s}.k-door img{animation-delay:.2s}
+.k-who{animation-delay:.5s}.k-place{animation-delay:.75s}.k-l{animation-delay:.9s}.k-l+.k-l{animation-delay:1s}.k-l.k-call{animation-delay:1.1s}.k-note{animation-delay:1.2s}.k-act{animation-delay:1.3s}
+@media (min-width:901px){.keep{width:auto;margin:0 56px}.keep .k-door{justify-self:start;margin-left:0}}
+@media (max-width:900px){
+  .wz.split.late .bg{height:24vh}
+  .wz.split.late .stage{margin-top:calc(72px + 24vh)}
+}
+</style>
+<meta name="robots" content="noindex"></head>
+<body class="wizard">
+<div class="page">
+  <section class="wz" id="wz">
+    <div class="bg" id="bg"><img class="on" src="img/g/w-coast.jpg" alt="" data-n="w-coast"></div>
+    <div class="prog2"><span id="pl">Your plan, 10% ready</span><div class="tr"><i id="pg" style="width:10%"></i></div></div>
+    <div class="stage" id="stage"></div>
+    <div class="strip" id="strip" hidden></div>
+    <button class="back2" id="back">Back</button>
+  </section>
+</div>
+<script src="js/site.js"></script>
+<script src="js/countries.js"></script>
+<script src="vendor/gsap.min.js"></script><script src="vendor/ScrollTrigger.min.js"></script><script src="vendor/lenis.min.js"></script><script src="js/motion.js"></script>
+<script>
+(() => {
+  const $ = s => document.querySelector(s), wz = $('#wz'), stage = $('#stage');
+  const arrow = '<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  const st = {type:null, where:null, when:null, guests:80, feel:null, budget:null, name:'', slot:null};
+  const pick = {};   // image chosen per step, for the strip and the plan
+
+  // Flow (Mark, 16 Nov 18:40): no screen that collects nothing unless it raises the visitor's attachment. Replies are one line on the next question
+  // (ECHO below), so they cost no tap. Only two pauses remain: after the guest count, and just before the contact step.
+  const Q = [
+    {k:'type', q:'What are we celebrating?', s:'', opts:[
+      ['wedding','A wedding','n/hands-sea'],['private','An anniversary or birthday','n/wq-toast'],['corporate','A company gathering','w-bay'],['other','Something else','w-stairs']],},
+    {k:'where', q:'Where do you see it?', s:'', opts:[
+      ['Lake Como','Lake Como','n/wq-como'],['Ravello','Ravello','n/wq-ravello'],['Positano','Positano','n/wq-positano'],['Capri','Capri','n/wq-capri'],
+      ['Tuscany','Tuscany','n/wq-tuscany'],['Florence','Florence','wz-c-florence'],['Puglia','Puglia','wz-puglia-tile'],['Italy','Help me choose','wz-c-italy']],},
+    {k:'when', q:'When would you like to marry?', s:'A rough idea is fine.', tiles:[['spring','Spring'],['summer','Summer'],['autumn','Early autumn'],['unsure','Not sure yet']]},
+    {k:'guests', q:'How many guests are you expecting?', s:'A rough number is fine.', guests:true},
+    {k:'feel', q:'What setting do you picture?', s:'', opts:[
+      ['beach','By the sea','n/wq-sea'],['lake','On a lake','w-rowboats'],['terrace','A terrace at sunset','n/wq-terrace'],['stone','A castle or old villa','wz-stone-tile'],['garden','A garden under the trees','n/wq-garden']],},
+    {k:'budget', q:'What budget do you have in mind?', s:'So we only suggest what fits. It stays between us.', tiles:[['1','Under €40k'],['2','€40k to €80k'],['3','€80k to €150k'],['4','Over €150k'],['0','Not sure yet']]},
+  ];
+  const VOICE = new URLSearchParams(location.search).get('voice') === '2' ? 1 : 0;   // two registers for the place lines, for Mark to choose
+  const ECHO = {
+    type: {wedding:['A wedding. Let us start with the place, and picture the evening from there.'],
+           private:['A long table for the people who matter most. Now, where shall we set it?'],
+           corporate:['A gathering for your company. We look after the venue, the rooms and every transfer, so your team only has to arrive.'],
+           other:['Tell us a little more, and we will find the place.']},
+    where: {
+      'Lake Como':['Lake Como. Stone steps into still water, and villas that keep their gardens for their guests. You would rather be discovered than seen.',
+                   'You would rather be discovered than seen. On Como the villas still keep their gardens for the few.'],
+      'Ravello':['Ravello. Gardens high above the sea, and music in the cloisters of Villa Rufolo. You like height, music and a long horizon.',
+                 'You love height, music and a long horizon. Ravello has all three, and its gardens hang over the sea.'],
+      'Positano':['Positano. Pink and ochre houses down to the beach, lemons on every terrace. You choose with your eyes, and your appetite.',
+                  'You have an eye for colour. Positano rewards it: ochre and pink to the water, and lunch that runs into the evening.'],
+      'Capri':['Capri. Your guests arrive by boat beneath the Faraglioni. You know that a wedding begins with the arrival.',
+               'You have a sense of occasion. On Capri everyone arrives by boat, and the wedding starts the moment they step ashore.'],
+      'Tuscany':['Tuscany. Long tables under the cypresses, and wine from the hill you are sitting on. You put the table before the view.',
+                 'You think of your guests first. In Tuscany the table is the point: long, slow, and lit until late.'],
+      'Florence':['Florence. A villa garden above the city, the Duomo in the distance. You want a city, and its art, around you.',
+                  'You want beauty with some depth to it. Florence gives you frescoes, old stone and a garden above the city.'],
+      'Puglia':['Puglia. White stone, bare feet in the courtyard, and a kitchen that never stops. You trust warmth and good food to do the work.',
+                'You trust warmth over polish. Puglia has white stone, olive groves and food that keeps arriving.'],
+      'Italy':['We will suggest two places once we know a little more about you.']},
+    feel: {beach:['By the sea. A long table on the sand, and shoes off by dessert.'], lake:['On a lake. Still water, and the far shore lit after dark.'],
+           terrace:['A terrace at sunset. The light turns gold just as dinner begins.'], garden:['A garden. Candles in the trees, and the table on the grass.'], stone:['An old villa or a castle. Candlelight on walls that have seen this before.']},
+  };
+  const echo = i => { const pq = Q[i - 1]; if (!pq || !ECHO[pq.k] || !st[pq.k]) return ''; const e = ECHO[pq.k][st[pq.k]]; return e ? (e[VOICE] || e[0]) : ''; };
+  // Guests: uneven steps named by feel; 2 is an elopement with its own wording.
+  const GSTEPS = () => st.type === 'corporate' ? [10,20,30,45,60,80,100,130,160,200,250,300,400] : [2,10,20,30,45,60,80,100,130,160,200,250,300];
+  const band = g => g <= 2 ? 'elope' : g <= 30 ? 'intimate' : g <= 100 ? 'long' : 'grand';
+  const gimg = g => ({elope:'w-rings', intimate:'w-grandfather', long:'wz-t-wedding', grand:'wz-t-other'})[band(g)];
+  function guestPause(){
+    const g = st.guests, b = band(g), wed = (st.type || 'wedding') === 'wedding';
+    if (b === 'elope') return wed
+      ? {line:'An elopement.', body:'With two of you, you can marry at sunrise and take a boat to an empty cove for lunch. We take care of the documents and the town hall, so the day stays yours.'}
+      : {line:'Just the two of you.', body:'A celebration for two can go anywhere: one table on a terrace, a boat for the afternoon. We will suggest the places that do it best.'};
+    if (b === 'intimate') return {line:`An intimate table for ${g}.`, body:'At this size everyone hears every toast, and we can book places that would never take a hundred guests, such as a family\u2019s private garden.'};
+    if (b === 'long') return {line:`One long table for ${g}.`, body:'A real party that still fits around one table. We plan the weekend around it, down to the boat that brings everyone back after dinner.'};
+    return {line:`${g} guests.`,
+      quote:wed && ['Our wedding was a 3 day event, and they were with us the entire time making sure guests arrived to their hotels safely, and even ensuring that gift bags we created for everyone got into the correct rooms.','Amanda & Giacomo']};
+  }
+  const ON = {'Capri':'on Capri', 'Lake Como':'on Lake Como', 'Italy':'somewhere in Italy'};
+  const FEEL = {beach:'by the sea', lake:'on a lake', terrace:'a terrace at sunset', stone:'a castle or old villa', garden:'a garden under the trees'};
+  // Settings that fit the place chosen (review, 16 Nov): no lake after Capri, no sea after Como, a garden instead of either inland.
+  const FITS = {'Lake Como':['lake','terrace','stone'], 'Ravello':['beach','terrace','stone'], 'Positano':['beach','terrace','stone'], 'Capri':['beach','terrace','stone'], 'Puglia':['beach','terrace','stone'], 'Tuscany':['terrace','stone','garden'], 'Florence':['terrace','stone','garden'], 'Italy':['beach','lake','terrace','stone']};
+  const opts = q => q.k === 'feel' ? q.opts.filter(o => (FITS[st.where] || FITS.Italy).includes(o[0])) : q.opts;
+  const WHEN = {spring:'Spring', summer:'Summer', autumn:'Early autumn', unsure:'Season to choose'};
+  const DAYS = {
+    wedding:[['Friday','Welcome dinner'],['Saturday','The wedding'],['Sunday','Farewell brunch']],
+    private:[['Friday','Arrival aperitivo'],['Saturday','The celebration'],['Sunday','Long lunch']],
+    corporate:[['Day one','Arrival dinner'],['Day two','The programme'],['Day three','Farewell lunch']],
+    other:[['Friday','Arrival aperitivo'],['Saturday','The celebration'],['Sunday','Long lunch']]};
+  const DAYIMG = {wedding:['wz-d-wed-1','wz-d-wed-2','wz-d-wed-3'], private:['wz-d-pri-1','wz-d-pri-2','wz-d-pri-3'], corporate:['wz-d-cor-1','wz-d-cor-2','wz-d-cor-3'], other:['wz-d-oth-1','wz-d-oth-2','wz-d-oth-3']};
+  const ENDIMG = {wedding:'wz-end-wedding', private:'wz-end-private', corporate:'wz-end-corporate', other:'wz-end-other'};
+  const moodboard = () => DAYIMG[st.type || 'wedding'];
+  const OCC = {wedding:'A wedding', private:'A celebration', corporate:'A company gathering', other:'A celebration'};
+  const ans = new Set();
+  const opt = new URLSearchParams(location.search);
+  document.body.classList.add('bar-top');
+  const TAKE = ['a','b','c'].includes(opt.get('take')) ? opt.get('take') : 'c';   // Mark picked C, 16 Nov 18:40
+  document.body.classList.add('take-' + TAKE);
+  // Text-only questions: on paper beside the chosen place (default, review 16 Nov: no white text or glass tiles over a photo); ?text=centre restores the centred version.
+  const TXT = opt.get('text') === 'centre' ? 'centre' : 'split';
+  const ECHO_ON = opt.get('echo') === '1';
+  const TRAIL = opt.get('trail') === 'card' ? 'card' : 'line', END = 'a';  // one ending; kept as a field so a future A/B test can tag which ending a lead saw
+  const PROG = [10,22,34,46,54,62,72,82,88,93,96,98,100];   // one value per screen: starts endowed, bigger steps near the end
+
+  const COVER = {where:'n/wq-cover'};   // the photo a picture question opens on, before the visitor points at anything
+  Q.forEach(q => q.opts && q.opts.forEach(o => { const im = new Image(); im.src = `img/g/${o[2]}.jpg`; }));
+  const SCR = [['q',0],['q',1],['q',2],['q',3],['pause'],['q',4],['q',5],['ready'],['contact'],['found'],['plan'],['book'],['done']];
+  let n = 0;
+
+  let Z = 1;
+  function shot(name){   // show a photo already in the box; the newest sits on top so a crossfade never dips to dark
+    want = name; const box = $('#bg'), im = [...box.children].find(x => x.dataset.n === name); if (!im) return false;
+    if (!im.classList.contains('on')) { im.style.zIndex = ++Z; [...box.children].forEach(x => x.classList.toggle('on', x === im)); }
+    return true;
+  }
+  let want = '';   // the photo most recently asked for; a slower load never covers it
+  function bg(name){
+    const box = $('#bg'); box.classList.remove('quick'); want = name; if (shot(name)) return;
+    const img = new Image(); img.src = `img/g/${name}.jpg`; img.alt = ''; img.dataset.n = name;
+    img.onload = () => { if ([...box.children].some(x => x.dataset.n === name)) return; if (name !== want) { box.appendChild(img); return; }   // a later request won the race: keep this one preloaded but hidden
+      img.style.zIndex = ++Z; box.appendChild(img); requestAnimationFrame(() => requestAnimationFrame(() => [...box.children].forEach(x => x.classList.toggle('on', x === img)))); setTimeout(trim, 1500); };
+  }
+  function trim(){ const box = $('#bg'); if (box.classList.contains('quick')) return; [...box.children].filter(x => !x.classList.contains('on')).slice(0, -1).forEach(x => x.remove()); }
+  function stack(names, show){   // a picture question: every answer's photo waits in the box, preloaded, and swaps quickly
+    const box = $('#bg'); box.classList.add('quick');
+    [...names, show].forEach(nm => { if (![...box.children].some(x => x.dataset.n === nm)) { const im = new Image(); im.src = `img/g/${nm}.jpg`; im.alt = ''; im.dataset.n = nm; im.decoding = 'async'; box.appendChild(im); } });
+    shot(show);
+  }
+  const gdesc = g => ({elope: (st.type || 'wedding') === 'wedding' ? 'An elopement, just the two of you' : 'Just the two of you', intimate:'An intimate table', long:'One long table', grand:'A grand celebration'})[band(g)];
+  function progress(){
+    const p = PROG[Math.min(n, PROG.length - 1)];
+    const pg = $('#pg'), prev = parseFloat(pg.style.width) || 0; pg.style.width = p + '%'; $('#pl').textContent = '';
+    if (p > prev && prev > 0) { const pr = $('.prog2'); pr.classList.remove('tick'); void pr.offsetWidth; setTimeout(() => pr.classList.add('tick'), 900); }
+  }
+  function sentence(){
+    const w = st.where === 'Italy' ? 'somewhere in Italy' : st.where ? 'in ' + st.where : '';
+    const parts = [];
+    if (ans.has('type') || st.type) parts.push(OCC[st.type] || 'A celebration');
+    if (st.where) parts.push(' ' + w);
+    if (st.when && st.when !== 'unsure') parts.push(', in ' + WHEN[st.when].toLowerCase());
+    if (ans.has('guests')) parts.push(st.guests <= 2 ? ', for the two of you' : ', for ' + st.guests);
+    if (st.feel) parts.push(', ' + FEEL[st.feel]);
+    return parts;
+  }
+  function strip(){
+    const w = st.where === 'Italy' ? 'somewhere in Italy' : st.where ? 'in ' + st.where : '';
+    const parts = [];
+    if (ans.has('type') || st.type) parts.push(OCC[st.type] || 'A celebration');
+    if (st.where) parts.push(' ' + w);
+    if (st.when && st.when !== 'unsure') parts.push(', in ' + WHEN[st.when].toLowerCase());
+    if (ans.has('guests')) parts.push(st.guests <= 2 ? ', for the two of you' : ', for ' + st.guests);
+    if (st.feel) parts.push(', ' + FEEL[st.feel]);
+    const el = $('#strip'); el.innerHTML = ''; return;  // Mark: no running recap on question screens
+    if (TRAIL === 'line') {
+      el.className = 'strip trail';
+      const prev = el.dataset.n | 0;
+      el.innerHTML = parts.length ? `<span class="tl">Your plan so far</span><p>${parts.map((x, k) => `<span class="${k >= prev ? 'new' : ''}">${x}</span>`).join('')}</p>` : '';
+      el.dataset.n = parts.length;
+    } else {
+      el.className = 'strip pcard';
+      const rows = [['Occasion', st.type ? OCC[st.type] : ''], ['Place', st.where ? (st.where === 'Italy' ? 'To choose together' : st.where) : ''], ['Season', st.when ? WHEN[st.when] : ''], ['Guests', ans.has('guests') ? String(st.guests) : ''], ['Setting', st.feel ? FEEL[st.feel][0].toUpperCase() + FEEL[st.feel].slice(1) : '']];
+      el.innerHTML = `<p class="ct">Your plan</p>` + rows.map(([k, v]) => `<div class="${v ? 'on' : ''}"><small>${k}</small><b>${v || ''}</b></div>`).join('');
+    }
+  }
+  const CIMG = {'Lake Como':'n/wq-como', 'Ravello':'n/wq-ravello', 'Positano':'n/wq-positano', 'Capri':'n/wq-capri', 'Tuscany':'n/wq-tuscany', 'Florence':'wz-c-florence', 'Puglia':'wz-c-puglia', 'Italy':'wz-c-italy'};
+  const FOUND = [['friend','A friend or family'],['instagram','Instagram'],['google','Google'],['press','A magazine or blog'],['venue','A venue or supplier'],['other','Somewhere else']];
+  // Silent attribution, kept for the whole visit: UTM tags and referrer from the first page the visitor landed on.
+  const SRC = (() => {
+    let s = null; try { s = JSON.parse(sessionStorage.getItem('iep-src')); } catch (e) {}
+    if (!s) {
+      const u = new URLSearchParams(location.search), ref = document.referrer && !document.referrer.startsWith(location.origin) ? document.referrer : '';
+      s = {utm_source: u.get('utm_source') || '', utm_medium: u.get('utm_medium') || '', utm_campaign: u.get('utm_campaign') || '', utm_content: u.get('utm_content') || '', referrer: ref, landing: location.pathname, first_seen: new Date().toISOString()};
+      try { sessionStorage.setItem('iep-src', JSON.stringify(s)); } catch (e) {}
+    }
+    return s;
+  })();
+  // What a submitted enquiry carries (the prototype logs it; the live site would post it to the CRM).
+  function lead(){
+    return {submitted_at: new Date().toISOString(), type: st.type || 'wedding', place: st.where, season: st.when, guests: st.guests, setting: st.feel, budget: st.budget,
+      name: st.name, partner: st.partner || '', company: st.company || '', email: st.email || '', country: st.country, phone: st.tel ? st.dial + ' ' + st.tel : '', notes: st.notes || '',
+      found_answer: st.found || '', found_other: st.foundText || '', ...SRC, variant_end: END};
+  }
+  // Country picker and dialling code. Choosing a country sets the code; the code can still be changed on its own.
+  function countryPicker(){
+    const C = window.COUNTRIES, by = Object.fromEntries(C.map(c => [c.iso, c])), TOP = window.COUNTRY_TOP;
+    const reg = ((navigator.languages || [navigator.language]).map(l => (l.split('-')[1] || '').toUpperCase()).find(r => by[r])) || 'GB';
+    if (!st.country) st.country = reg; if (!st.dial) st.dial = by[st.country].dial;
+    const ci = $('#cci'), cl = $('#ccl'), pb = $('#ppb'), pp = $('#pp'), ps = $('#pps'), pl = $('#ppl');
+    ci.value = by[st.country].name; $('#ppv').textContent = st.dial;
+    const norm = x => x.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    const list = (q, dial) => {
+      q = norm(q.trim()); const d = q.replace(/^\+/, '');
+      const hit = c => !q || norm(c.name).startsWith(q) || norm(c.name).includes(' ' + q) || (dial && /^\d+$/.test(d) && c.dial.slice(1).startsWith(d));
+      const top = q ? [] : TOP.map(i => by[i]), rest = C.filter(c => hit(c) && (q || !TOP.includes(c.iso)));
+      return [top, rest];
+    };
+    const draw = (ul, q, dial, cur) => {
+      const [top, rest] = list(q, dial), li = c => `<li role="option" data-iso="${c.iso}" aria-selected="${c.iso === cur}"><span>${c.name}</span><em>${c.dial}</em></li>`;
+      ul.innerHTML = top.map(li).join('') + (top.length ? '<li class="gap" aria-hidden="true"></li>' : '') + rest.map(li).join('') || '<li class="none">No match</li>';
+      const a = ul.querySelector('[aria-selected="true"]') || ul.querySelector('[data-iso]'); ul.querySelectorAll('.act').forEach(x => x.classList.remove('act')); if (a) { a.classList.add('act'); if (!q) a.scrollIntoView({block:'nearest'}); }
+    };
+    const keys = (e, ul, pickFn, close) => {
+      const items = [...ul.querySelectorAll('[data-iso]')], k = items.findIndex(x => x.classList.contains('act'));
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); const nx = items[Math.max(0, Math.min(items.length - 1, k + (e.key === 'ArrowDown' ? 1 : -1)))]; if (nx) { items.forEach(x => x.classList.remove('act')); nx.classList.add('act'); nx.scrollIntoView({block:'nearest'}); } }
+      else if (e.key === 'Enter') { e.preventDefault(); if (items[k]) pickFn(items[k].dataset.iso); }
+      else if (e.key === 'Escape') close();
+    };
+    // country
+    const openC = o => { $('#cp').classList.toggle('open', o); ci.setAttribute('aria-expanded', o); };
+    const setC = iso => { st.country = iso; st.dial = by[iso].dial; ci.value = by[iso].name; $('#ppv').textContent = st.dial; pp.classList.remove('pulse'); void pp.offsetWidth; pp.classList.add('pulse'); openC(false); };
+    ci.onfocus = () => { ci.select(); draw(cl, '', false, st.country); openC(true); };
+    ci.oninput = () => { draw(cl, ci.value, false, ''); openC(true); };
+    ci.onkeydown = e => keys(e, cl, setC, () => { openC(false); ci.value = by[st.country].name; });
+    ci.onblur = () => setTimeout(() => { if (!$('#cp')) return; openC(false); const m = C.find(c => norm(c.name) === norm(ci.value.trim())); if (m) setC(m.iso); else ci.value = by[st.country].name; }, 160);
+    cl.onmousedown = e => { const li = e.target.closest('[data-iso]'); if (li) { e.preventDefault(); setC(li.dataset.iso); ci.blur(); } };
+    // dialling code
+    const openP = o => { pp.classList.toggle('open', o); pb.setAttribute('aria-expanded', o); if (o) { ps.value = ''; draw(pl, '', true, C.find(c => c.dial === st.dial && c.iso === st.country) ? st.country : (C.find(c => c.dial === st.dial) || {}).iso); setTimeout(() => ps.focus(), 30); } };
+    const setP = iso => { st.dial = by[iso].dial; $('#ppv').textContent = st.dial; openP(false); $('#tel').focus(); };
+    pb.onclick = () => openP(!pp.classList.contains('open'));
+    ps.oninput = () => draw(pl, ps.value, true, '');
+    ps.onkeydown = e => keys(e, pl, setP, () => { openP(false); pb.focus(); });
+    pl.onmousedown = e => { const li = e.target.closest('[data-iso]'); if (li) { e.preventDefault(); setP(li.dataset.iso); } };
+    document.addEventListener('mousedown', e => { if ($('#pp') && !pp.contains(e.target)) openP(false); });
+  }
+  function render(){
+    const [kind, i] = SCR[n]; let h = '';
+    const pause = kind === 'pause' || kind === 'ready'; wz.classList.toggle('sharp', pause); wz.classList.toggle('reply', pause); wz.classList.toggle('final', kind === 'done'); wz.classList.toggle('form', kind === 'contact'); wz.classList.toggle('end', kind === 'done'); const pickQ = kind === 'q' && !!Q[i].opts, textQ = kind === 'q' && !Q[i].opts && TXT === 'split', late = ['found','plan','book'].includes(kind), split = pause || pickQ || textQ || late; wz.classList.toggle('txt', textQ || late); wz.classList.toggle('late', late); wz.classList.toggle('split', split); wz.classList.toggle('pick', pickQ); document.body.classList.toggle('split-on', split);
+    document.body.classList.toggle('on-paper', split || kind === 'contact' || kind === 'done');
+    $('#back').style.visibility = n > 0 && kind !== 'done' ? 'visible' : 'hidden';
+    const ec = kind === 'q' && ECHO_ON ? echo(i) : '';   // Mark deleted the reply lines (16 Nov 20:25); ?echo=1 still shows them
+    if (kind === 'q') {
+      const q = Q[i];
+      h = (ec ? `<p class="echo">${ec}</p>` : n === 0 && resumable() ? `<button class="soft resume" id="resume">Continue the plan you started ${arrow}</button>` : '') + `<p class="ql">${q.k === 'when' && st.type && st.type !== 'wedding' ? 'When would you like to celebrate?' : q.q}</p>${q.s ? `<p class="qs">${q.s}</p>` : ''}`;
+      if (q.opts) h += `<div class="sq-opts n${opts(q).length}" role="group" aria-label="${q.q}">${opts(q).map(([v, l, img]) => `<button class="opt${q.k === 'where' && v !== 'Italy' ? ' pl' : ''}" data-v="${v}" data-img="${img}" aria-pressed="${st[q.k] === v}"><i class="th"><img src="img/g/${img}.jpg" alt="" loading="lazy"></i><span class="nm">${l}</span>${arrow}</button>`).join('')}</div>`;
+      else if (q.tiles) h += `<div class="tiles">${q.tiles.map(([v, l]) => `<button class="tile" data-v="${v}" aria-pressed="${st[q.k] === v}">${l}</button>`).join('')}</div>`;
+      else h += `<div class="gst"><button id="gm" aria-label="Fewer guests">−</button><output id="go">${st.guests}</output><button id="gp" aria-label="More guests">+</button></div><p class="gdesc" id="gd">${gdesc(st.guests)}</p><button class="go" id="gnext">Continue ${arrow}</button>`;
+    } else if (kind === 'pause') {
+      const r = guestPause(); bg(gimg(st.guests));
+      h = `<p class="rl">${r.line}</p>` + (r.body ? `<p class="rb">${r.body}</p>` : '') + (r.src ? `<p class="rs">${r.src}</p>` : '') + (r.quote ? `<blockquote class="pq rq"><p>${r.quote[0]}</p><cite>&mdash; ${r.quote[1].replace('&', '&amp;')}</cite></blockquote>` : '') + `<button class="go" data-next>Continue ${arrow}</button>`;
+    } else if (kind === 'ready') {
+      const w = st.where || 'Italy', place = ON[w] || 'in ' + w, t = st.type || 'wedding';
+      bg(CIMG[w] || pick.where || 'wz-c-italy');
+      const bits = [OCC[t] + ' ' + place, st.when && st.when !== 'unsure' ? 'in ' + WHEN[st.when].toLowerCase() : '', st.guests <= 2 ? 'for the two of you' : 'for ' + st.guests + ' guests', ({beach:'by the sea', lake:'on a lake', terrace:'on a terrace at sunset', stone:'in a castle or an old villa', garden:'in a garden under the trees'})[st.feel] || ''].filter(Boolean);
+      const sent = bits[0] + (bits.length > 1 ? ', ' + bits.slice(1).join(', ') : '') + '.';
+      h = `<p class="rl">Your plan is ready.</p><p class="rp">${sent}</p><p class="rb">${t === 'corporate' ? 'It holds the venues we would suggest and an estimate to start from.' : 'It holds the places we would suggest and an estimate to start from.'}</p><button class="go" data-next>Where shall we send it? ${arrow}</button>`;
+    } else if (kind === 'contact') {
+      const t = st.type || 'wedding', place = !st.where || st.where === 'Italy' ? 'Italy' : st.where;
+      const ph = CIMG[st.where || 'Italy'] || 'wz-c-italy';
+      const card = [OCC[t] + (st.when && st.when !== 'unsure' ? ' in ' + WHEN[st.when].toLowerCase() : ''), st.guests <= 2 ? 'Just the two of you' : st.guests + ' guests', FEEL[st.feel] ? FEEL[st.feel][0].toUpperCase() + FEEL[st.feel].slice(1) : ''].filter(Boolean);
+      const second = {wedding:['Your partner\u2019s name', '', 'pn'], private:['Your partner\u2019s name (optional)', '', 'pn'], corporate:['Your company', '', 'co']}[t];
+      const v = k => (st[k] || '').replace(/"/g, '&quot;');
+      h = `<div class="cf2"><div class="cf-l2"><figure class="cf-ph"><div class="cf-im"><img src="img/g/${ph}.jpg" alt=""></div></figure>
+          <div class="cf-sum2"><p class="cc-place">${place}</p>${card.map(x => `<p>${x}</p>`).join('')}</div></div>
+        <div class="cf-f"><p class="ql">Where shall we send your plan?</p>
+        <div class="cf-r">
+          <label class="${second ? '' : 'wide'}"><span>Your name</span><input id="nm" autocomplete="given-name" value="${v('name')}"></label>
+          ${second ? `<label><span>${second[0]}</span><input id="${second[2]}" autocomplete="${second[2] === 'co' ? 'organization' : 'off'}" placeholder="${second[1]}" value="${v(second[2] === 'co' ? 'company' : 'partner')}"></label>` : ''}
+          <label class="wide"><span>Email address</span><input type="email" id="em" autocomplete="email"></label>
+          <div class="fld"><span id="ccl-l">Your country</span><div class="cp" id="cp"><input id="cci" role="combobox" aria-labelledby="ccl-l" aria-expanded="false" aria-controls="ccl" aria-autocomplete="list" autocomplete="off" spellcheck="false"><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg><ul class="cp-l" id="ccl" role="listbox"></ul></div></div>
+          <div class="fld"><span id="tel-l">Phone number</span><div class="tel"><div class="cp pp" id="pp"><button type="button" id="ppb" aria-haspopup="listbox" aria-expanded="false" aria-label="Country dialling code"><b id="ppv">+44</b><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button><div class="cp-pop" id="ppp"><input id="pps" placeholder="Country or code" autocomplete="off" spellcheck="false" aria-label="Search dialling codes"><ul class="cp-l" id="ppl" role="listbox"></ul></div></div><input type="tel" id="tel" autocomplete="tel-national" aria-labelledby="tel-l"></div></div>
+          <label class="wide"><span>Anything we should know? (optional)</span><textarea rows="1" id="nt"></textarea></label>
+          <button class="go" data-next>Send me my plan ${arrow}</button></div></div></div>`;
+    } else if (kind === 'found') {
+      bg('w-coast');
+      h = `<p class="ql fnd-q">How did you find us?</p>
+        <div class="tiles fnd">${FOUND.map(([k, l]) => `<button class="tile" data-f="${k}" aria-pressed="${st.found === k}">${l}</button>`).join('')}</div>
+        <div class="fnd-o"${st.found === 'other' ? '' : ' hidden'}><input id="fot" placeholder="Tell us where" value="${(st.foundText || '').replace(/"/g, '&quot;')}" aria-label="Where you found us"><button class="go" id="fgo">Continue ${arrow}</button></div>
+        <button class="soft" data-fskip>Skip this</button>`;
+    } else if (kind === 'plan') {
+      const w = st.where || 'Italy', im = moodboard(), d = DAYS[st.type || 'wedding'];
+      const r = {'Lake Como':1.3,'Ravello':1.35,'Positano':1.35,'Tuscany':1,'Sorrento':1.15,'Rome':1.1,'Sardinia':1.05}[w] || 1.05;
+      const per = {wedding:520, corporate:380, private:330, other:350}[st.type || 'wedding'];
+      const mid = per * st.guests * r * (st.when === 'summer' ? 1.12 : 1), k = v => '€' + Math.round(v / 1000) + 'k';
+      const lines = [st.guests <= 2 ? 'Aperitivo and a quiet dinner for two, the night before.' : `Aperitivo and a long dinner for ${st.guests}, the night before.`, 'The ceremony before sunset, then dinner and dancing until late.', 'A slow morning before everyone flies home.'];
+      const pim = [im[0], CIMG[st.where] || im[1], im[2]];   // Saturday shows the place the visitor chose
+      const sum = [WHEN[st.when] && st.when !== 'unsure' ? WHEN[st.when] : '', st.guests <= 2 ? 'just the two of you' : st.guests + ' guests', FEEL[st.feel] || ''].filter(Boolean).join(', ');
+      h = `<p class="ql">${{corporate:'Your three days', private:'Your weekend', other:'Your weekend', wedding:'Your wedding weekend'}[st.type || 'wedding']} in ${w === 'Italy' ? 'Italy' : w}</p><p class="qs">${sum[0].toUpperCase() + sum.slice(1)}.</p>
+        <div class="pdays">${d.map(([day, t], x) => `<div class="pday" data-img="${pim[x]}"><h4>${day}</h4><p><b>${t}.</b> ${lines[x]}</p></div>`).join('')}</div>
+        <p class="est3">First estimate <b>${k(mid * .85)} to ${k(mid * 1.15)}</b></p><button class="go" data-next>Plan it with us ${arrow}</button>`;
+      window.__pim = pim;
+    } else if (kind === 'book') {
+      bg('ilaria');
+      const days = []; for (let t = new Date(), k = 0; days.length < 3 && k < 10; k++) { t = new Date(t.getTime() + 864e5); if (t.getDay() % 6) days.push(t); }   // the next three weekdays
+      const DN = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'], ymd = t => t.getFullYear() + String(t.getMonth() + 1).padStart(2, '0') + String(t.getDate()).padStart(2, '0');
+      const sl = [[0,'10:00'],[0,'16:30'],[1,'11:00'],[1,'15:00'],[2,'09:30'],[2,'12:00']].map(([x, h]) => [DN[days[x].getDay()] + ' ' + days[x].getDate(), h, ymd(days[x]) + 'T' + h.replace(':', '') + '00']);
+      h = `<p class="ql">Would you like a call with Ilaria?</p><div class="who"><div><b>Ilaria Guarino</b><span>Founder, Italian Event Planners</span></div></div>
+        <div class="slots2">${sl.map(([d, t, iso]) => `<button class="tile" data-slot="${d} at ${t}" data-when="${iso}" aria-pressed="${st.slot === d + ' at ' + t}"><small>${d}</small>${t}</button>`).join('')}</div>
+        <p class="qs">Half an hour on video. All times are Rome time.</p><div class="bk"><button class="go" data-next id="cfm"${st.slot ? '' : ' disabled'}>Confirm my call ${arrow}</button><button class="soft" data-skip>Not yet, just send my plan</button></div>`;
+    } else {
+      const img = ENDIMG[st.type || 'wedding'], where = !st.where || st.where === 'Italy' ? 'Italy' : st.where;
+      bg(img);
+      const who = st.type === 'corporate' && st.company ? st.company : st.name && st.partner ? st.name + ' &amp; ' + st.partner : st.name ? st.name.replace(/\s+(and|&)\s+/i, ' &amp; ') : ({wedding:'Your wedding', private:'Your celebration', corporate:'Your gathering', other:'Your celebration'})[st.type || 'wedding'];
+      const season = st.when && st.when !== 'unsure' ? ', in ' + WHEN[st.when].toLowerCase() : '';
+      const lines = [where + season, (st.guests <= 2 ? 'Just the two of you' : st.guests + ' guests, ' + gdesc(st.guests).replace(/^./, c => c.toLowerCase())), FEEL[st.feel] ? FEEL[st.feel][0].toUpperCase() + FEEL[st.feel].slice(1) : 'The setting, still to choose'];
+      const call = st.slot ? `A call with Ilaria, ${st.slot}` : '';
+      const after = st.slot ? 'Your plan arrives by email today. After the call we send the first venues.' : 'Your plan arrives by email today. Whenever you are ready, we can talk it through.';
+      const acts = `<div class="k-act"><button class="go" id="keep">Keep this ${arrow}</button>${st.slot ? '<button class="soft" id="ics">Add the call to my calendar</button>' : '<button class="soft" id="rebook">Book a call with Ilaria</button>'}</div>`;
+      const text = `<p class="k-who">${who}</p><p class="k-place">${lines[0]}</p><p class="k-l">${lines[1]}</p><p class="k-l">${lines[2]}</p>${call ? `<p class="k-l k-call">${call}</p>` : ''}<p class="k-note">${after}</p>${acts}`;
+      h = `<div class="keep"><figure class="k-door"><img src="img/g/${img}.jpg" alt=""></figure><div class="k-text">${text}</div></div>`;
+    }
+    stage.innerHTML = `<div class="scr">${h}</div>`;
+    progress(); strip();
+    if (textQ && Q[i].k !== 'guests') bg(CIMG[st.where] || COVER.where);
+    if (kind === 'plan') {   // the photo follows the day under the pointer; Saturday (the place) by default
+      const pim = window.__pim; stack(pim, pim[1]);
+      let hv; stage.querySelectorAll('.pday').forEach(el => { el.addEventListener('pointerenter', () => { clearTimeout(hv); hv = setTimeout(() => shot(el.dataset.img), 70); }); });
+      stage.querySelector('.pdays').addEventListener('pointerleave', () => { clearTimeout(hv); hv = setTimeout(() => shot(pim[1]), 120); });
+    }   // the place the visitor chose stays in view while the details are filled in
+    if (pickQ) {
+      const q = Q[i], os = opts(q), cur = os.find(o => o[0] === st[q.k]);
+      stack(os.map(o => o[2]), cur ? cur[2] : (COVER[q.k] || os[0][2]));
+      if (TAKE === 'a' && matchMedia('(max-width:900px)').matches) {   // phone: the pinned photo follows the row the visitor scrolls to, so every place shows its picture without hover
+        const rows = [...stage.querySelectorAll('.opt')], follow = () => { if (!$('#bg').classList.contains('quick')) return; const mx = Math.max(1, document.documentElement.scrollHeight - innerHeight), y = innerHeight * (.6 + .32 * Math.min(1, scrollY / mx)); let best = rows[0], d = 1e9; rows.forEach(r => { const b = r.getBoundingClientRect(), k = Math.abs(b.top + b.height / 2 - y); if (k < d) { d = k; best = r; } }); shot(best.dataset.img); };
+        removeEventListener('scroll', window.__follow || (() => {})); window.__follow = follow; addEventListener('scroll', follow, {passive:true});
+      }
+      let hv; stage.querySelectorAll('.opt').forEach(b => { const s = d => { clearTimeout(hv); hv = setTimeout(() => { if ($('#bg').classList.contains('quick')) shot(b.dataset.img); }, d); }; b.addEventListener('pointerenter', () => s(70)); b.addEventListener('focus', () => s(0)); });
+    }
+    if ($('#keep')) $('#keep').onclick = () => print();
+    if ($('#rebook')) $('#rebook').onclick = () => go(SCR.findIndex(x => x[0] === 'book'));
+    if ($('#ics')) $('#ics').onclick = () => {
+      const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//IEP//Plan//EN','BEGIN:VEVENT','UID:' + Date.now() + '@iep','SUMMARY:Video call with Ilaria, Italian Event Planners','DESCRIPTION:' + sentence().join(''),'DTSTART;TZID=Europe/Rome:' + (st.slotIso || ''),'DURATION:PT30M','END:VEVENT','END:VCALENDAR'].join('\r\n');
+      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([ics], {type:'text/calendar'})); a.download = 'call-with-ilaria.ics'; a.click();
+    };
+    const q = Q[i];
+    stage.querySelectorAll('.opt,.tile[data-v]').forEach(b => b.onclick = () => {
+      st[q.k] = b.dataset.v; ans.add(q.k); if (b.dataset.img) pick[q.k] = b.dataset.img;
+      stage.querySelectorAll('.opt,.tile').forEach(x => x.setAttribute('aria-pressed', x === b));
+      strip(); if (b.dataset.img) { shot(b.dataset.img); $('#bg').classList.remove('quick'); }
+      setTimeout(() => go(n + 1), b.dataset.img && matchMedia('(hover:none)').matches ? 420 : 300);   // the choice registers, then the flow moves on
+    });
+    stage.querySelectorAll('[data-slot]').forEach(b => b.onclick = () => { st.slot = b.dataset.slot; st.slotIso = b.dataset.when; if ($('#cfm')) $('#cfm').disabled = false; stage.querySelectorAll('[data-slot]').forEach(x => x.setAttribute('aria-pressed', x === b)); });
+    stage.querySelectorAll('[data-next]').forEach(b => b.onclick = () => { if ($('#nm')) { st.name = $('#nm').value.trim(); st.partner = $('#pn') ? $('#pn').value.trim() : ''; st.company = $('#co') ? $('#co').value.trim() : ''; st.email = $('#em').value.trim(); st.tel = $('#tel').value.trim(); st.notes = $('#nt').value.trim(); } go(n + 1); });
+    if ($('#cp')) countryPicker();
+    const fdone = () => { window.IEP_LEAD = lead(); console.log('[IEP lead]', window.IEP_LEAD); go(n + 1); };
+    stage.querySelectorAll('[data-f]').forEach(b => b.onclick = () => {
+      st.found = b.dataset.f; stage.querySelectorAll('[data-f]').forEach(x => x.setAttribute('aria-pressed', x === b));
+      if (st.found === 'other') { $('.fnd-o').hidden = false; setTimeout(() => $('#fot').focus(), 50); } else { $('.fnd-o').hidden = true; setTimeout(fdone, 550); }
+    });
+    if ($('#fgo')) $('#fgo').onclick = () => { st.foundText = $('#fot').value.trim(); fdone(); };
+    if ($('#fot')) $('#fot').onkeydown = e => { if (e.key === 'Enter') $('#fgo').click(); };
+    stage.querySelectorAll('[data-fskip]').forEach(b => b.onclick = () => { st.found = st.found || ''; fdone(); });
+    stage.querySelectorAll('[data-skip]').forEach(b => b.onclick = () => { st.slot = null; st.skipped = true; go(n + 1); });
+    if ($('#gm')) {
+      const S = GSTEPS(); if (!S.includes(st.guests)) st.guests = S.reduce((a, b) => Math.abs(b - st.guests) < Math.abs(a - st.guests) ? b : a);
+      bg(gimg(st.guests));
+      const set = v => { st.guests = v; $('#go').textContent = v; $('#gd').textContent = gdesc(v); $('.gst').classList.toggle('elope', v <= 2); bg(gimg(v)); };
+      set(st.guests);
+      $('#gm').onclick = () => set(S[Math.max(0, S.indexOf(st.guests) - 1)]); $('#gp').onclick = () => set(S[Math.min(S.length - 1, S.indexOf(st.guests) + 1)]);
+      $('#gnext').onclick = () => { pick.guests = gimg(st.guests); ans.add('guests'); go(n + 1); };
+    }
+    if ($('#resume')) $('#resume').onclick = () => { const d = saved(); Object.assign(st, d.st); Object.assign(pick, d.pick); d.ans.forEach(a => ans.add(a)); go(d.n); };
+  }
+  // Corporate is a shorter flow (coordinator spec, 16 Nov): no guest pause and no setting question, which are written for couples.
+  // The guest pause now appears only for a large wedding, where a client's own words about logistics earn the stop (Mark deleted the explainer paragraphs, 16 Nov 20:25).
+  const pauseOn = () => (st.type || 'wedding') === 'wedding' && band(st.guests) === 'grand';
+  const skip = k => SCR[k] && ((SCR[k][0] === 'q' && pre.has(SCR[k][1])) || (SCR[k][0] === 'pause' && !pauseOn()) || (st.type === 'corporate' && SCR[k][0] === 'q' && Q[SCR[k][1]].k === 'feel'));
+  function go(k){ const d = k > n ? 1 : -1; while (skip(k)) k += d; n = Math.max(0, Math.min(SCR.length - 1, k)); render(); scrollTo(0, 0); save(); }
+  // Resilience: answers persist in this browser; coming back offers to continue.
+  const KEY = 'iep-plan';
+  function save(){ try { if (n > 0) localStorage.setItem(KEY, JSON.stringify({st, pick, ans:[...ans], n, at:Date.now()})); } catch (e) {} }
+  function saved(){ try { return JSON.parse(localStorage.getItem(KEY)); } catch (e) { return null; } }
+  function resumable(){ const d = saved(); return !!(d && d.n > 0 && d.n < SCR.length - 1 && !ans.size); }
+  $('#back').onclick = () => go(n - 1);
+  // answers given on Home (?type=wedding&where=Positano&when=May&feel=stone) are filled in and their questions skipped
+  const P = new URLSearchParams(location.search), pre = new Set();
+  Q.forEach((q, i) => { const o = q.opts && q.opts.find(o => o[0] === P.get(q.k)); if (o) { st[q.k] = o[0]; pick[q.k] = o[2]; pre.add(i); ans.add(q.k); } else if (q.k === 'where' && P.get('where')) { st.where = P.get('where'); pre.add(i); ans.add('where'); } });
+  go(pre.has(0) ? 1 : 0);
+  window.__plan = {go, st, pick, SCR};
+})();
+</script>
+</body>
+</html>

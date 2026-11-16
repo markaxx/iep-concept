@@ -1,0 +1,39 @@
+// Capri story as beats. Text from /mnt/project-files/stories/capri-story-beats.md (approved).
+// q: true marks the couple's real review words (verbatim, never edit).
+window.BEATS = {
+  title: 'Twelve boats to Capri',
+  line: 'A New York couple, a grandmother from Chios, and a wedding weekend from Capri to Positano.',
+  cover: 'hero',
+  coverAlt: 'Christina and David above Positano',
+  ledeImg: 'n/hands-bouquet',
+  byline: 'Christina and David · Capri, then Positano · September',
+  next: {href: 'story-sardinia.html', cover: 'd-sardinia', title: 'Four buses to San Pantaleo'},
+  lede: 'We met Christina and David once, over coffee on Capri, a year before their wedding. Everything after that we planned together by phone, with them in New York.',
+  beats: [
+    {t:'split', ch:'Coffee on Capri', imgs:['ilaria','serena'], p:['They sat down with Ilaria and Serena in the Piazzetta at four, meaning to stay an hour, and were still there at seven.', 'Before anyone mentioned money, Serena asked who mattered most to Christina at the wedding. Christina started talking about her grandmother.']},
+    {t:'overlay', img:'n/gingham-hands', side:'r', p:['Eleni is eighty-six, a fisherman\'s daughter from the Greek island of Chios, and she walks with a cane. She had not seen the Mediterranean since 1987.', 'Capri and Positano are built on steep hillsides, and Christina was afraid her grandmother would spend the weekend being helped up steps in front of a hundred guests.', 'At the top of her notebook, above the budget, Ilaria wrote four words: Eleni, 86, Chios, cane. Then Serena asked whether Eleni liked to sit facing the sea or facing the people. Christina did not know.']},
+    {t:'quote', img:'n/tulle-hands', q:true, text:'From the moment we met, we instantly felt a connection.', by:'Christina and David'},
+    {t:'split', ch:'Planning from New York', imgs:['n/flowers-arranging'], side:'l', p:['They could not come back to Italy before the wedding. They planned it <q class="real">in spite of the 6-hour time difference between Italy and New York,</q> on calls Christina took on a bench at lunch.', 'On one of them Ilaria stood by an open window, and Christina could hear the boats in the harbour.']},
+    {t:'quote', img:'n/bouquet-trim', side:'l', q:true, small:true, text:'We entrusted them to make some of the most difficult decisions on our behalf as we weren\'t able to travel back to Italy after our initial meeting and our availability was often limited throughout the process.', by:'Christina and David'},
+    {t:'split', imgs:['n/lemon-steps'], side:'l', p:['Serena walked three terraces in Positano the way Eleni would have to, from the beach to the table to the nearest bathroom, and counted every step. They chose the one with eleven.']},
+    {t:'phone', img:'n/terrace-table', from:'Ilaria', time:'Tue 18:12', msg:'Your grandmother will be fine here.', p:'Ilaria sent this under a photograph of the terrace. Christina printed the photograph and put it on her fridge.'},
+    {t:'bleedmsg', ch:'Twelve boats', img:'n/capri-dawn', from:'Ilaria', time:'06:04', msg:'Good morning. The sea is a bit choppy, so take your time over breakfast. We\'re moving the boats to eleven.', p:'At six on the morning of the boat tour, a north wind had come up and the harbour was choppy. Ilaria moved the start to eleven and turned the route towards the sheltered south side of the island.'},
+    {t:'split', imgs:['n/gozzo','n/hand-letter'], side:'r', p:['Of the twelve boats, Ilaria put Eleni on the <i>Concetta</i>, a wooden boat skippered by Tonino. He has taken visitors around Capri since he was fourteen, and he is the steadiest skipper she knows.', 'Before they set off, Eleni showed Tonino an old photograph of her father\'s fishing boat on Chios. Ilaria had folded a wool blanket on her seat.']},
+    {t:'overlay', img:'n/capri-faraglioni', side:'l', p:['Eleni speaks no Italian and Tonino very little English, so they talked about fish. He said <i>palamita</i>, and she said <i>palamida</i>, the Greek word for the same fish, and they both laughed.', 'At the Faraglioni the boats went through the arch one at a time with the engines off, and every couple kissed underneath it.']},
+    {t:'quote', text:'She hasn\'t been on a boat since she was a girl on Chios. And today she drove one around Capri.', by:'Christina', after:'On the way back, Tonino gave Eleni the tiller for two minutes.'},
+    {t:'bleed', ch:'The wedding in Positano', img:'c/positano-town', p:'Seeing Positano from the boat, Eleni said something in Greek, which Christina translated later.'},
+    {t:'big', img:'c/positano-hill', text:'Who built this city, a goat?!', by:'Eleni'},
+    {t:'split', imgs:['n/lane-steps','n/bench-pergola'], side:'l', p:['Serena walked beside Eleni up the lane from the beach, at her pace. The day before, she had set three benches in the shade along the way, and they rested on each one.', 'At the top of the eleven steps a chair was waiting in the shade.']},
+    {t:'overlay', img:'n/veil-hand', side:'r', p:['As Christina walked out, she looked for her grandmother first. Eleni was in the front row with her hands folded, and for the first time all weekend Christina stopped thinking about stairs.', 'David lost his place halfway through his vows, and Christina said the rest of his line with him.']},
+    {t:'bleedquote', img:'n/candelabra-tables', q:true, text:'From imperial tables, to balloons to candelabras, no detail went unaddressed.', by:'Christina and David'},
+    {t:'five', img:'n/almonds', p:['Italians call them <i>confetti</i>. Greeks call them <i>koufeta</i>, and always give an odd number, so they cannot be divided, like the couple.']},
+    {t:'card', img:'n/table-glass', greek:'Καλώς ήρθες', en:'Welcome', p:'The card was on Eleni\'s plate. Her chair was turned towards the sea, because Serena had watched her on the quay and seen that she always sat facing the water. From there Eleni could see the water and her family at once.'},
+    {t:'split', imgs:['n/collarbone'], side:'r', p:['Eleni gave the last toast without her cane. She said the two words Greek grandparents say at every wedding, <i>Na zisete</i>: may you live long together.', 'Christina, who had not cried at the ceremony, cried then.']},
+    {t:'bleed', ch:'The last boat home', img:'n/lights-night|50% 70%', p:'On the last night, a party at a beach club along the coast. The couple wrote that each event was <q class="real">better than the one before it.</q>'},
+    {t:'split', imgs:['n/boat-night|50% 72%','n/boat-night|50% 72%','n/boat-moon'], side:'r', p:['At half past one Christina found Eleni at the end of the jetty with a blanket over her knees, and the <i>Concetta</i> beside her.', 'A week earlier, Ilaria had asked Tonino to bring his boat over from Capri to take them home. She had kept it quiet in case the sea was too rough. It was calm.', 'They rode back with Tonino at the tiller, Eleni asleep against Christina\'s shoulder.']},
+    {t:'quote', img:'n/beach-dusk', side:'l', q:true, text:'They also didn\'t leave until the last of our guests left.', by:'Christina and David', after:'Ilaria and Serena left the jetty a little after three.'},
+    {t:'closing', imgs:['ilaria','serena'], q:true, text:'More than anything, the IEP team feels like family to us.', by:'Christina and David'}
+  ],
+  facts: [['Couple','Christina and David'],['From','New York'],['Where','Capri, then Positano'],['Events','Welcome dinner, boat tour of Capri, wedding, beach club party'],['Boats','12 gozzi'],['Planning trips','One']],
+  note: 'Christina and David\'s words in quotation marks come from the review they wrote us. The other people, what they say and the smaller moments are our retelling.'
+};

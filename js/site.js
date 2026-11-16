@@ -1,0 +1,121 @@
+(() => {
+  if (location.search.includes('shot')) document.documentElement.classList.add('shot');
+  if (!document.querySelector('meta[name=robots]')) document.head.insertAdjacentHTML('beforeend', '<meta name="robots" content="noindex">');   // student concept: keep it out of search results
+  const $ = (s, el = document) => el.querySelector(s), $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const page = $('.page');
+  const dark = document.body.dataset.bar === 'dark';
+  const waves = '<svg viewBox="0 0 26 26"><path d="M2 10c3-3 5-3 8 0s5 3 8 0 5-3 6-1M2 16c3-3 5-3 8 0s5 3 8 0 5-3 6-1"/></svg>';
+  const arrow = '<svg viewBox="0 0 26 26"><path d="M3 13h19M15 6l7 7-7 7"/></svg>';
+
+  page.insertAdjacentHTML('afterbegin', `
+  <div class="bar${dark ? ' dark' : ''}">
+    <div><button class="pill pill-glass mbtn" data-menu aria-label="Menu">${waves}<span class="mt">Menu</span></button></div>
+    <a class="logo" href="home-v3.html"><img class="lw" src="brand/logo-white.svg" alt="Italian Event Planners"><img class="lk" src="brand/logo-brand.svg" alt=""></a>
+    <div class="right"><span class="lang" aria-label="Language"><a href="#" aria-current="true">EN</a><a href="#">IT</a><a href="#">DE</a><a href="#">FR</a></span><a class="pill pill-glass" href="plan.html">Plan ${arrow}</a></div>
+  </div>`);
+
+  document.body.insertAdjacentHTML('beforeend', `
+  <div class="menu" aria-hidden="true">
+    <button class="pill pill-line close" data-menu>Close</button>
+    <nav>
+      <a href="home-v3.html">Home</a><a href="weddings-v3.html">Weddings</a><a href="events-v3.html">Corporate</a>
+      <a href="events-v3.html#private">Private celebrations</a><a href="destinations-v3.html">Destinations</a>
+      <a href="about-v3.html">About us</a><a href="journal-v3.html">Journal</a><a href="contact.html">Contact</a><a href="plan.html">Start planning</a>
+      <div class="m-foot"><span class="m-lang" aria-label="Language"><a href="#" aria-current="true">EN</a><a href="#">IT</a><a href="#">DE</a><a href="#">FR</a></span><span>+39 346 688 2388</span><span>Instagram</span><span>Client login</span></div>
+    </nav>
+    <div class="m-img"><img src="img/menu.jpg" alt=""></div>
+  </div>
+  <a class="wa" href="https://wa.me/393466882388" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.2z"/></svg></a>`);
+
+  page.insertAdjacentHTML('beforeend', `
+  <footer>
+    <div class="wrap">
+      <div class="f-top">
+        <div><a class="logo" href="home-v3.html"><img src="brand/logo-white.svg" alt="Italian Event Planners"></a>
+          <p style="margin-top:22px;max-width:30ch;color:#BFB09B;font-size:16px">Weddings, corporate events and private celebrations across Italy since 2009.</p></div>
+        <div><h5>Celebrate</h5><a href="weddings-v3.html">Weddings</a><a href="events-v3.html">Corporate events</a><a href="events-v3.html#private">Private celebrations</a><a href="destinations-v3.html">Destinations</a></div>
+        <div><h5>Studio</h5><a href="about-v3.html">About us</a><a href="journal-v3.html">Journal</a><a href="home-v3.html#stories">Kind words</a><a href="#">Client login</a></div>
+        <div><h5>Say hello</h5><a href="contact.html">Contact</a><a href="tel:+393466882388">+39 346 688 2388</a><a href="https://wa.me/393466882388">WhatsApp</a><a href="https://instagram.com/italianeventplanners">Instagram</a><a href="https://facebook.com/italianeventplanners">Facebook</a></div>
+      </div>
+      
+      <div class="f-bot"><span>© 2026 Italian Event Planners Srl</span></div>
+    </div>
+  </footer>`);
+
+  const menu = $('.menu');
+  $$('[data-menu]').forEach(b => b.addEventListener('click', () => {
+    menu.classList.toggle('open'); menu.setAttribute('aria-hidden', !menu.classList.contains('open'));
+  }));
+  addEventListener('keydown', e => { if (e.key === 'Escape') menu.classList.remove('open'); });
+
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold: .12});
+  $$('.reveal').forEach(el => io.observe(el));
+  if (location.search.includes('shot')) $$('.reveal').forEach(el => el.classList.add('in'));
+
+  $$('.q-slider').forEach(sl => {
+    const qs = $$('.q', sl); let i = 0;
+    const img = $('.tp img', sl), cnt = $('.q-count', sl);
+    const show = n => { i = (n + qs.length) % qs.length; qs.forEach((q, k) => q.classList.toggle('on', k === i)); if (img && qs[i].dataset.img) img.src = qs[i].dataset.img; if (cnt) cnt.textContent = `0${i+1} / 0${qs.length}`; };
+    $('[data-prev]', sl)?.addEventListener('click', () => show(i - 1));
+    $('[data-next]', sl)?.addEventListener('click', () => show(i + 1));
+    show(0);
+  });
+
+  $$('.choice').forEach(g => $$('button', g).forEach(b => b.addEventListener('click', () => {
+    $$('button', g).forEach(x => x.setAttribute('aria-pressed', x === b));
+    if (b.dataset.go) setTimeout(() => location.href = b.dataset.go, 350);
+  })));
+})();
+(() => { if (!document.body.classList.contains('home')) return;
+  const f = () => document.body.classList.toggle('past-hero', scrollY > innerHeight * .8); addEventListener('scroll', f, {passive:true}); f(); })();
+(() => { const hs = document.querySelectorAll('h2.flair'); if (!hs.length) return;
+  if (location.search.includes('shot') || matchMedia('(prefers-reduced-motion: reduce)').matches) { hs.forEach(h => h.classList.add('written')); return; }
+  const o = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('writing'); o.unobserve(e.target); } }), {threshold: .6}); hs.forEach(h => o.observe(h)); })();
+
+/* Hover arrow (Mark, 16 Nov): the Stripe-style arrow from his IBTrack and Timmark projects.
+   At rest a small chevron; on hover or keyboard focus a stem fades in and the arrow slides
+   forward. Every right or left arrow icon on the site is upgraded to it automatically,
+   including ones added later (the wizard re-renders). The header Plan button is left alone. */
+(() => {
+  const RIGHT = /^M\d+ \d+h\d+M\d+ 6l\d \d-\d \d$/, LEFT = /^M\d+ \d+H\d+M\d+ 6l-\d \d \d \d$/;
+  // Geometry follows Mark's HoverArrow (IBTrack, then timmark): the chevron is 1.06x the label's x-height tall,
+  // its stroke 1.05x the label's stem, mitred at 45 degrees, and it sits on the text baseline like a letter.
+  // Jost, measured in the browser: x-height 0.469em; stem 0.052em (300), 0.080em (400), 0.109em (500);
+  // ascent 1.07em, descent 0.375em. The arrow is only for geometric labels (Jost); next to any other face it is not used.
+  const XH = .469, STEM = {300: .052, 400: .08, 500: .109}, BASE = (1.07 - .375) / 2, U = 100;   // U viewBox units per em
+  const r = v => Math.round(v * 1000) / 1000;
+  let n = 0;
+  function geo(fs, wt){
+    const k = U / fs, travel = fs >= 14 ? 5 : 4;                       // travel in px, as in the original
+    const h = 1.06 * XH * U, w = 1.05 * (STEM[wt] || STEM[400]) * U;
+    const d = w / Math.SQRT2, o = d / 2, half = (h - d) / 2, vx = o + half, vy = o + half, tip = vx + d, notch = vx - d, t = travel * k;
+    return {h, tip, travel, svg: id => `<defs><clipPath id="${id}"><rect x="0" y="${r(-k)}" width="${r(tip + t + k)}" height="${r(h + 2 * k)}"/></clipPath></defs>`
+      + `<g clip-path="url(#${id})"><g class="ha-mv"><rect class="ha-bar" x="${r(-t - 2 * k)}" y="${r(vy - w / 2)}" width="${r(notch + t + 2 * k)}" height="${r(w)}"/>`
+      + `<path d="M${r(o)} ${r(o)} ${r(vx)} ${r(vy)} ${r(o)} ${r(o + 2 * half)}" stroke="currentColor" stroke-width="${r(w)}" stroke-linecap="butt" stroke-linejoin="miter" fill="none"/></g></g>`};
+  }
+  function upgrade(root){
+    (root.querySelectorAll ? root.querySelectorAll('svg') : []).forEach(s => {
+      if (s.classList.contains('ha')) return;
+      const p = s.querySelector('path'); if (!p || s.querySelectorAll('path').length !== 1) return;
+      const d = (p.getAttribute('d') || '').trim(), right = RIGHT.test(d), left = !right && LEFT.test(d);
+      if (!right && !left) return;
+      if (s.closest('.bar') && s.closest('a[href$="plan.html"]')) return;   // the main Plan CTA keeps its own treatment
+      const host = s.closest('a,button,[role=button],.go,.link,label') || s.parentNode, cs = getComputedStyle(host);
+      if (!/^\s*"?Jost/i.test(cs.fontFamily)) return;                     // geometric labels only
+      const fs = parseFloat(cs.fontSize) || 16, wt = Math.min(500, Math.max(300, Math.round((parseInt(cs.fontWeight) || 400) / 100) * 100));
+      const g = geo(fs, wt), par = getComputedStyle(s.parentNode);
+      // In a centred flex row the text's baseline sits (ascent - descent) / 2 below the row's centre; drop the arrow's foot onto it.
+      const centred = /flex/.test(par.display) && /center/.test(getComputedStyle(s).alignSelf === 'auto' ? par.alignItems : getComputedStyle(s).alignSelf);
+      s.setAttribute('viewBox', `0 0 ${r(g.tip)} ${r(g.h)}`); s.setAttribute('aria-hidden', 'true'); s.setAttribute('focusable', 'false');
+      s.removeAttribute('width'); s.removeAttribute('height');
+      s.style.setProperty('--ha-w', r(g.tip / U) + 'em'); s.style.setProperty('--ha-h', r(g.h / U) + 'em');
+      s.style.setProperty('--ha-y', centred ? r(BASE - g.h / U / 2) + 'em' : '0em'); s.style.setProperty('--ha-t', g.travel + 'px');
+      s.classList.add('ha'); if (left) s.classList.add('ha-left');
+      s.innerHTML = g.svg('ha' + (++n));
+      host.classList.add('ha-host');
+    });
+  }
+  upgrade(document);
+  new MutationObserver(ms => ms.forEach(m => m.addedNodes.forEach(x => { if (x.nodeType === 1) { if (x.tagName === 'svg') upgrade(x.parentNode); else upgrade(x); } })))
+    .observe(document.body, {childList: true, subtree: true});
+})();

@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Italian Event Planners</title>
+<meta name="description" content="Weddings and celebrations across Italy since 2009.">
+<link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css"><link rel="stylesheet" href="css/site.css"><link rel="stylesheet" href="css/v2.css"><link rel="stylesheet" href="css/v3.css">
+<style>
+/* events */
+section.ev{
+  --g:clamp(16px,2.222vw,40px);             /* column gutter: 32px at 1440 */
+  --side:clamp(20px,6.667vw,160px);         /* outer margin: 96px at 1440 */
+  --w:min(1360px,calc(100vw - 2*var(--side)));
+  --ease:cubic-bezier(.2,.7,.2,1);
+  padding:clamp(140px,14vh,180px) 0 clamp(120px,15vh,180px);
+  background:var(--cream);
+}
+.ev-in{width:var(--w);margin:0 auto;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);align-items:end;position:relative}
+
+/* heading: occupies the space the stepped frames leave above the smaller two */
+.ev h2{grid-column:6 / 11;grid-row:1;align-self:start;font-family:var(--head);font-weight:400;font-size:clamp(32px,2.92vw,46px);line-height:1.04;letter-spacing:-.014em;color:var(--ink);margin:-.16em 0 0}
+
+.ev a{display:block;color:var(--ink);position:relative}
+.ev a.w{grid-column:1 / 6;grid-row:1 / 3}
+.ev a.p{grid-column:6 / 10;grid-row:2}
+.ev a.c{grid-column:10 / 13;grid-row:2}
+
+.ev figure{margin:0}
+.ev .ph{aspect-ratio:3/4;overflow:hidden;background:var(--stone)}
+.ev .ph img{--z:1;width:100%;height:100%;max-width:none;object-fit:cover;transform:scale(var(--z));transition:transform 1.8s var(--ease)}
+.ev a:hover .ph img,.ev a:focus-visible .ph img{transform:scale(calc(var(--z)*1.03))}
+.ev a:focus-visible{outline:1px solid var(--ink);outline-offset:6px}
+
+.ev figcaption{padding-top:22px;min-height:84px}
+.ev figcaption b{display:block;font-family:var(--head);font-weight:400;font-size:27px;line-height:1;letter-spacing:-.005em}
+.ev figcaption span{display:block;margin-top:9px;font-family:Jost,sans-serif;font-weight:300;font-size:14.5px;line-height:1.45;letter-spacing:.012em;color:var(--ink-2)}
+
+/* slow staggered arrival, one frame after another */
+.ev .reveal{opacity:0;transform:translateY(28px);transition:opacity 1.2s var(--ease),transform 1.4s var(--ease)}
+.ev .reveal.in{opacity:1;transform:none}
+.ev .reveal.p{transition-delay:.18s}.ev .reveal.c{transition-delay:.36s}.ev h2.reveal{transition-delay:.5s}
+@media (prefers-reduced-motion:reduce){.ev .reveal{opacity:1;transform:none;transition:none}.ev .ph img{transition:none}}
+
+/* phone: the same 5 : 4 : 3 ratio as widths (100%, 80%, 60%), stepping down in a zigzag, every caption under its frame */
+@media (max-width:760px){
+  section.ev{padding:112px 0 96px;--side:20px}
+  .ev-in{display:block}
+  .ev h2{font-size:34px;line-height:1.1;margin:0 0 36px}
+  .ev a{width:100%}
+  .ev a.p{width:80%;margin-top:64px}
+  .ev a.c{width:60%;margin:64px 0 0 auto}
+  .ev figcaption{min-height:0;padding-top:18px}
+  .ev figcaption b{font-size:25px}
+  .ev figcaption span{font-size:14px}
+}
+
+/* stories */
+/* ---------- Real weddings, one cover at a time ---------- */
+@font-face{font-family:CvQuote;src:url(fonts/cormorant-400.ttf);unicode-range:U+201C-201D;font-display:swap}
+.cv{
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --h:clamp(540px,80vh,820px);            /* print height */
+  --w:calc(var(--h) * .8);                /* 4:5 print */
+  --gap:calc(var(--w) * .236);            /* print width / phi^3 */
+  --lead:clamp(48px,7vw,128px);           /* left margin before the print */
+  position:relative;background:var(--stone);color:var(--ink);
+  padding:calc((100vh - var(--h)) / 2 - 18px) 0 calc((100vh - var(--h)) / 2 + 18px)!important;
+  min-height:100vh;overflow:hidden;
+}
+/* a faint, warmer linen layer so the stone is not a flat fill (grain itself comes from body::after) */
+.cv::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(120% 90% at 22% 40%,rgba(251,248,244,.55),rgba(251,248,244,0) 60%)}
+
+.cv-stage{position:relative;display:grid;touch-action:pan-y}
+.cv-slide{grid-area:1/1;position:relative;visibility:hidden}
+.cv-slide.is-on,.cv-slide.is-out{visibility:visible}
+.cv-slide.is-out{pointer-events:none}
+
+.cv-link{display:grid;grid-template-columns:var(--lead) var(--w) var(--gap) minmax(0,1fr) var(--lead);
+  grid-template-rows:var(--h) auto;color:inherit}
+
+/* the print */
+.cv-fig{grid-column:2;grid-row:1/3;margin:0;display:grid;grid-template-rows:var(--h) auto}
+.cv-img{position:relative;overflow:hidden;background:#d9cfc1}
+.cv-img img{width:100%;height:100%;max-width:none;object-fit:cover;
+  transform:scale(1.035);opacity:0;
+  transition:opacity 1.2s var(--ease),transform 2.4s var(--ease)}
+.cv-slide.is-on .cv-img img{opacity:1;transform:scale(1)}
+.cv-slide.is-out .cv-img img{opacity:0;transform:scale(1);transition:opacity .9s var(--ease)}
+.cv-link:hover .cv-img img{transform:scale(1.015);transition:opacity 1.2s var(--ease),transform 1.4s var(--ease)}
+.cv-fig figcaption{margin-top:16px;font-size:15px;line-height:1.4;letter-spacing:.02em;color:#6E6357;
+  opacity:0;transition:opacity 1s var(--ease) .2s}
+.cv-slide.is-on figcaption{opacity:1;transition-delay:.6s}
+.cv-slide.is-out figcaption{opacity:0;transition:opacity .35s var(--ease)}
+
+/* the type: anchored to the bottom edge of the print */
+.cv-type{grid-column:4;grid-row:1;align-self:end;max-width:600px;
+  opacity:0;transform:translateY(14px);transition:opacity 1.1s var(--ease),transform 1.3s var(--ease)}
+/* type leaves first, the next couple's names arrive once it has gone: never two names on screen at once */
+.cv-slide.is-on .cv-type{opacity:1;transform:none;transition-delay:.55s}
+.cv-slide.is-out .cv-type{opacity:0;transform:none;transition:opacity .45s var(--ease)}
+.cv-names{font-family:var(--head);font-weight:400;font-size:clamp(60px,7.2vw,104px);line-height:.94;letter-spacing:-.02em;color:var(--ink)}
+.cv-names span{display:block;white-space:nowrap}
+.cv-line{margin:clamp(28px,4.4vh,44px) 0 0}
+/* the couple's own words in the client's raspberry, in Jost; Italiana is kept for names only */
+/* the opening mark is set large in Cormorant italic and hung in the margin, so the words keep a clean left edge */
+.cv-read{display:inline-flex;align-items:center;gap:12px;margin-top:clamp(30px,4.6vh,46px);font-size:17px;font-weight:400;letter-spacing:.01em;color:var(--ink);transition:color .5s var(--ease)}
+.cv-read svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.3;transition:transform .8s var(--ease)}
+.cv-link:hover .cv-read,.cv-link:focus-visible .cv-read{color:var(--brand)}
+.cv-link:hover .cv-read svg{transform:translateX(5px)}
+.cv-link:focus-visible{outline:none}
+.cv-link:focus-visible .cv-img{outline:1px solid var(--ink);outline-offset:6px}
+
+/* folio: aligned to the top edge of the print, same left edge as the names */
+.cv-folio{position:absolute;z-index:3;top:calc((100vh - var(--h)) / 2 - 18px - 10px);
+  left:calc(var(--lead) + var(--w) + var(--gap));right:var(--lead);
+  display:flex;align-items:baseline;gap:28px;font-size:15px;letter-spacing:.02em;color:#6E6357}
+.cv-count{font-variant-numeric:lining-nums;min-width:4.2em}
+.cv-folio button{font-size:15px;letter-spacing:.02em;color:#6E6357;padding:6px 0;transition:color .5s var(--ease)}
+.cv-folio button:hover,.cv-folio button:focus-visible{color:var(--brand)}
+.cv-next b{font-weight:300;color:var(--ink);transition:color .5s var(--ease)}
+.cv-next:hover b{color:var(--brand)}
+.cv-prev{margin-left:auto}
+
+/* proto page only: room for the site bar above the section */
+.proto-head{height:120px;background:var(--cream)}
+
+/* ---------- phone: picture, names, line, then the control ---------- */
+@media (max-width:760px){
+    .cv{--h:auto;padding:40px 0 44px!important;min-height:0;display:flex;flex-direction:column}
+  .cv-stage{order:1;display:block}
+  /* phone: the stage takes the height of the couple on screen, so the control always sits right under their line */
+  .cv-slide{position:absolute;inset:0 0 auto 0}
+  .cv-slide.is-on{position:relative}
+  .cv-link{display:block;padding:0 20px}
+  .cv-fig{display:block}
+  .cv-img{aspect-ratio:4/5}
+  .cv-fig figcaption{margin-top:12px;font-size:14px}
+  .cv-type{margin-top:34px;max-width:none}
+  .cv-names{font-size:clamp(50px,14.5vw,64px);line-height:.95}
+  .cv-names span{padding-left:0}
+  .cv-line{margin-top:22px}
+  .cv-read{margin-top:26px;font-size:16px}
+  .cv-folio{order:2;position:static;margin:30px 20px 0;gap:22px;font-size:14px}
+  .cv-folio button{font-size:14px;padding:10px 0}
+  .cv-next span{display:none}
+  .proto-head{height:96px}
+}
+@media (max-width:1100px) and (min-width:761px){
+  .cv{--h:clamp(480px,70vh,700px);--lead:var(--gut)}
+  .cv-names{font-size:clamp(54px,7vw,80px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .cv-img img,.cv-type,.cv-fig figcaption,.cv-read svg{transition:opacity .25s linear!important;transform:none!important}
+}
+
+/* arcade */
+.ar{--e:cubic-bezier(.2,.7,.2,1);--side:clamp(20px,6.667vw,160px);--g:clamp(16px,2.222vw,40px);--w:min(1360px,calc(100vw - 2*var(--side)))}
+.ar .grid{width:var(--w);margin:0 auto;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g)}
+.ar h2{font-family:var(--head);font-weight:400;font-size:clamp(46px,4.6vw,68px);line-height:.98;letter-spacing:-.018em;color:var(--ink);margin-top:-.08em}
+.ar .line{margin-top:18px;font-family:var(--sans);font-weight:300;font-size:clamp(20px,1.55vw,23px);line-height:1.35;color:var(--ink);max-width:31ch}
+.ar .go{display:inline-flex;align-items:center;gap:12px;margin-top:30px;padding:6px 0;font-size:16px;font-weight:400;letter-spacing:.01em;color:var(--ink);transition:color .8s var(--e)}
+.ar .go svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.3;transition:transform .8s var(--e)}
+.ar .go:hover{color:var(--brand)}.ar .go:hover svg{transform:translateX(5px)}
+.ar ul{list-style:none;margin:0;padding:0}
+.ar li a{font-family:var(--head);color:var(--ink);transition:color .6s var(--e)}
+.ar li a:hover,.ar li a:focus-visible{color:var(--brand)}
+.ar figure{margin:0;overflow:hidden;background:#E4D9CA}
+.ar figure img{filter:saturate(.8) sepia(.06);display:block;width:100%;height:100%;max-width:none;object-fit:cover}
+
+/* A, threshold: the colonnade full width, then the eight names on paper beneath */
+.ar-a{background:#FAF7F2;padding:0 0 clamp(96px,8.5vw,136px)!important}
+.ar-a .bleed{height:clamp(520px,60vw,880px)}
+.ar-a .grid{margin-top:clamp(48px,4.4vw,64px)}
+.ar-a .t{grid-column:1/6}
+@media (max-width:760px){.ar-a .grid{display:block;width:auto;padding:0 20px}.ar-a .bleed{height:auto;aspect-ratio:4/5}.ar-a ul{margin-top:32px}.ar-a .grid{display:flex;flex-direction:column}.ar-a .t{display:contents}.ar-a h2{order:1}.ar-a .line{order:2}.ar-a ul{order:3}.ar-a .go{order:4;margin-top:36px;align-self:flex-start}}
+
+@media (min-width:761px){.ar-a .grid{align-items:center}}
+.ar-a ul{grid-column:7/13;display:block}
+.ar-a li a{display:grid;grid-template-columns:minmax(0,clamp(180px,15vw,224px)) minmax(0,1fr);align-items:baseline;column-gap:24px;padding:11px 0;font-family:var(--sans)}
+.ar-a li b{font-family:var(--head);font-weight:400;font-size:clamp(28px,2.35vw,34px);line-height:1.05;letter-spacing:-.01em;color:var(--ink);transition:color .6s var(--e)}
+.ar-a li span{font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.4;color:#5E5249;transition:color .6s var(--e)}
+.ar-a li a:hover b,.ar-a li a:focus-visible b{color:var(--brand)}
+.ar-a li a:hover span{color:var(--ink)}
+@media (max-width:760px){.ar-a li a{grid-template-columns:1fr;row-gap:4px;padding:10px 0}.ar-a li b{font-size:28px}.ar-a li span{font-size:15px}}
+
+/* closing */
+/* scale: 15 / 18 / 30 / ~112 (each step about 1.6x); photo widths 1.618 : 1 : 1 : 1 */
+.v2 section.ca{--e:cubic-bezier(.2,.7,.2,1);padding:15vh var(--gut) 13vh;background:var(--cream);color:var(--ink)}
+.ca-head{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:end;column-gap:clamp(40px,6vw,110px)} /* aside starts on the Tuscany image edge */
+.ca h2{font-family:var(--head);font-weight:400;font-size:clamp(52px,6vw,96px);line-height:1;letter-spacing:-.02em;white-space:nowrap}
+.ca-aside{padding-bottom:.9vw}
+.ca-aside p{font-size:18px;line-height:1.55;letter-spacing:.005em;color:#6B6155}
+.ca-help{display:inline-flex;align-items:center;gap:10px;margin-top:22px;font-size:15px;letter-spacing:.02em;color:var(--ink);transition:color .8s var(--e)}
+.ca-help span{color:#6B6155}
+.ca-help svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.3;transition:transform .8s var(--e)}
+.ca-help:hover{color:var(--brand)}.ca-help:hover svg{transform:translateX(5px)}
+.ca-row{display:flex;gap:14px;margin-top:6.5vh;height:clamp(360px,48vh,560px)}
+.ca-pl{flex:1 1 0;min-width:0;display:flex;flex-direction:column;color:var(--ink);transition:flex-grow 1.4s var(--e),opacity 1.2s var(--e)}
+.ca-pl:first-child{flex-grow:1.618}
+.ca-pl figure{position:relative;flex:1;min-height:0;margin:0;overflow:hidden;background:#E9E1D6}
+.ca-pl img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;transform:scale(1.001);transition:transform 1.4s var(--e),filter 1.2s var(--e)}
+.ca-pl figcaption{display:flex;flex-direction:column;gap:8px;padding-top:16px;white-space:nowrap;overflow:hidden}
+.ca-pl b{font-family:var(--head);font-weight:400;font-size:30px;line-height:1;letter-spacing:-.005em}
+.ca-pl em{font-style:normal;font-size:15px;letter-spacing:.01em;color:#6B6155;overflow:hidden;text-overflow:ellipsis;opacity:.9;transition:opacity 1s var(--e)}
+@media (hover:hover){
+  .ca-row:hover .ca-pl{flex-grow:1}
+  .ca-row:hover .ca-pl:hover{flex-grow:1.618}
+  .ca-row:hover .ca-pl:not(:hover) img{filter:saturate(.7) brightness(.94)}
+  .ca-row:hover .ca-pl:not(:hover) em{opacity:0}
+  .ca-pl:hover img{transform:scale(1.035)}
+  .ca-pl:hover b{color:var(--brand);transition:color .8s var(--e)}
+}
+.ca-pl:focus-visible{outline:1px solid var(--ink);outline-offset:6px}
+/* entrance: one thing at a time */
+.ca .reveal{opacity:0;transform:translateY(16px);transition:opacity 1.2s var(--e),transform 1.2s var(--e)}
+.ca .reveal.in{opacity:1;transform:none}
+.ca-row .ca-pl:nth-child(2){transition-delay:.12s}.ca-row .ca-pl:nth-child(3){transition-delay:.24s}.ca-row .ca-pl:nth-child(4){transition-delay:.36s}
+.ca-row.reveal{transform:none}
+html.shot .ca .reveal{transition:none}
+@media (prefers-reduced-motion:reduce){.ca *{transition:none!important}.ca .reveal{opacity:1;transform:none}}
+@media (max-width:1000px) and (min-width:761px){.ca-pl em{display:none}}
+@media (max-width:760px){
+  .v2 section.ca{padding:120px 16px 72px}
+  .ca-head{grid-template-columns:1fr;gap:20px}
+  .ca h2{font-size:clamp(36px,9.4vw,46px);white-space:normal;text-wrap:balance}
+  .ca-aside p{font-size:17px}
+  .ca-row{display:grid;grid-template-columns:1fr 1fr;gap:28px 10px;height:auto;margin-top:40px}
+  .ca-pl figure{flex:none;aspect-ratio:3/4}
+  .ca-pl:first-child,.ca-pl:last-child{grid-column:1/-1}.ca-pl:first-child figure,.ca-pl:last-child figure{aspect-ratio:4/3}
+  .ca-pl figcaption{padding-top:12px;white-space:normal}
+  .ca-pl b{font-size:26px}
+  .ca-pl:first-child em{display:block}
+}
+
+</style>
+<meta name="robots" content="noindex"></head>
+<body class="home v2 v3">
+<div class="page">
+  <header class="hero hero-v">
+    <img src="img/g/hello.jpg" alt="Bride on a castle wall above a lake">
+    <div class="hero-copy">
+      <img class="hero-logo" src="brand/logo-white.svg" alt="Italian Event Planners">
+      <p class="hv-line">Long tables under late Italian light.</p>
+    </div>
+  </header>
+  <section class="ev" aria-labelledby="ev-h">
+    <div class="ev-in">
+      <h2 id="ev-h" class="reveal">For the two of you,<br> or two hundred.</h2>
+
+      <a class="w reveal" href="weddings-v3.html">
+        <figure>
+          <div class="ph"><img src="img/g/svc-wedding.jpg" alt="A bride and groom dancing on a castle wall at dusk" style="object-position:42% 50%"></div>
+          <figcaption><b>Weddings</b><span>The vows, the long table, the morning after</span></figcaption>
+        </figure>
+      </a>
+
+      <a class="p reveal" href="events-v3.html#private">
+        <figure>
+          <div class="ph"><img src="img/g/g1.jpg" alt="A couple between climbing roses on a white village lane in Puglia" style="object-position:30% 50%"></div>
+          <figcaption><b>Private celebrations</b><span>Vow renewals, anniversaries, birthdays</span></figcaption>
+        </figure>
+      </a>
+
+      <a class="c reveal" href="events-v3.html">
+        <figure>
+          <div class="ph"><img src="img/g/svc-corporate.jpg" alt="An infinity pool above the Amalfi Coast in Ravello" style="object-position:72% 50%;filter:saturate(.8)"></div>
+          <figcaption><b>Corporate</b><span>Retreats and launches we run quietly</span></figcaption>
+        </figure>
+      </a>
+    </div>
+  </section>
+  <section class="ar ar-a" aria-labelledby="ar-h">
+    <figure class="bleed"><img src="img/g/ravello-pergola.jpg" alt="A stone pergola hung with bougainvillea, opening onto the sea above Ravello" style="object-position:50% 58%"></figure>
+    <div class="grid">
+      <div class="t">
+        <h2 id="ar-h">Eight places, eight kinds of light.</h2>
+        <p class="line">We work in all eight, from still lake water to the coves of Sardinia.</p>
+        <a class="go" href="destinations-v3.html">Let us show you around <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h17M14 6l6 6-6 6"/></svg></a>
+      </div>
+      <ul><li><a href="destinations-v3.html#como"><b>Lake Como</b><span>Cool stone steps into the lake.</span></a></li><li><a href="destinations-v3.html#amalfi"><b>Amalfi Coast</b><span>Church bells, then the sea.</span></a></li><li><a href="destinations-v3.html#tuscany"><b>Tuscany</b><span>Crickets after the last toast.</span></a></li><li><a href="destinations-v3.html#ravello"><b>Ravello</b><span>350 metres above the sea.</span></a></li><li><a href="destinations-v3.html#rome"><b>Rome</b><span>Warm cobbles, a fountain running.</span></a></li><li><a href="destinations-v3.html#sorrento"><b>Sorrento</b><span>Vesuvius, blue in the evening.</span></a></li><li><a href="destinations-v3.html#verona"><b>Verona</b><span>Roses climbing the garden stairs.</span></a></li><li><a href="destinations-v3.html#sardinia"><b>Sardinia</b><span>Bare feet, salt on your skin.</span></a></li></ul>
+    </div>
+  </section>
+  <section class="cv" id="stories" aria-roledescription="carousel" aria-label="Real weddings">
+    <div class="cv-folio">
+      <span class="cv-count" id="cv-count" aria-live="polite">1 of 3</span>
+      <button class="cv-prev" type="button" data-cv-prev>Previous</button>
+      <button class="cv-next" type="button" data-cv-next aria-label="Next story">Next<span>, <b id="cv-nextname"></b></span></button>
+    </div>
+    <div class="cv-stage" id="cv-stage"></div>
+  </section>
+  <section class="ca" aria-labelledby="ca-q">
+    <div class="ca-head reveal">
+      <h2 id="ca-q">Where do you see it?</h2>
+      <div class="ca-aside">
+        <p>Close your eyes for a moment.<br>Then choose your perfect setting.</p>
+        <a class="ca-help" href="plan.html?type=wedding&amp;where=Italy"><span>Not sure yet?</span> Help me choose <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+    <div class="ca-row reveal">
+      <a class="ca-pl" href="plan.html?type=wedding&amp;where=Ravello">
+        <figure><img src="img/g/d-ravello.jpg" alt="A bride and groom on a tiled terrace above the Amalfi Coast in Ravello" style="object-position:50% 60%;filter:saturate(.8)"></figure>
+        <figcaption><b>Ravello</b><em>Gardens hung over the sea</em></figcaption>
+      </a>
+
+      <a class="ca-pl" href="plan.html?type=wedding&amp;where=Positano">
+        <figure><img src="img/g/positano-roofs.jpg" alt="White and ochre houses of Positano stacked above the sea" style="object-position:50% 70%"></figure>
+        <figcaption><b>Positano</b><em>Lemon trees, the sea below</em></figcaption>
+      </a>
+      <a class="ca-pl" href="plan.html?type=wedding&amp;where=Lake%20Como">
+        <figure><img src="img/g/d-como.jpg" alt="A couple kissing on a wooden boat on Lake Como" style="object-position:52% 50%"></figure>
+        <figcaption><b>Lake Como</b><em>Still water, a slow boat</em></figcaption>
+      </a>
+      <a class="ca-pl" href="plan.html?type=wedding&amp;where=Tuscany">
+        <figure><img src="img/g/tuscany-walk.jpg" alt="A bride and groom walking through a golden field at sunset" style="object-position:50% 60%"></figure>
+        <figcaption><b>Tuscany</b><em>Dry grass, hills turning gold</em></figcaption>
+      </a>
+    </div>
+  </section>
+</div>
+<script src="js/stories.js"></script>
+<script src="js/site.js"></script>
+<script>
+
+
+(() => {
+  const S = window.STORIES || [], N = S.length;
+  const stage = document.getElementById('cv-stage'), cnt = document.getElementById('cv-count'), nextName = document.getElementById('cv-nextname');
+  const sec = document.getElementById('stories');
+  if (!N) { sec.hidden = true; return; }
+  // where each cover's couple sits in the frame, for the 4:5 crop (default: centre)
+  const FOCUS = {hero:'100% 50%', intro2:'60% 40%', 'd-sardinia':'50% 45%'};
+  const esc = t => String(t || '').replace(/&(?![a-z#0-9]+;)/gi, '&amp;').replace(/</g, '&lt;');
+  const names = c => { const m = String(c || '').split(/\s*&\s*/); return m.length === 2 ? `${esc(m[0])} <span>&amp; ${esc(m[1])}</span>` : esc(c); };
+  const place = s => esc(String(s.kicker || '').split('·')[0].trim());
+  const arrow = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h17M14 6l6 6-6 6"/></svg>';
+
+  stage.innerHTML = S.map((s, i) => `
+    <article class="cv-slide${i ? '' : ' is-on'}" role="group" aria-roledescription="slide" aria-label="${i + 1} of ${N}"${i ? ' inert aria-hidden="true"' : ''}>
+      <a class="cv-link" href="${s.id === 'capri' ? 'story-capri.html' : s.id === 'sardinia' ? 'story-sardinia.html' : s.id === 'sorrento' ? 'story-sorrento.html' : 'story.html?s=' + encodeURIComponent(s.id)}">
+        <figure class="cv-fig">
+          <div class="cv-img"><img src="img/g/${s.cover}.jpg" alt="${esc(s.alt)}" style="object-position:${FOCUS[s.cover] || '50% 50%'}" ${i ? 'loading="lazy"' : ''}></div>
+          ${s.kicker ? `<figcaption>${place(s)}</figcaption>` : ''}
+        </figure>
+        <div class="cv-type">
+          <h3 class="cv-names">${names(s.couple)}</h3>
+          ${s.quote && s.quote[0] ? `<blockquote class="pq cv-line"><p>${esc(s.quote[0])}</p></blockquote>` : ''}
+          <span class="cv-read">Read their story ${arrow}</span>
+        </div>
+      </a>
+    </article>`).join('');
+
+  const slides = [...stage.children];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let cur = 0, outT;
+  const label = k => { cnt.textContent = `${k + 1} of ${N}`; const n = S[(k + 1) % N]; nextName.textContent = n.couple || ''; };
+  const go = k => {
+    k = (k + N) % N; if (k === cur) return;
+    const prev = slides[cur], next = slides[k];
+    clearTimeout(outT); slides.forEach(s => s.classList.remove('is-out'));
+    prev.classList.remove('is-on'); prev.classList.add('is-out'); prev.inert = true; prev.setAttribute('aria-hidden', 'true');
+    next.inert = false; next.removeAttribute('aria-hidden');
+    // let the outgoing print begin to fade before the next one arrives: one thing at a time
+    requestAnimationFrame(() => requestAnimationFrame(() => next.classList.add('is-on')));
+    outT = setTimeout(() => prev.classList.remove('is-out'), reduce ? 300 : 1200);
+    cur = k; label(k);
+    const img = next.querySelector('img'); img.loading = 'eager';
+    const after = slides[(k + 1) % N].querySelector('img'); after.loading = 'eager';
+  };
+  label(0);
+  sec.querySelector('[data-cv-next]').addEventListener('click', () => go(cur + 1));
+  sec.querySelector('[data-cv-prev]').addEventListener('click', () => go(cur - 1));
+
+  // keyboard: arrows while the section holds most of the screen
+  let inView = false;
+  new IntersectionObserver(es => es.forEach(e => inView = e.intersectionRatio > .5), {threshold:[0, .5, 1]}).observe(sec);
+  addEventListener('keydown', e => {
+    if (!inView || e.altKey || e.metaKey || e.ctrlKey || /input|textarea|select/i.test(document.activeElement.tagName)) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); go(cur + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); go(cur - 1); }
+  });
+
+  // swipe on touch: horizontal intent only, and a swipe never opens the story
+  let x0 = null, y0 = 0, swiped = false;
+  stage.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; swiped = false; }, {passive:true});
+  stage.addEventListener('touchend', e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0; x0 = null;
+    if (Math.abs(dx) > 44 && Math.abs(dx) > Math.abs(dy) * 1.4) { swiped = true; go(cur + (dx < 0 ? 1 : -1)); }
+  }, {passive:true});
+  stage.addEventListener('click', e => { if (swiped) { e.preventDefault(); swiped = false; } }, true);
+
+  // preview hook for screenshots: ?shot&s=2
+  const q = new URLSearchParams(location.search).get('s');
+  if (q) { slides.forEach(s => s.style.transition = 'none'); go(+q - 1); }
+})();
+
+
+</script>
+<script src="vendor/gsap.min.js"></script><script src="vendor/ScrollTrigger.min.js"></script><script src="vendor/lenis.min.js"></script><script src="js/motion.js"></script><script src="js/arch.js"></script>
+</body>
+</html>

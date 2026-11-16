@@ -1,0 +1,5 @@
+/* Events v3: on the Destinations and Weddings system. Only the corporate band's proportions differ. */
+.ev .PR .t{grid-column:1/6}
+.ev .PR .pano{grid-column:7/13}
+.ev h2{white-space:nowrap}
+@media (max-width:760px){ .ev h2{white-space:normal} }

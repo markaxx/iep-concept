@@ -1,0 +1,79 @@
+/* ===== Home v2: five screens, one grade, big scale ===== */
+.v2{--gut:clamp(22px,4vw,64px)}
+.v2 .page{background:var(--cream)}
+.v2 section{padding:0}
+/* 1. hero */
+.v2 .hero-v .hero-copy::before{display:none}
+.v2 .hero-v::after{background:linear-gradient(180deg,rgba(0,0,0,.28) 0%,rgba(0,0,0,0) 26%,rgba(0,0,0,0) 62%,rgba(0,0,0,.32) 100%)}
+.v2 .hero-logo{width:clamp(170px,14vw,240px)}
+/* 2. intent */
+.intent{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:18vh var(--gut)!important}
+.intent p.big{font-family:var(--head);font-size:clamp(56px,8.2vw,150px);line-height:1;letter-spacing:-.015em;max-width:12ch;color:var(--ink)}
+.intent .by{margin-top:7vh;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-2)}
+.intent .by a{border-bottom:1px solid var(--brand);padding-bottom:4px;margin-left:18px;color:var(--ink)}
+/* 3. arcade: as approved, no changes beyond grade */
+/* 4. stories */
+.stories{position:relative;height:100vh;min-height:720px;overflow:hidden;background:#15110E;color:#fff}
+.st-track{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.st-track::-webkit-scrollbar{display:none}
+.st-cover{position:relative;flex:0 0 100%;height:100%;scroll-snap-align:start;overflow:hidden;color:#fff}
+.st-cover img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;transform:scale(1.04);transition:transform 6s cubic-bezier(.2,.7,.2,1)}
+.st-cover.on img{transform:scale(1)}
+.st-cover::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,9,7,.7) 0%,rgba(12,9,7,.35) 45%,rgba(12,9,7,0) 75%),linear-gradient(0deg,rgba(12,9,7,.45),rgba(12,9,7,0) 40%)}
+.st-copy{position:absolute;left:var(--gut);bottom:15vh;z-index:2;max-width:min(760px,80vw)}
+.st-kicker{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+.st-title{font-family:var(--head);font-size:clamp(56px,7vw,124px);line-height:.98;margin-top:22px;letter-spacing:-.01em}
+.st-dek{margin-top:26px;font-size:clamp(17px,1.3vw,21px);line-height:1.55;max-width:48ch;color:rgba(255,255,255,.88)}
+.st-read{display:inline-flex;align-items:center;gap:14px;margin-top:36px;height:56px;padding:0 30px;background:#fff;color:var(--ink);font-size:13px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;transition:background .35s,color .35s}
+.st-read:hover{background:var(--brand);color:#fff}
+.st-read svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.6}
+.st-nav{position:absolute;right:var(--gut);bottom:15vh;z-index:3;display:flex;align-items:center;gap:22px;font-size:13px;letter-spacing:.24em}
+.st-nav button{width:54px;height:54px;border:1px solid rgba(255,255,255,.5);color:#fff;display:grid;place-items:center;transition:background .3s,color .3s}
+.st-nav button:hover{background:#fff;color:var(--ink)}
+.st-nav svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.4}
+.st-label{position:absolute;left:var(--gut);top:15vh;z-index:3;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+.st-bars{position:absolute;left:0;right:0;bottom:0;z-index:3;display:flex;gap:4px}
+.st-bars i{flex:1;height:4px;background:rgba(255,255,255,.22);transition:background .5s}
+.st-bars i.on{background:var(--brand)}
+/* 5. invitation */
+.invite{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;overflow:hidden}
+.invite>img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover}
+.invite::after{content:"";position:absolute;inset:0;background:rgba(14,11,8,.42)}
+.invite .in{position:relative;z-index:2;padding:0 var(--gut)}
+.invite h2{font-family:var(--head);font-weight:400;font-size:clamp(64px,8vw,150px);line-height:1;color:#fff}
+.invite h2 .s{color:#fff!important}
+.invite .choice{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:6vh}
+.invite .choice button{height:60px;padding:0 30px;background:rgba(16,12,9,.4);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.45);color:#fff;font-family:Jost,sans-serif;font-size:16px;letter-spacing:.01em;text-transform:none;transition:background .35s,color .35s}
+.invite .choice button:hover{background:#fff;color:var(--ink)}
+.v2 footer{margin-top:0}
+@media (max-width:900px){.st-nav{right:auto;left:var(--gut);bottom:5vh}.st-copy{bottom:16vh}.st-title{font-size:52px}}
+/* arch page transitions */
+html.arch-ready{background:#15110E}
+html.arch-ready .page{clip-path:inset(28% 34% 0 34% round 50vw 50vw 0 0);animation:archopen 1.25s cubic-bezier(.7,0,.2,1) .05s forwards}
+@keyframes archopen{to{clip-path:inset(0 0 0 0 round 0 0 0 0)}}
+html.arch-leave .page{animation:archclose .7s cubic-bezier(.6,0,.4,1) forwards}
+@keyframes archclose{from{clip-path:inset(0 0 0 0 round 0 0 0 0)}to{clip-path:inset(30% 36% 0 36% round 50vw 50vw 0 0)}}
+@media (prefers-reduced-motion:reduce){html.arch-ready .page,html.arch-leave .page{animation:none;clip-path:none}}
+
+/* audit pass 1: no eyebrows, sentence case, calmer invite */
+.intent .by{font-size:17px;letter-spacing:.01em;text-transform:none;color:var(--ink-2)}
+.intent .by a{margin-left:22px}
+.st-label{display:none}
+.st-copy .st-kicker{order:3}
+.st-copy{display:flex;flex-direction:column;align-items:flex-start}
+.st-title{order:1;margin-top:0}.st-dek{order:2}.st-read{order:4}
+.st-kicker{margin-top:18px;font-size:15px;letter-spacing:.01em;text-transform:none;color:rgba(255,255,255,.7)}
+.st-read{font-size:16px;letter-spacing:.01em;text-transform:none;font-weight:400}
+.invite>img{object-position:50% 36%}
+.invite::after{background:linear-gradient(180deg,rgba(14,11,8,.5),rgba(14,11,8,.38) 45%,rgba(14,11,8,.62))}
+.invite .choice button{background:var(--paper);color:var(--ink);border:0;-webkit-backdrop-filter:none;backdrop-filter:none}
+.invite .choice button:hover{background:var(--brand);color:#fff}
+.v2 .arcade .dest .arr{display:none}
+.invite>img{object-position:50% 50%}
+@media (max-width:700px){
+  .intent .by{display:flex;flex-direction:column;align-items:center;gap:14px;max-width:26ch}
+  .intent .by a{margin-left:0}
+  .v2 .arcade .dest b{font-size:30px!important;line-height:1}
+  .v2 .arcade .dest em{display:none}
+  .invite .choice button{height:54px;padding:0 22px;font-size:15px}
+}

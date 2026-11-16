@@ -1,0 +1,208 @@
+/* Story pages told in beats (Capri, Sardinia, Sorrento). Shared by every story: change with care.
+
+   TYPE ROLES (one job each, so the page has hierarchy)
+   1 Story title ........ Italiana, very large. Cover only.
+   2 Chapter title ...... Italiana, large and rare (.bt-ch). Places and events, never sentences.
+   3 Lead line .......... Jost 300, large, ink (.lead). The first paragraph of every beat.
+   4 Body ............... Jost 300, reading size, warm grey. Later paragraphs.
+   5 Real quote ......... Jost 400 in raspberry, hanging quote mark, em dash before the name.
+   6 Spoken line ........ Jost 300 in ink, large. Invented lines said by people in the story.
+   7 Small .............. Jost 15px, grey. Names under quotes, the byline, the note on what is real.
+   Italiana is never used for sentences or numbers. The script face appears once, in the note.
+
+   IMAGE RHYTHM: big photograph, quiet text, close detail. Photographs run large and to the edge of the page;
+   text never sits on a photograph. Nothing is centred, and there are no rules or separators. */
+
+.beats{--gut:clamp(22px,5vw,80px);--ink-soft:#5A5047;--e:cubic-bezier(.2,.7,.2,1);
+  --pad:clamp(96px,16vh,180px);
+  --f-lead:300 clamp(23px,1.95vw,33px)/1.4 var(--sans);
+  --f-body:300 clamp(17px,1.16vw,19px)/1.72 var(--sans);
+  --f-quote:400 clamp(27px,2.45vw,44px)/1.24 var(--sans);
+  --f-quote-s:400 clamp(23px,1.9vw,34px)/1.3 var(--sans);
+  --f-spoken:300 clamp(40px,4.3vw,78px)/1.08 var(--sans)}
+.beats .bar{background:linear-gradient(180deg,rgba(20,15,10,.32),rgba(20,15,10,0))}
+.bt{position:relative;padding:0!important;overflow:hidden}
+.bt p:not(:where(.pq *)){font:var(--f-body);color:var(--ink-soft);max-width:40ch}
+.bt p.lead{font:var(--f-lead);color:var(--ink);max-width:30ch;letter-spacing:-.003em}
+.bt p+p{margin-top:1.1em}
+.bt p.lead+p{margin-top:1.4em}
+.bt i{font-style:italic}
+.bt q.real{quotes:"\201C" "\201D";color:inherit} /* inline fragments stay ink: raspberry belongs to the site-wide .pq quote only */
+.bt-ch{font-family:var(--head);font-weight:400;font-size:clamp(50px,5.4vw,100px);line-height:.98;letter-spacing:-.015em;color:var(--ink);margin:0 0 6vh}
+.bt img{display:block;max-width:none}
+.bt img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.bt figure{margin:0;overflow:hidden}
+.bt figure img{width:100%;height:100%;object-fit:cover}
+
+/* quotes */
+.bt blockquote{margin:0}
+.bt blockquote p{max-width:none}
+/* real client quotes use the site-wide .pq component (css/site.css, HANDOFF section 10); only margin and max-width may be set here */
+
+.bt blockquote.spoken p:first-child{font:var(--f-spoken);color:var(--ink);max-width:14ch;letter-spacing:-.01em;text-indent:-.36em}
+.bt blockquote.spoken cite{display:block;font:400 15px/1.4 var(--sans);font-style:normal;letter-spacing:.01em;color:var(--ink-2);margin-top:26px}
+.bt blockquote.spoken cite::before{content:"\2014\00a0"}
+.bt .bt-q .after,.bt blockquote .after{font:var(--f-body);color:var(--ink-soft);margin-top:7vh;max-width:34ch}
+
+/* cover: photograph, then the title on paper */
+.bt-cover{position:relative;background:var(--paper)}
+.bt-cover>img{display:block;width:100%;height:86vh;min-height:560px;object-fit:cover;max-width:none}
+.bt-cover .in{padding:8vh var(--gut) 0;display:grid;grid-template-columns:7fr 5fr;gap:5vw;align-items:end}
+.bt-cover h1{font-family:var(--head);font-weight:400;font-size:clamp(64px,8vw,148px);line-height:.94;letter-spacing:-.02em;color:var(--ink)}
+.bt-cover .line{font:var(--f-lead);color:var(--ink-soft);max-width:28ch;padding-bottom:1.4vw}
+/* lede: a close detail beside the opening two sentences */
+.bt-lede{padding:var(--pad) var(--gut)!important;display:grid;grid-template-columns:5fr 7fr;gap:6vw;align-items:end;background:var(--paper)}
+.bt-lede figure{aspect-ratio:4/5;overflow:hidden;margin:0}.bt-lede figure img{width:100%;height:100%;object-fit:cover;max-width:none}
+.bt-lede p{font:300 clamp(26px,2.25vw,38px)/1.36 var(--sans);color:var(--ink);max-width:26ch;letter-spacing:-.005em}
+.bt-lede small{display:block;margin-top:5vh;font:400 15px/1.4 var(--sans);color:var(--ink-2)}
+
+/* split: a sticky photograph on one half, the paragraphs scrolling on the other */
+.bt.split{display:grid;grid-template-columns:1fr 1fr;overflow:visible;background:var(--cream)}
+.bt.split.l .bt-media{order:0}.bt.split.r .bt-media{order:2}
+.bt-media{position:sticky;top:0;align-self:start;height:100vh;overflow:hidden}
+.bt-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.05);transition:opacity 1.2s var(--e),transform 6s ease-out}
+.bt-media img.on{opacity:1;transform:scale(1)}
+.bt-text{padding:0 clamp(28px,6vw,110px)}
+.bt-step{min-height:72vh;display:flex;flex-direction:column;justify-content:center;opacity:.22;transition:opacity .9s var(--e)}
+.bt-step:first-child{min-height:100vh}.bt-step:last-child{min-height:100vh}
+.bt-step.on{opacity:1}
+/* split with no photograph: the paragraphs gathered on stone in the wide column */
+.bt.split.noimg{grid-template-columns:5fr 7fr;gap:6vw;background:var(--stone);padding:var(--pad) var(--gut)!important;min-height:0!important}
+.bt.split.noimg .bt-media{display:none}
+.bt.split.noimg .bt-text{grid-column:2;padding:0}
+.bt.split.noimg .bt-step,.bt.split.noimg .bt-step:first-child,.bt.split.noimg .bt-step:last-child{min-height:0;padding:0;opacity:1}
+.bt.split.noimg .bt-step+.bt-step{margin-top:1.4em}
+
+/* overlay: a large photograph to one edge, the text in the remaining column on paper */
+.bt.overlay{display:grid;grid-template-columns:8fr 4fr;align-items:end;background:var(--paper);min-height:100vh}
+.bt.overlay.l{grid-template-columns:4fr 8fr}.bt.overlay.l figure{order:2}
+.bt.overlay figure{height:100vh;min-height:620px}
+.bt.overlay .panel{padding:var(--pad) var(--gut) 12vh}
+.bt.overlay .panel p.lead{max-width:24ch}
+
+/* note: a line from the planner's notebook, the single use of the script face */
+
+/* quote: a tall photograph beside the words; real words in raspberry */
+.bt.quote{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:6vw;padding:var(--pad) var(--gut)!important;background:var(--paper)}
+.bt.quote.l{grid-template-columns:1fr 1fr}.bt.quote.l figure{order:-1}
+.bt.quote figure{aspect-ratio:4/5;max-height:84vh;width:100%}
+/* a quote with no photograph: the line alone, large, in the wide column on stone */
+.bt.quote.noimg{grid-template-columns:5fr 7fr;background:var(--paper)}
+.bt.quote.noimg blockquote,.bt.quote.noimg .bt-q{grid-column:2}
+.bt.quote.noimg blockquote.spoken p:first-child{font:300 clamp(48px,5.4vw,100px)/1.04 var(--sans)}
+
+/* phone: a message as it arrived, and what it meant */
+/* a message someone sent: plain type, no card, no box (Mark: no card motif anywhere) */
+.bt .bt-said .said{font:300 clamp(28px,2.5vw,44px)/1.22 var(--sans);color:var(--ink);max-width:18ch;letter-spacing:-.006em}
+.bt-said .bt-from{display:block;margin-top:20px;font:400 15px/1.4 var(--sans);color:var(--ink-2)}
+.bt.phone{display:grid;grid-template-columns:5fr 7fr;align-items:center;gap:6vw;padding:var(--pad) var(--gut)!important;background:var(--stone)}
+.bt.phone.hasimg{grid-template-columns:6fr 5fr;grid-template-rows:auto auto;row-gap:7vh;align-items:end;background:var(--paper)}
+.bt.phone.hasimg figure{grid-row:1/3;aspect-ratio:4/5;max-height:86vh}
+.bt.phone.hasimg .aside{grid-column:2;align-self:start}
+
+/* bleedmsg: a full-width photograph, then the message and the words beside it on paper (nothing laid over the photo) */
+.bt.bleedmsg{background:var(--paper)}
+.bt.bleedmsg .ph{position:relative;height:90vh;min-height:620px}
+.bt.bleedmsg .im{position:absolute;inset:0;overflow:hidden}
+.bt.bleedmsg .cap .bt-said{grid-column:1;grid-row:1/span 2;align-self:start}
+.bt.bleedmsg .cap{display:grid;grid-template-columns:5fr 7fr;gap:6vw;align-items:start;padding:var(--pad) var(--gut)}
+.bt.bleedmsg .cap .bt-ch{margin:0;grid-column:2;grid-row:1}
+.bt.bleedmsg .cap>div:not(.bt-said){grid-column:2}
+.bt.bleedmsg .cap>span{display:none}
+.bt.bleedmsg .cap .bt-ch+div{margin-top:5vh}
+
+/* bleed: a full-width photograph, the chapter title and one line on paper underneath */
+.bt.bleed{background:var(--paper)}
+.bt.bleed .ph{position:relative;height:90vh;min-height:560px;overflow:hidden}
+.bt.bleed .cap{display:grid;grid-template-columns:5fr 7fr;gap:6vw;align-items:start;padding:9vh var(--gut) var(--pad)}
+.bt.bleed .cap .bt-ch{margin:0}
+.bt.bleed .cap>div{grid-column:2}
+/* a portrait photo in a bleed beat: the photo at its own shape on the left, the words beside it (set by beats.js) */
+.bt.bleed.tall{display:grid;grid-template-columns:auto 1fr;column-gap:6vw;align-items:end;padding:var(--pad) var(--gut)!important}
+.bt.bleed.tall .ph{height:min(94vh,1040px);min-height:0;aspect-ratio:3/5}
+.bt.bleed.tall .cap{display:block;padding:0}
+.bt.bleed.tall .cap .bt-ch{margin:0 0 6vh}
+
+/* big: one spoken line as large as the page allows, beside a full-height photograph */
+.bt.big{display:grid;grid-template-columns:1fr 1fr;align-items:center;background:var(--paper)}
+.bt.big figure{height:100vh;min-height:620px}
+.bt.big blockquote{padding:0 var(--gut)}
+.bt.big blockquote.spoken p:first-child{font:300 clamp(54px,6vw,116px)/1.02 var(--sans);max-width:9ch}
+
+/* bleedquote: a full-width photograph, the couple's words below it on paper */
+.bt.bleedquote{background:var(--paper);padding-bottom:var(--pad)!important}
+.bt.bleedquote .ph{position:relative;height:90vh;min-height:600px;overflow:hidden}
+.bt.bleedquote .bt-q{position:relative;width:min(1040px,82vw);padding:var(--pad) var(--gut) 0}
+
+/* five: a custom from the couple's culture, as a large close detail */
+.bt.five{display:grid;grid-template-columns:6fr 5fr;gap:6vw;align-items:end;padding:var(--pad) var(--gut)!important;background:var(--cream)}
+.bt.five figure{aspect-ratio:4/5;max-height:88vh;width:100%}
+.bt.five .bt-ch{font-size:clamp(46px,4.4vw,82px)}
+
+/* card: the place card on the plate, set on the photograph as an object */
+.bt.card{display:grid;grid-template-columns:7fr 5fr;align-items:center;gap:6vw;padding:var(--pad) var(--gut)!important;background:var(--paper)}
+.bt.card figure{margin:0;aspect-ratio:4/5;max-height:86vh;overflow:hidden}
+.bt.card figure img{width:100%;height:100%;object-fit:cover}
+.bt.card .says{margin-bottom:6vh}
+.bt.card .gr{font:300 clamp(48px,5vw,92px)/1.04 var(--sans);color:var(--ink);max-width:none}
+.bt.card .en{font:400 15px/1.3 var(--sans);color:var(--ink-2);margin-top:14px}
+.bt.card .aside{padding:0}
+
+/* closing: the founders, the couple's last words, and the facts of the wedding as one composed ending */
+.bt.closing{display:grid;grid-template-columns:7fr 5fr;gap:6vw;align-items:start;padding:var(--pad) var(--gut)!important;background:var(--paper)}
+.bt.closing .pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bt.closing .pair img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.bt .facts{margin:11vh 0 0;display:grid;gap:12px}
+.bt .facts div{display:grid;grid-template-columns:9em 1fr;gap:20px;align-items:baseline}
+.bt .facts dt{font:400 14px/1.4 var(--sans);color:var(--ink-2)}
+.bt .facts dd{margin:0;font:300 18px/1.45 var(--sans);color:var(--ink)}
+.bt .sx-note{font:400 13px/1.55 var(--sans);color:var(--ink-2);margin:5vh 0 0;max-width:56ch}
+.bt.closing.nofig{grid-template-columns:5fr 7fr}.bt.closing.nofig .txt{grid-column:2}
+
+/* end: the next story beside the invitation, one band */
+.beats .bt-end{display:grid;grid-template-columns:7fr 5fr;grid-template-rows:auto auto;column-gap:6vw;row-gap:0;align-items:start;padding:0 var(--gut) var(--pad);background:var(--paper)}
+.bt-end .nx{display:grid;grid-row:1/3;grid-template-rows:subgrid;color:var(--ink)}
+/* the invitation sits beside the next story's photograph, level with its middle */
+.bt-end .bt-plan{grid-column:2;grid-row:1;align-self:center}
+.bt-end .nx figure{margin:0;aspect-ratio:3/2;overflow:hidden}
+.bt-end .nx figure img{width:100%;height:100%;object-fit:cover;max-width:none;transition:transform 3s var(--e)}
+.bt-end .nx:hover figure img{transform:scale(1.03)}
+.bt-end .nx b{display:block;margin-top:5vh;font-family:var(--head);font-weight:400;font-size:clamp(42px,4.2vw,76px);line-height:1;letter-spacing:-.012em}
+.bt-end .nx span{display:inline-block;margin-top:18px;font:400 15px/1.4 var(--sans);color:var(--ink-2);transition:color .3s}
+.bt-end .nx:hover span{color:var(--brand)}
+.beats .bt-end .bt-plan p{font:300 clamp(40px,3.7vw,66px)/1.1 var(--sans);color:var(--ink);max-width:11ch;margin:0}
+.bt-end .bt-plan a{display:inline-flex;align-items:center;height:64px;padding:0 40px;margin-top:6vh;background:var(--ink);color:var(--paper);font:400 17px/1 var(--sans);letter-spacing:.02em;transition:background .3s}
+.bt-end .bt-plan a:hover{background:var(--brand)}
+
+@media (max-width:900px){
+  .beats{--pad:12vh}
+  .bt-cover .in{grid-template-columns:1fr;gap:3vh;padding:5vh 22px 0}
+  .bt-lede,.bt.closing,.bt.closing.nofig,.bt.quote,.bt.quote.l,.bt.quote.noimg,.bt.five,.bt.phone,.beats .bt-end{grid-template-columns:1fr;gap:6vh;padding-left:22px!important;padding-right:22px!important}
+  .bt.quote.l figure{order:0}.bt.quote figure{order:-1;width:82%}
+  .bt.quote.noimg blockquote,.bt.quote.noimg .bt-q,.bt.closing.nofig .txt{grid-column:1}
+  .bt.split{grid-template-columns:1fr}.bt-media{height:64vh;position:relative;order:0!important}
+  .bt-text{padding:0 22px}.bt-step,.bt-step:first-child,.bt-step:last-child{min-height:auto;padding:7vh 0 0;opacity:1}.bt-text .bt-step:last-child{padding-bottom:10vh}
+  .bt.split.noimg{grid-template-columns:1fr;padding:12vh 22px!important}.bt.split.noimg .bt-text{grid-column:1}.bt.split.noimg .bt-step:last-child{padding-bottom:0}
+  .bt.overlay,.bt.overlay.l{grid-template-columns:1fr;min-height:0}.bt.overlay figure{height:66vh;min-height:0;order:0!important}.bt.overlay .panel{padding:7vh 22px 12vh}
+  .bt.bleed .cap,.bt.bleedmsg .cap{grid-template-columns:1fr;gap:4vh;padding:7vh 22px 12vh}.bt.bleed .cap>div,.bt.bleedmsg .cap>div,.bt.bleedmsg .cap .bt-ch{grid-column:1}
+  .bt.bleed .ph,.bt.bleedmsg .ph,.bt.bleedquote .ph{height:62vh;min-height:0}
+  .bt.bleed.tall{display:block;padding:0!important}.bt.bleed.tall .ph{height:82vh;aspect-ratio:auto}.bt.bleed.tall .cap{padding:7vh 22px 12vh}
+  .bt.bleedquote .bt-q{width:auto;padding:8vh 22px 0}
+  .bt .bt-q .pq{margin-left:0}
+  .bt.big{grid-template-columns:1fr}.bt.big figure{height:58vh;min-height:0}.bt.big blockquote{padding:9vh 22px 12vh}
+  .bt.phone.hasimg{grid-template-rows:auto}.bt.phone.hasimg figure{grid-row:auto}.bt.phone.hasimg .aside{grid-column:1}
+  .bt.card{grid-template-columns:1fr;gap:6vh}.bt.card .aside{padding:0}
+  .bt .facts div{grid-template-columns:7.5em 1fr}
+  .bt-end{padding-top:0}
+  .beats .bt-end{grid-template-rows:auto}.bt-end .nx{grid-row:auto;display:block}.bt-end .bt-plan{grid-column:1;grid-row:auto}
+}
+@media (prefers-reduced-motion:reduce){.bt-media img,.bt-step{transition:none}}
+/* screenshot mode: no sticky photographs, so a full-page capture shows each beat as a reader meets it */
+.shot .bt.split:not(.noimg){min-height:100vh;align-items:center}
+.shot .bt-media{position:relative;height:100vh}
+.shot .bt.split:not(.noimg) .bt-step,.shot .bt.split:not(.noimg) .bt-step:first-child,.shot .bt.split:not(.noimg) .bt-step:last-child{min-height:0;padding:2.2vh 0;opacity:1}
+.shot .bt.split:not(.noimg) .bt-text{display:flex;flex-direction:column;justify-content:center}
+
+/* surfaces: a text-only beat that would continue the surface above it takes the other one (set by beats.js) */
+.beats .bt.flip-stone{background:var(--stone)!important}
+.beats .bt.flip-paper{background:var(--paper)!important}
