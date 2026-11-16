@@ -21,7 +21,7 @@
       <a href="home-v3.html">Home</a><a href="weddings-v3.html">Weddings</a><a href="events-v3.html">Corporate</a>
       <a href="events-v3.html#private">Private celebrations</a><a href="destinations-v3.html">Destinations</a>
       <a href="about-v3.html">About us</a><a href="journal-v3.html">Journal</a><a href="contact.html">Contact</a><a href="plan.html">Start planning</a>
-      <div class="m-foot"><span class="m-lang" aria-label="Language"><a href="#" aria-current="true">EN</a><a href="#">IT</a><a href="#">DE</a><a href="#">FR</a></span><span>+39 346 688 2388</span><span>Instagram</span><span>Client login</span></div>
+      <div class="m-foot"><span class="m-lang" aria-label="Language"><a href="#" aria-current="true">EN</a><a href="#">IT</a><a href="#">DE</a><a href="#">FR</a></span><span>+39 346 688 2388</span><span>Instagram</span></div>
     </nav>
     <div class="m-img"><img src="img/menu.jpg" srcset="img/x900/menu.webp 900w, img/x1600/menu.webp 1600w, img/x2400/menu.webp 1800w" sizes="50vw" alt="" decoding="async"></div>
   </div>

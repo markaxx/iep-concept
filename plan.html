@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Start planning · Italian Event Planners</title>
-<link rel="preload" href="fonts/jost-300.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/jost-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/italiana.woff2" as="font" type="font/woff2" crossorigin><link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=7e1c513b">
+<link rel="preload" href="fonts/jost-300.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/jost-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/italiana.woff2" as="font" type="font/woff2" crossorigin><link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=72bb88ac">
 <style>
 .wizard footer,.wizard .wa{display:none}
 .wizard .bar{background:linear-gradient(180deg,rgba(10,8,6,.45),rgba(10,8,6,0))}
@@ -625,6 +625,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
 /* contact screen: Send and Skip on one line, like the other button pairs (Mark 16 Nov) */
 .cf-act{flex-direction:row;flex-wrap:wrap;align-items:center;column-gap:28px;row-gap:14px}
 .cf-act .go{margin-top:0}.cf-act .soft{margin-top:0;padding:0;font-size:15px;font-weight:400;letter-spacing:.02em;color:var(--ink);opacity:.68}.cf-act .soft:hover{opacity:1}
+.wz.split.reply .rl{text-wrap:balance}.wz.split.reply .rb{text-wrap:pretty}   /* headings never leave one word alone on a line */
 </style>
 <meta name="robots" content="noindex"><script>try{if(sessionStorage.getItem("iep-arch")&&!matchMedia("(prefers-reduced-motion: reduce)").matches&&!location.search.includes("shot"))document.documentElement.classList.add("arch-ready")}catch(e){}</script></head>
 <body class="wizard">
@@ -637,7 +638,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     <button class="back2" id="back">Back</button>
   </section>
 </div>
-<script src="js/site.js?v=c05b93b2"></script>
+<script src="js/site.js?v=59b97a7d"></script>
 <script src="js/prefetch.js?v=e788ada9" defer></script>
 <script src="js/countries.js?v=4b133cd4"></script>
 <script src="vendor/gsap.min.js?v=ff86cb55"></script><script src="vendor/ScrollTrigger.min.js?v=2e3b8c36"></script><script src="vendor/lenis.min.js?v=5a44a112"></script><script src="js/motion.js?v=ef56d6a3"></script>
@@ -655,7 +656,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   // (ECHO below), so they cost no tap. Only two pauses remain: after the guest count, and just before the contact step.
   const Q = [
     {k:'type', q:'What are we celebrating?', s:'', opts:[
-      ['wedding','A wedding','n/hands-sea'],['private','An anniversary or birthday','n/wq-toast'],['corporate','A company gathering','n/wq-gala'],['other','Something else','w-stairs']],},
+      ['wedding','A wedding','n/hands-sea'],['private','An anniversary or birthday','n/wq-toast'],['corporate','A company gathering','n/wq-corporate'],['other','Something else','w-stairs']],},
     {k:'where', q:'Where do you see it?', s:'', opts:[
       ['Lake Como','Lake Como','n/wq-como'],['Ravello','Ravello','n/wq-ravello'],['Positano','Positano','n/wq-positano'],['Capri','Capri','n/wq-capri'],
       ['Tuscany','Tuscany','n/wq-tuscany'],['Florence','Florence','wz-c-florence'],['Puglia','Puglia','wz-puglia-tile'],['Italy','Help me choose','wz-c-italy']],},
@@ -733,11 +734,11 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   const TXT = opt.get('text') === 'centre' ? 'centre' : 'split';
   const ECHO_ON = opt.get('echo') === '1';
   const TRAIL = opt.get('trail') === 'card' ? 'card' : 'line', END = 'a';  // one ending; kept as a field so a future A/B test can tag which ending a lead saw
-  const PROG = [10,22,34,46,54,62,72,82,88,93,96,98,100];   // one value per screen: starts endowed, bigger steps near the end
+  const PROG = [10,22,34,46,54,62,72,78,84,89,93,96,98,100];   // one value per screen: starts endowed, bigger steps near the end
 
   const COVER = {where:'n/wq-cover'};   // the photo a picture question opens on, before the visitor points at anything
   Q.forEach(q => q.opts && q.opts.forEach(o => { const im = new Image(); im.src = `${GI(o[2])}`; }));
-  const SCR = [['q',0],['q',1],['q',2],['q',3],['pause'],['q',4],['q',5],['ready'],['contact'],['found'],['plan'],['book'],['done']];
+  const SCR = [['q',0],['q',1],['q',2],['q',3],['pause'],['q',4],['q',5],['bpause'],['ready'],['contact'],['found'],['plan'],['book'],['done']];
   let n = 0;
 
   let Z = 1;
@@ -807,7 +808,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   const SEASON = {spring:'n/wq-season-spring', summer:'n/wq-season-summer', autumn:'n/wq-season-autumn'};
   const SEASON_AT = {'Lake Como':{spring:'n/wq-season-como-spring', summer:'n/wq-season-como-summer'}, 'Ravello':{spring:'n/wq-season-ravello-spring', summer:'wz-c-ravello'}, 'Positano':{spring:'n/wq-season-coast-spring', summer:'n/wq-season-positano-summer'}, 'Capri':{spring:'n/wq-season-coast-spring', summer:'wz-c-capri'}, 'Tuscany':{summer:'wz-c-tuscany', autumn:'n/wq-season-tuscany-autumn'}};
   const seasonImg = (v, w) => (SEASON_AT[w] || {})[v] || SEASON[v];
-  addEventListener('load', () => setTimeout(() => ['n/wq-guests-elope', 'n/wq-guests-intimate', 'n/wq-guests-long', 'n/wq-guests-grand', 'w-coast', 'ilaria', ...Object.values(CIMG), ...Object.values(BIMG), ...Object.values(PIMG), RIMG, ...Object.values(SEASON)].forEach(nm => { const im = new Image(); im.src = `${GI(nm)}`; }), 1500));   // later screens' photos arrive in the background, so no screen waits on one
+  addEventListener('load', () => setTimeout(() => ['wz-t-wedding', 'w-rowboats', 'n/wq-team-table', 'n/wq-guests-elope', 'n/wq-guests-intimate', 'n/wq-guests-long', 'n/wq-guests-grand', 'w-coast', 'ilaria', ...Object.values(CIMG), ...Object.values(BIMG), ...Object.values(PIMG), RIMG, ...Object.values(SEASON)].forEach(nm => { const im = new Image(); im.src = `${GI(nm)}`; }), 1500));   // later screens' photos arrive in the background, so no screen waits on one
   const FOUND = [['friend','A friend or family'],['instagram','Instagram'],['google','Google'],['press','A magazine or blog'],['venue','A venue or supplier'],['other','Somewhere else']];
   // Silent attribution, kept for the whole visit: UTM tags and referrer from the first page the visitor landed on.
   const SRC = (() => {
@@ -869,7 +870,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   }
   function render(){
     const [kind, i] = SCR[n]; let h = '';
-    const pause = kind === 'pause' || kind === 'ready'; wz.classList.toggle('sharp', pause); wz.classList.toggle('reply', pause); wz.classList.toggle('final', kind === 'done'); wz.classList.toggle('form', kind === 'contact'); wz.classList.toggle('end', kind === 'done'); const pickQ = kind === 'q' && !!Q[i].opts, textQ = kind === 'q' && !Q[i].opts && TXT === 'split', late = ['found','plan','book'].includes(kind), split = pause || pickQ || textQ || late; wz.classList.toggle('txt', textQ || late); wz.classList.toggle('late', late); wz.classList.toggle('pause-g', kind === 'pause'); wz.classList.toggle('split', split); wz.classList.toggle('pick', pickQ); document.body.classList.toggle('split-on', split);
+    const pause = kind === 'pause' || kind === 'bpause' || kind === 'ready'; wz.classList.toggle('sharp', pause); wz.classList.toggle('reply', pause); wz.classList.toggle('final', kind === 'done'); wz.classList.toggle('form', kind === 'contact'); wz.classList.toggle('end', kind === 'done'); const pickQ = kind === 'q' && !!Q[i].opts, textQ = kind === 'q' && !Q[i].opts && TXT === 'split', late = ['found','plan','book'].includes(kind), split = pause || pickQ || textQ || late; wz.classList.toggle('txt', textQ || late); wz.classList.toggle('late', late); wz.classList.toggle('pause-g', kind === 'pause'); wz.classList.toggle('split', split); wz.classList.toggle('pick', pickQ); document.body.classList.toggle('split-on', split);
     document.body.classList.toggle('on-paper', split || kind === 'contact' || kind === 'done');
     $('#back').style.visibility = n > 0 && kind !== 'done' ? 'visible' : 'hidden';
     const ec = kind === 'q' && ECHO_ON ? echo(i) : '';   // Mark deleted the reply lines (16 Nov 20:25); ?echo=1 still shows them
@@ -882,20 +883,23 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     } else if (kind === 'pause') {
       const r = guestPause(); bg(gimg(st.guests));
       h = `<p class="rl">${r.line}</p>` + (r.body ? `<p class="rb">${r.body}</p>` : '') + (r.src ? `<p class="rs">${r.src}</p>` : '') + (r.quote ? `<blockquote class="pq rq"><p>${r.quote[0]}</p><cite>&mdash; ${r.quote[1].replace('&', '&amp;')}</cite></blockquote>` : '') + `<button class="go" data-next>Continue ${arrow}</button>`;
+    } else if (kind === 'bpause') {
+      // Mark, 17 Nov 00:30: the answer to the budget gets its own screen before "Your plan is ready." Never a hint that a figure is small; no statistics.
+      const BP = {
+        '4':['Then we can take the whole villa.', 'For the weekend, with a boat at the jetty for every crossing and music from the first drink to the last.'],
+        '3':['Room for what your guests remember.', 'The band that plays past midnight, the boat across at dusk, flowers cut on the hillside that morning.'],
+        '2':['We\u2019ll spend it where it shows.', 'On the table, the light and the view. We know which villas open their gardens and which cooks still cook at home.'],
+        '1':['We\u2019ll stay inside it, to the euro.', 'We know the family-run kitchens, the quiet coves and the gardens that open for a day. That is where a figure goes furthest.'],
+        '0':['We\u2019ll work it out together.', 'You\u2019ll see what each choice costs, and decide with the plan in front of you.']};
+      const r = BP[st.budget] || BP['0'];
+      bg(({wedding:'wz-t-wedding', corporate:'n/wq-team-table'})[st.type || 'wedding'] || 'w-rowboats');
+      h = `<p class="rl">${r[0]}</p><p class="rb">${r[1]}</p><button class="go" data-next>Continue ${arrow}</button>`;
     } else if (kind === 'ready') {
       const w = st.where || 'Italy', place = ON[w] || 'in ' + w, t = st.type || 'wedding';
       bg(RIMG);
       const bits = [OCC[t] + ' ' + place, st.when && st.when !== 'unsure' ? 'in ' + WHEN[st.when].toLowerCase() : '', st.guests <= 2 ? 'for the two of you' : 'for ' + st.guests + ' guests', ({beach:'by the sea', lake:'on a lake', terrace:'on a terrace at sunset', stone:'in a castle or an old villa', garden:'in a garden under the trees'})[st.feel] || ''].filter(Boolean);
       const sent = bits[0] + (bits.length > 1 ? ', ' + bits.slice(1).join(', ') : '') + '.';
-      // Mark, 16 Nov 21:16: after the budget, a line that answers it. Never a hint that a figure is small; no statistics.
-      const BLINE = {
-        '4':'At this level everything is open to us: a villa taken for the whole weekend, a boat for every crossing, music from the first drink to the last.',
-        '3':'That gives us room to do it beautifully. We spend it where your guests will feel it.',
-        '2':'We plan the weekend around that figure and keep to it, putting it where it matters most to you.',
-        '1':'We plan to the figure you give us and stay inside it. Knowing the places and the people as well as we do, you will be surprised by what it can do.',
-        '0':'That\u2019s fine. We\u2019ll show you what each choice costs, so you can decide with the plan in front of you.'};
-      const bl = st.budget != null && BLINE[st.budget] ? `<p class="rb">${BLINE[st.budget]}</p>` : '';
-      h = `<p class="rl">Your plan is ready.</p><p class="rp">${sent}</p>${bl}<button class="go" data-next>Where shall we send it? ${arrow}</button>`;
+      h = `<p class="rl">Your plan is ready.</p><p class="rp">${sent}</p><button class="go" data-next>Where shall we send it? ${arrow}</button>`;
     } else if (kind === 'contact') {
       const t = st.type || 'wedding', place = !st.where || st.where === 'Italy' ? 'Italy' : st.where;
       const ph = CIMG[st.where || 'Italy'] || 'wz-c-italy';

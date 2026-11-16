@@ -812,3 +812,8 @@ html.arch-ready .wa,html.arch-leave .wa{opacity:0;transition:opacity .25s}
 .bar .z-paper.logo .lw{opacity:0}.bar .z-paper.logo .lk{opacity:1}
 .bar.over-photo::before{background:rgba(24,19,14,.14)}
 .bar::before{transition:background-color .6s var(--ease)}
+
+/* Menu type (Mark, 16 Nov: Italiana "is really just a pain to read for almost anything except headers"). The menu is set like the
+   eight places index on Home: Jost 400, ink, raspberry on hover and focus. */
+.menu nav a{font-family:var(--sans)!important;font-weight:400!important;font-size:clamp(22px,2.3vw,32px)!important;line-height:1.56!important;letter-spacing:0!important;text-transform:none!important;width:fit-content}
+@media (max-width:900px){.menu nav a{font-size:clamp(22px,6.4vw,28px)!important}}
