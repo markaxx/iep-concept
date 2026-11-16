@@ -106,7 +106,7 @@
       const hs = getComputedStyle(host), bgA = (hs.backgroundColor.match(/[\d.]+/g) || [0, 0, 0, 0])[3];
       if (host.matches('button.go,.pill,.hv-cta,.st-read,.dp-btn') || (hs.backgroundColor !== 'transparent' && bgA !== '0' && bgA !== undefined) || hs.backgroundColor.startsWith('rgb(') || (parseFloat(hs.borderTopWidth) > 0 && parseFloat(hs.borderLeftWidth) > 0 && hs.borderTopStyle !== 'none')) return;
       const fs = parseFloat(cs.fontSize) || 16, wt = Math.min(500, Math.max(300, Math.round((parseInt(cs.fontWeight) || 400) / 100) * 100));
-      const g = geo(fs, wt);
+      const g = geo(fs, 400);   // every arrow keeps the proportions of "Read their story" (Jost 400), also beside light labels
       // Sit the arrow on the baseline like a letter (Mark: its foot aligns with the bottoms of a, b, c). When the words before it are
       // a bare text node in a flex row, wrap the two in one inline run, so the arrow is laid out in the same line as the words.
       let prev = s.previousSibling; while (prev && prev.nodeType === 3 && !prev.textContent.trim()) prev = prev.previousSibling;
@@ -131,44 +131,59 @@
     .observe(document.body, {childList: true, subtree: true});
 })();
 
-/* Page transition (16 Nov, replaces js/arch.js and the page fade in js/motion.js). Leaving: the page closes into an arch.
-   Arriving after such a click: it opens from the arch. A flag in sessionStorage, read by a one-line script in each page's <head>,
-   sets the closed state before the first paint, so there is no flash. Back and Forward restore the page open (pageshow),
-   a click on a link to the page you are on scrolls to the top instead of reloading, and the page can never stay clipped. */
+/* Page transition, "blinds" (16 Nov). CSS in css/site.css "Blinds".
+   Leaving: on the click the blinds close at once (over the open menu too), and the next page is fetched while they close.
+   Arriving after such a click: a one-line script in the <head> holds the page fully closed before the first paint; once the page is
+   ready to show (fonts and the opening photo, at most ~0.9s), the blinds open. Back/Forward always restores the page open with the
+   menu closed; a click on a link to the current page scrolls to the top; a CSS fallback opens the page even if this script fails. */
 (() => {
   const h = document.documentElement, page = document.querySelector('.page');
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches, shot = location.search.includes('shot');
   const on = getComputedStyle(h).getPropertyValue('--arch').trim() === '1' && !still && !shot;
   try { sessionStorage.removeItem('iep-arch'); } catch (e) {}
-  const open = () => h.classList.remove('arch-ready', 'arch-leave');
-  if (page) page.addEventListener('animationend', e => { if (e.animationName === 'archopen') h.classList.remove('arch-ready'); });
-  setTimeout(() => h.classList.remove('arch-ready'), 1700);                  // never leave the page clipped
-  const reset = () => { open(); leaving = false; const m = document.querySelector('.menu'); if (m) { m.classList.remove('open'); m.setAttribute('aria-hidden', 'true'); } };
-  addEventListener('pageshow', e => { if (e.persisted) reset(); });            // Back/Forward: page open, menu closed
   let leaving = false;
+  const open = () => h.classList.remove('arch-ready', 'arch-go', 'arch-leave');
+  const reset = () => { open(); leaving = false; const m = document.querySelector('.menu'); if (m) { m.classList.remove('open'); m.setAttribute('aria-hidden', 'true'); } };
+  if (page) page.addEventListener('animationend', e => { if (e.animationName === 'archopen') h.classList.remove('arch-ready', 'arch-go'); });
+  addEventListener('pageshow', e => { if (e.persisted) reset(); });
+  if (h.classList.contains('arch-ready')) {
+    // open when the visible part is ready: fonts and the first photo on screen, never later than 900ms
+    const go = () => { if (h.classList.contains('arch-go')) return; requestAnimationFrame(() => requestAnimationFrame(() => h.classList.add('arch-go'))); };
+    const img = [...document.querySelectorAll('.page img')].find(i => { const r = i.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight && r.width > 80; });
+    Promise.all([document.fonts ? document.fonts.ready : 0, img && !img.complete ? (img.decode ? img.decode().catch(() => {}) : new Promise(r => img.addEventListener('load', r, {once: true}))) : 0]).then(go);
+    setTimeout(go, 900);
+    setTimeout(() => h.classList.remove('arch-ready', 'arch-go'), 2600);   // never leave the page clipped
+  }
   if (!on) { open(); return; }
+  const prefetched = new Set();
+  const prefetch = href => { if (prefetched.has(href)) return; prefetched.add(href); const l = document.createElement('link'); l.rel = 'prefetch'; l.href = href; document.head.appendChild(l); };
   document.addEventListener('click', e => {
     if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     const a = e.target.closest('a[href]'); if (!a || (a.target && a.target !== '_self') || a.hasAttribute('download')) return;
     const u = new URL(a.href, location.href);
     if (!/^(https?|file):$/.test(u.protocol) || u.origin !== location.origin) return;
-    if (u.pathname === location.pathname) { if (!u.hash) { e.preventDefault(); scrollTo({top: 0, behavior: 'smooth'}); } return; }
+    if (u.pathname === location.pathname && u.search === location.search) {
+      if (!u.hash) { e.preventDefault(); const m = document.querySelector('.menu.open'); if (m) { m.classList.remove('open'); m.setAttribute('aria-hidden', 'true'); } scrollTo({top: 0, behavior: 'smooth'}); }
+      return;
+    }
     e.preventDefault(); if (leaving) return; leaving = true;
+    if (u.protocol !== 'file:') prefetch(a.href);                          // fetch the next page while the blinds close
     try { sessionStorage.setItem('iep-arch', '1'); } catch (er) {}
-    h.classList.remove('arch-ready'); h.classList.add('arch-leave');
-    setTimeout(() => { location.href = a.href; setTimeout(reset, 2500); }, 700);   // if the browser never leaves, open the page again
+    h.classList.remove('arch-ready', 'arch-go'); h.classList.add('arch-leave');
+    setTimeout(() => { location.href = a.href; setTimeout(reset, 3000); }, 620);   // if the browser never leaves, open the page again
   }, true);
 })();
 
-/* Fixed bar and Home's travelling logo (16 Nov). The bar turns solid (paper, ink, raspberry logo) once it has left the opening photo.
-   On Home the big hero logo is moved to a fixed layer; its position and size are interpolated from where the hero would carry it to
-   the logo slot in the bar, linked to scroll (scrolling up reverses it exactly), and it turns from white to raspberry as it docks. */
+/* Fixed bar and Home's travelling logo (16 Nov). CSS in css/site.css "Fixed bar".
+   The bar never changes size and has no fill: a soft, masked backdrop blur everywhere. Its text is light over photographs and ink over
+   paper, decided by what is under the bar (with hysteresis, so no scroll position can flicker) and crossfaded.
+   On Home the big hero logo moves to a fixed layer: it stays put for the first stretch of scroll, then travels and shrinks into the bar's
+   logo slot, docking just before "Long tables under late Italian light." would reach it; that line fades out as it docks.
+   Scroll-linked, so scrolling back reverses it exactly; it turns raspberry over the last quarter of the travel. */
 (() => {
   const bar = document.querySelector('.bar'), page = document.querySelector('.page'); if (!bar || !page) return;
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const paperTop = bar.classList.contains('dark');
-  const first = [...page.children].find(e => e !== bar && e.offsetHeight > 200);
-  const hl = document.querySelector('.hero-logo'), slot = bar.querySelector('.logo .lw');
+  const hl = document.querySelector('.hero-logo'), slot = bar.querySelector('.logo .lw'), line = document.querySelector('.hv-line');
   let fly = null, fw, fb;
   if (hl && slot) {
     fly = document.createElement('a'); fly.className = 'fly-logo'; fly.href = 'home-v3.html'; fly.tabIndex = -1;
@@ -178,26 +193,48 @@
     hl.style.visibility = 'hidden'; bar.querySelector('.logo').style.visibility = 'hidden';
   }
   const clamp = v => Math.max(0, Math.min(1, v)), lerp = (a, b, t) => a + (b - a) * t;
-  let solid = null, queued = false, follow = 0;
+  // what is under the bar: a photograph or dark surface (light text) or paper (ink text)
+  const skip = e => e.closest('.bar,.fly-logo,.wa,.menu');
+  const lum = c => { const m = c.match(/[\d.]+/g); if (!m || (m[3] !== undefined && +m[3] < .5)) return null; return (.2126 * m[0] + .7152 * m[1] + .0722 * m[2]) / 255; };
+  function darkAt(x, y){
+    for (const e of document.elementsFromPoint(x, y)) {                         // top to bottom: the first opaque surface decides
+      if (skip(e) || e === document.documentElement) continue;
+      if (/^(IMG|VIDEO|PICTURE|CANVAS)$/.test(e.tagName)) return true;
+      const cs = getComputedStyle(e);
+      if (cs.backgroundImage !== 'none' && !/gradient/.test(cs.backgroundImage)) return true;
+      const l = lum(cs.backgroundColor); if (l !== null) return l < .45;
+    }
+    return false;
+  }
+  let dark = null, queued = false;
+  const zones = [...bar.children];
   function frame(){
     queued = false;
     const y = scrollY;
-    let edge = paperTop ? 1 : (first ? first.offsetTop + first.offsetHeight - bar.offsetHeight : 1);
     if (fly) {
       const N = hl.getBoundingClientRect(), D = slot.getBoundingClientRect();
-      const s1 = Math.max(1, N.top + y - D.top);              // the scroll at which the logo reaches the bar
-      edge = Math.min(edge, s1);
-      let p = clamp(y / s1); if (still) p = p >= 1 ? 1 : 0;
+      const s0 = Math.round(innerHeight * .1);                                    // linger before it starts to move
+      const s1 = line ? Math.max(s0 + 1, line.getBoundingClientRect().top + y - D.bottom - 14) : Math.max(s0 + 1, N.top + y - D.top);
+      let p = clamp((y - s0) / (s1 - s0)); if (still) p = p >= 1 ? 1 : 0;
       const k = lerp(1, D.width / N.width, p);
       const cx = lerp(N.left + N.width / 2, D.left + D.width / 2, p), cy = lerp(N.top + N.height / 2, D.top + D.height / 2, p);
       fly.style.width = N.width + 'px'; fly.style.height = N.height + 'px';
       fly.style.transform = `translate(${cx - k * N.width / 2}px,${cy - k * N.height / 2}px) scale(${k})`;
       const c = clamp((p - .75) / .25); fb.style.opacity = c; fw.style.opacity = 1 - c;
       const d = p >= 1; fly.classList.toggle('docked', d); fly.tabIndex = d ? 0 : -1;
+      if (line) { const f = clamp((y - (s1 - 110)) / 110); if (f > 0 || line.dataset.f) { line.style.opacity = 1 - f; line.dataset.f = f > 0 ? '1' : ''; if (!f) line.style.opacity = ''; } }
     }
-    const s = y >= edge;
-    if (s !== solid) { solid = s; bar.classList.toggle('solid', s); if (!paperTop) bar.classList.toggle('dark', s); follow = performance.now() + 650; }
-    if (fly && performance.now() < follow) req();             // keep the logo on its slot while the bar's padding eases
+    // each part of the bar (menu, logo, languages + plan) reads what is under itself: light over a photograph, ink over paper.
+    // Sampled at the part's left, middle and right; nothing here changes the bar's size, so no position can oscillate.
+    let photos = 0;
+    zones.forEach(z => {
+      const r = z.getBoundingClientRect(), yy = Math.min(innerHeight - 1, r.top + r.height / 2);
+      const n = [.1, .5, .9].reduce((s, f) => s + (darkAt(r.left + r.width * f, yy) ? 1 : 0), 0), on = n >= 2;
+      if (z._on !== on) { z._on = on; z.classList.toggle('z-photo', on); z.classList.toggle('z-paper', !on); }
+      photos += on;
+    });
+    const want = photos >= 2;
+    if (want !== dark) { dark = want; bar.classList.toggle('dark', !dark); bar.classList.toggle('over-photo', dark); }
   }
   const req = () => { if (!queued) { queued = true; requestAnimationFrame(frame); } };
   addEventListener('scroll', req, {passive: true}); addEventListener('resize', req); addEventListener('load', req);

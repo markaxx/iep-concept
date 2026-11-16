@@ -2,7 +2,9 @@
 // Beat types and their fields are documented in /mnt/project-files/stories/STORY-PLAYBOOK.md.
 // Type roles (see css/beats.css): the first paragraph of a beat is its lead line, set larger; later paragraphs are body.
 (() => {
-  const B = window.BEATS, I = n => `img/g/${n.split('|')[0]}.jpg`;
+  // photos come from the resized WebP copies (img/g/<dir>/x900|x1600|x2400/<name>.webp), the size picked once for this screen
+  const GW = (w => w <= 900 ? 900 : w <= 1600 ? 1600 : 2400)(innerWidth * (devicePixelRatio || 1));
+  const B = window.BEATS, I = n => { n = n.split('|')[0]; const i = n.lastIndexOf('/') + 1; return `img/g/${n.slice(0, i)}x${GW}/${n.slice(i)}.webp`; };
   const F = n => n.includes('|') ? ` style="object-position:${n.split('|')[1]}"` : ''; // optional focal point: 'n/name|50% 75%'
   const arr = a => Array.isArray(a) ? a : [a];
   const P = a => arr(a).map((x, k) => `<p${k ? '' : ' class="lead"'}>${x}</p>`).join('');
@@ -45,14 +47,15 @@
     closing: b => { factsShown = true; return `<section class="bt closing"><div class="pair">${b.imgs.map(m => `<img src="${I(m)}" alt="">`).join('')}</div><div class="txt">${q(b, true)}${facts()}</div></section>`; }
   };
   const nx = B.next; // {href, cover, title, dek?}
-  const body = B.beats.map(b => R[b.t](b)).join('');
+  const lazy = h => h.replace(/<img /g, '<img loading="lazy" decoding="async" ');   // beats sit below the cover: load them as they come near
+  const body = lazy(B.beats.map(b => R[b.t](b)).join(''));
   document.getElementById('pg').innerHTML = `
-  <header class="bt-cover"><img src="${I(B.cover)}" alt="${B.coverAlt || ''}"><div class="in"><h1>${B.title}</h1><p class="line">${B.line}</p></div></header>
+  <header class="bt-cover"><img fetchpriority="high" src="${I(B.cover)}" alt="${B.coverAlt || ''}"><div class="in"><h1>${B.title}</h1><p class="line">${B.line}</p></div></header>
   <section class="bt-lede"><figure><img src="${I(B.ledeImg)}" alt=""></figure><div><p>${B.lede}</p><small>${B.byline}</small></div></section>
   ${body}
   ${factsShown ? '' : `<section class="bt closing nofig"><div class="txt">${facts()}</div></section>`}
   <section class="bt-end">
-    ${nx ? `<a class="nx" href="${nx.href}"><figure><img src="${I(nx.cover)}" alt=""></figure><div><b>${nx.title}</b><span>${nx.dek || 'Read the next wedding'} <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>` : ''}
+    ${nx ? `<a class="nx" href="${nx.href}"><figure><img loading="lazy" decoding="async" src="${I(nx.cover)}" alt=""></figure><div><b>${nx.title}</b><span>${nx.dek || 'Read the next wedding'} <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>` : ''}
     <div class="bt-plan"><p>Tell us about yours.</p><a href="plan.html">Start planning</a></div>
   </section>`;
 

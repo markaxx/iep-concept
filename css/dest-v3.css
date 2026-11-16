@@ -5,7 +5,7 @@
 
 
 .dx{
-  --month:#A85A72;                                /* good months: a dusty rose, a quieter relative of the raspberry quotes */
+  --month:var(--brand);   /* good months: the brand raspberry (Mark, 16 Nov: 'regular pink across the board') */                                /* good months: a dusty rose, a quieter relative of the raspberry quotes */
   --g:clamp(16px,2.222vw,40px);
   --side:clamp(20px,6.667vw,160px);
   --w:min(1360px,calc(100vw - 2*var(--side)));
@@ -64,16 +64,8 @@ html.m-pink .dx{--month:var(--brand)} html.m-terra .dx{--month:#8A5636}
 .hdA h1{grid-column:1/10;white-space:nowrap}
 .hdA .dx-intro{grid-column:10/13}
 
-/* the bar over the photograph: fixed, clear, white logo; once past the photograph it settles onto paper with the pink logo.
-   Page-scoped (body.dx-over) so the shared header is untouched. */
-.dx-over .bar{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .7s var(--e),box-shadow .7s var(--e),padding .7s var(--e)}
-.dx-over .bar.settled{background:rgba(244,238,230,.9);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(42,36,32,.06);padding-top:14px;padding-bottom:14px}
-.dx-over .bar .logo{position:relative}
-.dx-over .bar .logo .lw,.dx-over .bar .logo .lk{display:block!important;transition:opacity .7s var(--e)}
-.dx-over .bar .logo .lk{position:absolute;inset:0;opacity:0}
-.dx-over .bar.dark .logo .lk{opacity:1}
-.dx-over .bar.dark .logo .lw{opacity:0}
-.dx-over .bar .lang,.dx-over .bar .pill{transition:color .7s var(--e),background .7s var(--e)}
+/* the bar over the opening photograph: handled site-wide by the "Fixed bar" block in css/site.css (the page-scoped .dx-over rules
+   that used to live here animated padding and fought it) */
 
 /* ---------- each place ----------
    Every place is its own band; two paper tones alternate so each one begins and ends cleanly.

@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Italian Event Planners</title>
 <meta name="description" content="Weddings and celebrations across Italy since 2009.">
-<link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=306743f3"><link rel="stylesheet" href="css/v2.css?v=51f4b01b"><link rel="stylesheet" href="css/v3.css?v=b418b175">
+<link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=7e1c513b"><link rel="stylesheet" href="css/v2.css?v=f826ce25"><link rel="stylesheet" href="css/v3.css?v=b418b175">
 <style>
 /* events */
 section.ev{
@@ -71,7 +71,7 @@ section.ev{
 
 /* stories */
 /* ---------- Real weddings, one cover at a time ---------- */
-@font-face{font-family:CvQuote;src:url(fonts/cormorant-400.ttf);unicode-range:U+201C-201D;font-display:swap}
+@font-face{font-family:CvQuote;src:url(fonts/cormorant-400.woff2) format("woff2"),url(fonts/cormorant-400.ttf) format("truetype");unicode-range:U+201C-201D;font-display:swap}
 .cv{
   --ease:cubic-bezier(.2,.7,.2,1);
   --h:clamp(540px,80vh,820px);            /* print height */
@@ -103,7 +103,7 @@ section.ev{
   transition:opacity .9s cubic-bezier(.22,1,.36,1),transform 2.2s cubic-bezier(.22,1,.36,1)}
 .cv-slide.is-on .cv-img img{opacity:1;transform:scale(1)}
 .cv-slide.is-out .cv-img img{opacity:1;transform:scale(1);transition:none}
-@media (hover:hover){.cv-link:has(.cv-hit:hover) .cv-img img{transform:scale(1.03);transition:opacity .9s var(--ease),transform .8s var(--ease)}}
+
 .cv-fig figcaption{margin-top:16px;font-size:15px;line-height:1.4;letter-spacing:.02em;color:#6E6357;
   opacity:0;transition:opacity 1s var(--ease) .2s}
 .cv-slide.is-on figcaption{opacity:1;transition-delay:.66s}
@@ -298,7 +298,7 @@ html.shot .ca .reveal{transition:none}
 <body class="home v2 v3">
 <div class="page">
   <header class="hero hero-v">
-    <img src="img/g/hello.jpg" alt="Bride on a castle wall above a lake">
+    <img src="img/g/hello.jpg" alt="Bride on a castle wall above a lake" srcset="img/g/x900/hello.webp 900w, img/g/x1600/hello.webp 1600w, img/g/x2400/hello.webp 2200w" sizes="(max-width: 900px) 100vw, 100vw" width="2200" height="1467" fetchpriority="high">
     <div class="hero-copy">
       <img class="hero-logo" src="brand/logo-white.svg" alt="Italian Event Planners">
       <p class="hv-line">Long tables under late Italian light.</p>
@@ -310,28 +310,28 @@ html.shot .ca .reveal{transition:none}
 
       <a class="w reveal" href="weddings-v3.html">
         <figure>
-          <div class="ph"><img src="img/g/svc-wedding.jpg" alt="A bride and groom dancing on a castle wall at dusk" style="object-position:42% 50%"></div>
+          <div class="ph"><img src="img/g/svc-wedding.jpg" alt="A bride and groom dancing on a castle wall at dusk" style="object-position:42% 50%" srcset="img/g/x900/svc-wedding.webp 900w, img/g/x1600/svc-wedding.webp 1600w, img/g/x2400/svc-wedding.webp 1800w" sizes="(max-width: 900px) 100vw, 70vw" width="1800" height="1200" loading="lazy" decoding="async"></div>
           <figcaption><b>Weddings</b><span>The vows, the long table, the morning after</span><span class="see">See weddings <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></figcaption>
         </figure>
       </a>
 
       <a class="p reveal" href="events-v3.html#private">
         <figure>
-          <div class="ph"><img src="img/g/g1.jpg" alt="A couple between climbing roses on a white village lane in Puglia" style="object-position:30% 50%"></div>
+          <div class="ph"><img src="img/g/g1.jpg" alt="A couple between climbing roses on a white village lane in Puglia" style="object-position:30% 50%" srcset="img/g/x900/g1.webp 900w, img/g/x1600/g1.webp 1382w" sizes="(max-width: 900px) 100vw, 55vw" width="1382" height="921" loading="lazy" decoding="async"></div>
           <figcaption><b>Private celebrations</b><span>Vow renewals, anniversaries, birthdays</span><span class="see">See private celebrations <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></figcaption>
         </figure>
       </a>
 
       <a class="c reveal" href="events-v3.html">
         <figure>
-          <div class="ph"><img src="img/g/svc-corporate.jpg" alt="An infinity pool above the Amalfi Coast in Ravello" style="object-position:72% 50%;filter:saturate(.8)"></div>
+          <div class="ph"><img src="img/g/svc-corporate.jpg" alt="An infinity pool above the Amalfi Coast in Ravello" style="object-position:72% 50%;filter:saturate(.8)" srcset="img/g/x900/svc-corporate.webp 900w, img/g/x1600/svc-corporate.webp 1024w" sizes="(max-width: 900px) 100vw, 40vw" width="1024" height="683" loading="lazy" decoding="async"></div>
           <figcaption><b>Corporate</b><span>Retreats and launches we run quietly</span><span class="see">See corporate events <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></figcaption>
         </figure>
       </a>
     </div>
   </section>
   <section class="ar ar-a" aria-label="Destinations" style="padding:0!important">
-    <figure class="bleed"><img src="img/g/n/home-vesuvius.jpg" alt="A bride and groom forehead to forehead on a terrace above the Bay of Naples, Vesuvius behind" style="object-position:50% 40%"></figure>
+    <figure class="bleed"><img src="img/g/n/home-vesuvius.jpg" alt="A bride and groom forehead to forehead on a terrace above the Bay of Naples, Vesuvius behind" style="object-position:50% 40%" srcset="img/g/n/x900/home-vesuvius.webp 900w, img/g/n/x1600/home-vesuvius.webp 1600w, img/g/n/x2400/home-vesuvius.webp 2400w" sizes="(max-width: 900px) 100vw, 100vw" width="3200" height="2133" loading="lazy" decoding="async"></figure>
   </section>
   <section class="k k1" aria-labelledby="k1h">
     <h2 id="k1h"><span class="g">Eight places, eight kinds of light.</span><a data-name href="destinations-v3.html#como">Lake Como</a></h2>
@@ -359,20 +359,20 @@ html.shot .ca .reveal{transition:none}
     </div>
     <div class="ca-row reveal">
       <a class="ca-pl" href="plan.html?type=wedding&amp;where=Ravello">
-        <figure><img src="img/g/d-ravello.jpg" alt="A bride and groom on a tiled terrace above the Amalfi Coast in Ravello" style="object-position:50% 60%;filter:saturate(.8)"></figure>
+        <figure><img src="img/g/d-ravello.jpg" alt="A bride and groom on a tiled terrace above the Amalfi Coast in Ravello" style="object-position:50% 60%;filter:saturate(.8)" srcset="img/g/x900/d-ravello.webp 900w, img/g/x1600/d-ravello.webp 1600w, img/g/x2400/d-ravello.webp 1800w" sizes="(max-width: 900px) 100vw, 40vw" width="1800" height="1200" loading="lazy" decoding="async"></figure>
         <figcaption><b>Ravello</b><em>Gardens hung over the sea</em></figcaption>
       </a>
 
       <a class="ca-pl" href="plan.html?type=wedding&amp;where=Positano">
-        <figure><img src="img/g/positano-roofs.jpg" alt="White and ochre houses of Positano stacked above the sea" style="object-position:50% 70%"></figure>
+        <figure><img src="img/g/positano-roofs.jpg" alt="White and ochre houses of Positano stacked above the sea" style="object-position:50% 70%" srcset="img/g/x900/positano-roofs.webp 900w, img/g/x1600/positano-roofs.webp 1237w" sizes="(max-width: 900px) 45vw, 20vw" width="1237" height="2200" loading="lazy" decoding="async"></figure>
         <figcaption><b>Positano</b><em>Lemon trees, the sea below</em></figcaption>
       </a>
       <a class="ca-pl" href="plan.html?type=wedding&amp;where=Lake%20Como">
-        <figure><img src="img/g/d-como.jpg" alt="A couple kissing on a wooden boat on Lake Como" style="object-position:52% 50%"></figure>
+        <figure><img src="img/g/d-como.jpg" alt="A couple kissing on a wooden boat on Lake Como" style="object-position:52% 50%" srcset="img/g/x900/d-como.webp 900w, img/g/x1600/d-como.webp 1000w" sizes="(max-width: 900px) 90vw, 40vw" width="1000" height="666" loading="lazy" decoding="async"></figure>
         <figcaption><b>Lake Como</b><em>Still water, a slow boat</em></figcaption>
       </a>
       <a class="ca-pl" href="plan.html?type=wedding&amp;where=Tuscany">
-        <figure><img src="img/g/tuscany-walk.jpg" alt="A bride and groom walking through a golden field at sunset" style="object-position:50% 60%"></figure>
+        <figure><img src="img/g/tuscany-walk.jpg" alt="A bride and groom walking through a golden field at sunset" style="object-position:50% 60%" srcset="img/g/x900/tuscany-walk.webp 900w, img/g/x1600/tuscany-walk.webp 1467w" sizes="(max-width: 900px) 95vw, 20vw" width="1467" height="2200" loading="lazy" decoding="async"></figure>
         <figcaption><b>Tuscany</b><em>Dry grass, hills turning gold</em></figcaption>
       </a>
     </div>
@@ -404,10 +404,12 @@ html.shot .ca .reveal{transition:none}
     clearTimeout(clean); clean = setTimeout(() => ph.querySelectorAll('img.was').forEach(i => i.classList.remove('was')), 1300);
     idx.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.k === k));
   };
-  let curK = 'como', z = 1, clean, swap; const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let curK = 'como', z = 1, clean, swap, locked = false; const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   idx.querySelectorAll('button').forEach(b => {
-    b.addEventListener('click', () => pick(b.dataset.k)); b.addEventListener('focus', () => pick(b.dataset.k));
-    if (matchMedia('(hover:hover)').matches) b.addEventListener('mouseenter', () => pick(b.dataset.k));
+    // a click chooses and holds the place: hovering other names no longer changes it, so the "See …" link can be reached directly.
+    // Another click chooses another place; the hold ends when the pointer leaves the section (and auto-advance waits while held).
+    b.addEventListener('click', () => { locked = true; pick(b.dataset.k); }); b.addEventListener('focus', () => pick(b.dataset.k));
+    if (matchMedia('(hover:hover)').matches) b.addEventListener('mouseenter', () => { if (!locked) pick(b.dataset.k); });
   });
   // auto-advance in index order (Home rhythm, shared with the stories): 4s a place, only while on screen and the tab is visible,
   // paused while the pointer is on the index, photo or links or focus is in the section, resuming 3s after it leaves; on touch it stops at the first tap
@@ -417,16 +419,17 @@ html.shot .ca .reveal{transition:none}
   // "hovering" = the pointer on something you can use (the index, the photo, the links), not merely inside the section
   k1.addEventListener('mouseover', e => { if (e.target.closest('button,a')) over = true; });
   k1.addEventListener('mouseout', e => { if (e.target.closest('button,a') && !(e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('.k1 button,.k1 a'))) { over = false; t = Math.min(t, DWELL - RESUME); } });
+  k1.addEventListener('mouseleave', () => { locked = false; });
   k1.addEventListener('focusin', () => focused = true); k1.addEventListener('focusout', () => focused = false);
   k1.addEventListener('touchstart', () => tapped = true, {passive:true});
   if (!matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(() => {
-    if (!seen || document.hidden || over || focused || tapped) return;
+    if (!seen || document.hidden || over || focused || tapped || locked) return;
     t += 250; if (t >= DWELL) { t = 0; const i = P.findIndex(p => p[0] === curK); pick(P[(i + 1) % P.length][0]); }
   }, 250);
 
 })();
 </script>
-<script src="js/site.js?v=beb4a90b"></script>
+<script src="js/site.js?v=8037800d"></script>
 <script>
 
 
