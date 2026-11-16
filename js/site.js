@@ -11,7 +11,7 @@
   <div class="bar${dark ? ' dark' : ''}">
     <div><button class="pill pill-glass mbtn" data-menu aria-label="Menu">${waves}<span class="mt">Menu</span></button></div>
     <a class="logo" href="home-v3.html"><img class="lw" src="brand/logo-white.svg" alt="Italian Event Planners"><img class="lk" src="brand/logo-brand.svg" alt=""></a>
-    <div class="right"><span class="lang" aria-label="Language"><a href="#" aria-current="true">EN</a><a href="#">IT</a><a href="#">DE</a><a href="#">FR</a></span><a class="pill pill-glass" href="plan.html">Plan ${arrow}</a></div>
+    <div class="right"><span class="lang" aria-label="Language"><a href="#" aria-current="true">EN</a><a href="#">IT</a><a href="#">DE</a><a href="#">FR</a></span><a class="pill pill-glass plan-cta" href="plan.html">Plan your wedding</a></div>
   </div>`);
 
   document.body.insertAdjacentHTML('beforeend', `
@@ -34,7 +34,7 @@
         <div><a class="logo" href="home-v3.html"><img src="brand/logo-white.svg" alt="Italian Event Planners"></a>
           <p style="margin-top:22px;max-width:30ch;color:#BFB09B;font-size:16px">Weddings, corporate events and private celebrations across Italy since 2009.</p></div>
         <div><h5>Celebrate</h5><a href="weddings-v3.html">Weddings</a><a href="events-v3.html">Corporate events</a><a href="events-v3.html#private">Private celebrations</a><a href="destinations-v3.html">Destinations</a></div>
-        <div><h5>Studio</h5><a href="about-v3.html">About us</a><a href="journal-v3.html">Journal</a><a href="home-v3.html#stories">Kind words</a><a href="#">Client login</a></div>
+        <div><h5>Studio</h5><a href="about-v3.html">About us</a><a href="journal-v3.html">Journal</a><a href="home-v3.html#stories">Kind words</a></div>
         <div><h5>Say hello</h5><a href="contact.html">Contact</a><a href="tel:+393466882388">+39 346 688 2388</a><a href="https://wa.me/393466882388">WhatsApp</a><a href="https://instagram.com/italianeventplanners">Instagram</a><a href="https://facebook.com/italianeventplanners">Facebook</a></div>
       </div>
       
@@ -89,7 +89,7 @@
     const k = U / fs, travel = fs >= 14 ? 5 : 4;                       // travel in px, as in the original
     const h = 1.06 * XH * U, w = 1.05 * (STEM[wt] || STEM[400]) * U;
     const d = w / Math.SQRT2, o = d / 2, half = (h - d) / 2, vx = o + half, vy = o + half, tip = vx + d, notch = vx - d, t = travel * k;
-    return {h, tip, travel, svg: id => `<defs><clipPath id="${id}"><rect x="0" y="${r(-k)}" width="${r(tip + t + k)}" height="${r(h + 2 * k)}"/></clipPath></defs>`
+    return {h, tip, travel, tu: t, svg: id => `<defs><clipPath id="${id}"><rect x="0" y="${r(-k)}" width="${r(tip + t + k)}" height="${r(h + 2 * k)}"/></clipPath></defs>`
       + `<g clip-path="url(#${id})"><g class="ha-mv"><rect class="ha-bar" x="${r(-t - 2 * k)}" y="${r(vy - w / 2)}" width="${r(notch + t + 2 * k)}" height="${r(w)}"/>`
       + `<path d="M${r(o)} ${r(o)} ${r(vx)} ${r(vy)} ${r(o)} ${r(o + 2 * half)}" stroke="currentColor" stroke-width="${r(w)}" stroke-linecap="butt" stroke-linejoin="miter" fill="none"/></g></g>`};
   }
@@ -100,16 +100,24 @@
       const d = (p.getAttribute('d') || '').trim(), right = RIGHT.test(d), left = !right && LEFT.test(d);
       if (!right && !left) return;
       if (s.closest('.bar') && s.closest('a[href$="plan.html"]')) return;   // the main Plan CTA keeps its own treatment
-      const host = s.closest('a,button,[role=button],.go,.link,label') || s.parentNode, cs = getComputedStyle(host);
+      const host = s.closest('a,button,[role=button],.go,.link,label') || s.parentNode, cs = getComputedStyle(s.parentNode);   // the label's own face, size and weight
       if (!/^\s*"?Jost/i.test(cs.fontFamily)) return;                     // geometric labels only
       const fs = parseFloat(cs.fontSize) || 16, wt = Math.min(500, Math.max(300, Math.round((parseInt(cs.fontWeight) || 400) / 100) * 100));
-      const g = geo(fs, wt), par = getComputedStyle(s.parentNode);
+      const g = geo(fs, wt);
+      // Sit the arrow on the baseline like a letter (Mark: its foot aligns with the bottoms of a, b, c). When the words before it are
+      // a bare text node in a flex row, wrap the two in one inline run, so the arrow is laid out in the same line as the words.
+      let prev = s.previousSibling; while (prev && prev.nodeType === 3 && !prev.textContent.trim()) prev = prev.previousSibling;
+      if (/flex/.test(getComputedStyle(s.parentNode).display) && prev && prev.nodeType === 3) {
+        const run = document.createElement('span'); run.className = 'ha-run'; prev.textContent = prev.textContent.replace(/\s+$/, '');
+        s.parentNode.insertBefore(run, prev); run.appendChild(prev); run.appendChild(s);
+      }
+      const par = getComputedStyle(s.parentNode);
       // In a centred flex row the text's baseline sits (ascent - descent) / 2 below the row's centre; drop the arrow's foot onto it.
       const centred = /flex/.test(par.display) && /center/.test(getComputedStyle(s).alignSelf === 'auto' ? par.alignItems : getComputedStyle(s).alignSelf);
       s.setAttribute('viewBox', `0 0 ${r(g.tip)} ${r(g.h)}`); s.setAttribute('aria-hidden', 'true'); s.setAttribute('focusable', 'false');
       s.removeAttribute('width'); s.removeAttribute('height');
       s.style.setProperty('--ha-w', r(g.tip / U) + 'em'); s.style.setProperty('--ha-h', r(g.h / U) + 'em');
-      s.style.setProperty('--ha-y', centred ? r(BASE - g.h / U / 2) + 'em' : '0em'); s.style.setProperty('--ha-t', g.travel + 'px');
+      s.style.setProperty('--ha-y', centred ? r(BASE - g.h / U / 2) + 'em' : '0em'); s.style.setProperty('--ha-t', r(g.tu) + 'px');   // inside the svg a px is one viewBox unit, so travel is given in units
       s.classList.add('ha'); if (left) s.classList.add('ha-left');
       s.innerHTML = g.svg('ha' + (++n));
       host.classList.add('ha-host');

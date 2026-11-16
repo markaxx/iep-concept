@@ -233,6 +233,42 @@ html.shot .ca .reveal{transition:none}
   .ca-pl:first-child em{display:block}
 }
 
+/* eight names: one place at a time, after KOBU's "Where we're traveling" and destination index (Mark picked 16 Nov 20:38) */
+.k{--e:cubic-bezier(.2,.7,.2,1);--grey:#8E857B;background:#FAF7F2;color:var(--ink);position:relative}
+.k a{color:inherit}
+.k .go,.k figcaption,.k .all a{gap:.3em}   /* a word space before the arrow, as in the reference */
+
+/* Take 1. Reference (768 wide): two-line title at x 4.2%, 3.6vw, line-height 1.14, grey line over ink line;
+   photo x 11.3-48.7%, top at 27% of the section; right column from x 55.7%, set level with the photo's upper third. */
+.k1{height:61.2vw;min-height:640px}
+.k1 h2{position:absolute;left:4.2vw;top:3.9vw;margin:0;font-family:var(--head);font-weight:400;font-size:3.65vw;line-height:1.14;letter-spacing:-.01em}
+.k1 h2 .g{display:block;color:var(--grey)}
+.k1 h2 a{display:block;color:var(--ink);transition:color .45s var(--e)}
+.k1 h2 a:hover,.k1 h2 a:focus-visible{color:var(--brand)}
+.k1 .ph{position:absolute;left:11.3vw;top:16.7vw;width:37.4vw;height:38.7vw;margin:0;overflow:hidden;background:#E4D9CA;display:block}
+.k1 .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s var(--e)}
+.k1 .ph img.on{opacity:1}
+.k1 .side{position:absolute;left:55.7vw;top:24.6vw;width:30.5vw}
+.k1 ul{list-style:none;margin:0;padding:0}
+.k1 li button{all:unset;cursor:pointer;display:block;font-family:var(--sans);font-weight:400;font-size:clamp(17px,2.08vw,30px);line-height:1.56;color:var(--grey);transition:color .3s var(--e)}
+.k1 li button[aria-pressed=true]{color:var(--ink)}
+@media (hover:hover){.k1 li button:hover{color:var(--brand)}}
+.k1 li button:focus-visible{color:var(--brand);outline:1px solid currentColor;outline-offset:4px}
+.k1 .go{display:inline-flex;align-items:center;margin-top:2.9vw;font-family:var(--sans);font-weight:400;font-size:clamp(17px,2.08vw,30px);color:var(--ink);transition:color .45s var(--e)}
+.k1 .go:hover,.k1 .go:focus-visible{color:var(--brand)}
+
+@media (max-width:760px){
+  .k1{height:auto;min-height:0;padding:32px 20px 64px!important}
+  .k1 h2,.k1 .ph,.k1 .side{position:static;width:auto}
+  .k1 h2{font-size:34px}
+  .k1 .ph{position:relative;left:auto;top:auto;height:auto;aspect-ratio:37.4/38.7;margin-top:24px}
+  .k1 .side{margin-top:24px}
+  .k1 ul{display:flex;flex-wrap:wrap;column-gap:18px}
+  .k1 li button{font-size:19px;line-height:1.7}
+  .k1 .go{margin-top:20px;font-size:19px}
+}
+@media (prefers-reduced-motion:reduce){.k *{transition:none!important}}
+.k .go{gap:.3em}
 </style>
 <meta name="robots" content="noindex"></head>
 <body class="home v2 v3">
@@ -270,15 +306,15 @@ html.shot .ca .reveal{transition:none}
       </a>
     </div>
   </section>
-  <section class="ar ar-a" aria-labelledby="ar-h">
+  <section class="ar ar-a" aria-label="Destinations" style="padding:0!important">
     <figure class="bleed"><img src="img/g/ravello-pergola.jpg" alt="A stone pergola hung with bougainvillea, opening onto the sea above Ravello" style="object-position:50% 58%"></figure>
-    <div class="grid">
-      <div class="t">
-        <h2 id="ar-h">Eight places, eight kinds of light.</h2>
-        <p class="line">We work in all eight, from still lake water to the coves of Sardinia.</p>
-        <a class="go" href="destinations-v3.html">Let us show you around <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h17M14 6l6 6-6 6"/></svg></a>
-      </div>
-      <ul><li><a href="destinations-v3.html#como"><b>Lake Como</b><span>Cool stone steps into the lake.</span></a></li><li><a href="destinations-v3.html#amalfi"><b>Amalfi Coast</b><span>Church bells, then the sea.</span></a></li><li><a href="destinations-v3.html#tuscany"><b>Tuscany</b><span>Crickets after the last toast.</span></a></li><li><a href="destinations-v3.html#ravello"><b>Ravello</b><span>350 metres above the sea.</span></a></li><li><a href="destinations-v3.html#rome"><b>Rome</b><span>Warm cobbles, a fountain running.</span></a></li><li><a href="destinations-v3.html#sorrento"><b>Sorrento</b><span>Vesuvius, blue in the evening.</span></a></li><li><a href="destinations-v3.html#verona"><b>Verona</b><span>Roses climbing the garden stairs.</span></a></li><li><a href="destinations-v3.html#sardinia"><b>Sardinia</b><span>Bare feet, salt on your skin.</span></a></li></ul>
+  </section>
+  <section class="k k1" aria-labelledby="k1h">
+    <h2 id="k1h"><span class="g">Eight places, eight kinds of light.</span><a data-name href="destinations-v3.html#como">Lake Como</a></h2>
+    <a class="ph" data-ph href="destinations-v3.html#como" tabindex="-1" aria-hidden="true"></a>
+    <div class="side">
+      <ul data-idx></ul>
+      <a class="go" data-go href="destinations-v3.html#como"><span data-goname>See Lake Como</span> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </section>
   <section class="cv" id="stories" aria-roledescription="carousel" aria-label="Real weddings">
@@ -319,6 +355,30 @@ html.shot .ca .reveal{transition:none}
   </section>
 </div>
 <script src="js/stories.js"></script>
+<script>
+/* eight names: one place at a time */
+(() => {
+  const P = [['como','Lake Como'],['amalfi','Amalfi Coast'],['tuscany','Tuscany'],['ravello','Ravello'],['rome','Rome'],['sorrento','Sorrento'],['verona','Verona'],['sardinia','Sardinia']];
+  const img = k => `img/g/h8/${k}.jpg`, href = k => `destinations-v3.html#${k}`;
+
+  // take 1: one place at a time; the index picks which (hover or focus on a pointer, tap on a phone)
+  const k1 = document.querySelector('.k1'), ph = k1.querySelector('[data-ph]'), idx = k1.querySelector('[data-idx]');
+  ph.innerHTML = P.map(([k]) => `<img src="${img(k)}" alt="" data-k="${k}"${k === 'como' ? ' class="on"' : ''}>`).join('');
+  idx.innerHTML = P.map(([k, n]) => `<li><button type="button" data-k="${k}" aria-pressed="${k === 'como'}">${n}</button></li>`).join('');
+  const pick = k => {
+    const n = P.find(p => p[0] === k)[1];
+    k1.querySelector('[data-name]').textContent = n; k1.querySelector('[data-name]').href = href(k);
+    k1.querySelector('[data-goname]').textContent = 'See ' + n; k1.querySelector('[data-go]').href = href(k); ph.href = href(k);
+    ph.querySelectorAll('img').forEach(i => i.classList.toggle('on', i.dataset.k === k));
+    idx.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.k === k));
+  };
+  idx.querySelectorAll('button').forEach(b => {
+    b.addEventListener('click', () => pick(b.dataset.k)); b.addEventListener('focus', () => pick(b.dataset.k));
+    if (matchMedia('(hover:hover)').matches) b.addEventListener('mouseenter', () => pick(b.dataset.k));
+  });
+
+})();
+</script>
 <script src="js/site.js"></script>
 <script>
 

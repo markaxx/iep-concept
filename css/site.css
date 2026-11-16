@@ -701,3 +701,10 @@ svg.ha .ha-bar{fill:currentColor;opacity:0;transition:opacity .3s cubic-bezier(.
 .ha-host:focus-visible svg.ha .ha-mv{transform:translateX(var(--ha-t,5px))}.ha-host:focus-visible svg.ha .ha-bar{opacity:1}
 @media (hover:none){.ha-host:active svg.ha .ha-mv{transform:translateX(var(--ha-t,5px))}.ha-host:active svg.ha .ha-bar{opacity:1}}
 @media (prefers-reduced-motion:reduce){svg.ha .ha-mv,svg.ha .ha-bar{transition:none}}
+
+/* ===== Header plan button (Mark's pick, 16 Nov ~20:28): words only, raspberry on hover and keyboard focus ===== */
+.bar .plan-cta{transition:background .35s cubic-bezier(.2,.7,.2,1),color .35s cubic-bezier(.2,.7,.2,1)}
+@media (hover:hover){.bar .plan-cta:hover{background:var(--brand)!important;color:#fff!important;backdrop-filter:none}}
+.bar .plan-cta:focus-visible{background:var(--brand)!important;color:#fff!important;outline:2px solid currentColor;outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.bar .plan-cta{transition:none}}
+.ha-run{display:inline;white-space:normal}.ha-run svg.ha{margin-left:.3em}   /* hover arrow: words and arrow share one line, so the arrow stands on the baseline */

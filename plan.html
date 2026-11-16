@@ -563,11 +563,23 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
 .wz.split.late .go:disabled{opacity:.35;pointer-events:none}
 .k-door{animation-delay:.2s}.k-door img{animation-delay:.2s}
 .k-who{animation-delay:.5s}.k-place{animation-delay:.75s}.k-l{animation-delay:.9s}.k-l+.k-l{animation-delay:1s}.k-l.k-call{animation-delay:1.1s}.k-note{animation-delay:1.2s}.k-act{animation-delay:1.3s}
-@media (min-width:901px){.keep{width:auto;margin:0 56px}.keep .k-door{justify-self:start;margin-left:0}}
+@media (min-width:901px){.wz.end .stage{padding-left:56px;padding-right:56px}.keep{width:auto;margin:0}.keep .k-door{justify-self:start;margin-left:0}}
 @media (max-width:900px){
   .wz.split.late .bg{height:24vh}
   .wz.split.late .stage{margin-top:calc(72px + 24vh)}
 }
+
+/* Mark, 16 Nov 20:25: the hanging quote mark must not touch the panel edge */
+
+/* Mark, 16 Nov 20:26: a small text link never sits inline beside a large button; it goes underneath, on the button's left edge */
+.wz.split.late .bk,.k-act{flex-direction:column;align-items:flex-start;gap:16px}
+.wz.split.late .bk .soft{margin-top:0}
+
+.wz.split .rq p::before{left:-.42em}   /* Mark, 16 Nov 20:25: the hanging mark was cut off by the panel edge; it still hangs, just a little less */
+
+/* Mark, 16 Nov 20:37: on the guests pause the heading and paragraph sit higher, as before, with tighter lines */
+.wz.split.reply.pause-g .stage{justify-content:flex-start;padding-top:clamp(128px,16vh,160px)}
+.wz.split.reply .rb{line-height:1.4}
 </style>
 <meta name="robots" content="noindex"></head>
 <body class="wizard">
@@ -641,7 +653,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
       : {line:'Just the two of you.', body:'A celebration for two can go anywhere: one table on a terrace, a boat for the afternoon. We will suggest the places that do it best.'};
     if (b === 'intimate') return {line:`An intimate table for ${g}.`, body:'At this size everyone hears every toast, and we can book places that would never take a hundred guests, such as a family\u2019s private garden.'};
     if (b === 'long') return {line:`One long table for ${g}.`, body:'A real party that still fits around one table. We plan the weekend around it, down to the boat that brings everyone back after dinner.'};
-    return {line:`${g} guests.`,
+    return {line:`${g} guests.`, body:'At this size the work is in the logistics: boats, rooms, late flights and every guest\u2019s dietary needs. We arrange all of it, and we are there on the day.',
       quote:wed && ['Our wedding was a 3 day event, and they were with us the entire time making sure guests arrived to their hotels safely, and even ensuring that gift bags we created for everyone got into the correct rooms.','Amanda & Giacomo']};
   }
   const ON = {'Capri':'on Capri', 'Lake Como':'on Lake Como', 'Italy':'somewhere in Italy'};
@@ -792,7 +804,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   }
   function render(){
     const [kind, i] = SCR[n]; let h = '';
-    const pause = kind === 'pause' || kind === 'ready'; wz.classList.toggle('sharp', pause); wz.classList.toggle('reply', pause); wz.classList.toggle('final', kind === 'done'); wz.classList.toggle('form', kind === 'contact'); wz.classList.toggle('end', kind === 'done'); const pickQ = kind === 'q' && !!Q[i].opts, textQ = kind === 'q' && !Q[i].opts && TXT === 'split', late = ['found','plan','book'].includes(kind), split = pause || pickQ || textQ || late; wz.classList.toggle('txt', textQ || late); wz.classList.toggle('late', late); wz.classList.toggle('split', split); wz.classList.toggle('pick', pickQ); document.body.classList.toggle('split-on', split);
+    const pause = kind === 'pause' || kind === 'ready'; wz.classList.toggle('sharp', pause); wz.classList.toggle('reply', pause); wz.classList.toggle('final', kind === 'done'); wz.classList.toggle('form', kind === 'contact'); wz.classList.toggle('end', kind === 'done'); const pickQ = kind === 'q' && !!Q[i].opts, textQ = kind === 'q' && !Q[i].opts && TXT === 'split', late = ['found','plan','book'].includes(kind), split = pause || pickQ || textQ || late; wz.classList.toggle('txt', textQ || late); wz.classList.toggle('late', late); wz.classList.toggle('pause-g', kind === 'pause'); wz.classList.toggle('split', split); wz.classList.toggle('pick', pickQ); document.body.classList.toggle('split-on', split);
     document.body.classList.toggle('on-paper', split || kind === 'contact' || kind === 'done');
     $('#back').style.visibility = n > 0 && kind !== 'done' ? 'visible' : 'hidden';
     const ec = kind === 'q' && ECHO_ON ? echo(i) : '';   // Mark deleted the reply lines (16 Nov 20:25); ?echo=1 still shows them
@@ -810,7 +822,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
       bg(CIMG[w] || pick.where || 'wz-c-italy');
       const bits = [OCC[t] + ' ' + place, st.when && st.when !== 'unsure' ? 'in ' + WHEN[st.when].toLowerCase() : '', st.guests <= 2 ? 'for the two of you' : 'for ' + st.guests + ' guests', ({beach:'by the sea', lake:'on a lake', terrace:'on a terrace at sunset', stone:'in a castle or an old villa', garden:'in a garden under the trees'})[st.feel] || ''].filter(Boolean);
       const sent = bits[0] + (bits.length > 1 ? ', ' + bits.slice(1).join(', ') : '') + '.';
-      h = `<p class="rl">Your plan is ready.</p><p class="rp">${sent}</p><p class="rb">${t === 'corporate' ? 'It holds the venues we would suggest and an estimate to start from.' : 'It holds the places we would suggest and an estimate to start from.'}</p><button class="go" data-next>Where shall we send it? ${arrow}</button>`;
+      h = `<p class="rl">Your plan is ready.</p><p class="rp">${sent}</p><button class="go" data-next>Where shall we send it? ${arrow}</button>`;
     } else if (kind === 'contact') {
       const t = st.type || 'wedding', place = !st.where || st.where === 'Italy' ? 'Italy' : st.where;
       const ph = CIMG[st.where || 'Italy'] || 'wz-c-italy';
@@ -850,10 +862,11 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
       bg('ilaria');
       const days = []; for (let t = new Date(), k = 0; days.length < 3 && k < 10; k++) { t = new Date(t.getTime() + 864e5); if (t.getDay() % 6) days.push(t); }   // the next three weekdays
       const DN = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'], ymd = t => t.getFullYear() + String(t.getMonth() + 1).padStart(2, '0') + String(t.getDate()).padStart(2, '0');
+      const tz = new Intl.DateTimeFormat('en-GB', {timeZone:'Europe/Rome', timeZoneName:'shortOffset'}).formatToParts(days[0]).find(x => x.type === 'timeZoneName').value;   // GMT+1 in winter, GMT+2 in summer
       const sl = [[0,'10:00'],[0,'16:30'],[1,'11:00'],[1,'15:00'],[2,'09:30'],[2,'12:00']].map(([x, h]) => [DN[days[x].getDay()] + ' ' + days[x].getDate(), h, ymd(days[x]) + 'T' + h.replace(':', '') + '00']);
       h = `<p class="ql">Would you like a call with Ilaria?</p><div class="who"><div><b>Ilaria Guarino</b><span>Founder, Italian Event Planners</span></div></div>
         <div class="slots2">${sl.map(([d, t, iso]) => `<button class="tile" data-slot="${d} at ${t}" data-when="${iso}" aria-pressed="${st.slot === d + ' at ' + t}"><small>${d}</small>${t}</button>`).join('')}</div>
-        <p class="qs">Half an hour on video. All times are Rome time.</p><div class="bk"><button class="go" data-next id="cfm"${st.slot ? '' : ' disabled'}>Confirm my call ${arrow}</button><button class="soft" data-skip>Not yet, just send my plan</button></div>`;
+        <p class="qs">Half an hour on video. Times listed according to ${tz} (Rome).</p><div class="bk"><button class="go" data-next id="cfm"${st.slot ? '' : ' disabled'}>Confirm my call ${arrow}</button><button class="soft" data-skip>Not yet, just send my plan</button></div>`;
     } else {
       const img = ENDIMG[st.type || 'wedding'], where = !st.where || st.where === 'Italy' ? 'Italy' : st.where;
       bg(img);
@@ -919,9 +932,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     if ($('#resume')) $('#resume').onclick = () => { const d = saved(); Object.assign(st, d.st); Object.assign(pick, d.pick); d.ans.forEach(a => ans.add(a)); go(d.n); };
   }
   // Corporate is a shorter flow (coordinator spec, 16 Nov): no guest pause and no setting question, which are written for couples.
-  // The guest pause now appears only for a large wedding, where a client's own words about logistics earn the stop (Mark deleted the explainer paragraphs, 16 Nov 20:25).
-  const pauseOn = () => (st.type || 'wedding') === 'wedding' && band(st.guests) === 'grand';
-  const skip = k => SCR[k] && ((SCR[k][0] === 'q' && pre.has(SCR[k][1])) || (SCR[k][0] === 'pause' && !pauseOn()) || (st.type === 'corporate' && SCR[k][0] === 'q' && Q[SCR[k][1]].k === 'feel'));
+  const skip = k => SCR[k] && ((SCR[k][0] === 'q' && pre.has(SCR[k][1])) || (st.type === 'corporate' && (SCR[k][0] === 'pause' || (SCR[k][0] === 'q' && Q[SCR[k][1]].k === 'feel'))));
   function go(k){ const d = k > n ? 1 : -1; while (skip(k)) k += d; n = Math.max(0, Math.min(SCR.length - 1, k)); render(); scrollTo(0, 0); save(); }
   // Resilience: answers persist in this browser; coming back offers to continue.
   const KEY = 'iep-plan';
