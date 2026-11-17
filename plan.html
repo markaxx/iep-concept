@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Start planning · Italian Event Planners</title>
-<link rel="preload" href="fonts/jost-300.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/jost-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/italiana.woff2" as="font" type="font/woff2" crossorigin><link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=345be2dc">
+<link rel="preload" href="fonts/jost-300.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/jost-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/italiana.woff2" as="font" type="font/woff2" crossorigin><link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=33d9770b">
 <style>
 .wizard footer,.wizard .wa{display:none}
 .wizard .bar{background:linear-gradient(180deg,rgba(10,8,6,.45),rgba(10,8,6,0))}
@@ -644,6 +644,37 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
 .wz .opt .nm,.wz .tile,.wz .cf2 input,.wz .cf2 textarea,.wz .rb,.wz .rp{letter-spacing:var(--tr-body,0)}
 .wz p.qs,.wz .wnote,.wz .cf2 label>span{letter-spacing:var(--tr-caption,.01em)}
 
+
+/* Contact screen, 17 Nov (Mark: "this page is ugly"): split screen like every other wizard step, after Origin's and Mindtrip's onboarding forms (form on paper left, one large photo right); fields after Selfridges' booking form: label tight above, value, one hairline */
+.wz.split.cform .stage{padding-top:clamp(112px,14vh,150px);padding-bottom:clamp(88px,11vh,120px)}
+.cform .cf3{width:100%}
+.cform .cf3 .ql{max-width:12ch}
+.cform .cf-r{margin-top:clamp(22px,3.2vh,34px);padding-top:0;column-gap:24px;row-gap:clamp(16px,2.4vh,24px)}
+.cform .cf-r label,.cform .cf-r .fld{gap:0}
+.cform .cf-r label span,.cform .cf-r .fld>span{font-size:14px;line-height:1.3;color:#6b5f55;letter-spacing:var(--tr-caption,.01em)}
+.cform .cf-r input,.cform .cf-r textarea{font-size:18px;font-weight:400;padding:6px 0 9px;border-bottom-color:rgba(42,36,32,.26)}
+.cform .cf-r textarea{min-height:0;height:auto;resize:none;overflow:hidden;line-height:1.4;display:block}
+.cform .chev{bottom:13px}
+.cform .tel{column-gap:0;border-bottom:1px solid rgba(42,36,32,.26);transition:border-color .4s}
+.cform .tel:hover{border-bottom-color:rgba(42,36,32,.6)}.cform .tel:focus-within{border-bottom-color:var(--brand)}
+.cform .tel input,.cform .tel input:hover,.cform .pp>button{border-bottom:0!important}
+.cform .pp>button{font-size:18px;font-weight:400;padding:6px 14px 9px 0;margin-right:14px;position:relative}
+.cform .pp>button::after{content:"";position:absolute;right:0;top:9px;bottom:11px;width:1px;background:rgba(42,36,32,.2)}
+.cform .pp>button b{font-weight:400}
+.cform .cf-act{flex-direction:row;align-items:center;gap:28px;margin-top:clamp(4px,1vh,10px)}
+.wz.split.cform .cf-act .go{margin-top:0}
+.wz.split.cform .cf-act .soft{margin-top:0;padding:0;line-height:1.2}
+.cform .cf-r{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.cform .cf-r>*{min-width:0}
+.cform .cf-r input,.cform .cf-r textarea{width:100%;min-width:0;box-sizing:border-box}
+.cform .tel input{width:auto}
+.cform .strip{display:none!important}
+@media (max-width:900px){
+  .wz.split.cform .bg{height:24vh}
+  .wz.split.cform .stage{margin-top:calc(72px + 24vh);padding-top:26px}
+  .cform .cf3 .ql{max-width:none}
+  .cform .cf-r .fld{grid-column:1/-1}
+}
 </style>
 <meta name="robots" content="noindex"><script>try{if(!document.prerendering&&!matchMedia("(prefers-reduced-motion: reduce)").matches&&!location.search.includes("shot"))document.documentElement.classList.add("arch-ready")}catch(e){}</script></head>
 <body class="wizard">
@@ -656,7 +687,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     <button class="back2" id="back">Back</button>
   </section>
 </div>
-<script src="js/site.js?v=650db7d3"></script>
+<script src="js/site.js?v=5eb191d1"></script>
 <script src="js/prefetch.js?v=e788ada9" defer></script>
 <script src="js/countries.js?v=4b133cd4"></script>
 <script src="vendor/gsap.min.js?v=ff86cb55"></script><script src="vendor/ScrollTrigger.min.js?v=2e3b8c36"></script><script src="vendor/lenis.min.js?v=5a44a112"></script><script src="js/motion.js?v=ef56d6a3"></script>
@@ -664,8 +695,22 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
 (() => {
   const $ = s => document.querySelector(s), wz = $('#wz'), stage = $('#stage');
   // photos come from the resized WebP copies (img/g/<dir>/x900|x1600|x2400/<name>.webp), the size picked once for this screen
-  const GW = (w => w <= 900 ? 900 : w <= 1600 ? 1600 : 2400)(Math.max(innerWidth, innerHeight * 1.5) * (devicePixelRatio || 1));
+  // Speed work, 17 Nov (audits/speed-plan.md): the width is sized to the photo's BOX, not the screen, at up to 2x density.
+  // Phones and upright tablets (stacked): the photo is the full width and at most 46% of the height (pause screens), so a 3:2 photo needs 0.69 x height.
+  // Side by side: the photo fills the full height of ~58% of the width. Laptops and desktops still get 2400; phones get 1600 instead of 2400.
+  const GW = (w => w <= 900 ? 900 : w <= 1600 ? 1600 : 2400)((matchMedia('(max-width:900px)').matches ? Math.max(innerWidth, innerHeight * .69) : Math.max(innerWidth * .6, innerHeight * 1.5)) * Math.min(devicePixelRatio || 1, 2));
   const GI = n => { const i = n.lastIndexOf('/') + 1; return `img/g/${n.slice(0, i)}x${GW}/${n.slice(i)}.webp`; };
+  const TI = n => { const i = n.lastIndexOf('/') + 1; return `img/g/${n.slice(0, i)}x360/${n.slice(i)}.webp`; };   // option thumbnails: a 60 px box needs 180 px at 3x
+  // Background loading: one queue, two at a time, low priority, after the page has loaded and only once a prerendered wizard is really opened.
+  // want() puts photos at the front (the next screen); later() at the back (the rest of the run). Data saver: only the next screen.
+  const PQ = (() => { const q = [], done = new Set(); let live = 0, open = false;
+    const save = !!(navigator.connection && navigator.connection.saveData);
+    const pump = () => { while (open && live < 2 && q.length) { const nm = q.shift(); if (done.has(nm)) continue; done.add(nm); live++;
+      const im = new Image(); im.decoding = 'async'; if ('fetchPriority' in im) im.fetchPriority = 'low'; im.onload = im.onerror = () => { live--; pump(); }; im.src = GI(nm); } };
+    const start = () => { open = true; pump(); };
+    const go = () => document.prerendering ? document.addEventListener('prerenderingchange', start, {once:true}) : start();
+    if (document.readyState === 'complete') setTimeout(go, 0); else addEventListener('load', () => setTimeout(go, 0), {once:true});
+    return {want: names => { q.unshift(...names.filter(Boolean)); pump(); }, later: names => { if (!save) { q.push(...names.filter(Boolean)); pump(); } }, has: nm => done.has(nm)}; })();
   const arrow = '<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
   const st = {type:null, where:null, when:null, guests:80, feel:null, budget:null, name:'', slot:null};
   const pick = {};   // image chosen per step, for the strip and the plan
@@ -756,7 +801,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   const PROG = [10,22,34,46,54,62,72,78,84,89,93,96,98,100];   // one value per screen: starts endowed, bigger steps near the end
 
   const COVER = {where:'n/wq-cover'};   // the photo a picture question opens on, before the visitor points at anything
-  Q.forEach(q => q.opts && q.opts.forEach(o => { const im = new Image(); im.src = `${GI(o[2])}`; }));
+  PQ.later(Q.flatMap(q => (q.opts || []).map(o => o[2])));   // every question's option photos, in question order, after load (was: all at once on first run)
   const SCR = [['q',0],['q',1],['q',2],['q',3],['pause'],['q',4],['q',5],['bpause'],['ready'],['contact'],['found'],['plan'],['book'],['done']];
   let n = 0;
 
@@ -764,7 +809,8 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   function shot(name){   // show a photo already in the box; the newest sits on top so a crossfade never dips to dark
     want = name; const box = $('#bg'), im = [...box.children].find(x => x.dataset.n === name); if (!im) return false;
     const show = () => { if (want !== name || im.classList.contains('on')) return; im.style.zIndex = ++Z; [...box.children].forEach(x => x.classList.toggle('on', x === im)); };
-    if (im.complete && im.naturalWidth) show(); else im.addEventListener('load', show, {once:true});   // a photo still loading never fades in blank; the current one stays until it is ready
+    const ready = () => (im.decode ? im.decode().catch(() => {}) : Promise.resolve()).then(show);   // decoded before the crossfade starts, so the fade never stalls mid-way
+    if (im.complete && im.naturalWidth) ready(); else im.addEventListener('load', ready, {once:true});   // a photo still loading never fades in blank; the current one stays until it is ready
     return true;
   }
   let want = '';   // the photo most recently asked for; a slower load never covers it
@@ -819,7 +865,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   // One big photo per screen, never twice in a run (Mark, 16 Nov late: "why is this same image reused"). The place question shows its own option photo;
   // BIMG rests on "When" and stays still on the budget question; RIMG is the plan-ready pause; CIMG is the contact card (a real photo of the place, not seen before);
   // PIMG is the weekend plan, the finest photo of the place. Ledger: "Wizard: one photo per screen".
-  const CIMG = {'Lake Como':'wz-c-como', 'Ravello':'wz-ravello-tile', 'Positano':'n/pos-dome-bougainvillea', 'Capri':'n/wq-capri-2', 'Tuscany':'wz-tuscany-tile', 'Florence':'wz-c-florence', 'Puglia':'n/pug-lane-lights', 'Italy':'n/wq-italy-trevi'};
+  const CIMG = {'Lake Como':'wz-c-como', 'Ravello':'n/ct-ravello-terrace', 'Positano':'n/pos-dome-bougainvillea', 'Capri':'n/ct-capri-solaro', 'Tuscany':'n/ct-tuscany-road', 'Florence':'wz-c-florence', 'Puglia':'n/pug-lane-lights', 'Italy':'n/wq-italy-trevi'};
   const BIMG = {'Lake Como':'n/wq-como-2', 'Ravello':'n/wq-coast-lemons', 'Positano':'n/wq-coast-lemons', 'Capri':'n/wq-coast-lemons', 'Tuscany':'n/wq-season-autumn', 'Florence':'n/wq-olive-avenue', 'Puglia':'n/pug-sea-arch', 'Italy':'n/wq-coast-lemons'};
   const PIMG = {'Lake Como':'n/como-headland-villa', 'Ravello':'n/wq-ravello-2', 'Positano':'n/pos-cypress-coast', 'Capri':'wz-capri-tile', 'Tuscany':'wz-italy', 'Florence':'wz-italy', 'Puglia':'n/pug-polignano-day', 'Italy':'wz-italy'};
   const RIMG = 'n/rd-marquee-table';
@@ -827,7 +873,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   const SEASON = {spring:'n/wq-season-spring', summer:'n/wq-season-summer', autumn:'n/wq-season-autumn', winter:'n/wq-season-winter'};
   const SEASON_AT = {'Italy':{spring:'n/it-spring-tulips', autumn:'n/it-autumn-slope', winter:'n/it-winter-vineyard'}, 'Lake Como':{spring:'n/como-spring-garden', summer:'n/wq-season-como-summer'}, 'Ravello':{spring:'n/wq-season-ravello-spring', summer:'wz-c-ravello'}, 'Positano':{spring:'n/wq-season-coast-spring', summer:'n/wq-season-positano-summer'}, 'Capri':{spring:'n/wq-season-coast-spring', summer:'wz-c-capri'}, 'Tuscany':{summer:'wz-c-tuscany', autumn:'n/wq-season-tuscany-autumn'}};
   const seasonImg = (v, w) => (SEASON_AT[w] || {})[v] || SEASON[v];
-  addEventListener('load', () => setTimeout(() => ['wz-t-wedding', 'w-rowboats', 'n/wq-team-table', 'n/wq-guests-elope', 'n/gx-intimate-candle', 'n/gx-long-candle', 'n/gx-grand-library', 'n/px-lunch-two', 'n/wq-terrace', 'n/wq-garden', 'w-coast', 'ilaria', ...Object.values(CIMG), ...Object.values(BIMG), ...Object.values(PIMG), RIMG, ...Object.values(SEASON)].forEach(nm => { const im = new Image(); im.src = `${GI(nm)}`; }), 1500));   // later screens' photos arrive in the background, so no screen waits on one
+  PQ.later(['wz-t-wedding', 'w-rowboats', 'n/wq-team-table', 'n/wq-guests-elope', 'n/gx-intimate-candle', 'n/gx-long-candle', 'n/gx-grand-library', 'n/px-lunch-two', 'n/wq-terrace', 'n/wq-garden', 'w-coast', 'ilaria', ...Object.values(CIMG), ...Object.values(BIMG), ...Object.values(PIMG), RIMG, ...Object.values(SEASON)]);   // later screens' photos arrive in the background, so no screen waits on one
   const FOUND = [['friend','A friend or family'],['instagram','Instagram'],['google','Google'],['press','A magazine or blog'],['venue','A venue or supplier'],['other','Somewhere else']];
   // Silent attribution, kept for the whole visit: UTM tags and referrer from the first page the visitor landed on.
   const SRC = (() => {
@@ -851,6 +897,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     const reg = ((navigator.languages || [navigator.language]).map(l => (l.split('-')[1] || '').toUpperCase()).find(r => by[r])) || 'GB';
     if (!st.country) st.country = reg; if (!st.dial) st.dial = by[st.country].dial;
     const ci = $('#cci'), cl = $('#ccl'), pb = $('#ppb'), pp = $('#pp'), ps = $('#pps'), pl = $('#ppl');
+    const nt = $('#nt'); if (nt) nt.addEventListener('input', () => { nt.style.height = 'auto'; nt.style.height = nt.scrollHeight + 'px'; });   // the note grows line by line
     ci.value = by[st.country].name; $('#ppv').textContent = st.dial;
     const norm = x => x.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
     const list = (q, dial) => {
@@ -907,14 +954,14 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   }
   function render(){
     const [kind, i] = SCR[n]; let h = '';
-    const pause = kind === 'pause' || kind === 'bpause' || kind === 'ready'; wz.classList.toggle('sharp', pause); wz.classList.toggle('reply', pause); wz.classList.toggle('final', kind === 'done'); wz.classList.toggle('form', kind === 'contact'); wz.classList.toggle('end', kind === 'done'); const pickQ = kind === 'q' && !!Q[i].opts, textQ = kind === 'q' && !Q[i].opts && TXT === 'split', late = ['found','plan','book'].includes(kind), split = pause || pickQ || textQ || late; wz.classList.toggle('txt', textQ || late); wz.classList.toggle('late', late); wz.classList.toggle('pause-g', kind === 'pause'); wz.classList.toggle('split', split); wz.classList.toggle('pick', pickQ); document.body.classList.toggle('split-on', split);
+    const pause = kind === 'pause' || kind === 'bpause' || kind === 'ready'; wz.classList.toggle('sharp', pause); wz.classList.toggle('reply', pause); wz.classList.toggle('final', kind === 'done'); wz.classList.toggle('form', false); wz.classList.toggle('cform', kind === 'contact'); wz.classList.toggle('end', kind === 'done'); const pickQ = kind === 'q' && !!Q[i].opts, textQ = kind === 'q' && !Q[i].opts && TXT === 'split', late = ['contact','found','plan','book'].includes(kind), split = pause || pickQ || textQ || late; wz.classList.toggle('txt', textQ || late); wz.classList.toggle('late', late); wz.classList.toggle('pause-g', kind === 'pause'); wz.classList.toggle('split', split); wz.classList.toggle('pick', pickQ); document.body.classList.toggle('split-on', split);
     document.body.classList.toggle('on-paper', split || kind === 'contact' || kind === 'done');
     $('#back').style.visibility = n > 0 && kind !== 'done' ? 'visible' : 'hidden';
     const ec = kind === 'q' && ECHO_ON ? echo(i) : '';   // Mark deleted the reply lines (16 Nov 20:25); ?echo=1 still shows them
     if (kind === 'q') {
       const q = Q[i];
       h = (ec ? `<p class="echo">${ec}</p>` : n === 0 && resumable() ? `<button class="soft resume" id="resume">Continue the plan you started ${arrow}</button>` : '') + `<p class="ql">${q.k === 'when' && st.type && st.type !== 'wedding' ? 'When would you like to celebrate?' : q.q}</p>${q.s ? `<p class="qs">${q.s}</p>` : ''}`;
-      if (q.opts) h += `<div class="sq-opts n${opts(q).length}" role="group" aria-label="${q.q}">${opts(q).map(([v, l, img]) => `<button class="opt${q.k === 'where' && v !== 'Italy' ? ' pl' : ''}" data-v="${v}" data-img="${img}" aria-pressed="${st[q.k] === v}"><i class="th"><img src="${GI(img)}" alt="" loading="lazy"></i><span class="nm">${l}</span><svg class="oa" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>`).join('')}</div>`;
+      if (q.opts) h += `<div class="sq-opts n${opts(q).length}" role="group" aria-label="${q.q}">${opts(q).map(([v, l, img]) => `<button class="opt${q.k === 'where' && v !== 'Italy' ? ' pl' : ''}" data-v="${v}" data-img="${img}" aria-pressed="${st[q.k] === v}"><i class="th"><img src="${TI(img)}" alt="" decoding="async"></i><span class="nm">${l}</span><svg class="oa" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>`).join('')}</div>`;
       else if (q.tiles) h += `<div class="tiles">${q.tiles.map(([v, l]) => `<button class="tile" data-v="${v}" aria-pressed="${st[q.k] === v}">${l}</button>`).join('')}</div>`;
       else h += `<div class="gst"><button id="gm" aria-label="Fewer guests">−</button><output id="go">${st.guests}</output><button id="gp" aria-label="More guests">+</button></div><p class="gdesc" id="gd">${gdesc(st.guests)}</p><button class="go" id="gnext">Continue</button>`;
     } else if (kind === 'pause') {
@@ -943,9 +990,8 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
       const card = [OCC[t] + (st.when && st.when !== 'unsure' ? ' in ' + WHEN[st.when].toLowerCase() : ''), st.guests <= 2 ? 'Just the two of you' : st.guests + ' guests', FEEL[st.feel] ? FEEL[st.feel][0].toUpperCase() + FEEL[st.feel].slice(1) : ''].filter(Boolean);
       const second = {wedding:['Your partner\u2019s name', '', 'pn'], private:['Your partner\u2019s name (optional)', '', 'pn'], corporate:['Your company', '', 'co']}[t];
       const v = k => (st[k] || '').replace(/"/g, '&quot;');
-      h = `<div class="cf2"><div class="cf-l2"><figure class="cf-ph"><div class="cf-im"><img src="${GI(ph)}" alt=""></div></figure>
-          <div class="cf-sum2"><p class="cc-place">${place}</p>${card.map(x => `<p>${x}</p>`).join('')}</div></div>
-        <div class="cf-f"><p class="ql">Where shall we send your plan?</p>
+      bg(ph);   // 17 Nov: the contact screen is a split screen like the rest of the wizard; the place photo fills the right side
+      h = `<div class="cf3"><p class="ql">Where shall we send your plan?</p>
         <div class="cf-r">
           <label class="${second ? '' : 'wide'}"><span>Your name</span><input id="nm" autocomplete="given-name" value="${v('name')}"></label>
           ${second ? `<label><span>${second[0]}</span><input id="${second[2]}" autocomplete="${second[2] === 'co' ? 'organization' : 'off'}" placeholder="${second[1]}" value="${v(second[2] === 'co' ? 'company' : 'partner')}"></label>` : ''}
@@ -953,7 +999,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
           <div class="fld"><span id="ccl-l">Your country</span><div class="cp" id="cp"><input id="cci" role="combobox" aria-labelledby="ccl-l" aria-expanded="false" aria-controls="ccl" aria-autocomplete="list" autocomplete="off" spellcheck="false"><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg><ul class="cp-l" id="ccl" role="listbox" data-lenis-prevent></ul></div></div>
           <div class="fld"><span id="tel-l">Phone number</span><div class="tel"><div class="cp pp" id="pp"><button type="button" id="ppb" aria-haspopup="listbox" aria-expanded="false" aria-label="Country dialling code"><b id="ppv">+44</b><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button><div class="cp-pop" id="ppp"><input id="pps" placeholder="Country or code" autocomplete="off" spellcheck="false" aria-label="Search dialling codes"><ul class="cp-l" id="ppl" role="listbox" data-lenis-prevent></ul></div></div><input type="tel" id="tel" autocomplete="tel-national" aria-labelledby="tel-l"></div></div>
           <label class="wide"><span>Anything we should know? (optional)</span><textarea rows="1" id="nt"></textarea></label>
-          <div class="cf-act"><button class="go" data-next>Send me my plan</button><button type="button" class="soft" data-cskip>Skip for now</button></div></div></div></div>`;
+          <div class="cf-act"><button class="go" data-next>Send me my plan</button><button type="button" class="soft" data-cskip>Skip for now</button></div></div></div>`;
     } else if (kind === 'found') {
       bg('w-coast');
       h = `<p class="ql fnd-q">How did you find us?</p><p class="qs">We\u2019re curious where you found us.</p>

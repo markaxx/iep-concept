@@ -864,3 +864,17 @@ dialog.desk-note button{all:unset;cursor:pointer;display:inline-flex;align-items
 dialog.desk-note button:focus-visible{outline:1px solid var(--brand);outline-offset:3px}
 @media (min-width:901px){dialog.desk-note{display:none}}
 @media (prefers-reduced-motion:reduce){dialog.desk-note,dialog.desk-note::backdrop{transition:none}}
+
+/* ===== Quote, calm take (parked direction from Mark's iOS reading-app reference, 17 Nov). OFF by default.
+   Turn on with ?quote=calm (kept for the visit), off with ?quote=off. The live .pq above is untouched.
+   The quote reads as body text one step up: Jost Regular, body rhythm. A small filled mark sits in its own narrow
+   column level with the first line, so it can never be stranded above or beside a reflowed line; the words and the
+   name share the text column's left edge. No closing mark; the name sits quiet and close beneath. */
+@font-face{font-family:QcMark;src:url(../fonts/fraunces.woff2) format("woff2"),url(../fonts/fraunces.ttf) format("truetype");unicode-range:U+201C;font-display:swap}
+html.q-calm .pq{display:grid;grid-template-columns:.62em 1fr;column-gap:.5em;align-items:start;font-family:var(--sans);font-size:clamp(21px,1.5vw,24px);max-width:23em}
+html.q-calm .pq::before{content:"\201C";grid-column:1;grid-row:1;font-family:QcMark,Georgia,serif;font-weight:400;font-size:2.1em;line-height:.86;color:var(--brand)}
+html.q-calm .pq p{grid-column:2;font-family:var(--sans);font-weight:400;font-size:1em;line-height:1.5;letter-spacing:0!important;color:var(--brand)}
+html.q-calm .pq p::before,html.q-calm .pq p::after{content:none!important;display:none!important}
+html.q-calm .pq cite{grid-column:2;margin-top:10px;font-size:15px;color:var(--ink);opacity:.62}
+html.q-calm .pq.on-dark cite{color:#fff;opacity:.8}
+@media (max-width:900px){html.q-calm .pq{font-size:19px}}

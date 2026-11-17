@@ -1,3 +1,6 @@
+
+/* quote take switch: ?quote=calm turns on the calm quote style for this visit, ?quote=off turns it off (css/site.css) */
+(function(){try{const v=new URLSearchParams(location.search).get('quote');if(v==='calm')sessionStorage.setItem('iep-q','calm');if(v==='off')sessionStorage.removeItem('iep-q');if(sessionStorage.getItem('iep-q')==='calm')document.documentElement.classList.add('q-calm');}catch(e){if(/quote=calm/.test(location.search))document.documentElement.classList.add('q-calm');}})();
 (() => {
   if (location.search.includes('shot')) document.documentElement.classList.add('shot');
   if (!document.querySelector('meta[name=robots]')) document.head.insertAdjacentHTML('beforeend', '<meta name="robots" content="noindex">');   // student concept: keep it out of search results
