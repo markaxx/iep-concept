@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Start planning · Italian Event Planners</title>
-<link rel="preload" href="fonts/jost-300.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/jost-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/italiana.woff2" as="font" type="font/woff2" crossorigin><link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=53a14c74">
+<link rel="preload" href="fonts/jost-300.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/jost-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/italiana.woff2" as="font" type="font/woff2" crossorigin><link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=f1955ad7">
 <style>
 .wizard footer,.wizard .wa{display:none}
 .wizard .bar{background:linear-gradient(180deg,rgba(10,8,6,.45),rgba(10,8,6,0))}
@@ -643,6 +643,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
 .wz p.ql{letter-spacing:var(--tr-title,-.02em)}
 .wz .opt .nm,.wz .tile,.wz .cf2 input,.wz .cf2 textarea,.wz .rb,.wz .rp{letter-spacing:var(--tr-body,0)}
 .wz p.qs,.wz .wnote,.wz .cf2 label>span{letter-spacing:var(--tr-caption,.01em)}
+.wz.split .rq p::before{left:-.42em}   /* restored 17 Nov: the pink quote is back to its original style */
 </style>
 <meta name="robots" content="noindex"><script>try{if(!document.prerendering&&!matchMedia("(prefers-reduced-motion: reduce)").matches&&!location.search.includes("shot"))document.documentElement.classList.add("arch-ready")}catch(e){}</script></head>
 <body class="wizard">
@@ -680,7 +681,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     {k:'when', q:'When would you like to marry?', s:'A rough idea is fine.', tiles:[['spring','Spring'],['summer','Summer'],['autumn','Early autumn'],['winter','Winter'],['unsure','Not sure yet']]},
     {k:'guests', q:'How many guests are you expecting?', s:'A rough number is fine.', guests:true},
     {k:'feel', q:'What setting do you picture?', s:'', opts:[
-      ['beach','By the sea','n/wq-sea'],['lake','On a lake','n/wq-lake'],['terrace','A terrace at sunset','n/wq-sunset-deck'],['stone','A castle or old villa','n/wq-castle'],['garden','A garden under the trees','n/wq-garden-trees']],},
+      ['beach','By the sea','n/wq-sea'],['lake','On a lake','n/wq-lake'],['terrace','A terrace at sunset','n/wq-sunset-deck'],['stone','A castle or old villa','n/wq-castle'],['garden','A garden under the trees','n/wq-garden-terrace']],},
     {k:'budget', q:'What budget do you have in mind?', s:'So we only suggest what fits. It stays between us.', tiles:[['1','Under €40k'],['2','€40k to €80k'],['3','€80k to €150k'],['4','Over €150k'],['0','Not sure yet']]},
   ];
   const VOICE = new URLSearchParams(location.search).get('voice') === '2' ? 1 : 0;   // two registers for the place lines, for Mark to choose
@@ -712,7 +713,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   // Guests: uneven steps named by feel; 2 is an elopement with its own wording.
   const GSTEPS = () => st.type === 'corporate' ? [10,20,30,45,60,80,100,130,160,200,250,300,400] : [2,10,20,30,45,60,80,100,130,160,200,250,300];
   const band = g => g <= 2 ? 'elope' : g <= 30 ? 'intimate' : g <= 100 ? 'long' : 'grand';
-  const gimg = g => ({elope:'n/wq-guests-elope', intimate:'n/wq-guests-intimate', long:'n/wq-guests-long', grand:'n/wq-guests-grand'})[band(g)];   // Mark, 16 Nov: a celebration of that size, never a detail shot
+  const gimg = g => ({elope:'n/wq-guests-elope', intimate:'n/gx-intimate-candle', long:'n/gx-long-candle', grand:'n/gx-grand-library'})[band(g)];   // Mark, 16 Nov: a celebration of that size, never a detail shot
   function guestPause(){
     const g = st.guests, b = band(g), wed = (st.type || 'wedding') === 'wedding';
     if (b === 'elope') return wed
@@ -738,7 +739,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     corporate:[['Day one','Arrival dinner'],['Day two','The programme'],['Day three','Farewell lunch']],
     other:[['Friday','Arrival aperitivo'],['Saturday','The celebration'],['Sunday','Long lunch']]};
   const DAYIMG = {wedding:['wz-d-wed-1','wz-d-wed-2','wz-d-wed-3'], private:['wz-d-pri-1','wz-d-pri-2','wz-d-pri-3'], corporate:['wz-d-cor-1','wz-d-cor-2','wz-d-cor-3'], other:['wz-d-oth-1','wz-d-oth-2','wz-d-oth-3']};
-  const ENDIMG = {wedding:'wz-end-wedding', private:'n/como-window-room', corporate:'wz-end-corporate', other:'wz-end-other'};
+  const ENDIMG = {wedding:'n/end-wed-gazebo', private:'n/como-window-room', corporate:'wz-end-corporate', other:'n/end-oth-marquee'};
   const SENT = '<div class="k-sent" role="status"><p>Your plan is on its way. Check your email in a few minutes.</p><p>We\u2019ll be in touch shortly. We\u2019re looking forward to working with you.</p></div>';   // Mark, 16 Nov late: the ending's main button confirms in place
   const moodboard = () => DAYIMG[st.type || 'wedding'];
   const OCC = {wedding:'A wedding', private:'A celebration', corporate:'A company gathering', other:'A celebration'};
@@ -820,7 +821,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   const CIMG = {'Lake Como':'wz-c-como', 'Ravello':'wz-ravello-tile', 'Positano':'n/pos-dome-bougainvillea', 'Capri':'n/wq-capri-2', 'Tuscany':'wz-tuscany-tile', 'Florence':'wz-c-florence', 'Puglia':'n/pug-lane-lights', 'Italy':'n/wq-italy-trevi'};
   const BIMG = {'Lake Como':'n/wq-como-2', 'Ravello':'n/wq-coast-lemons', 'Positano':'n/wq-coast-lemons', 'Capri':'n/wq-coast-lemons', 'Tuscany':'n/wq-season-autumn', 'Florence':'n/wq-olive-avenue', 'Puglia':'n/pug-sea-arch', 'Italy':'n/wq-coast-lemons'};
   const PIMG = {'Lake Como':'n/como-headland-villa', 'Ravello':'n/wq-ravello-2', 'Positano':'n/pos-cypress-coast', 'Capri':'wz-capri-tile', 'Tuscany':'wz-italy', 'Florence':'wz-italy', 'Puglia':'n/pug-polignano-day', 'Italy':'wz-italy'};
-  const RIMG = 'n/ev-candelabra-hall';
+  const RIMG = 'n/rd-marquee-table';
   // "When would you like to marry?": pointing at a season shows it. The chosen place in that season where we hold one, otherwise Italy in that season (ledger: Wizard: when).
   const SEASON = {spring:'n/wq-season-spring', summer:'n/wq-season-summer', autumn:'n/wq-season-autumn', winter:'n/wq-season-winter'};
   const SEASON_AT = {'Italy':{spring:'n/it-spring-tulips', autumn:'n/it-autumn-slope', winter:'n/it-winter-vineyard'}, 'Lake Como':{spring:'n/como-spring-garden', summer:'n/wq-season-como-summer'}, 'Ravello':{spring:'n/wq-season-ravello-spring', summer:'wz-c-ravello'}, 'Positano':{spring:'n/wq-season-coast-spring', summer:'n/wq-season-positano-summer'}, 'Capri':{spring:'n/wq-season-coast-spring', summer:'wz-c-capri'}, 'Tuscany':{summer:'wz-c-tuscany', autumn:'n/wq-season-tuscany-autumn'}};
@@ -1003,7 +1004,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     if (['plan', 'book'].includes(kind)) { const pre = new Image(); pre.src = `${GI(ENDIMG[st.type || 'wedding'])}`; }   // warm the ending's photo while the visitor reads
     progress(); strip();
     // "When" rests on (and "Not sure yet" shows) a photo of its own, never one of the season photos (Mark, 17 Nov 00:44)
-    const WIMG = {'Lake Como':'n/como-varenna-dusk', 'Ravello':'n/wq-ravello-3', 'Positano':'n/wq-positano-2', 'Capri':'n/capri-dawn', 'Tuscany':'n/wq-olive-avenue', 'Florence':'wz-florence', 'Puglia':'wz-c-puglia', 'Italy':'n/como-cypress-villa'};
+    const WIMG = {'Lake Como':'n/como-varenna-dusk', 'Ravello':'n/wq-ravello-3', 'Positano':'n/pos-pastel-hillside', 'Capri':'n/capri-dawn', 'Tuscany':'n/wq-olive-avenue', 'Florence':'wz-florence', 'Puglia':'wz-c-puglia', 'Italy':'n/como-cypress-villa'};
     const whenRest = () => WIMG[st.where] || WIMG.Italy;
     if (textQ && Q[i].k !== 'guests') bg(Q[i].k === 'when' ? whenRest() : BIMG[st.where] || COVER.where);
     if (textQ && Q[i].k === 'when') {   // the photo follows the season under the pointer; "Not sure yet" and leaving the tiles return to the place
