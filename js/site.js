@@ -250,3 +250,18 @@
     requestAnimationFrame(tick); };
   settle(); addEventListener("pageshow", e => { if (e.persisted) settle(); });
 })();
+
+/* Phone notice (Mark, 17 Nov): the prototype is designed for desktop. A modal, shown once each time the site is opened on a small
+   screen (on the landing page only, never again while moving around): a cream sheet rises over the dimmed page after the opening
+   blinds; the page behind cannot be used until "Continue anyway". A native <dialog>, so focus stays inside it and Escape closes it. */
+(() => {
+  if (!matchMedia('(max-width: 900px)').matches || location.search.includes('shot')) return;
+  try { if (sessionStorage.getItem('iep-desk')) return; sessionStorage.setItem('iep-desk', '1'); } catch (e) {}
+  const d = document.createElement('dialog'); d.className = 'desk-note'; d.setAttribute('aria-labelledby', 'desk-t');
+  d.innerHTML = '<p id="desk-t">This prototype is designed for desktop. For the intended experience, open it on a larger screen.</p><button type="button">Continue anyway</button>';
+  document.body.appendChild(d);
+  const close = () => { d.classList.remove('on'); setTimeout(() => { if (d.open) d.close(); d.remove(); }, 450); };
+  d.querySelector('button').addEventListener('click', close);
+  d.addEventListener('cancel', e => { e.preventDefault(); close(); });
+  setTimeout(() => { if (d.showModal) d.showModal(); else d.setAttribute('open', ''); requestAnimationFrame(() => requestAnimationFrame(() => d.classList.add('on'))); }, 1400);
+})();

@@ -854,3 +854,13 @@ cite,figcaption em,figcaption span,.see,.cv-count,.cv-folio button,.k-tm,.ml,.mx
 .bar .pill,.bar .pill .mt{font-family:var(--sans)!important;font-size:15px!important;font-weight:400!important;text-transform:none!important}
 /* Solid buttons are words only (Mark, 17 Nov): no arrow inside any filled or outlined button; inline Jost text links keep the expanding arrow. */
 .hv-cta svg,.st-read svg,.dp-btn svg,button.go svg,.pill:not(.mbtn) svg{display:none!important}
+/* Phone notice (js/site.js; Mark, 17 Nov): a modal on phones. A cream sheet at the foot of the screen over a dimmed page; ink Jost; no shadow. */
+dialog.desk-note{position:fixed;inset:auto 0 0 0;margin:0;width:100%;max-width:none;max-height:none;border:0;padding:28px 20px calc(28px + env(safe-area-inset-bottom));background:var(--paper);color:var(--ink);font-family:var(--sans);transform:translateY(100%);transition:transform .6s cubic-bezier(.22,1,.36,1)}
+dialog.desk-note.on{transform:none}
+dialog.desk-note::backdrop{background:rgba(24,19,14,0);transition:background .6s ease}
+dialog.desk-note.on::backdrop{background:rgba(24,19,14,.55)}
+dialog.desk-note p{margin:0 0 18px;font-size:17px;line-height:1.45;font-weight:400;max-width:34ch}
+dialog.desk-note button{all:unset;cursor:pointer;display:inline-flex;align-items:center;height:48px;padding:0 22px;background:var(--ink);color:var(--paper);font-family:var(--sans);font-size:15px;font-weight:400}
+dialog.desk-note button:focus-visible{outline:1px solid var(--brand);outline-offset:3px}
+@media (min-width:901px){dialog.desk-note{display:none}}
+@media (prefers-reduced-motion:reduce){dialog.desk-note,dialog.desk-note::backdrop{transition:none}}
