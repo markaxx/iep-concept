@@ -294,6 +294,14 @@ html.shot .ca .reveal{transition:none}
 }
 @media (prefers-reduced-motion:reduce){.k *{transition:none!important}}
 .k .go{gap:.3em}
+/* The couple photo, 17 Nov (Mark: "a wedding picture that says nothing"): it now sits beside what the planners take off the couple's
+   hands, with a way into the wizard halfway down the page. Photo left, words right (the eight places below mirror it). */
+.hand{display:grid;grid-template-columns:minmax(0,62fr) minmax(0,38fr);column-gap:5.4vw;align-items:end;padding:6vw 4.2vw 2vw!important}
+.hand-ph{margin:0;aspect-ratio:4/3.4;overflow:hidden;background:#E4D9CA}
+.hand-ph img{width:100%;height:100%;object-fit:cover;display:block}
+.hand-t{padding-bottom:.6vw}
+.hand .go{margin-top:26px;font-size:clamp(17px,1.4vw,21px)}
+@media (max-width:900px){.hand{grid-template-columns:1fr;row-gap:28px;padding:48px 20px 8px!important}.hand-ph{aspect-ratio:1/1}}
 /* Eight places, 17 Nov (Mark: closer to the KOBU index): the heading stands alone, the index and its link sit on the left in a
    slightly larger size, the photo is on the right and much bigger. */
 @media (min-width:901px){
@@ -376,8 +384,13 @@ html.shot .ca .reveal{transition:none}
       </a>
     </div>
   </section>
-  <section class="ar ar-a" aria-label="Destinations" style="padding:0!important">
-    <figure class="bleed"><img src="img/g/n/home-vesuvius.jpg" alt="A bride and groom forehead to forehead on a terrace above the Bay of Naples, Vesuvius behind" style="object-position:50% 40%" srcset="img/g/n/x900/home-vesuvius.webp 900w, img/g/n/x1600/home-vesuvius.webp 1600w, img/g/n/x2400/home-vesuvius.webp 2400w" sizes="(max-width: 900px) 100vw, 100vw" width="3200" height="2133" loading="lazy" decoding="async"></figure>
+  <section class="ar ar-a hand" aria-labelledby="hand-h">
+    <figure class="hand-ph"><img src="img/g/n/home-vesuvius.jpg" alt="A bride and groom forehead to forehead on a terrace above the Bay of Naples, Vesuvius behind" style="object-position:50% 40%" srcset="img/g/n/x900/home-vesuvius.webp 900w, img/g/n/x1600/home-vesuvius.webp 1600w, img/g/n/x2400/home-vesuvius.webp 2400w" sizes="(max-width: 900px) 100vw, 100vw" width="3200" height="2133" loading="lazy" decoding="async"></figure>
+    <div class="hand-t">
+      <h2 id="hand-h">The planning stays with us.</h2>
+      <p class="line">Venues, permits, suppliers and the timings of the day, arranged in Italian and in person. You see the choices that matter and leave the rest to us.</p>
+      <a class="go" href="plan.html">Plan your wedding <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
   </section>
   <section class="k k1" aria-labelledby="k1h">
     <h2 id="k1h"><span class="g">Eight places, eight kinds of light.</span></h2>
@@ -457,9 +470,9 @@ html.shot .ca .reveal{transition:none}
     held = false; place();
   };
   // the timer (take A beside the index, take B under the link); ?timer=a|b|off, ?fx=reveal|soft for the transition takes
-  const Q = new URLSearchParams(location.search), TM = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'off' : (Q.get('timer') || 'fill');
+  const Q = new URLSearchParams(location.search), TM = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'off' : (Q.get('timer') || 'a');
   if (TM !== 'off') document.documentElement.classList.add('tm-' + TM);
-  if (Q.get('fx')) k1.classList.add('fx-' + Q.get('fx'));
+  const FX = Q.get('fx') || 'reveal'; if (FX !== 'fade') k1.classList.add('fx-' + FX);   // ?fx=fade|soft to compare
   const tmA = k1.querySelector('.k-tm-a'), tmB = k1.querySelector('.k-tm-b b'), kn = k1.querySelector('[data-kn]');
   const place = () => { const b = idx.querySelector(`button[data-k="${curK}"]`); if (b) { tmA.style.top = b.parentElement.offsetTop + 'px'; tmA.style.height = b.parentElement.offsetHeight + 'px'; }
     kn.textContent = (P.findIndex(p => p[0] === curK) + 1) + ' / ' + P.length; };
