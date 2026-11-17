@@ -258,7 +258,7 @@
   if (!matchMedia('(max-width: 900px)').matches || location.search.includes('shot')) return;
   try { if (sessionStorage.getItem('iep-desk')) return; sessionStorage.setItem('iep-desk', '1'); } catch (e) {}
   const d = document.createElement('dialog'); d.className = 'desk-note'; d.setAttribute('aria-labelledby', 'desk-t');
-  d.innerHTML = '<p id="desk-t">This prototype is designed for desktop. For the intended experience, open it on a larger screen.</p><button type="button">Continue anyway</button>';
+  d.innerHTML = '<p id="desk-t" tabindex="-1" autofocus style="outline:none">This prototype is designed for desktop. For the intended experience, open it on a larger screen.</p><button type="button">Continue anyway</button>';
   document.body.appendChild(d);
   const close = () => { d.classList.remove('on'); setTimeout(() => { if (d.open) d.close(); d.remove(); }, 450); };
   d.querySelector('button').addEventListener('click', close);
