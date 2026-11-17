@@ -313,6 +313,8 @@ html.shot .ca .reveal{transition:none}
   .k1 li button{font-size:clamp(19px,2.45vw,36px)}
   .k1 .go{font-size:clamp(19px,2.45vw,36px);margin-top:2.6vw}
 }
+.k1 .ph img.gone{opacity:0!important;filter:none;transition:opacity .45s ease-out!important}
+.k1.fx-reveal .ph img.gone{clip-path:inset(0 0 0 0);transform:none}
 /* timer, take A: a hairline beside the index; beside the active name a raspberry segment fills over the dwell */
 .k1 ul{position:relative}
 .k1 .side{position:relative!important}
@@ -459,9 +461,19 @@ html.shot .ca .reveal{transition:none}
       swap = setTimeout(() => { const m = P.find(p => p[0] === curK)[1]; k1.querySelector('[data-goname]').textContent = 'See ' + m;
         go.classList.remove('k-out'); }, 260);
     }
-    ph.querySelectorAll('img').forEach(i => { if (i.classList.contains('on')) { i.classList.remove('on'); i.classList.add('was'); } });
-    const im = ph.querySelector(`img[data-k="${k}"]`); im.classList.remove('was'); im.style.zIndex = ++z; im.classList.add('on');
-    clearTimeout(clean); clean = setTimeout(() => ph.querySelectorAll('img.was').forEach(i => i.classList.remove('was')), 1300);
+    // never more than two photos in play (Mark, 17 Nov: a fast sweep stacked eight half-done transitions). The one that is mostly
+    // visible stays underneath; every other photo that was arriving or leaving fades out quickly; the new one arrives on top.
+    const im = ph.querySelector(`img[data-k="${k}"]`), cur = ph.querySelector('img.on'), base = ph.querySelector('img.was');
+    const keep = !cur || performance.now() - onAt > 600 ? cur : (base || cur);
+    ph.querySelectorAll('img').forEach(i => {
+      if (i === im) return;
+      if (i === keep) { i.classList.remove('on', 'gone'); i.classList.add('was'); }
+      else if (i.matches('.on,.was')) { i.classList.remove('on', 'was'); i.classList.add('gone'); }
+    });
+    if (im !== keep) { im.style.transition = 'none'; im.classList.remove('on', 'was', 'gone'); void im.offsetWidth; im.style.transition = ''; onAt = performance.now(); }
+    else im.classList.remove('was', 'gone');
+    im.style.zIndex = ++z; im.classList.add('on');
+    clearTimeout(clean); clean = setTimeout(() => ph.querySelectorAll('img.was,img.gone').forEach(i => i.classList.remove('was', 'gone')), 1400);
     idx.querySelectorAll('button').forEach(b => {
       const was = b.getAttribute('aria-pressed') === 'true', now = b.dataset.k === k; b.setAttribute('aria-pressed', now);
       if (was && !now) { b.classList.remove('ease'); b.classList.add('drain'); clearTimeout(b._dr); b._dr = setTimeout(() => { b.classList.remove('drain'); b.style.setProperty('--f', 0); }, 950); }
@@ -472,7 +484,7 @@ html.shot .ca .reveal{transition:none}
   // the timer (take A beside the index, take B under the link); ?timer=a|b|off, ?fx=reveal|soft for the transition takes
   const Q = new URLSearchParams(location.search), TM = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'off' : (Q.get('timer') || 'a');
   if (TM !== 'off') document.documentElement.classList.add('tm-' + TM);
-  const FX = Q.get('fx') || 'reveal'; if (FX !== 'fade') k1.classList.add('fx-' + FX);   // ?fx=fade|soft to compare
+  const FX = Q.get('fx') || 'fade'; if (FX !== 'fade') k1.classList.add('fx-' + FX);   // ?fx=fade|soft to compare
   const tmA = k1.querySelector('.k-tm-a'), tmB = k1.querySelector('.k-tm-b b'), kn = k1.querySelector('[data-kn]');
   const place = () => { const b = idx.querySelector(`button[data-k="${curK}"]`); if (b) { tmA.style.top = b.parentElement.offsetTop + 'px'; tmA.style.height = b.parentElement.offsetHeight + 'px'; }
     kn.textContent = (P.findIndex(p => p[0] === curK) + 1) + ' / ' + P.length; };
@@ -482,7 +494,7 @@ html.shot .ca .reveal{transition:none}
     if (held) { if (!b.classList.contains('ease')) { b.classList.add('ease'); b.style.setProperty('--f', 1); } }
     else b.style.setProperty('--f', f.toFixed(4)); };
   let held = false;
-  let curK = 'como', z = 1, clean, swap, locked = false, t = 0; const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let curK = 'como', z = 1, clean, swap, locked = false, t = 0, onAt = 0; const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   idx.querySelectorAll('button').forEach(b => {
     // a click chooses and holds the place: hovering other names no longer changes it, so the "See …" link can be reached directly.
     // Another click chooses another place; the hold ends when the pointer leaves the section (and auto-advance waits while held).
