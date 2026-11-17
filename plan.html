@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Start planning · Italian Event Planners</title>
-<link rel="preload" href="fonts/jost-300.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/jost-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/italiana.woff2" as="font" type="font/woff2" crossorigin><link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=222889c2">
+<link rel="preload" href="fonts/jost-300.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/jost-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/italiana.woff2" as="font" type="font/woff2" crossorigin><link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=53a14c74">
 <style>
 .wizard footer,.wizard .wa{display:none}
 .wizard .bar{background:linear-gradient(180deg,rgba(10,8,6,.45),rgba(10,8,6,0))}
@@ -639,6 +639,10 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
 .wz.reply .rl .pn{font-family:var(--sans);font-weight:400;font-variant-numeric:tabular-nums;letter-spacing:.02em}
 .wz.reply .rl.lead{display:flex;align-items:baseline;flex-wrap:wrap}
 .wz.reply .rl.lead .pn{font-size:clamp(68px,7.2vw,104px);line-height:.95;margin-right:.28em}
+/* Tracking by role, from the site's tracking scale (css/site.css, HANDOFF.md) */
+.wz p.ql{letter-spacing:var(--tr-title,-.02em)}
+.wz .opt .nm,.wz .tile,.wz .cf2 input,.wz .cf2 textarea,.wz .rb,.wz .rp{letter-spacing:var(--tr-body,0)}
+.wz p.qs,.wz .wnote,.wz .cf2 label>span{letter-spacing:var(--tr-caption,.01em)}
 </style>
 <meta name="robots" content="noindex"><script>try{if(!document.prerendering&&!matchMedia("(prefers-reduced-motion: reduce)").matches&&!location.search.includes("shot"))document.documentElement.classList.add("arch-ready")}catch(e){}</script></head>
 <body class="wizard">
@@ -910,10 +914,10 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
       h = (ec ? `<p class="echo">${ec}</p>` : n === 0 && resumable() ? `<button class="soft resume" id="resume">Continue the plan you started ${arrow}</button>` : '') + `<p class="ql">${q.k === 'when' && st.type && st.type !== 'wedding' ? 'When would you like to celebrate?' : q.q}</p>${q.s ? `<p class="qs">${q.s}</p>` : ''}`;
       if (q.opts) h += `<div class="sq-opts n${opts(q).length}" role="group" aria-label="${q.q}">${opts(q).map(([v, l, img]) => `<button class="opt${q.k === 'where' && v !== 'Italy' ? ' pl' : ''}" data-v="${v}" data-img="${img}" aria-pressed="${st[q.k] === v}"><i class="th"><img src="${GI(img)}" alt="" loading="lazy"></i><span class="nm">${l}</span><svg class="oa" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>`).join('')}</div>`;
       else if (q.tiles) h += `<div class="tiles">${q.tiles.map(([v, l]) => `<button class="tile" data-v="${v}" aria-pressed="${st[q.k] === v}">${l}</button>`).join('')}</div>`;
-      else h += `<div class="gst"><button id="gm" aria-label="Fewer guests">−</button><output id="go">${st.guests}</output><button id="gp" aria-label="More guests">+</button></div><p class="gdesc" id="gd">${gdesc(st.guests)}</p><button class="go" id="gnext">Continue ${arrow}</button>`;
+      else h += `<div class="gst"><button id="gm" aria-label="Fewer guests">−</button><output id="go">${st.guests}</output><button id="gp" aria-label="More guests">+</button></div><p class="gdesc" id="gd">${gdesc(st.guests)}</p><button class="go" id="gnext">Continue</button>`;
     } else if (kind === 'pause') {
       const r = guestPause(); bg(gimg(st.guests));
-      h = `<p class="rl${/^\d/.test(r.line) ? ' lead' : ''}">${r.line.replace(/\d+/, m => `<span class="pn">${m}</span>`)}</p>` + (r.body ? `<p class="rb">${r.body}</p>` : '') + (r.src ? `<p class="rs">${r.src}</p>` : '') + (r.quote ? `<blockquote class="pq rq"><p>${r.quote[0]}</p><cite>&mdash; ${r.quote[1].replace('&', '&amp;')}</cite></blockquote>` : '') + `<button class="go" data-next>Continue ${arrow}</button>`;
+      h = `<p class="rl${/^\d/.test(r.line) ? ' lead' : ''}">${r.line.replace(/\d+/, m => `<span class="pn">${m}</span>`)}</p>` + (r.body ? `<p class="rb">${r.body}</p>` : '') + (r.src ? `<p class="rs">${r.src}</p>` : '') + (r.quote ? `<blockquote class="pq rq"><p>${r.quote[0]}</p><cite>&mdash; ${r.quote[1].replace('&', '&amp;')}</cite></blockquote>` : '') + `<button class="go" data-next>Continue</button>`;
     } else if (kind === 'bpause') {
       // Mark, 17 Nov 00:30: the answer to the budget gets its own screen before "Your plan is ready." Never a hint that a figure is small; no statistics.
       const BP = {
@@ -924,7 +928,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
         '0':['We\u2019ll work it out together.', 'You\u2019ll see what each choice costs, and decide with the plan in front of you.']};
       const r = BP[st.budget] || BP['0'];
       bg(({wedding:'wz-t-wedding', corporate:'n/wq-team-table'})[st.type || 'wedding'] || 'w-rowboats');
-      h = `<p class="rl">${r[0]}</p><p class="rb">${r[1]}</p><button class="go" data-next>Continue ${arrow}</button>`;
+      h = `<p class="rl">${r[0]}</p><p class="rb">${r[1]}</p><button class="go" data-next>Continue</button>`;
     } else if (kind === 'ready') {
       const w = st.where || 'Italy', place = ON[w] || 'in ' + w, t = st.type || 'wedding';
       bg(RIMG);
@@ -947,12 +951,12 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
           <div class="fld"><span id="ccl-l">Your country</span><div class="cp" id="cp"><input id="cci" role="combobox" aria-labelledby="ccl-l" aria-expanded="false" aria-controls="ccl" aria-autocomplete="list" autocomplete="off" spellcheck="false"><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg><ul class="cp-l" id="ccl" role="listbox" data-lenis-prevent></ul></div></div>
           <div class="fld"><span id="tel-l">Phone number</span><div class="tel"><div class="cp pp" id="pp"><button type="button" id="ppb" aria-haspopup="listbox" aria-expanded="false" aria-label="Country dialling code"><b id="ppv">+44</b><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button><div class="cp-pop" id="ppp"><input id="pps" placeholder="Country or code" autocomplete="off" spellcheck="false" aria-label="Search dialling codes"><ul class="cp-l" id="ppl" role="listbox" data-lenis-prevent></ul></div></div><input type="tel" id="tel" autocomplete="tel-national" aria-labelledby="tel-l"></div></div>
           <label class="wide"><span>Anything we should know? (optional)</span><textarea rows="1" id="nt"></textarea></label>
-          <div class="cf-act"><button class="go" data-next>Send me my plan ${arrow}</button><button type="button" class="soft" data-cskip>Skip for now</button></div></div></div></div>`;
+          <div class="cf-act"><button class="go" data-next>Send me my plan</button><button type="button" class="soft" data-cskip>Skip for now</button></div></div></div></div>`;
     } else if (kind === 'found') {
       bg('w-coast');
       h = `<p class="ql fnd-q">How did you find us?</p><p class="qs">We\u2019re curious where you found us.</p>
         <div class="tiles fnd">${FOUND.map(([k, l]) => `<button class="tile" data-f="${k}" aria-pressed="${st.found === k}">${l}</button>`).join('')}</div>
-        <div class="fnd-o"${st.found === 'other' ? '' : ' hidden'}><input id="fot" placeholder="Tell us where" value="${(st.foundText || '').replace(/"/g, '&quot;')}" aria-label="Where you found us"><button class="go" id="fgo">Continue ${arrow}</button></div>
+        <div class="fnd-o"${st.found === 'other' ? '' : ' hidden'}><input id="fot" placeholder="Tell us where" value="${(st.foundText || '').replace(/"/g, '&quot;')}" aria-label="Where you found us"><button class="go" id="fgo">Continue</button></div>
         <button class="soft" data-fskip>Skip this</button>`;
     } else if (kind === 'plan') {
       const w = st.where || 'Italy', im = moodboard(), d = DAYS[st.type || 'wedding'];
@@ -971,7 +975,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
       const sum = [WHEN[st.when] && st.when !== 'unsure' ? WHEN[st.when] : '', st.guests <= 2 ? 'just the two of you' : st.guests + ' guests', FEEL[st.feel] || ''].filter(Boolean).join(', ');
       h = `<p class="ql">${{corporate:'Your three days', private:'Your weekend', other:'Your weekend', wedding:'Your wedding weekend'}[st.type || 'wedding']} in ${w === 'Italy' ? 'Italy' : w}</p><p class="qs">${sum[0].toUpperCase() + sum.slice(1)}.</p>
         <div class="pdays">${d.map(([day], x) => `<div class="pday"><h4>${day}</h4><p>${lines[x]}</p></div>`).join('')}</div>
-        <p class="est3"><small>First estimate</small><span>${k(mid * .85)} to ${k(mid * 1.15)}</span></p><button class="go" data-next>Plan it with us ${arrow}</button>`;
+        <p class="est3"><small>First estimate</small><span>${k(mid * .85)} to ${k(mid * 1.15)}</span></p><button class="go" data-next>Plan it with us</button>`;
       window.__pim = pim;
     } else if (kind === 'book') {
       bg('ilaria');
@@ -981,7 +985,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
       const sl = [[0,'10:00'],[0,'16:30'],[1,'11:00'],[1,'15:00'],[2,'09:30'],[2,'12:00']].map(([x, h]) => [DN[days[x].getDay()] + ' ' + days[x].getDate(), h, ymd(days[x]) + 'T' + h.replace(':', '') + '00']);
       h = `<p class="ql">Would you like a call with Ilaria?</p><div class="who"><div><b>Ilaria Guarino</b><span>Founder, Italian Event Planners</span></div></div><p class="bk-x">We\u2019ll talk through the place, the date and your first ideas for the ${st.type === 'corporate' ? 'three days' : 'weekend'}, and start shaping it together.</p>
         <div class="slots2">${sl.map(([d, t, iso]) => `<button class="tile" data-slot="${d} at ${t}" data-when="${iso}" aria-pressed="${st.slot === d + ' at ' + t}"><small>${d}</small>${t}</button>`).join('')}</div>
-        <p class="qs">Times listed according to ${tz} (Rome).</p><div class="bk"><button class="go" data-next id="cfm"${st.slot ? '' : ' disabled'}>Confirm my call ${arrow}</button><button class="soft" data-skip>Not yet, just send my plan</button></div>`;
+        <p class="qs">Times listed according to ${tz} (Rome).</p><div class="bk"><button class="go" data-next id="cfm"${st.slot ? '' : ' disabled'}>Confirm my call</button><button class="soft" data-skip>Not yet, just send my plan</button></div>`;
     } else {
       const img = ENDIMG[st.type || 'wedding'], where = !st.where || st.where === 'Italy' ? 'Italy' : st.where;
       bg(img);
@@ -990,7 +994,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
       const lines = [where + season, (st.guests <= 2 ? 'Just the two of you' : st.guests + ' guests, ' + gdesc(st.guests).replace(/^./, c => c.toLowerCase())), FEEL[st.feel] ? FEEL[st.feel][0].toUpperCase() + FEEL[st.feel].slice(1) : 'The setting, still to choose'];
       const call = st.slot ? `A call with Ilaria, ${st.slot}` : '';
       const after = st.slot ? 'After the call we send the first venues.' : 'Whenever you are ready, we can talk it through.';
-      const acts = `<div class="k-act${st.sent ? ' sent' : ''}">${st.sent ? SENT : `<button class="go" id="keep">Email me this plan ${arrow}</button>`}${st.slot ? '<button class="soft" id="ics">Add the call to my calendar</button>' : '<button class="soft" id="rebook">Book a call with Ilaria</button>'}</div>`;
+      const acts = `<div class="k-act${st.sent ? ' sent' : ''}">${st.sent ? SENT : `<button class="go" id="keep">Email me this plan</button>`}${st.slot ? '<button class="soft" id="ics">Add the call to my calendar</button>' : '<button class="soft" id="rebook">Book a call with Ilaria</button>'}</div>`;
       const text = `<p class="k-who">${who}</p><p class="k-place">${lines[0]}</p><p class="k-l">${lines[1]}</p><p class="k-l">${lines[2]}</p>${call ? `<p class="k-l k-call">${call}</p>` : ''}<button class="k-edit" id="edit">Change my answers ${arrow}</button><p class="k-note">${after}</p>${acts}`;
       h = `<div class="keep"><figure class="k-door"><img src="${GI(img)}" alt=""></figure><div class="k-text">${text}</div></div>`;
     }

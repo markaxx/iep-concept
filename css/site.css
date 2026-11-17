@@ -824,3 +824,32 @@ html.arch-ready .wa,html.arch-leave .wa{opacity:0;transition:opacity .25s}
    eight places index on Home: Jost 400, ink, raspberry on hover and focus. */
 .menu nav a{font-family:var(--sans)!important;font-weight:400!important;font-size:clamp(22px,2.3vw,32px)!important;line-height:1.56!important;letter-spacing:0!important;text-transform:none!important;width:fit-content}
 @media (max-width:900px){.menu nav a{font-size:clamp(22px,6.4vw,28px)!important}}
+
+
+/* ===== Tracking scale (Mark, 17 Nov: "most important here") =====
+   One named value per type role, in em, from Mark's Timmark scale (taken from his own Figma edits: display -5%, 48-64px -3%,
+   titles 28-36 -2%, headings 18-22 -1%, body 14-16 0, small text +1%, caps +6%) and the article he chose (Design Studio,
+   "Tracking in typography": one token per role, never per element; display most negative, caps most positive; body never beyond
+   -0.03em; layouts must survive +0.12em, WCAG 1.4.12). Display uses the article's -0.04em, as Italiana is a thin face and -5%
+   closed its counters at hero sizes. Buttons and links carry body tracking (0), as in Timmark. This layer is the last word on
+   letter-spacing: set it here by role, not on single elements. HANDOFF.md has the table. */
+:root{--tr-display:-.04em;--tr-display-sm:-.03em;--tr-title:-.02em;--tr-heading:-.01em;--tr-body:0em;--tr-caption:.01em;--tr-caps:.06em}
+/* display: Italiana page titles and big story headings (about 60 to 115px) */
+h1,h1 *,.dx h2,.bt-ch,.ca-head h2,.hand h2,.cv-names,.cv-names *{letter-spacing:var(--tr-display)!important}
+/* large spoken lines in the stories (Jost, 48 to 86px) */
+.spoken p:not(.after),.says p:not(.en),.bt-plan p{letter-spacing:var(--tr-display-sm)!important}
+/* titles: section headings and the larger Jost lines (28 to 53px), the menu and the eight places index */
+h2,h2 .g,.bt-end b,.nx b,.bt .bt-said .said,.menu nav a,.k1 li button,.cont{letter-spacing:var(--tr-title)!important}
+/* headings: small titles and lead lines (18 to 30px) */
+.spoken p.after,.says p.en{letter-spacing:var(--tr-body)!important}
+h3,h4,h5,h6,footer h5,figcaption b,.lead,.line,.hv-line,.k1 .go,.hand .go{letter-spacing:var(--tr-heading)!important}
+/* body: reading text, quotes, buttons and links (14 to 22px) */
+body,p,.pq p,.meta,.dx-intro,.ca-aside,dd,.pill,.pill *,.go,.ha-run,.cv-read,.wd-sw button,.bt-plan a,.jr-list b,.tx b{letter-spacing:var(--tr-body)!important}
+/* small text: captions, attributions, counts, month names, footer lines (13 to 15px) */
+cite,.pq cite,figcaption em,figcaption span,.see,.cv-count,.cv-folio button,.k-tm,.ml,.mx i,small,dt,.f-bot span,.m-foot span,.bt-from,.pill.pill-line{letter-spacing:var(--tr-caption)!important}
+/* caps: the language switch */
+.lang a{letter-spacing:var(--tr-caps)!important}
+/* the bar's buttons read the same on every page (the story pages still had the old uppercase pill) */
+.bar .pill,.bar .pill .mt{font-family:var(--sans)!important;font-size:15px!important;font-weight:400!important;text-transform:none!important}
+/* Solid buttons are words only (Mark, 17 Nov): no arrow inside any filled or outlined button; inline Jost text links keep the expanding arrow. */
+.hv-cta svg,.st-read svg,.dp-btn svg,button.go svg,.pill:not(.mbtn) svg{display:none!important}
