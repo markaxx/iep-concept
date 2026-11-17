@@ -714,6 +714,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   const GSTEPS = () => st.type === 'corporate' ? [10,20,30,45,60,80,100,130,160,200,250,300,400] : [2,10,20,30,45,60,80,100,130,160,200,250,300];
   const band = g => g <= 2 ? 'elope' : g <= 30 ? 'intimate' : g <= 100 ? 'long' : 'grand';
   const gimg = g => ({elope:'n/wq-guests-elope', intimate:'n/gx-intimate-candle', long:'n/gx-long-candle', grand:'n/gx-grand-library'})[band(g)];   // Mark, 16 Nov: a celebration of that size, never a detail shot
+  const gpimg = g => ({elope:'n/px-lunch-two', intimate:'n/wq-terrace', long:'n/wq-garden'})[band(g)] || gimg(g);   // the pause after guests gets its own photo (no repeat in a run); grand has no sharp second photo yet
   function guestPause(){
     const g = st.guests, b = band(g), wed = (st.type || 'wedding') === 'wedding';
     if (b === 'elope') return wed
@@ -826,7 +827,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   const SEASON = {spring:'n/wq-season-spring', summer:'n/wq-season-summer', autumn:'n/wq-season-autumn', winter:'n/wq-season-winter'};
   const SEASON_AT = {'Italy':{spring:'n/it-spring-tulips', autumn:'n/it-autumn-slope', winter:'n/it-winter-vineyard'}, 'Lake Como':{spring:'n/como-spring-garden', summer:'n/wq-season-como-summer'}, 'Ravello':{spring:'n/wq-season-ravello-spring', summer:'wz-c-ravello'}, 'Positano':{spring:'n/wq-season-coast-spring', summer:'n/wq-season-positano-summer'}, 'Capri':{spring:'n/wq-season-coast-spring', summer:'wz-c-capri'}, 'Tuscany':{summer:'wz-c-tuscany', autumn:'n/wq-season-tuscany-autumn'}};
   const seasonImg = (v, w) => (SEASON_AT[w] || {})[v] || SEASON[v];
-  addEventListener('load', () => setTimeout(() => ['wz-t-wedding', 'w-rowboats', 'n/wq-team-table', 'n/wq-guests-elope', 'n/wq-guests-intimate', 'n/wq-guests-long', 'n/wq-guests-grand', 'w-coast', 'ilaria', ...Object.values(CIMG), ...Object.values(BIMG), ...Object.values(PIMG), RIMG, ...Object.values(SEASON)].forEach(nm => { const im = new Image(); im.src = `${GI(nm)}`; }), 1500));   // later screens' photos arrive in the background, so no screen waits on one
+  addEventListener('load', () => setTimeout(() => ['wz-t-wedding', 'w-rowboats', 'n/wq-team-table', 'n/wq-guests-elope', 'n/gx-intimate-candle', 'n/gx-long-candle', 'n/gx-grand-library', 'n/px-lunch-two', 'n/wq-terrace', 'n/wq-garden', 'w-coast', 'ilaria', ...Object.values(CIMG), ...Object.values(BIMG), ...Object.values(PIMG), RIMG, ...Object.values(SEASON)].forEach(nm => { const im = new Image(); im.src = `${GI(nm)}`; }), 1500));   // later screens' photos arrive in the background, so no screen waits on one
   const FOUND = [['friend','A friend or family'],['instagram','Instagram'],['google','Google'],['press','A magazine or blog'],['venue','A venue or supplier'],['other','Somewhere else']];
   // Silent attribution, kept for the whole visit: UTM tags and referrer from the first page the visitor landed on.
   const SRC = (() => {
@@ -917,7 +918,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
       else if (q.tiles) h += `<div class="tiles">${q.tiles.map(([v, l]) => `<button class="tile" data-v="${v}" aria-pressed="${st[q.k] === v}">${l}</button>`).join('')}</div>`;
       else h += `<div class="gst"><button id="gm" aria-label="Fewer guests">−</button><output id="go">${st.guests}</output><button id="gp" aria-label="More guests">+</button></div><p class="gdesc" id="gd">${gdesc(st.guests)}</p><button class="go" id="gnext">Continue</button>`;
     } else if (kind === 'pause') {
-      const r = guestPause(); bg(gimg(st.guests));
+      const r = guestPause(); bg(gpimg(st.guests));
       h = `<p class="rl${/^\d/.test(r.line) ? ' lead' : ''}">${r.line.replace(/\d+/, m => `<span class="pn">${m}</span>`)}</p>` + (r.body ? `<p class="rb">${r.body}</p>` : '') + (r.src ? `<p class="rs">${r.src}</p>` : '') + (r.quote ? `<blockquote class="pq rq"><p>${r.quote[0]}</p><cite>&mdash; ${r.quote[1].replace('&', '&amp;')}</cite></blockquote>` : '') + `<button class="go" data-next>Continue</button>`;
     } else if (kind === 'bpause') {
       // Mark, 17 Nov 00:30: the answer to the budget gets its own screen before "Your plan is ready." Never a hint that a figure is small; no statistics.
