@@ -243,4 +243,10 @@
   addEventListener('scroll', req, {passive: true}); addEventListener('resize', req); addEventListener('load', req);
   if (document.fonts) document.fonts.ready.then(req);
   frame();
+  // the hero copy rises into place on arrival (js/motion.js): follow it every frame until the logo has settled, so the first scroll never jumps
+  const settle = () => { if (!fly) return; let last = null, calm = 0; const t0 = performance.now();
+    const tick = () => { frame(); const t = Math.round((hl.getBoundingClientRect().top + scrollY) * 10);
+      calm = t === last ? calm + 1 : 0; last = t; if (calm < 20 && performance.now() - t0 < 5000) requestAnimationFrame(tick); };
+    requestAnimationFrame(tick); };
+  settle(); addEventListener("pageshow", e => { if (e.persisted) settle(); });
 })();

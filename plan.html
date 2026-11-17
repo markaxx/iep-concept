@@ -626,8 +626,17 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
 .cf-act{flex-direction:row;flex-wrap:wrap;align-items:center;column-gap:28px;row-gap:14px}
 .cf-act .go{margin-top:0}.cf-act .soft{margin-top:0;padding:0;font-size:15px;font-weight:400;letter-spacing:.02em;color:var(--ink);opacity:.68}.cf-act .soft:hover{opacity:1}
 .wz.split.reply .rl{text-wrap:balance}.wz.split.reply .rb{text-wrap:pretty}   /* headings never leave one word alone on a line */
+.wnote{margin-top:20px;max-width:34em;opacity:0;transition:opacity .3s}.wnote.on{opacity:1}
+/* Colour (Mark, 17 Nov 00:53): the visitor is choosing here, so photos show true, vibrant colour. Our site-wide grade (img/g) takes out 18% of the
+   saturation and lifts the blacks; this undoes that on wizard photos only. One rule for every wizard photo, so no screen looks duller than the next. */
+.wz.split .bg img,.wz.sharp .bg img{filter:saturate(1.22) contrast(1.12)!important}
+.opt .th img,.cf-im img{filter:saturate(1.22) contrast(1.12)}
+/* Guest number change (Mark, 17 Nov 00:53): felt more than seen. The new figure sharpens out of a 2px blur in 180ms. No bounce, no slide. */
+@keyframes softin{from{filter:blur(2px);opacity:.55}to{filter:blur(0);opacity:1}}
+.gst output.soft-in{animation:softin .18s ease-out}
+@media (prefers-reduced-motion:reduce){.gst output.soft-in{animation:none}}
 </style>
-<meta name="robots" content="noindex"><script>try{if(sessionStorage.getItem("iep-arch")&&!matchMedia("(prefers-reduced-motion: reduce)").matches&&!location.search.includes("shot"))document.documentElement.classList.add("arch-ready")}catch(e){}</script></head>
+<meta name="robots" content="noindex"><script>try{if(!document.prerendering&&!matchMedia("(prefers-reduced-motion: reduce)").matches&&!location.search.includes("shot"))document.documentElement.classList.add("arch-ready")}catch(e){}</script></head>
 <body class="wizard">
 <div class="page">
   <section class="wz" id="wz">
@@ -638,7 +647,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     <button class="back2" id="back">Back</button>
   </section>
 </div>
-<script src="js/site.js?v=59b97a7d"></script>
+<script src="js/site.js?v=deafabd7"></script>
 <script src="js/prefetch.js?v=e788ada9" defer></script>
 <script src="js/countries.js?v=4b133cd4"></script>
 <script src="vendor/gsap.min.js?v=ff86cb55"></script><script src="vendor/ScrollTrigger.min.js?v=2e3b8c36"></script><script src="vendor/lenis.min.js?v=5a44a112"></script><script src="js/motion.js?v=ef56d6a3"></script>
@@ -658,9 +667,9 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     {k:'type', q:'What are we celebrating?', s:'', opts:[
       ['wedding','A wedding','n/hands-sea'],['private','An anniversary or birthday','n/wq-toast'],['corporate','A company gathering','n/wq-corporate'],['other','Something else','w-stairs']],},
     {k:'where', q:'Where do you see it?', s:'', opts:[
-      ['Lake Como','Lake Como','n/wq-como'],['Ravello','Ravello','n/wq-ravello'],['Positano','Positano','n/wq-positano'],['Capri','Capri','n/wq-capri'],
-      ['Tuscany','Tuscany','n/wq-tuscany'],['Florence','Florence','wz-c-florence'],['Puglia','Puglia','wz-puglia-tile'],['Italy','Undecided','wz-c-italy']],},
-    {k:'when', q:'When would you like to marry?', s:'A rough idea is fine.', tiles:[['spring','Spring'],['summer','Summer'],['autumn','Early autumn'],['unsure','Not sure yet']]},
+      ['Lake Como','Lake Como','n/como-ivy-village'],['Ravello','Ravello','n/wq-ravello'],['Positano','Positano','n/pos-dusk'],['Capri','Capri','n/wq-capri'],
+      ['Tuscany','Tuscany','n/wq-tuscany'],['Florence','Florence','wz-c-florence'],['Puglia','Puglia','n/pug-polignano-sunset'],['Italy','Undecided','wz-c-italy']],},
+    {k:'when', q:'When would you like to marry?', s:'A rough idea is fine.', tiles:[['spring','Spring'],['summer','Summer'],['autumn','Early autumn'],['winter','Winter'],['unsure','Not sure yet']]},
     {k:'guests', q:'How many guests are you expecting?', s:'A rough number is fine.', guests:true},
     {k:'feel', q:'What setting do you picture?', s:'', opts:[
       ['beach','By the sea','n/wq-sea'],['lake','On a lake','n/wq-lake'],['terrace','A terrace at sunset','n/wq-sunset-deck'],['stone','A castle or old villa','n/wq-castle'],['garden','A garden under the trees','n/wq-garden-trees']],},
@@ -714,7 +723,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   // Settings that fit the place chosen (review, 16 Nov): no lake after Capri, no sea after Como, a garden instead of either inland.
   const FITS = {'Lake Como':['lake','terrace','stone'], 'Ravello':['beach','terrace','stone'], 'Positano':['beach','terrace','stone'], 'Capri':['beach','terrace','stone'], 'Puglia':['beach','terrace','stone'], 'Tuscany':['terrace','stone','garden'], 'Florence':['terrace','stone','garden'], 'Italy':['beach','lake','terrace','stone']};
   const opts = q => q.k === 'feel' ? q.opts.filter(o => (FITS[st.where] || FITS.Italy).includes(o[0])) : q.opts;
-  const WHEN = {spring:'Spring', summer:'Summer', autumn:'Early autumn', unsure:'Season to choose'};
+  const WHEN = {spring:'Spring', summer:'Summer', autumn:'Early autumn', winter:'Winter', unsure:'Season to choose'};
   const DAYS = {
     wedding:[['Friday','Welcome dinner'],['Saturday','The wedding'],['Sunday','Farewell brunch']],
     private:[['Friday','Arrival aperitivo'],['Saturday','The celebration'],['Sunday','Long lunch']],
@@ -800,13 +809,13 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   // One big photo per screen, never twice in a run (Mark, 16 Nov late: "why is this same image reused"). The place question shows its own option photo;
   // BIMG rests on "When" and stays still on the budget question; RIMG is the plan-ready pause; CIMG is the contact card (a real photo of the place, not seen before);
   // PIMG is the weekend plan, the finest photo of the place. Ledger: "Wizard: one photo per screen".
-  const CIMG = {'Lake Como':'wz-c-como', 'Ravello':'wz-ravello-tile', 'Positano':'n/positano-bay', 'Capri':'n/wq-capri-2', 'Tuscany':'wz-tuscany-tile', 'Florence':'wz-c-florence', 'Puglia':'wz-c-puglia', 'Italy':'n/wq-italy-trevi'};
-  const BIMG = {'Lake Como':'n/wq-como-2', 'Ravello':'n/wq-ravello-3', 'Positano':'n/wq-coast-lemons', 'Capri':'n/wq-coast-lemons', 'Tuscany':'n/wq-olive-avenue', 'Florence':'n/wq-olive-avenue', 'Puglia':'n/wq-olive-avenue', 'Italy':'n/wq-coast-lemons'};
-  const PIMG = {'Lake Como':'wz-como-tile', 'Ravello':'n/wq-ravello-2', 'Positano':'n/wq-positano-2', 'Capri':'wz-capri-tile', 'Tuscany':'wz-italy', 'Florence':'wz-italy', 'Puglia':'wz-puglia', 'Italy':'wz-italy'};
+  const CIMG = {'Lake Como':'wz-c-como', 'Ravello':'wz-ravello-tile', 'Positano':'n/pos-dome-bougainvillea', 'Capri':'n/wq-capri-2', 'Tuscany':'wz-tuscany-tile', 'Florence':'wz-c-florence', 'Puglia':'n/pug-lane-lights', 'Italy':'n/wq-italy-trevi'};
+  const BIMG = {'Lake Como':'n/wq-como-2', 'Ravello':'n/wq-ravello-3', 'Positano':'n/wq-coast-lemons', 'Capri':'n/wq-coast-lemons', 'Tuscany':'n/wq-olive-avenue', 'Florence':'n/wq-olive-avenue', 'Puglia':'n/pug-sea-arch', 'Italy':'n/wq-coast-lemons'};
+  const PIMG = {'Lake Como':'n/como-headland-villa', 'Ravello':'n/wq-ravello-2', 'Positano':'n/pos-cypress-coast', 'Capri':'wz-capri-tile', 'Tuscany':'wz-italy', 'Florence':'wz-italy', 'Puglia':'n/pug-polignano-day', 'Italy':'wz-italy'};
   const RIMG = 'n/ev-candelabra-hall';
   // "When would you like to marry?": pointing at a season shows it. The chosen place in that season where we hold one, otherwise Italy in that season (ledger: Wizard: when).
-  const SEASON = {spring:'n/wq-season-spring', summer:'n/wq-season-summer', autumn:'n/wq-season-autumn'};
-  const SEASON_AT = {'Lake Como':{spring:'n/wq-season-como-spring', summer:'n/wq-season-como-summer'}, 'Ravello':{spring:'n/wq-season-ravello-spring', summer:'wz-c-ravello'}, 'Positano':{spring:'n/wq-season-coast-spring', summer:'n/wq-season-positano-summer'}, 'Capri':{spring:'n/wq-season-coast-spring', summer:'wz-c-capri'}, 'Tuscany':{summer:'wz-c-tuscany', autumn:'n/wq-season-tuscany-autumn'}};
+  const SEASON = {spring:'n/wq-season-spring', summer:'n/wq-season-summer', autumn:'n/wq-season-autumn', winter:'n/wq-season-winter'};
+  const SEASON_AT = {'Italy':{spring:'n/it-spring-tulips', autumn:'n/it-autumn-slope', winter:'n/it-winter-vineyard'}, 'Lake Como':{spring:'n/como-spring-garden', summer:'n/wq-season-como-summer'}, 'Ravello':{spring:'n/wq-season-ravello-spring', summer:'wz-c-ravello'}, 'Positano':{spring:'n/wq-season-coast-spring', summer:'n/wq-season-positano-summer'}, 'Capri':{spring:'n/wq-season-coast-spring', summer:'wz-c-capri'}, 'Tuscany':{summer:'wz-c-tuscany', autumn:'n/wq-season-tuscany-autumn'}};
   const seasonImg = (v, w) => (SEASON_AT[w] || {})[v] || SEASON[v];
   addEventListener('load', () => setTimeout(() => ['wz-t-wedding', 'w-rowboats', 'n/wq-team-table', 'n/wq-guests-elope', 'n/wq-guests-intimate', 'n/wq-guests-long', 'n/wq-guests-grand', 'w-coast', 'ilaria', ...Object.values(CIMG), ...Object.values(BIMG), ...Object.values(PIMG), RIMG, ...Object.values(SEASON)].forEach(nm => { const im = new Image(); im.src = `${GI(nm)}`; }), 1500));   // later screens' photos arrive in the background, so no screen waits on one
   const FOUND = [['friend','A friend or family'],['instagram','Instagram'],['google','Google'],['press','A magazine or blog'],['venue','A venue or supplier'],['other','Somewhere else']];
@@ -967,13 +976,20 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     const kd = stage.querySelector('.k-door'); if (kd) { const ki = kd.querySelector('img'), ld = () => kd.classList.add('ld'); if (ki.complete && ki.naturalWidth) ld(); else ki.onload = ki.onerror = ld; }   // the door opens once its photo is there
     if (['plan', 'book'].includes(kind)) { const pre = new Image(); pre.src = `${GI(ENDIMG[st.type || 'wedding'])}`; }   // warm the ending's photo while the visitor reads
     progress(); strip();
-    const whenRest = () => seasonImg(st.when && st.when !== 'unsure' ? st.when : 'summer', st.where);   // "When" rests on a season photo of the place, so the budget photo is not seen twice
+    // "When" rests on (and "Not sure yet" shows) a photo of its own, never one of the season photos (Mark, 17 Nov 00:44)
+    const WIMG = {'Lake Como':'n/como-varenna-dusk', 'Ravello':'wz-ravello', 'Positano':'n/wq-positano-2', 'Capri':'n/capri-dawn', 'Tuscany':'wz-tuscany', 'Florence':'wz-florence-tile', 'Puglia':'wz-c-puglia', 'Italy':'wz-florence'};
+    const whenRest = () => WIMG[st.where] || WIMG.Italy;
     if (textQ && Q[i].k !== 'guests') bg(Q[i].k === 'when' ? whenRest() : BIMG[st.where] || COVER.where);
     if (textQ && Q[i].k === 'when') {   // the photo follows the season under the pointer; "Not sure yet" and leaving the tiles return to the place
       const home = whenRest(), sp = v => v === 'unsure' ? home : seasonImg(v, st.where), tiles = [...stage.querySelectorAll('.tile[data-v]')];
       stack(tiles.map(b => sp(b.dataset.v)), home);
       let hv; const s = (nm, d) => { clearTimeout(hv); hv = setTimeout(() => { if ($('#bg').classList.contains('quick')) shot(nm); }, d); };
       tiles.forEach(b => { b.addEventListener('pointerenter', () => s(sp(b.dataset.v), 70)); b.addEventListener('focus', () => s(sp(b.dataset.v), 0)); });
+      // Winter (Mark, 17 Nov 00:45): never blocked; where most hotels and villas close for the winter, one calm line says so on hover or focus
+      const WNOTE = {'Lake Como':'Many of the lake\u2019s villas close for the winter. We\u2019ll suggest the ones that stay open, or a date in early spring.', 'Ravello':'Most hotels on the coast close from November to March. We\u2019ll suggest the few that stay open, or a date in early spring.', 'Positano':'Most hotels on the coast close from November to March. We\u2019ll suggest the few that stay open, or a date in early spring.', 'Capri':'Most of the island\u2019s hotels close from November to March. We\u2019ll suggest the few that stay open, or a date in early spring.'}[st.where];
+      const wt = stage.querySelector('.tile[data-v=winter]');
+      if (WNOTE && wt) { const note = document.createElement('p'); note.className = 'qs wnote'; note.textContent = WNOTE; stage.querySelector('.tiles').after(note);
+        const sh = on => note.classList.toggle('on', on); wt.addEventListener('pointerenter', () => sh(true)); wt.addEventListener('pointerleave', () => sh(false)); wt.addEventListener('focus', () => sh(true)); wt.addEventListener('blur', () => sh(false)); }
       stage.querySelector('.tiles').addEventListener('pointerleave', () => s(home, 120));
     }
     if (kind === 'plan') {   // Mark, 16 Nov late: one still photo of the place; it no longer changes as the pointer moves over the days
@@ -1022,7 +1038,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     if ($('#gm')) {
       const S = GSTEPS(); if (!S.includes(st.guests)) st.guests = S.reduce((a, b) => Math.abs(b - st.guests) < Math.abs(a - st.guests) ? b : a);
       bg(gimg(st.guests));
-      const set = v => { st.guests = v; $('#go').textContent = v; $('#gd').textContent = gdesc(v); $('.gst').classList.toggle('elope', v <= 2); bg(gimg(v)); };
+      const set = v => { st.guests = v; const go = $('#go'); go.textContent = v; go.classList.remove('soft-in'); void go.offsetWidth; go.classList.add('soft-in'); $('#gd').textContent = gdesc(v); $('.gst').classList.toggle('elope', v <= 2); bg(gimg(v)); };
       set(st.guests);
       $('#gm').onclick = () => set(S[Math.max(0, S.indexOf(st.guests) - 1)]); $('#gp').onclick = () => set(S[Math.min(S.length - 1, S.indexOf(st.guests) + 1)]);
       $('#gnext').onclick = () => { pick.guests = gimg(st.guests); ans.add('guests'); go(n + 1); };
