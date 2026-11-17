@@ -2,8 +2,8 @@
 .ct-head{padding:clamp(140px,13vw,196px) 0 var(--sp)}
 .ct-head .t{grid-column:1/7;grid-row:1;align-self:end}
 .ct-head h1{font-size:clamp(52px,6.2vw,92px);line-height:.98;letter-spacing:-.022em}
-.ct-head h1 .cont{display:block;margin-top:.32em;font-family:var(--sans);font-weight:300;font-size:clamp(24px,2.2vw,32px);line-height:1.2;letter-spacing:-.008em;color:var(--ink);white-space:nowrap}
-.ct-head h1 .cont br{display:none}
+.ct-head .cont{margin-bottom:0;display:block;margin-top:.32em;font-family:var(--sans);font-weight:300;font-size:clamp(24px,2.2vw,32px);line-height:1.2;letter-spacing:-.008em;color:var(--ink);white-space:nowrap}
+.ct-head .cont br{display:none}
 .ct-head .line{margin-top:30px;white-space:nowrap}
 .ct-head .go{margin-top:34px}
 .ct-head .f{grid-column:8/13;grid-row:1;margin:0}
@@ -32,8 +32,8 @@
   .ct-head .f{grid-row:2}
   .ct-head h1{font-size:clamp(44px,12.4vw,54px);line-height:1.02}
   .ct-head .line{margin-top:20px}
-  .ct-head h1 .cont{font-size:clamp(22px,6.2vw,26px);white-space:normal}
-  .ct-head h1 .cont br{display:inline}
+  .ct-head .cont{font-size:clamp(22px,6.2vw,26px);white-space:normal}
+  .ct-head .cont br{display:inline}
   .ct-head .f{margin-top:44px}
   .ct-head .ph{aspect-ratio:4/3}
   .ct-direct .h{margin-bottom:36px}

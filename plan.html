@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Start planning · Italian Event Planners</title>
-<link rel="preload" href="fonts/jost-300.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/jost-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/italiana.woff2" as="font" type="font/woff2" crossorigin><link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=33d9770b">
+<link rel="preload" href="fonts/jost-300.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/jost-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/italiana.woff2" as="font" type="font/woff2" crossorigin><link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=68c37fe4">
 <style>
 .wizard footer,.wizard .wa{display:none}
 .wizard .bar{background:linear-gradient(180deg,rgba(10,8,6,.45),rgba(10,8,6,0))}
@@ -175,7 +175,7 @@
 .strip.pcard .ct{font-family:var(--head);font-size:24px;margin-bottom:8px}
 .strip.pcard div{display:flex;justify-content:space-between;gap:12px;padding:6px 0;opacity:.38;transition:opacity .8s}
 .strip.pcard div.on{opacity:1}
-.strip.pcard small{font-size:13px;color:#6b5f55}
+.strip.pcard small{font-size:13px;color:var(--ink-2)}
 .strip.pcard b{font-weight:400;font-size:15px;text-align:right}
 .final .strip,.reply .strip,.form .strip{display:none!important}
 .strip.pcard{background:#FAF7F2}.strip.pcard b{font-family:var(--sans);color:var(--ink);margin:0;white-space:normal}
@@ -205,16 +205,16 @@
 .wz.form .bg{opacity:0}
 .wz.form .stage{color:var(--ink);align-items:stretch;text-align:left;padding:150px clamp(24px,7vw,140px) 110px}
 .wz.form .scr{align-items:stretch}
-.wz.form .prog2{color:#6b5f55}.wz.form .prog2 .tr{background:rgba(42,36,32,.12)}
-.wz.form .back2{color:#6b5f55}
+.wz.form .prog2{color:var(--ink-2)}.wz.form .prog2 .tr{background:rgba(42,36,32,.12)}
+.wz.form .back2{color:var(--ink-2)}
 .cf{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);column-gap:clamp(40px,7vw,130px);align-items:start;width:min(1240px,100%);margin:0 auto}
 .cf .ql{max-width:12ch}
-.cf .qs{color:#6b5f55;font-size:19px;margin-top:18px}
+.cf .qs{color:var(--ink-2);font-size:19px;margin-top:18px}
 .cf-sum{margin-top:44px;font-family:var(--head);font-size:clamp(24px,2vw,30px);line-height:1.25;max-width:18em}
 .cf-r{display:grid;grid-template-columns:1fr 1fr;column-gap:32px;row-gap:34px;padding-top:12px}
 .cf-r label{display:flex;flex-direction:column;gap:10px}
 .cf-r label.wide{grid-column:1/-1}
-.cf-r label span{font-family:var(--sans);font-size:15px;color:#6b5f55}
+.cf-r label span{font-family:var(--sans);font-size:15px;color:var(--ink-2)}
 .cf-r input,.cf-r textarea{font:inherit;font-family:var(--sans);font-weight:300;font-size:20px;color:var(--ink);background:transparent;border:0;border-bottom:1px solid rgba(42,36,32,.28);padding:8px 0 12px;outline:0;resize:vertical;transition:border-color .5s;text-align:left}
 .cf-r input:focus,.cf-r textarea:focus{border-color:var(--brand)}
 .cf-r input::placeholder{color:rgba(42,36,32,.32)}
@@ -238,7 +238,7 @@
 .k-l{margin-top:12px;font-family:var(--sans);font-weight:300;font-size:clamp(19px,1.5vw,22px);line-height:1.4;animation:setin .9s cubic-bezier(.2,.7,.2,1) 1.95s both}
 .k-l+.k-l{animation-delay:2.2s}
 .k-l.k-call{color:var(--brand);animation-delay:2.45s}
-.k-note{margin-top:34px;max-width:30em;font-size:16px;line-height:1.55;color:#6b5f55;animation:setin .9s ease 3.1s both}
+.k-note{margin-top:34px;max-width:30em;font-size:16px;line-height:1.55;color:var(--ink-2);animation:setin .9s ease 3.1s both}
 .k-act{display:flex;align-items:center;gap:30px;margin-top:30px;animation:setin .9s ease 3.3s both}
 .k-act .go{margin-top:0;background:var(--ink);color:#FAF7F2}.k-act .go:hover{background:var(--brand)}
 .k-act .soft{margin-top:0;color:var(--ink);padding:0}
@@ -267,13 +267,13 @@
 .cc-place{font-family:var(--head);font-size:clamp(34px,2.8vw,42px);line-height:1;margin-bottom:16px}
 .cf-card p:not(.cc-place){font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.55;color:#4a3f37}
 .cf-f .ql{font-size:clamp(44px,4vw,64px);max-width:13ch;animation:setin .9s cubic-bezier(.2,.7,.2,1) .35s both}
-.cf-f .qs{color:#6b5f55;font-size:19px;margin-top:14px;animation:setin .9s cubic-bezier(.2,.7,.2,1) .5s both}
+.cf-f .qs{color:var(--ink-2);font-size:19px;margin-top:14px;animation:setin .9s cubic-bezier(.2,.7,.2,1) .5s both}
 .cf-f .cf-r{margin-top:44px;padding-top:0;row-gap:30px}
 .cf-f .cf-r>*{animation:setin .9s cubic-bezier(.2,.7,.2,1) both}
 .cf-f .cf-r>:nth-child(1),.cf-f .cf-r>:nth-child(2){animation-delay:.6s}.cf-f .cf-r>:nth-child(3){animation-delay:.7s}.cf-f .cf-r>:nth-child(4),.cf-f .cf-r>:nth-child(5){animation-delay:.8s}.cf-f .cf-r>:nth-child(n+6){animation-delay:.9s}
 #hfi[readonly]{cursor:pointer}
 .cf-r .fld{display:flex;flex-direction:column;gap:10px;min-width:0}
-.cf-r .fld>span{font-family:var(--sans);font-size:15px;color:#6b5f55}
+.cf-r .fld>span{font-family:var(--sans);font-size:15px;color:var(--ink-2)}
 .cf-r label span,.cf-r .fld>span{transition:color .4s}
 .cf-r label:focus-within span,.cf-r .fld:focus-within>span{color:var(--ink)}
 .cf-r input,.cf-r textarea{border-bottom-color:rgba(42,36,32,.3)}
@@ -384,9 +384,9 @@
 .wz.split .stage{margin:0;width:41.667%;min-height:100vh;background:transparent;color:var(--ink);align-items:flex-start;justify-content:flex-end;text-align:left;padding:150px clamp(32px,5vw,96px) clamp(96px,13vh,132px)}
 .wz.split .scr{align-items:flex-start}
 .wz.split .ql{font-size:clamp(40px,3.5vw,58px);max-width:15ch;text-wrap:balance;color:var(--ink)}
-.wz.split .qs{color:#6b5f55;font-size:17px}
+.wz.split .qs{color:var(--ink-2);font-size:17px}
 .wz.pick .qs{display:none}   /* no reassurance subtitles under picture questions */
-.wz.split .back2{color:#6b5f55;left:clamp(32px,5vw,96px)}.wz.split .back2:hover{color:var(--ink)}
+.wz.split .back2{color:var(--ink-2);left:clamp(32px,5vw,96px)}.wz.split .back2:hover{color:var(--ink)}
 .wizard.split-on .bar .lang{display:none}   /* it would sit as white type on the photo; the menu still carries the languages */
 .sq-opts{display:flex;flex-direction:column;align-items:flex-start;margin-top:clamp(26px,4.4vh,46px)}
 .opt{display:inline-flex;align-items:baseline;padding:clamp(8px,1.25vh,13px) 0;text-align:left;font-family:var(--sans);font-weight:300;font-size:clamp(22px,1.7vw,27px);line-height:1.2;letter-spacing:-.005em;color:#7a6d62;transition:color .3s cubic-bezier(.25,1,.5,1)}
@@ -477,7 +477,7 @@
 .resume{margin:0 0 22px;opacity:.9}
 .rb{margin-top:22px;max-width:30em;font-family:var(--sans);font-weight:300;font-size:clamp(18px,1.4vw,21px);line-height:1.5;color:var(--ink)}
 .rp{margin-top:18px;max-width:24em;font-family:var(--head);font-size:clamp(26px,2.2vw,34px);line-height:1.2;color:var(--ink)}
-.rs{margin-top:16px;max-width:34em;font-family:var(--sans);font-size:14px;line-height:1.5;color:#6b5f55}
+.rs{margin-top:16px;max-width:34em;font-family:var(--sans);font-size:14px;line-height:1.5;color:var(--ink-2)}
 .wz.reply .go{margin-top:clamp(32px,4.4vh,48px)}
 .gst output{transition:font-size .4s cubic-bezier(.25,1,.5,1)}
 
@@ -495,7 +495,7 @@
 .wz.split .rl{font-family:var(--head)!important;font-weight:400;font-size:clamp(40px,3.4vw,56px);line-height:1.06;letter-spacing:0}
 .rp{font-family:var(--sans);font-weight:300;font-size:clamp(21px,1.6vw,25px);line-height:1.45}
 .rs{font-size:15px;color:#5e534a}
-.wz.split.txt .qs{color:#6b5f55;margin-top:14px}
+.wz.split.txt .qs{color:var(--ink-2);margin-top:14px}
 .wz.split.txt .tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));justify-content:stretch;gap:8px;width:100%;max-width:none;margin-top:clamp(24px,3.4vh,36px)}
 .wz.split.txt .tiles .tile:last-child:nth-child(odd){grid-column:1/-1}
 .wz.split.txt .tile{height:60px;padding:0 18px;text-align:left;background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none;border:1px solid rgba(42,36,32,.2);border-radius:8px;color:var(--ink);font-size:17px;transform:none;transition:border-color .3s cubic-bezier(.25,1,.5,1),background .3s cubic-bezier(.25,1,.5,1)}
@@ -535,14 +535,14 @@
 .wz.split.late .fnd-q{max-width:15ch}
 .wz.split.late .tiles.fnd{grid-template-columns:repeat(2,minmax(0,1fr))}
 .wz.split.late .tiles.fnd .tile{height:auto;min-height:56px;padding:14px 18px}
-.wz.split.late .soft{color:#6b5f55;margin-top:18px;padding:0;background:none;border:0}
+.wz.split.late .soft{color:var(--ink-2);margin-top:18px;padding:0;background:none;border:0}
 .wz.split.late .soft:hover{color:var(--ink)}
 .wz.split.late .fnd-o{display:flex;gap:8px;width:100%;margin-top:12px}.wz.split.late .fnd-o[hidden]{display:none}
 .wz.split.late .fnd-o input{flex:1;height:56px;padding:0 14px;border:1px solid rgba(42,36,32,.3);border-radius:6px;background:transparent;color:var(--ink);font:300 17px var(--sans)}
 .wz.split.late .fnd-o .go{margin-top:0}
 .pdays{width:100%;margin-top:clamp(22px,3vh,32px)}
 .pday{padding:14px 0;cursor:default}
-.pday small{display:block;font:400 14px/1.3 var(--sans);color:#6b5f55}
+.pday small{display:block;font:400 14px/1.3 var(--sans);color:var(--ink-2)}
 .pday h4{margin:4px 0 0;font:400 clamp(26px,2vw,32px)/1.1 var(--head);color:var(--ink)}
 .pday p{margin:6px 0 0;font:300 16px/1.45 var(--sans);color:#4a3f37}
 .est3{margin-top:clamp(18px,2.6vh,26px);font:300 16px var(--sans);color:#4a3f37}
@@ -550,10 +550,10 @@
 .wz.split.late .who{display:flex;align-items:center;gap:14px;margin-top:24px;color:var(--ink);text-align:left}
 .wz.split.late .who img{width:56px;height:56px;border-radius:50%;object-fit:cover}
 .wz.split.late .who b{display:block;font:400 17px var(--sans);color:var(--ink)}
-.wz.split.late .who span{display:block;font:300 15px var(--sans);color:#6b5f55}
+.wz.split.late .who span{display:block;font:300 15px var(--sans);color:var(--ink-2)}
 .wz.split.late .slots2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%;margin-top:24px}
 .wz.split.late .slots2 .tile{height:62px;text-align:left;padding:0 18px;line-height:1.25}
-.wz.split.late .slots2 .tile small{display:block;font-size:13px;color:#6b5f55}
+.wz.split.late .slots2 .tile small{display:block;font-size:13px;color:var(--ink-2)}
 .wz.split.late .bk{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
 .wz.split.late .bk .soft{margin-top:clamp(24px,3.4vh,36px)}
 .wz.split.late .qs{text-align:left}
@@ -603,7 +603,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
 .prog2,.wz.form .prog2,.final .prog2,.wz.reply .prog2{z-index:55!important}
 /* Mark, 16 Nov late: the plan screen quieter; the call screen says what the call is for; the ending arrives calmly, confirms in place and lets the visitor change answers */
 .pday{cursor:auto}
-.est3 small{display:block;font:400 14px/1.3 var(--sans);color:#6b5f55}
+.est3 small{display:block;font:400 14px/1.3 var(--sans);color:var(--ink-2)}
 .est3 span{display:block;margin-top:4px;font:400 20px/1.3 var(--sans);color:var(--ink)}
 .wz.split.late .bk-x{margin-top:16px;max-width:30em;font:300 16px/1.5 var(--sans);color:#4a3f37;text-align:left}
 .wz.end{background:#FAF7F2}.wz.end::before{animation:none;clip-path:none}
@@ -651,7 +651,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
 .cform .cf3 .ql{max-width:12ch}
 .cform .cf-r{margin-top:clamp(22px,3.2vh,34px);padding-top:0;column-gap:24px;row-gap:clamp(16px,2.4vh,24px)}
 .cform .cf-r label,.cform .cf-r .fld{gap:0}
-.cform .cf-r label span,.cform .cf-r .fld>span{font-size:14px;line-height:1.3;color:#6b5f55;letter-spacing:var(--tr-caption,.01em)}
+.cform .cf-r label span,.cform .cf-r .fld>span{font-size:14px;line-height:1.3;color:var(--ink-2);letter-spacing:var(--tr-caption,.01em)}
 .cform .cf-r input,.cform .cf-r textarea{font-size:18px;font-weight:400;padding:6px 0 9px;border-bottom-color:rgba(42,36,32,.26)}
 .cform .cf-r textarea{min-height:0;height:auto;resize:none;overflow:hidden;line-height:1.4;display:block}
 .cform .chev{bottom:13px}
@@ -675,19 +675,28 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   .cform .cf3 .ql{max-width:none}
   .cform .cf-r .fld{grid-column:1/-1}
 }
+
+/* Consistency audit fixes, 17 Nov (C-03, C-10, C-11, C-45) */
+.wz p.ql,.wz.split p.rl{letter-spacing:var(--tr-title)!important}
+.wz.split .rl{font-size:clamp(40px,3.5vw,58px)}
+.wz p.qs,.wz p.wnote{letter-spacing:var(--tr-caption)!important}
+.wz .tile{font-weight:400}
+.wz .soft:not(.resume){font-family:var(--sans);font-size:15px!important;font-weight:400!important;letter-spacing:var(--tr-caption)!important;color:var(--ink)!important;opacity:.68}
+@media (hover:hover){.wz .soft:not(.resume):hover{opacity:1}}
+.prog2 .tr i{width:100%!important;transition:transform 1.6s cubic-bezier(.7,0,.15,1)!important;will-change:transform}
 </style>
 <meta name="robots" content="noindex"><script>try{if(!document.prerendering&&!matchMedia("(prefers-reduced-motion: reduce)").matches&&!location.search.includes("shot"))document.documentElement.classList.add("arch-ready")}catch(e){}</script></head>
 <body class="wizard">
 <div class="page">
   <section class="wz" id="wz">
     <div class="bg" id="bg"><img class="on" src="img/g/w-coast.jpg" alt="" data-n="w-coast" srcset="img/g/x900/w-coast.webp 900w, img/g/x1600/w-coast.webp 1600w, img/g/x2400/w-coast.webp 2200w" sizes="(max-width: 900px) 100vw, 95vw" width="2200" height="1467" fetchpriority="high"></div>
-    <div class="prog2"><span id="pl">Your plan, 10% ready</span><div class="tr"><i id="pg" style="width:10%"></i></div></div>
+    <div class="prog2"><span id="pl">Your plan, 10% ready</span><div class="tr"><i id="pg" data-p="10" style="transform:scaleX(.1)"></i></div></div>
     <div class="stage" id="stage"></div>
     <div class="strip" id="strip" hidden></div>
     <button class="back2" id="back">Back</button>
   </section>
 </div>
-<script src="js/site.js?v=5eb191d1"></script>
+<script src="js/site.js?v=f2569ac6"></script>
 <script src="js/prefetch.js?v=e788ada9" defer></script>
 <script src="js/countries.js?v=4b133cd4"></script>
 <script src="vendor/gsap.min.js?v=ff86cb55"></script><script src="vendor/ScrollTrigger.min.js?v=2e3b8c36"></script><script src="vendor/lenis.min.js?v=5a44a112"></script><script src="js/motion.js?v=ef56d6a3"></script>
@@ -764,14 +773,14 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     const g = st.guests, b = band(g), wed = (st.type || 'wedding') === 'wedding';
     if (b === 'elope') return wed
       ? {line:'An elopement.', body:'With two of you, you can marry at sunrise and take a boat to an empty cove for lunch. We take care of the documents and the town hall, so the day stays yours.',
-         quote:['The IEP team met us the day before our wedding day to meet at the town hall, and we sat down afterwards over lunch to go through some last minute details.','Amy & Gareth']}
+         quote:['The IEP team met us the day before our wedding day to meet at the town hall, and we sat down afterwards over lunch to go through some last minute details.','Amy and Gareth']}
       : {line:'Just the two of you.', body:'A celebration for two can go anywhere: one table on a terrace, a boat for the afternoon. We will suggest the places that do it best.'};
     if (b === 'intimate') return {line:`An intimate table for ${g}.`, body:'At this size everyone hears every toast, and we can book places that would never take a hundred guests, such as a family\u2019s private garden.',
       quote:wed && ['They gave us various options for the different services required and looked after us and our guests on our big day which helped make it the most memorable day of our lives.','Iain']};
     if (b === 'long') return {line:`One long table for ${g}.`, body:'A real party that still fits around one table. We plan the weekend around it, down to the boat that brings everyone back after dinner.',
       quote:wed && ['All of our guests mentioned how well planned and co ordinated our wedding was and noticed that the planners were very professional. While being professional, they make you feel like they are your friends and really go above and beyond to cater to your needs.','Divya']};
     return {line:`${g} guests.`, body:'At this size the work is in the logistics: boats, rooms, late flights and every guest\u2019s dietary needs. We arrange all of it, and we are there on the day.',
-      quote:wed && ['Our wedding was a 3 day event, and they were with us the entire time making sure guests arrived to their hotels safely, and even ensuring that gift bags we created for everyone got into the correct rooms.','Amanda & Giacomo']};
+      quote:wed && ['Our wedding was a 3 day event, and they were with us the entire time making sure guests arrived to their hotels safely, and even ensuring that gift bags we created for everyone got into the correct rooms.','Amanda and Giacomo']};
   }
   const ON = {'Capri':'on Capri', 'Lake Como':'on Lake Como', 'Italy':'somewhere in Italy'};
   const FEEL = {beach:'by the sea', lake:'on a lake', terrace:'a terrace at sunset', stone:'a castle or old villa', garden:'a garden under the trees'};
@@ -831,7 +840,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   const gdesc = g => ({elope: (st.type || 'wedding') === 'wedding' ? 'An elopement, just the two of you' : 'Just the two of you', intimate:'An intimate table', long:'One long table', grand:'A grand celebration'})[band(g)];
   function progress(){
     const p = PROG[Math.min(n, PROG.length - 1)];
-    const pg = $('#pg'), prev = parseFloat(pg.style.width) || 0; pg.style.width = p + '%'; $('#pl').textContent = '';
+    const pg = $('#pg'), prev = parseFloat(pg.dataset.p) || 0; pg.dataset.p = p; pg.style.transform = 'scaleX(' + p / 100 + ')'; $('#pl').textContent = '';
     if (p > prev && prev > 0) { const pr = $('.prog2'); pr.classList.remove('tick'); void pr.offsetWidth; setTimeout(() => pr.classList.add('tick'), 900); }
   }
   function sentence(){
@@ -965,13 +974,13 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     const ec = kind === 'q' && ECHO_ON ? echo(i) : '';   // Mark deleted the reply lines (16 Nov 20:25); ?echo=1 still shows them
     if (kind === 'q') {
       const q = Q[i];
-      h = (ec ? `<p class="echo">${ec}</p>` : n === 0 && resumable() ? `<button class="soft resume" id="resume">Continue the plan you started ${arrow}</button>` : '') + `<p class="ql">${q.k === 'when' && st.type && st.type !== 'wedding' ? 'When would you like to celebrate?' : q.q}</p>${q.s ? `<p class="qs">${q.s}</p>` : ''}`;
+      h = (ec ? `<p class="echo">${ec}</p>` : n === 0 && resumable() ? `<button class="soft resume" id="resume">Continue the plan you started ${arrow}</button>` : '') + `<p role="heading" aria-level="1" class="ql">${q.k === 'when' && st.type && st.type !== 'wedding' ? 'When would you like to celebrate?' : q.q}</p>${q.s ? `<p class="qs">${q.s}</p>` : ''}`;
       if (q.opts) h += `<div class="sq-opts n${opts(q).length}" role="group" aria-label="${q.q}">${opts(q).map(([v, l, img]) => `<button class="opt${q.k === 'where' && v !== 'Italy' ? ' pl' : ''}" data-v="${v}" data-img="${img}" aria-pressed="${st[q.k] === v}"><i class="th"><img src="${TI(img)}" alt="" decoding="async"></i><span class="nm">${l}</span><svg class="oa" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>`).join('')}</div>`;
       else if (q.tiles) h += `<div class="tiles">${q.tiles.map(([v, l]) => `<button class="tile" data-v="${v}" aria-pressed="${st[q.k] === v}">${l}</button>`).join('')}</div>`;
       else h += `<div class="gst"><button id="gm" aria-label="Fewer guests">−</button><output id="go">${st.guests}</output><button id="gp" aria-label="More guests">+</button></div><p class="gdesc" id="gd">${gdesc(st.guests)}</p><button class="go" id="gnext">Continue</button>`;
     } else if (kind === 'pause') {
       const r = guestPause(); bg(gpimg(st.guests));
-      h = `<p class="rl${/^\d/.test(r.line) ? ' lead' : ''}">${r.line.replace(/\d+/, m => `<span class="pn">${m}</span>`)}</p>` + (r.body ? `<p class="rb">${r.body}</p>` : '') + (r.src ? `<p class="rs">${r.src}</p>` : '') + (r.quote ? `<blockquote class="pq rq"><p>${r.quote[0]}</p><cite>&mdash; ${r.quote[1].replace('&', '&amp;')}</cite></blockquote>` : '') + `<button class="go" data-next>Continue</button>`;
+      h = `<p role="heading" aria-level="1" class="rl${/^\d/.test(r.line) ? ' lead' : ''}">${r.line.replace(/\d+/, m => `<span class="pn">${m}</span>`)}</p>` + (r.body ? `<p class="rb">${r.body}</p>` : '') + (r.src ? `<p class="rs">${r.src}</p>` : '') + (r.quote ? `<blockquote class="pq rq"><p>${r.quote[0]}</p><cite>&mdash; ${r.quote[1].replace('&', '&amp;')}</cite></blockquote>` : '') + `<button class="go" data-next>Continue</button>`;
     } else if (kind === 'bpause') {
       // Mark, 17 Nov 00:30: the answer to the budget gets its own screen before "Your plan is ready." Never a hint that a figure is small; no statistics.
       const BP = {
@@ -982,13 +991,13 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
         '0':['We\u2019ll work it out together.', 'You\u2019ll see what each choice costs, and decide with the plan in front of you.']};
       const r = BP[st.budget] || BP['0'];
       bg(({wedding:'wz-t-wedding', corporate:'n/wq-team-table'})[st.type || 'wedding'] || 'w-rowboats');
-      h = `<p class="rl">${r[0]}</p><p class="rb">${r[1]}</p><button class="go" data-next>Continue</button>`;
+      h = `<p role="heading" aria-level="1" class="rl">${r[0]}</p><p class="rb">${r[1]}</p><button class="go" data-next>Continue</button>`;
     } else if (kind === 'ready') {
       const w = st.where || 'Italy', place = ON[w] || 'in ' + w, t = st.type || 'wedding';
       bg(RIMG);
       const bits = [OCC[t] + ' ' + place, st.when && st.when !== 'unsure' ? 'in ' + WHEN[st.when].toLowerCase() : '', st.guests <= 2 ? 'for the two of you' : 'for ' + st.guests + ' guests', ({beach:'by the sea', lake:'on a lake', terrace:'on a terrace at sunset', stone:'in a castle or an old villa', garden:'in a garden under the trees'})[st.feel] || ''].filter(Boolean);
       const sent = bits[0] + (bits.length > 1 ? ', ' + bits.slice(1).join(', ') : '') + '.';
-      h = `<p class="rl">Your plan is ready.</p><p class="rp">${sent}</p><button class="go" data-next>Where shall we send it?</button>`;
+      h = `<p role="heading" aria-level="1" class="rl">Your plan is ready.</p><p class="rp">${sent}</p><button class="go" data-next>Where shall we send it?</button>`;
     } else if (kind === 'contact') {
       const t = st.type || 'wedding', place = !st.where || st.where === 'Italy' ? 'Italy' : st.where;
       const ph = CIMG[st.where || 'Italy'] || 'wz-c-italy';
@@ -996,7 +1005,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
       const second = {wedding:['Your partner\u2019s name', '', 'pn'], private:['Your partner\u2019s name (optional)', '', 'pn'], corporate:['Your company', '', 'co']}[t];
       const v = k => (st[k] || '').replace(/"/g, '&quot;');
       bg(ph);   // 17 Nov: the contact screen is a split screen like the rest of the wizard; the place photo fills the right side
-      h = `<div class="cf3"><p class="ql">Where shall we send your plan?</p>
+      h = `<div class="cf3"><p role="heading" aria-level="1" class="ql">Where shall we send your plan?</p>
         <div class="cf-r">
           <label class="${second ? '' : 'wide'}"><span>Your name</span><input id="nm" autocomplete="given-name" value="${v('name')}"></label>
           ${second ? `<label><span>${second[0]}</span><input id="${second[2]}" autocomplete="${second[2] === 'co' ? 'organization' : 'off'}" placeholder="${second[1]}" value="${v(second[2] === 'co' ? 'company' : 'partner')}"></label>` : ''}
@@ -1007,7 +1016,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
           <div class="cf-act"><button class="go" data-next>Send me my plan</button><button type="button" class="soft" data-cskip>Skip for now</button></div></div></div>`;
     } else if (kind === 'found') {
       bg('w-coast');
-      h = `<p class="ql fnd-q">How did you find us?</p><p class="qs">We\u2019re curious where you found us.</p>
+      h = `<p role="heading" aria-level="1" class="ql fnd-q">How did you find us?</p><p class="qs">We\u2019re curious where you found us.</p>
         <div class="tiles fnd">${FOUND.map(([k, l]) => `<button class="tile" data-f="${k}" aria-pressed="${st.found === k}">${l}</button>`).join('')}</div>
         <div class="fnd-o"${st.found === 'other' ? '' : ' hidden'}><input id="fot" placeholder="Tell us where" value="${(st.foundText || '').replace(/"/g, '&quot;')}" aria-label="Where you found us"><button class="go" id="fgo">Continue</button></div>
         <button class="soft" data-fskip>Skip this</button>`;
@@ -1026,7 +1035,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
         private:[two ? 'A quiet dinner for two' + by : 'Aperitivo' + by, two ? 'The celebration, then a long dinner for two' : 'The celebration, then dinner and dancing', two ? 'A slow lunch before you fly home' : 'A long lunch before everyone flies home']}[t0 === 'other' ? 'private' : t0];
       const pim = [im[0], PIMG[w] || PIMG.Italy, im[2]];   // Saturday shows the place the visitor chose
       const sum = [WHEN[st.when] && st.when !== 'unsure' ? WHEN[st.when] : '', st.guests <= 2 ? 'just the two of you' : st.guests + ' guests', FEEL[st.feel] || ''].filter(Boolean).join(', ');
-      h = `<p class="ql">${{corporate:'Your three days', private:'Your weekend', other:'Your weekend', wedding:'Your wedding weekend'}[st.type || 'wedding']} in ${w === 'Italy' ? 'Italy' : w}</p><p class="qs">${sum[0].toUpperCase() + sum.slice(1)}.</p>
+      h = `<p role="heading" aria-level="1" class="ql">${{corporate:'Your three days', private:'Your weekend', other:'Your weekend', wedding:'Your wedding weekend'}[st.type || 'wedding']} ${w === 'Italy' ? 'in Italy' : (ON[w] || 'in ' + w)}</p><p class="qs">${sum[0].toUpperCase() + sum.slice(1)}.</p>
         <div class="pdays">${d.map(([day], x) => `<div class="pday"><h4>${day}</h4><p>${lines[x]}</p></div>`).join('')}</div>
         <p class="est3"><small>First estimate</small><span>${k(mid * .85)} to ${k(mid * 1.15)}</span></p><button class="go" data-next>Plan it with us</button>`;
       window.__pim = pim;
@@ -1036,7 +1045,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
       const DN = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'], ymd = t => t.getFullYear() + String(t.getMonth() + 1).padStart(2, '0') + String(t.getDate()).padStart(2, '0');
       const tz = new Intl.DateTimeFormat('en-GB', {timeZone:'Europe/Rome', timeZoneName:'shortOffset'}).formatToParts(days[0]).find(x => x.type === 'timeZoneName').value;   // GMT+1 in winter, GMT+2 in summer
       const sl = [[0,'10:00'],[0,'16:30'],[1,'11:00'],[1,'15:00'],[2,'09:30'],[2,'12:00']].map(([x, h]) => [DN[days[x].getDay()] + ' ' + days[x].getDate(), h, ymd(days[x]) + 'T' + h.replace(':', '') + '00']);
-      h = `<p class="ql">Would you like a call with Ilaria?</p><div class="who"><div><b>Ilaria Guarino</b><span>Founder, Italian Event Planners</span></div></div><p class="bk-x">We\u2019ll talk through the place, the date and your first ideas for the ${st.type === 'corporate' ? 'three days' : 'weekend'}, and start shaping it together.</p>
+      h = `<p role="heading" aria-level="1" class="ql">Would you like a call with Ilaria?</p><div class="who"><div><b>Ilaria Guarino</b><span>Founder, Italian Event Planners</span></div></div><p class="bk-x">We\u2019ll talk through the place, the date and your first ideas for the ${st.type === 'corporate' ? 'three days' : 'weekend'}, and start shaping it together.</p>
         <div class="slots2">${sl.map(([d, t, iso]) => `<button class="tile" data-slot="${d} at ${t}" data-when="${iso}" aria-pressed="${st.slot === d + ' at ' + t}"><small>${d}</small>${t}</button>`).join('')}</div>
         <p class="qs">Times listed according to ${tz} (Rome).</p><div class="bk"><button class="go" data-next id="cfm"${st.slot ? '' : ' disabled'}>Confirm my call</button><button class="soft" data-skip>Not yet, just send my plan</button></div>`;
     } else {

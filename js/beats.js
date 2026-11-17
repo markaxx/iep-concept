@@ -51,7 +51,7 @@
   const body = lazy(B.beats.map(b => R[b.t](b)).join(''));
   document.getElementById('pg').innerHTML = `
   <header class="bt-cover"><img fetchpriority="high" src="${I(B.cover)}" alt="${B.coverAlt || ''}"><div class="in"><h1>${B.title}</h1><p class="line">${B.line}</p></div></header>
-  <section class="bt-lede"><figure><img src="${I(B.ledeImg)}" alt=""></figure><div><p>${B.lede}</p><small>${B.byline}</small></div></section>
+  <section class="bt-lede"><figure><img src="${I(B.ledeImg)}" alt=""></figure><div><p>${B.lede}</p><small class="byl">${String(B.byline).split(' · ').map(x => `<span>${x}</span>`).join('')}</small></div></section>
   ${body}
   ${factsShown ? '' : `<section class="bt closing nofig"><div class="txt">${facts()}</div></section>`}
   <section class="bt-end">

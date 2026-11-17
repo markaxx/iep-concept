@@ -14,17 +14,17 @@
   <div class="bar${dark ? ' dark' : ''}">
     <div><button class="pill pill-glass mbtn" data-menu aria-label="Menu">${waves}<span class="mt">Menu</span></button></div>
     <a class="logo" href="home-v3.html"><img class="lw" src="brand/logo-white.svg" alt="Italian Event Planners"><img class="lk" src="brand/logo-brand.svg" alt=""></a>
-    <div class="right"><span class="lang" aria-label="Language"><a href="#" aria-current="true">EN</a><a href="#">IT</a><a href="#">DE</a><a href="#">FR</a></span><a class="pill pill-glass plan-cta" href="plan.html">Plan your wedding</a></div>
+    <div class="right"><span class="lang" aria-label="Languages: English (current); Italian, German and French in the full site"><span aria-current="true">EN</span><span>IT</span><span>DE</span><span>FR</span></span><a class="pill pill-glass plan-cta" href="plan.html">Plan your wedding</a></div>
   </div>`);
 
   document.body.insertAdjacentHTML('beforeend', `
   <div class="menu" aria-hidden="true">
     <button class="pill pill-line close" data-menu>Close</button>
     <nav>
-      <a href="home-v3.html">Home</a><a href="weddings-v3.html">Weddings</a><a href="events-v3.html">Corporate</a>
+      <a href="home-v3.html">Home</a><a href="weddings-v3.html">Weddings</a><a href="events-v3.html">Corporate events</a>
       <a href="events-v3.html#private">Private celebrations</a><a href="destinations-v3.html">Destinations</a>
       <a href="about-v3.html">About us</a><a href="journal-v3.html">Journal</a><a href="contact.html">Contact</a><a href="plan.html">Start planning</a>
-      <div class="m-foot"><span class="m-lang" aria-label="Language"><a href="#" aria-current="true">EN</a><a href="#">IT</a><a href="#">DE</a><a href="#">FR</a></span><span>+39 346 688 2388</span><span>Instagram</span></div>
+      <div class="m-foot"><span class="m-lang" aria-label="Languages: English (current); Italian, German and French in the full site"><span aria-current="true">EN</span><span>IT</span><span>DE</span><span>FR</span></span><span>+39 346 688 2388</span><span>Instagram</span></div>
     </nav>
     <div class="m-img"><img src="img/menu.jpg" srcset="img/x900/menu.webp 900w, img/x1600/menu.webp 1600w, img/x2400/menu.webp 1800w" sizes="50vw" alt="" decoding="async"></div>
   </div>
@@ -36,9 +36,9 @@
       <div class="f-top">
         <div><a class="logo" href="home-v3.html"><img src="brand/logo-white.svg" alt="Italian Event Planners"></a>
           <p style="margin-top:22px;max-width:30ch;color:#BFB09B;font-size:16px">Weddings, corporate events and private celebrations across Italy since 2009.</p></div>
-        <div><h5>Celebrate</h5><a href="weddings-v3.html">Weddings</a><a href="events-v3.html">Corporate events</a><a href="events-v3.html#private">Private celebrations</a><a href="destinations-v3.html">Destinations</a></div>
-        <div><h5>Studio</h5><a href="about-v3.html">About us</a><a href="journal-v3.html">Journal</a><a href="home-v3.html#stories">Kind words</a></div>
-        <div><h5>Say hello</h5><a href="contact.html">Contact</a><a href="tel:+393466882388">+39 346 688 2388</a><a href="https://wa.me/393466882388">WhatsApp</a><a href="https://instagram.com/italianeventplanners">Instagram</a><a href="https://facebook.com/italianeventplanners">Facebook</a></div>
+        <div><h2 class="f-h">Celebrate</h2><a href="weddings-v3.html">Weddings</a><a href="events-v3.html">Corporate events</a><a href="events-v3.html#private">Private celebrations</a><a href="destinations-v3.html">Destinations</a></div>
+        <div><h2 class="f-h">Studio</h2><a href="about-v3.html">About us</a><a href="journal-v3.html">Journal</a><a href="home-v3.html#stories">Kind words</a></div>
+        <div><h2 class="f-h">Say hello</h2><a href="contact.html">Contact</a><a href="tel:+393466882388">+39 346 688 2388</a><a href="https://wa.me/393466882388">WhatsApp</a><a href="https://instagram.com/italianeventplanners">Instagram</a><a href="https://facebook.com/italianeventplanners">Facebook</a></div>
       </div>
       
       <div class="f-bot"><span>© 2026 Italian Event Planners Srl</span></div>
