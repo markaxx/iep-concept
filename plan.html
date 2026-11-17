@@ -823,7 +823,9 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   function trim(){ const box = $('#bg'); if (box.classList.contains('quick')) return; [...box.children].filter(x => !x.classList.contains('on')).slice(0, -1).forEach(x => x.remove()); }
   function stack(names, show){   // a picture question: every answer's photo waits in the box, preloaded, and swaps quickly
     const box = $('#bg'); box.classList.add('quick');
-    [...names, show].forEach(nm => { if (![...box.children].some(x => x.dataset.n === nm)) { const im = new Image(); im.src = `${GI(nm)}`; im.alt = ''; im.dataset.n = nm; im.decoding = 'async'; box.appendChild(im); } });
+    [...names, show].forEach(nm => { if (![...box.children].some(x => x.dataset.n === nm)) { const im = new Image(); im.alt = ''; im.dataset.n = nm; im.decoding = 'async'; const go = () => { im.src = `${GI(nm)}`; };
+      if (nm === show || document.readyState === 'complete') go(); else addEventListener('load', go, {once:true});   // the photo on show loads now; the other answers' photos wait for the page to finish loading (speed work 17 Nov)
+      box.appendChild(im); } });
     shot(show);
   }
   const gdesc = g => ({elope: (st.type || 'wedding') === 'wedding' ? 'An elopement, just the two of you' : 'Just the two of you', intimate:'An intimate table', long:'One long table', grand:'A grand celebration'})[band(g)];
@@ -873,7 +875,10 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   const SEASON = {spring:'n/wq-season-spring', summer:'n/wq-season-summer', autumn:'n/wq-season-autumn', winter:'n/wq-season-winter'};
   const SEASON_AT = {'Italy':{spring:'n/it-spring-tulips', autumn:'n/it-autumn-slope', winter:'n/it-winter-vineyard'}, 'Lake Como':{spring:'n/como-spring-garden', summer:'n/wq-season-como-summer'}, 'Ravello':{spring:'n/wq-season-ravello-spring', summer:'wz-c-ravello'}, 'Positano':{spring:'n/wq-season-coast-spring', summer:'n/wq-season-positano-summer'}, 'Capri':{spring:'n/wq-season-coast-spring', summer:'wz-c-capri'}, 'Tuscany':{summer:'wz-c-tuscany', autumn:'n/wq-season-tuscany-autumn'}};
   const seasonImg = (v, w) => (SEASON_AT[w] || {})[v] || SEASON[v];
-  PQ.later(['wz-t-wedding', 'w-rowboats', 'n/wq-team-table', 'n/wq-guests-elope', 'n/gx-intimate-candle', 'n/gx-long-candle', 'n/gx-grand-library', 'n/px-lunch-two', 'n/wq-terrace', 'n/wq-garden', 'w-coast', 'ilaria', ...Object.values(CIMG), ...Object.values(BIMG), ...Object.values(PIMG), RIMG, ...Object.values(SEASON)]);   // later screens' photos arrive in the background, so no screen waits on one
+  PQ.later(['wz-t-wedding', 'w-rowboats', 'n/wq-team-table', 'n/wq-guests-elope', 'n/gx-intimate-candle', 'n/gx-long-candle', 'n/gx-grand-library', 'n/px-lunch-two', 'n/wq-terrace', 'n/wq-garden', 'w-coast', 'ilaria', RIMG, ...Object.values(SEASON)]);
+  // the chosen place's own photos (contact, budget, plan, its seasons) jump the queue once the place is known, instead of all eight places' photos up front (speed work 17 Nov)
+  const WIMG = {'Lake Como':'n/como-varenna-dusk', 'Ravello':'n/wq-ravello-3', 'Positano':'n/pos-pastel-hillside', 'Capri':'n/capri-dawn', 'Tuscany':'n/wq-olive-avenue', 'Florence':'wz-florence', 'Puglia':'wz-c-puglia', 'Italy':'n/como-cypress-villa'};
+  const placeFor = w => w ? [WIMG[w] || WIMG.Italy, BIMG[w], ...Object.values(SEASON_AT[w] || {}), CIMG[w], PIMG[w]] : [];   // later screens' photos arrive in the background, so no screen waits on one
   const FOUND = [['friend','A friend or family'],['instagram','Instagram'],['google','Google'],['press','A magazine or blog'],['venue','A venue or supplier'],['other','Somewhere else']];
   // Silent attribution, kept for the whole visit: UTM tags and referrer from the first page the visitor landed on.
   const SRC = (() => {
@@ -1051,7 +1056,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     if (['plan', 'book'].includes(kind)) { const pre = new Image(); pre.src = `${GI(ENDIMG[st.type || 'wedding'])}`; }   // warm the ending's photo while the visitor reads
     progress(); strip();
     // "When" rests on (and "Not sure yet" shows) a photo of its own, never one of the season photos (Mark, 17 Nov 00:44)
-    const WIMG = {'Lake Como':'n/como-varenna-dusk', 'Ravello':'n/wq-ravello-3', 'Positano':'n/pos-pastel-hillside', 'Capri':'n/capri-dawn', 'Tuscany':'n/wq-olive-avenue', 'Florence':'wz-florence', 'Puglia':'wz-c-puglia', 'Italy':'n/como-cypress-villa'};
+    // WIMG moved to the top level (speed work 17 Nov) so the place's "When" photo can be loaded as soon as the place is chosen
     const whenRest = () => WIMG[st.where] || WIMG.Italy;
     if (textQ && Q[i].k !== 'guests') bg(Q[i].k === 'when' ? whenRest() : BIMG[st.where] || COVER.where);
     if (textQ && Q[i].k === 'when') {   // the photo follows the season under the pointer; "Not sure yet" and leaving the tiles return to the place
@@ -1121,7 +1126,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   }
   // Corporate is a shorter flow (coordinator spec, 16 Nov): no guest pause and no setting question, which are written for couples.
   const skip = k => SCR[k] && ((SCR[k][0] === 'q' && pre.has(SCR[k][1])) || (st.type === 'corporate' && (SCR[k][0] === 'pause' || (SCR[k][0] === 'q' && Q[SCR[k][1]].k === 'feel'))));
-  function go(k){ const d = k > n ? 1 : -1; while (skip(k)) k += d; n = Math.max(0, Math.min(SCR.length - 1, k)); render(); scrollTo({top: 0, behavior: "instant"}); save(); }
+  function go(k){ PQ.want(placeFor(st.where)); const d = k > n ? 1 : -1; while (skip(k)) k += d; n = Math.max(0, Math.min(SCR.length - 1, k)); render(); scrollTo({top: 0, behavior: "instant"}); save(); }
   // Resilience: answers persist in this browser; coming back offers to continue.
   const KEY = 'iep-plan';
   function save(){ try { if (n > 0) localStorage.setItem(KEY, JSON.stringify({st, pick, ans:[...ans], n, at:Date.now()})); } catch (e) {} }
