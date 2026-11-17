@@ -9,7 +9,52 @@
 <link rel="canonical" href="https://www.italianweddingeventplanners.com/journal/ziarelli-country-loft/">
 <link rel="icon" href="brand/logo-brand.svg">
 <link rel="stylesheet" href="css/site.css?v=345be2dc"><link rel="stylesheet" href="css/v2.css?v=f826ce25"><link rel="stylesheet" href="css/v3.css?v=b418b175"><link rel="stylesheet" href="css/dest-v3.css?v=700960f7"><link rel="stylesheet" href="css/wed-v3.css?v=e06c50b9"><link rel="stylesheet" href="css/journal-v3.css?v=b1161fd4">
-<meta name="robots" content="noindex"><script>try{if(!document.prerendering&&!matchMedia("(prefers-reduced-motion: reduce)").matches&&!location.search.includes("shot"))document.documentElement.classList.add("arch-ready")}catch(e){}</script></head>
+<meta name="robots" content="noindex"><script>try{if(!document.prerendering&&!matchMedia("(prefers-reduced-motion: reduce)").matches&&!location.search.includes("shot"))document.documentElement.classList.add("arch-ready")}catch(e){}</script><style>/* Professor note strip: paper and ink, in the page flow above the header, no shadow, no motion. */
+.rn{position:relative;z-index:30;display:flex;align-items:center;gap:16px;padding:12px 26px;background:var(--paper,#FBF8F4);color:var(--ink,#2A2420);border-bottom:1px solid var(--line,#DCCFBC);font-family:Jost,system-ui,sans-serif;font-size:14px;line-height:1.45;font-weight:400}
+.rn p{margin:0;flex:1;max-width:none;text-align:left}
+.rn a,.rn-foot a{color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.rn a:hover,.rn a:focus-visible,.rn-x:hover,.rn-x:focus-visible,.rn-foot a:hover,.rn-foot a:focus-visible{color:var(--brand,#AD0042)}
+.rn a:focus-visible,.rn-x:focus-visible,.rn-foot a:focus-visible{outline:1px solid var(--brand,#AD0042);outline-offset:3px}
+.rn-x{flex:none;display:grid;place-items:center;width:32px;height:32px;margin:-6px -8px -6px 0;padding:0;border:0;background:none;color:inherit;cursor:pointer}
+.rn-foot{margin:18px 0 0;font-family:Jost,system-ui,sans-serif;font-size:13px;text-align:left}
+.rn-foot--edge{margin:0;padding:14px 26px;background:var(--paper,#FBF8F4);color:var(--ink,#2A2420)}
+@media (max-width:640px){.rn{padding:10px 16px;font-size:13px;gap:10px}}
+</style><script>window.IEP_REVIEW={"review_note": true, "review_flag": "for=review", "brief_url": "brief/", "note_text": "Dear Professor Pan, this is my work on the website for Italian Event Planners. If you would like to read about the design thinking and process behind it, {link}.", "link_text": "the brief is here", "footer_link_text": "Design brief"};/* Professor note: published copy only. Appears only after opening a page with ?for=review;
+   the mode is then kept for the browser session. Config is injected as window.IEP_REVIEW. */
+(function () {
+  var C = window.IEP_REVIEW; if (!C) return;
+  var path = location.pathname;
+  if (/\/(plan|story[^/]*)\.html$/.test(path)) return;          // never in the wizard or the stories
+  var K = 'iep-review', S;
+  try { S = sessionStorage; } catch (e) { S = null; }
+  var get = function (k) { try { return S && S.getItem(k); } catch (e) { return null; } };
+  var set = function (k, v) { try { S && S.setItem(k, v); } catch (e) {} };
+  if (location.search.indexOf(C.review_flag) > -1) set(K, 'on');
+  if (get(K) !== 'on') return;
+  var root = document.querySelector('base') ? document.querySelector('base').href : '';
+  var href = new URL(C.brief_url, root || location.href).href;
+  var esc = function (s) { return s.replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+  var link = '<a href="' + href + '">' + esc(C.link_text) + '</a>';
+  function footerLink() {
+    if (document.querySelector('.rn-foot')) return;
+    var p = document.createElement('p'); p.className = 'rn-foot';
+    p.innerHTML = '<a href="' + href + '">' + esc(C.footer_link_text) + '</a>';
+    var f = document.querySelector('footer'); (f || document.body).appendChild(p);
+    if (!f) p.classList.add('rn-foot--edge');
+  }
+  function run() {
+    if (get(K + '-closed') === '1') { footerLink(); return; }
+    var bar = document.createElement('aside'); bar.className = 'rn'; bar.setAttribute('aria-label', 'Note for the reviewer');
+    bar.innerHTML = '<p>' + esc(C.note_text).replace('{link}', link) + '</p>' +
+      '<button type="button" class="rn-x" aria-label="Close note"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></button>';
+    document.body.insertBefore(bar, document.body.firstChild);
+    bar.querySelector('.rn-x').addEventListener('click', function () {
+      bar.remove(); set(K + '-closed', '1'); footerLink();
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+})();
+</script></head>
 <body class="v2 v3 dx wd jn jp" data-bar="dark">
 <div class="page">
   <article>
