@@ -784,9 +784,16 @@ a.go,.go.ha-host{width:fit-content;max-width:100%}
    (masked), so there is no hard line. Text and logo are light over photographs and ink over paper (js/site.js decides from what is
    under the bar) and crossfade in .6s. The bar keeps one size at every scroll position. */
 .bar{background:none!important;isolation:isolate}
-.bar::before{content:"";position:absolute;left:0;right:0;top:0;bottom:-22px;z-index:-1;pointer-events:none;
-  -webkit-backdrop-filter:blur(9px) saturate(1.05);backdrop-filter:blur(9px) saturate(1.05);
-  -webkit-mask-image:linear-gradient(#000 62%,transparent);mask-image:linear-gradient(#000 62%,transparent)}
+/* Progressive blur (17 Nov, Mark: fade it top to bottom, controls firmly in the strong part). Two stacked layers 56px taller than the
+   bar: both full strength down to just below the controls, then the strong one fades out first and the light one carries on to the
+   edge, so the blur thins out in steps instead of ending on a line. */
+.bar::before,.bar::after{content:"";position:absolute;left:0;right:0;top:0;bottom:-56px;z-index:-1;pointer-events:none}
+.bar::before{-webkit-backdrop-filter:blur(10px) saturate(1.05);backdrop-filter:blur(10px) saturate(1.05);
+  -webkit-mask-image:linear-gradient(#000 50%,rgba(0,0,0,.45) 64%,transparent 78%);mask-image:linear-gradient(#000 50%,rgba(0,0,0,.45) 64%,transparent 78%)}
+.bar::after{-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
+  -webkit-mask-image:linear-gradient(#000 52%,rgba(0,0,0,.5) 76%,transparent);mask-image:linear-gradient(#000 52%,rgba(0,0,0,.5) 76%,transparent)}
+body.wizard .bar::after{display:none}
+@media (max-width:900px){body.wizard .bar::after{display:block}}
 .bar,.bar .lang,.bar .lang a,.bar .logo img{transition:color .6s var(--ease),background-color .6s var(--ease),border-color .6s var(--ease),opacity .6s var(--ease)!important}
 .bar .pill:not(:hover):not(:focus-visible){transition:color .6s var(--ease),background-color .6s var(--ease),border-color .6s var(--ease)}
 

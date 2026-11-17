@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Italian Event Planners</title>
 <meta name="description" content="Weddings and celebrations across Italy since 2009.">
-<link rel="preload" href="fonts/jost-300.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/jost-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/italiana.woff2" as="font" type="font/woff2" crossorigin><link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=72bb88ac"><link rel="stylesheet" href="css/v2.css?v=f826ce25"><link rel="stylesheet" href="css/v3.css?v=b418b175">
+<link rel="preload" href="fonts/jost-300.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/jost-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/italiana.woff2" as="font" type="font/woff2" crossorigin><link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=cbb893fd"><link rel="stylesheet" href="css/v2.css?v=f826ce25"><link rel="stylesheet" href="css/v3.css?v=b418b175">
 <style>
 /* events */
 section.ev{
@@ -36,18 +36,18 @@ section.ev{
 .ev figcaption .see{margin-top:14px;font-weight:400;letter-spacing:.01em;color:var(--ink)}
 
 /* hover (16 Nov, Mark: "not exciting, but bring delight. maintain elegance"). Only on a panel itself, never from the space between them.
-   The photo leans in, the name and the "See …" line turn raspberry, the arrow slides (js/site.js), the other two step back.
+   The photo leans in, the "See …" line turns raspberry (the name stays ink: Mark, 17 Nov), the arrow slides (js/site.js), the other two step back.
    Values: css/site.css, "Photo-link hover (16 Nov)". */
 .ev figure{transition:opacity var(--pl-dim-t) var(--pl-ease)}
 .ev figcaption b{transition:color var(--pl-title-t) var(--pl-ease)}
 .ev figcaption .see{transition:color var(--pl-line-t) ease-out}
 @media (hover:hover){
   .ev-in>a:hover .ph img{transform:scale(calc(var(--z)*var(--pl-zoom)))}
-  .ev-in>a:hover figcaption b,.ev-in>a:hover .see{color:var(--brand)}
+  .ev-in>a:hover .see{color:var(--brand)}
   .ev-in:has(>a:hover)>a:not(:hover) figure{opacity:var(--pl-dim)}
 }
 .ev-in>a:focus-visible .ph img{transform:scale(calc(var(--z)*var(--pl-zoom)))}
-.ev-in>a:focus-visible figcaption b,.ev-in>a:focus-visible .see{color:var(--brand)}
+.ev-in>a:focus-visible .see{color:var(--brand)}
 .ev-in:has(>a:focus-visible)>a:not(:focus-visible) figure{opacity:var(--pl-dim)}
 
 /* slow staggered arrival, one frame after another */
