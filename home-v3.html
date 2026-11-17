@@ -322,7 +322,7 @@ html.shot .ca .reveal{transition:none}
 .k-tm{display:none}
 .tm-a .k1 ul{padding-left:22px}
 .tm-a .k1 ul::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:rgba(30,24,18,.14)}
-.tm-a .k1 .k-tm-a{display:block;position:absolute;left:0;width:1px;background:var(--brand);transform-origin:0 0;transform:scaleY(0);transition:top .5s cubic-bezier(.22,1,.36,1),height .5s cubic-bezier(.22,1,.36,1)}
+.tm-a .k1 .k-tm-a{display:block;position:absolute;left:0;width:1px;background:var(--brand);transform-origin:0 0;transform:scaleY(0);transition:opacity .2s linear}
 /* timer, take B: "4 / 8" in Jost beside a short hairline that fills, after the "See …" link */
 .tm-b .k1 .k-tm-b{display:flex;align-items:center;gap:12px;margin-top:1.6vw;font-family:var(--sans);font-size:14px;letter-spacing:.04em;color:var(--grey);font-variant-numeric:lining-nums tabular-nums}
 .k-tm-b i,.cv-tm i{position:relative;display:block;width:56px;height:1px;background:rgba(30,24,18,.14)}
@@ -479,16 +479,19 @@ html.shot .ca .reveal{transition:none}
       if (was && !now) { b.classList.remove('ease'); b.classList.add('drain'); clearTimeout(b._dr); b._dr = setTimeout(() => { b.classList.remove('drain'); b.style.setProperty('--f', 0); }, 950); }
       if (now) { clearTimeout(b._dr); b.classList.remove('drain', 'ease'); b.style.setProperty('--f', 0); }
     });
-    held = false; place();
+    held = false; moveTm();
   };
   // the timer (take A beside the index, take B under the link); ?timer=a|b|off, ?fx=reveal|soft for the transition takes
-  const Q = new URLSearchParams(location.search), TM = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'off' : (Q.get('timer') || 'a');
+  const Q = new URLSearchParams(location.search), TM = Q.get('timer') || 'a';
   if (TM !== 'off') document.documentElement.classList.add('tm-' + TM);
   const FX = Q.get('fx') || 'fade'; if (FX !== 'fade') k1.classList.add('fx-' + FX);   // ?fx=fade|soft to compare
   const tmA = k1.querySelector('.k-tm-a'), tmB = k1.querySelector('.k-tm-b b'), kn = k1.querySelector('[data-kn]');
   const place = () => { const b = idx.querySelector(`button[data-k="${curK}"]`); if (b) { tmA.style.top = b.parentElement.offsetTop + 'px'; tmA.style.height = b.parentElement.offsetHeight + 'px'; }
     kn.textContent = (P.findIndex(p => p[0] === curK) + 1) + ' / ' + P.length; };
-  const draw = f => { tmA.style.transform = `scaleY(${f})`; tmB.style.transform = `scaleX(${f})`;
+  // when the place changes, the old stretch fades out (200ms) and the new one starts beside the new name; it never slides past the others
+  let fading = false, fadeT;
+  const moveTm = () => { fading = true; tmA.style.opacity = 0; clearTimeout(fadeT); fadeT = setTimeout(() => { place(); fading = false; tmA.style.opacity = 1; }, 200); };
+  const draw = f => { if (!fading) tmA.style.transform = `scaleY(${f})`; tmB.style.transform = `scaleX(${f})`;
     if (TM !== 'fill') return;
     const b = idx.querySelector('button[aria-pressed="true"]'); if (!b) return;
     if (held) { if (!b.classList.contains('ease')) { b.classList.add('ease'); b.style.setProperty('--f', 1); } }
@@ -508,7 +511,7 @@ html.shot .ca .reveal{transition:none}
   new IntersectionObserver(es => es.forEach(e => seen = e.intersectionRatio > .35), {threshold:[0, .35, .7]}).observe(k1);
   // "hovering" = the pointer on something you can use (the index, the photo, the links), not merely inside the section
   k1.addEventListener('mouseover', e => { if (e.target.closest('button,a')) over = true; });
-  k1.addEventListener('mouseout', e => { if (e.target.closest('button,a') && !(e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('.k1 button,.k1 a'))) { over = false; t = Math.min(t, DWELL - RESUME); } });
+  k1.addEventListener('mouseout', e => { if (e.target.closest('button,a') && !(e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('.k1 button,.k1 a'))) { over = false; } });   // the fill resumes from where it paused
   k1.addEventListener('mouseleave', () => { locked = false; });
   k1.addEventListener('focusin', () => focused = true); k1.addEventListener('focusout', () => focused = false);
   k1.addEventListener('touchstart', () => tapped = true, {passive:true});
@@ -519,7 +522,7 @@ html.shot .ca .reveal{transition:none}
       if (seen && !document.hidden && !over && !focused && !tapped && !locked) { t += dt; if (t >= DWELL) { const i = P.findIndex(p => p[0] === curK); pick(P[(i + 1) % P.length][0]); } }
       else if (seen && (over || focused || tapped || locked)) held = true;   // the visitor is holding this place: show it as fully chosen
       draw(tapped ? 0 : Math.max(0, Math.min(1, t / DWELL))); requestAnimationFrame(tick); };
-    requestAnimationFrame(tick); } else draw(0);
+    requestAnimationFrame(tick); } else draw(1);   // reduced motion: a still marker beside the active name
 
 })();
 </script>
@@ -584,13 +587,10 @@ html.shot .ca .reveal{transition:none}
   sec.addEventListener('mouseout', e => { if (e.target.closest('button,a') && !(e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('#stories button,#stories a'))) { over = false; t = Math.min(t, DWELL - RESUME); } });
   sec.addEventListener('focusin', () => focused = true); sec.addEventListener('focusout', () => focused = false);
   sec.addEventListener('touchstart', () => tapped = true, {passive:true});
-  // the timer beside the count fills over the dwell (same clock as the advance; empty while a chosen story is held)
-  const tm = document.createElement('span'); tm.className = 'cv-tm'; tm.setAttribute('aria-hidden', 'true'); tm.innerHTML = '<i><b></b></i>';
-  cnt.after(tm); const tmb = tm.querySelector('b');
   if (!reduce) { let last = performance.now();
     const tick = now => { const dt = Math.min(100, now - last); last = now;
       if (seen && !document.hidden && !over && !focused && !tapped) { t += dt; if (t >= DWELL) { t = 0; go(cur + 1); } }
-      tmb.style.transform = `scaleX(${tapped ? 0 : Math.max(0, Math.min(1, t / DWELL))})`; requestAnimationFrame(tick); };
+      requestAnimationFrame(tick); };
     requestAnimationFrame(tick); }
   const pick = k => { go(k); t = DWELL - HOLD; };
   sec.querySelector('[data-cv-next]').addEventListener('click', () => pick(cur + 1));
