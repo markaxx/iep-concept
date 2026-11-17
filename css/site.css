@@ -674,21 +674,21 @@ t-size:15px!important;letter-spacing:.06em;line-height:1;text-transform:none;tra
 /* Mark, 16 Nov: no drop shadows anywhere on the site */
 *,*::before,*::after{box-shadow:none!important}
 
-/* ===== Pink quote: the ONE raspberry quote treatment for the whole site (Mark, 16 Nov) =====
+/* ===== Pink quote: the ONE raspberry quote treatment for the whole site (Mark, 16 Nov; retuned 17 Nov from his reading-app reference) =====
    Markup:  <blockquote class="pq"><p>Verbatim client words</p><cite>&mdash; Name, Place</cite></blockquote>
-   Jost 300 in raspberry, hanging Cormorant italic opening mark, closing mark inline, em-dashed attribution.
-   Pages may set margin and max-width on .pq only; never restyle the type, colour or marks.
+   One reading system: Jost Regular in raspberry, one step above body size, with the body's rhythm; a small filled quotation mark in a
+   gutter, level with the first line, so the mark, the words and the name share one left edge; no closing mark; the name quiet and
+   close beneath. Pages may set margin and max-width on .pq only; never restyle the type, colour or marks.
    On a dark ground add class "on-dark" (attribution turns white). */
-@font-face{font-family:PqMark;src:url(../fonts/cormorant-400i.woff2) format("woff2"),url(../fonts/cormorant-400i.ttf) format("truetype");unicode-range:U+201C-201D;font-display:swap}
-.pq{position:relative;margin:0;max-width:17em;padding:0;border:0;quotes:"\201C" "\201D"}
-.pq p{margin:0;font-family:var(--sans);font-style:normal;font-weight:300;font-size:clamp(25px,2.05vw,30px);line-height:1.28;letter-spacing:-.006em;color:var(--brand);text-transform:none}
-.pq p::before{content:open-quote;position:absolute;left:-.56em;top:-.5em;font-family:PqMark,Georgia,serif;font-style:normal;font-weight:400;font-size:3.8em;line-height:1;color:var(--brand);opacity:.85;pointer-events:none}
-.pq p::after{content:close-quote;font-family:PqMark,Georgia,serif;font-style:normal;font-size:1.15em;line-height:0;margin-left:.04em;color:var(--brand)}
-.pq cite{display:block;margin-top:16px;font-family:var(--sans);font-style:normal;font-weight:400;font-size:15px;line-height:1.4;letter-spacing:.02em;text-transform:none;color:var(--ink);opacity:.7}
+.pq{position:relative;margin:0;max-width:30em;padding:0 0 0 1.55em;border:0;font-size:clamp(19px,1.45vw,22px)}
+.pq p{margin:0;font-family:var(--sans);font-style:normal;font-weight:400;font-size:1em;line-height:1.45;letter-spacing:0;color:var(--brand);text-transform:none;text-wrap:pretty}
+@font-face{font-family:PqMark2;src:url(../fonts/cormorant-400.woff2) format("woff2");unicode-range:U+201C;font-display:swap}
+.pq p::before{content:"\201C";position:absolute;left:-.04em!important;top:-.1em!important;font-family:PqMark2,Georgia,serif;font-style:normal;font-weight:400;font-size:2.3em;line-height:1;color:var(--brand);opacity:1;pointer-events:none}
+.pq p::after{content:none}
+.pq cite{display:block;margin-top:10px;font-family:var(--sans);font-style:normal;font-weight:400;font-size:.74em;line-height:1.4;letter-spacing:.01em;text-transform:none;color:var(--ink);opacity:.6}
 .pq.on-dark cite{color:#fff}
 @media (max-width:900px){
-  .pq p{font-size:21px;line-height:1.36}
-  .pq p::before{position:static;display:block;font-size:2.6em;height:.46em;margin-bottom:4px}
+  .pq{font-size:18px;padding-left:1.45em}
 }
 
 /* ===== Hover arrow: one arrow for every standard button and link (Mark, 16 Nov; ported from his IBTrack/Timmark HoverArrow) =====
