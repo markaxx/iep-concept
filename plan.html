@@ -631,10 +631,8 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
    saturation and lifts the blacks; this undoes that on wizard photos only. One rule for every wizard photo, so no screen looks duller than the next. */
 .wz.split .bg img,.wz.sharp .bg img{filter:saturate(1.22) contrast(1.12)!important}
 .opt .th img,.cf-im img{filter:saturate(1.22) contrast(1.12)}
-/* Guest number change (Mark, 17 Nov 00:53): felt more than seen. The new figure sharpens out of a 2px blur in 180ms. No bounce, no slide. */
-@keyframes softin{from{filter:blur(2px);opacity:.55}to{filter:blur(0);opacity:1}}
-.gst output.soft-in{animation:softin .18s ease-out}
-@media (prefers-reduced-motion:reduce){.gst output.soft-in{animation:none}}
+/* Guest number roll: see roll() */
+.gst output .dg{display:inline-block;position:relative}.gst output .dg-out{position:absolute;left:0;top:0;width:100%;text-align:center}
 /* Guest number, take C (Mark, 17 Nov 01:08): Jost Regular at the question's working size, tabular figures so 9 and 10 sit alike */
 .gst output,.wz.split.txt .gst output{font-size:42px!important;font-weight:400!important;font-variant-numeric:tabular-nums;letter-spacing:.04em!important;width:2.6em!important;top:0}
 </style>
@@ -879,6 +877,24 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     pl.onmousedown = e => { const li = e.target.closest('[data-iso]'); if (li) { e.preventDefault(); setP(li.dataset.iso); } };
     document.addEventListener('mousedown', e => { if ($('#pp') && !pp.contains(e.target)) openP(false); });
   }
+  // Guest number change, after iOS's numeric text transition (contentTransition .numericText) and NumberFlow: only the digits that change move,
+  // rolling a short way in the direction of the change while they fade and their blur clears. Fixed digit widths. Rapid taps restart cleanly.
+  const RM = matchMedia('(prefers-reduced-motion: reduce)');
+  function roll(el, v){
+    const to = String(v), from = el.dataset.v || el.textContent.trim(); el.dataset.v = to;
+    if (RM.matches || from === to) { el.textContent = to; return; }
+    const up = +to > +from ? 1 : -1, pad = Math.max(to.length, from.length), F = from.padStart(pad, ' '), T = to.padStart(pad, ' ');
+    const E = 'cubic-bezier(.22,1,.36,1)', D = 320;
+    el.textContent = '';
+    for (let i = 0; i < pad; i++) {
+      const c = T[i], o = F[i]; if (c === ' ' && o === ' ') continue;
+      const d = document.createElement('span'); d.className = 'dg'; d.textContent = c === ' ' ? '' : c; el.appendChild(d);
+      if (c === o) continue;
+      if (c !== ' ') d.animate([{transform:`translateY(${.42 * up}em)`, opacity:0, filter:'blur(3px)'}, {transform:'none', opacity:1, filter:'blur(0)'}], {duration:D, easing:E});
+      if (o !== ' ') { const g = document.createElement('span'); g.className = 'dg-out'; g.textContent = o; d.appendChild(g);
+        g.animate([{transform:'none', opacity:1, filter:'blur(0)'}, {transform:`translateY(${-.42 * up}em)`, opacity:0, filter:'blur(3px)'}], {duration:D * .8, easing:E, fill:'forwards'}).onfinish = () => g.remove(); }
+    }
+  }
   function render(){
     const [kind, i] = SCR[n]; let h = '';
     const pause = kind === 'pause' || kind === 'bpause' || kind === 'ready'; wz.classList.toggle('sharp', pause); wz.classList.toggle('reply', pause); wz.classList.toggle('final', kind === 'done'); wz.classList.toggle('form', kind === 'contact'); wz.classList.toggle('end', kind === 'done'); const pickQ = kind === 'q' && !!Q[i].opts, textQ = kind === 'q' && !Q[i].opts && TXT === 'split', late = ['found','plan','book'].includes(kind), split = pause || pickQ || textQ || late; wz.classList.toggle('txt', textQ || late); wz.classList.toggle('late', late); wz.classList.toggle('pause-g', kind === 'pause'); wz.classList.toggle('split', split); wz.classList.toggle('pick', pickQ); document.body.classList.toggle('split-on', split);
@@ -1040,7 +1056,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     if ($('#gm')) {
       const S = GSTEPS(); if (!S.includes(st.guests)) st.guests = S.reduce((a, b) => Math.abs(b - st.guests) < Math.abs(a - st.guests) ? b : a);
       bg(gimg(st.guests));
-      const set = v => { st.guests = v; const go = $('#go'); go.textContent = v; go.classList.remove('soft-in'); void go.offsetWidth; go.classList.add('soft-in'); $('#gd').textContent = gdesc(v); $('.gst').classList.toggle('elope', v <= 2); bg(gimg(v)); };
+      const set = v => { st.guests = v; roll($('#go'), v); $('#gd').textContent = gdesc(v); $('.gst').classList.toggle('elope', v <= 2); bg(gimg(v)); };
       set(st.guests);
       $('#gm').onclick = () => set(S[Math.max(0, S.indexOf(st.guests) - 1)]); $('#gp').onclick = () => set(S[Math.min(S.length - 1, S.indexOf(st.guests) + 1)]);
       $('#gnext').onclick = () => { pick.guests = gimg(st.guests); ans.add('guests'); go(n + 1); };
