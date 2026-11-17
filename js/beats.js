@@ -3,7 +3,7 @@
 // Type roles (see css/beats.css): the first paragraph of a beat is its lead line, set larger; later paragraphs are body.
 (() => {
   // photos come from the resized WebP copies (img/g/<dir>/x900|x1600|x2400/<name>.webp), the size picked once for this screen
-  const GW = (w => w <= 900 ? 900 : w <= 1600 ? 1600 : 2400)(innerWidth * (devicePixelRatio || 1));
+  const GW = (w => w <= 900 ? 900 : w <= 1600 ? 1600 : 2400)(Math.max(innerWidth, innerHeight * 1.5) * (devicePixelRatio || 1));   // tall screens crop full-bleed photos to their height, so size by that too
   const B = window.BEATS, I = n => { n = n.split('|')[0]; const i = n.lastIndexOf('/') + 1; return `img/g/${n.slice(0, i)}x${GW}/${n.slice(i)}.webp`; };
   const F = n => n.includes('|') ? ` style="object-position:${n.split('|')[1]}"` : ''; // optional focal point: 'n/name|50% 75%'
   const arr = a => Array.isArray(a) ? a : [a];
@@ -44,7 +44,7 @@
     // words written on something (a place card): the photograph, and beside it the words set as type, never a card laid on the photo
     card: b => `<section class="bt card">${fig(b.img)}<div class="aside"><div class="says"><p class="gr" lang="el">${b.greek}</p><p class="en">${b.en}</p></div>${P(b.p)}</div></section>`,
     // the ending: the founders, the couple's last real line, and the facts of the wedding in one composed piece
-    closing: b => { factsShown = true; return `<section class="bt closing"><div class="pair">${b.imgs.map(m => `<img src="${I(m)}" alt="">`).join('')}</div><div class="txt">${q(b, true)}${facts()}</div></section>`; }
+    closing: b => { factsShown = true; const im = b.imgs || []; return `<section class="bt closing${im.length ? '' : ' nofig'}">${im.length ? `<div class="pair">${im.map(m => `<img src="${I(m)}" alt="">`).join('')}</div>` : ''}<div class="txt">${q(b, true)}${facts()}</div></section>`; }
   };
   const nx = B.next; // {href, cover, title, dek?}
   const lazy = h => h.replace(/<img /g, '<img loading="lazy" decoding="async" ');   // beats sit below the cover: load them as they come near
