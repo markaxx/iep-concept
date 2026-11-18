@@ -903,3 +903,20 @@ body.ct h1,body.jn h1:not(.long){font-size:clamp(44px,5vw,72px)!important;line-h
   body.dx:not(.ct):not(.jn) h1{font-size:clamp(44px,12.4vw,54px)!important;line-height:1.02!important}
   body.ct h1,body.jn h1:not(.long){font-size:clamp(34px,9.6vw,44px)!important;line-height:1.04!important}
 }
+
+/* ===== Blinds, direct open (Mark, 18 Nov: on its own the 1.3s opening is "too abrupt"; first load stays fast) =====
+   Page to page is unchanged: close .62s ease-in-out, then open 1.3s cubic-bezier(.22,1,.36,1), whose fast start continues the close.
+   Opened directly, nothing leads into that fast start, so it jumps from stillness. These takes start gently instead (ease-in-out).
+   a (default): 1.0s, the close's own curve, so a direct open reads as the second half of a page-to-page move.
+   b: 1.3s, softer ease-in-out.   c: 0.8s ease-in-out, quickest.   ?open=off restores the old opening. */
+html.arch-ready.arch-direct .page{animation-duration:1s;animation-timing-function:cubic-bezier(.65,0,.35,1)}
+html.arch-ready.arch-direct.op-b .page{animation-duration:1.3s;animation-timing-function:cubic-bezier(.45,0,.25,1)}
+html.arch-ready.arch-direct.op-c .page{animation-duration:.8s;animation-timing-function:cubic-bezier(.65,0,.35,1)}
+
+/* ===== Hover arrow speed (Mark, 18 Nov: "a bit faster", it looked jittery near the end) =====
+   Was: chevron slide .5s cubic-bezier(.33,1,.68,1) (ease-out cubic), line fade .4s. The chevron travels only about 5px, so that
+   curve's long tail spent the last third of the time moving under 0.1px a frame, which renders as stepping in the SVG.
+   Now: chevron and line together in .3s on the standard "ease" curve, which finishes without the crawl. Transform, as before. */
+svg.ha .ha-mv{transition:transform .3s cubic-bezier(.25,.1,.25,1)}
+svg.ha .ha-bar{transition:opacity .3s cubic-bezier(.25,.1,.25,1)}
+@media (prefers-reduced-motion:reduce){svg.ha .ha-mv,svg.ha .ha-bar{transition:none}}

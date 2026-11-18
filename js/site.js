@@ -143,6 +143,11 @@
   const h = document.documentElement, page = document.querySelector('.page');
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches, shot = location.search.includes('shot');
   const on = getComputedStyle(h).getPropertyValue('--arch').trim() === '1' && !still && !shot;
+  // direct open (no page closed into this one: first visit, typed address, refresh, outside link) gets its own gentler opening;
+  // ?open=a|b|c|off picks a take for the visit (a is the default; off = the page-to-page opening everywhere). CSS in site.css.
+  let fromLeave = false, take = 'a';
+  try { fromLeave = sessionStorage.getItem('iep-arch') === '1'; const q = new URLSearchParams(location.search).get('open'); if (q) sessionStorage.setItem('iep-open', q); take = sessionStorage.getItem('iep-open') || 'a'; } catch (e) {}
+  if (!fromLeave && take !== 'off') h.classList.add('arch-direct', 'op-' + take);
   try { sessionStorage.removeItem('iep-arch'); } catch (e) {}
   let leaving = false;
   const open = () => h.classList.remove('arch-ready', 'arch-go', 'arch-leave');
@@ -159,7 +164,7 @@
   };
   if (h.classList.contains('arch-ready')) arrive();
   // a page prerendered by js/prefetch.js ran its head check before the click: close it as it is shown, then open as usual
-  if (document.prerendering && on) document.addEventListener('prerenderingchange', () => { h.classList.add('arch-ready'); arrive(); }, {once: true});
+  if (document.prerendering && on) document.addEventListener('prerenderingchange', () => { h.classList.remove('arch-direct'); h.classList.add('arch-ready'); arrive(); }, {once: true});
   if (!on) { open(); return; }
   const prefetched = new Set();
   const prefetch = href => { if (prefetched.has(href)) return; prefetched.add(href); const l = document.createElement('link'); l.rel = 'prefetch'; l.href = href; document.head.appendChild(l); };
