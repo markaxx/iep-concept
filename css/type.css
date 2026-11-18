@@ -1,0 +1,37 @@
+/* Type system, Mark's pick 18 Nov 2026: Gilda Display titles, Jost text, Cormorant Garamond italic for quotes and rare subheadings.
+   Spec: site/TYPE-SPEC.md. NOT LINKED YET: the site-wide and wizard threads link it after css/site.css and remove the old faces.
+   All three fonts: SIL Open Font License 1.1 (free for commercial use). Latin subsets, self-hosted, 86 KB in total. */
+
+@font-face{font-family:"Gilda Display";src:url(../fonts/gilda-display-400.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:Jost;src:url(../fonts/jost-var.woff2) format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Cormorant Garamond";src:url(../fonts/cormorant-garamond-italic-var.woff2) format("woff2");font-weight:300 700;font-style:italic;font-display:swap}
+
+:root{
+  /* faces */
+  --head:"Gilda Display",Didot,"Bodoni 72",Georgia,serif;
+  --sans:Jost,"Futura","Century Gothic",system-ui,sans-serif;
+  --accent:"Cormorant Garamond",Garamond,Georgia,serif; /* italic only */
+
+  /* major third from 16 px, rounded to multiples of 4 (11 and 13 kept) : size / line height */
+  --t-11:11px; --lh-11:16px;
+  --t-13:13px; --lh-13:20px;
+  --t-16:16px; --lh-16:24px;
+  --t-20:20px; --lh-20:28px;
+  --t-24:24px; --lh-24:32px;
+  --t-32:32px; --lh-32:40px;
+  --t-40:40px; --lh-40:44px;
+  --t-48:48px; --lh-48:52px;
+  --t-60:60px; --lh-60:60px;
+  --t-76:76px; --lh-76:72px;
+  --t-96:96px; --lh-96:88px;
+  --t-120:120px; --lh-120:108px;
+
+  /* quotes are italic and need more air than titles */
+  --lh-q40:48px; --lh-q32:40px; --lh-q24:32px;
+
+  /* tracking: Gilda is heavier and wider than Italiana, so display tracking drops from -0.04em to -0.01em (as rendered on the page Mark chose) */
+  --tr-display:-0.01em;   /* Gilda 60 to 120 */
+  --tr-gilda:0;           /* Gilda 24 to 48 */
+  --tr-quote:0;           /* Cormorant Garamond italic, every size */
+  /* Jost tokens unchanged: --tr-display-sm -0.03em, --tr-title -0.02em, --tr-heading -0.01em, --tr-body 0, --tr-caption +0.01em, --tr-caps +0.06em */
+}

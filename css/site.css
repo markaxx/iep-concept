@@ -1,9 +1,3 @@
-@font-face{font-family:Oswald;src:url(../fonts/oswald-300.woff2) format("woff2"),url(../fonts/oswald-300.ttf) format("truetype");font-weight:300;font-display:swap}
-@font-face{font-family:Oswald;src:url(../fonts/oswald-400.woff2) format("woff2"),url(../fonts/oswald-400.ttf) format("truetype");font-weight:400;font-display:swap}
-@font-face{font-family:Outfit;src:url(../fonts/outfit-300.woff2) format("woff2"),url(../fonts/outfit-300.ttf) format("truetype");font-weight:300;font-display:swap}
-@font-face{font-family:Outfit;src:url(../fonts/outfit-400.woff2) format("woff2"),url(../fonts/outfit-400.ttf) format("truetype");font-weight:400;font-display:swap}
-@font-face{font-family:Outfit;src:url(../fonts/outfit-500.woff2) format("woff2"),url(../fonts/outfit-500.ttf) format("truetype");font-weight:500;font-display:swap}
-@font-face{font-family:Script;src:url(../fonts/script.woff2) format("woff2"),url(../fonts/script.ttf) format("truetype");font-display:swap}
 
 :root{
   --gold:#B8893E; --gold-deep:#8E6626; --gold-light:#E9D5AE; --gold-wash:#F4E9D4;
@@ -246,13 +240,6 @@ footer a:hover{color:#fff}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
 
 /* ===== v3: restrained theme (groupmate's direction) ===== */
-@font-face{font-family:Cormorant;src:url(../fonts/cormorant-300.woff2) format("woff2"),url(../fonts/cormorant-300.ttf) format("truetype");font-weight:300;font-display:swap}
-@font-face{font-family:Cormorant;src:url(../fonts/cormorant-400.woff2) format("woff2"),url(../fonts/cormorant-400.ttf) format("truetype");font-weight:400;font-display:swap}
-@font-face{font-family:Cormorant;src:url(../fonts/cormorant-300i.woff2) format("woff2"),url(../fonts/cormorant-300i.ttf) format("truetype");font-weight:300;font-style:italic;font-display:swap}
-@font-face{font-family:Cormorant;src:url(../fonts/cormorant-400i.woff2) format("woff2"),url(../fonts/cormorant-400i.ttf) format("truetype");font-weight:400;font-style:italic;font-display:swap}
-@font-face{font-family:Jost;src:url(../fonts/jost-300.woff2) format("woff2"),url(../fonts/jost-300.ttf) format("truetype");font-weight:300;font-display:swap}
-@font-face{font-family:Jost;src:url(../fonts/jost-400.woff2) format("woff2"),url(../fonts/jost-400.ttf) format("truetype");font-weight:400;font-display:swap}
-@font-face{font-family:Jost;src:url(../fonts/jost-500.woff2) format("woff2"),url(../fonts/jost-500.ttf) format("truetype");font-weight:500;font-display:swap}
 :root{--cream:#F1E8DC;--paper:#FAF7F2;--ink:#221E1A;--ink-2:#6E655B;--line:#DDD2C3;--gold:#A85C3B;--gold-deep:#8C4A2E;--gold-light:#F3EDE4;
   --display:Cormorant,Georgia,serif;--script:Cormorant,Georgia,serif;--sans:Jost,system-ui,sans-serif}
 html,body{background:var(--cream)}
@@ -543,8 +530,7 @@ footer .logo img{height:120px}
 .page{overflow:clip}
 .tone-land .land{filter:blur(28px) saturate(.6) brightness(.3);inset:-6%;width:112%;height:112%}
 /* v6: Italiana headlines, sentence case everywhere */
-@font-face{font-family:Italiana;src:url(../fonts/italiana.woff2) format("woff2"),url(../fonts/italiana.ttf) format("truetype");font-display:swap}
-:root{--head:Italiana,"Didot",serif}
+/* --head is set in css/type.css (Gilda Display, 18 Nov) */
 .d,.q-label,.f-big,.dgrid .dest b,.menu nav a,.post h3,.hw h3,.proof b,.guests output,.m-note b,.mood-meta b{font-family:var(--head)!important;text-transform:none!important;font-weight:400!important;letter-spacing:-.005em!important;line-height:1.05}
 .d-l{font-size:clamp(52px,5.4vw,88px)}
 .d-m{font-size:clamp(42px,4.2vw,66px)}
@@ -679,15 +665,14 @@ t-size:15px!important;letter-spacing:.06em;line-height:1;text-transform:none;tra
    Jost 300 in raspberry, Cormorant italic opening mark above the first line with its left edge on the text's left edge (Mark, 17 Nov), closing mark inline, em-dashed attribution.
    Pages may set margin and max-width on .pq only; never restyle the type, colour or marks.
    On a dark ground add class "on-dark" (attribution turns white). */
-@font-face{font-family:PqMark;src:url(../fonts/cormorant-400i.woff2) format("woff2"),url(../fonts/cormorant-400i.ttf) format("truetype");unicode-range:U+201C-201D;font-display:swap}
 .pq{position:relative;margin:0;max-width:17em;padding:0;border:0;quotes:"\201C" "\201D"}
-.pq p{margin:0;font-family:var(--sans);font-style:normal;font-weight:300;font-size:clamp(25px,2.05vw,30px);line-height:1.28;letter-spacing:-.006em;color:var(--brand);text-transform:none}
-.pq p::before{content:open-quote;position:absolute;left:-.02em!important;top:-.5em;font-family:PqMark,Georgia,serif;font-style:normal;font-weight:400;font-size:3.8em;line-height:1;color:var(--brand);opacity:.85;pointer-events:none}
-.pq p::after{content:close-quote;font-family:PqMark,Georgia,serif;font-style:normal;font-size:1.15em;line-height:0;margin-left:.04em;color:var(--brand)}
-.pq cite{display:block;margin-top:16px;font-family:var(--sans);font-style:normal;font-weight:400;font-size:15px;line-height:1.4;letter-spacing:.02em;text-transform:none;color:var(--ink);opacity:.7}
+.pq p{margin:0;font-family:var(--accent);font-style:italic;font-weight:400;font-size:var(--t-32);line-height:var(--lh-q32);letter-spacing:0;color:var(--brand);text-transform:none}
+.pq p::before{content:open-quote;position:absolute;left:-.02em!important;top:-.5em;font-family:var(--accent);font-style:italic;font-weight:400;font-size:3.8em;line-height:1;color:var(--brand);opacity:.85;pointer-events:none}
+.pq p::after{content:close-quote;font-family:var(--accent);font-style:italic;font-size:1em;line-height:0;margin-left:.04em;color:var(--brand)}
+.pq cite{display:block;margin-top:16px;font-family:var(--sans);font-style:normal;font-weight:400;font-size:var(--t-13);line-height:var(--lh-13);letter-spacing:var(--tr-caption);text-transform:none;color:var(--ink);opacity:.7}
 .pq.on-dark cite{color:#fff}
 @media (max-width:900px){
-  .pq p{font-size:21px;line-height:1.36}
+  .pq p{font-size:var(--t-24);line-height:var(--lh-q24)}
   .pq p::before{position:static;display:block;font-size:2.6em;height:.46em;margin-bottom:4px}
 }
 
@@ -844,7 +829,7 @@ h2,h2 .g,.bt-end b,.nx b,.bt .bt-said .said,.menu nav a,.k1 li button,.cont{lett
 .spoken p.after,.says p.en{letter-spacing:var(--tr-body)!important}
 h3,h4,h5,h6,footer h5,figcaption b,.lead,.line,.hv-line,.k1 .go,.hand .go{letter-spacing:var(--tr-heading)!important}
 /* body: reading text, buttons and links (14 to 22px); the pink quote keeps its own original tracking (parked for the client) */
-.pq p{letter-spacing:-.006em!important}.pq cite{letter-spacing:.02em!important}
+.pq p{letter-spacing:var(--tr-quote,0)!important}.pq cite{letter-spacing:var(--tr-caption)!important}
 body,p,.meta,.dx-intro,.ca-aside,dd,.pill,.pill *,.go,.ha-run,.cv-read,.wd-sw button,.bt-plan a,.jr-list b,.tx b{letter-spacing:var(--tr-body)!important}
 /* small text: captions, attributions, counts, month names, footer lines (13 to 15px) */
 cite,figcaption em,figcaption span,.see,.cv-count,.cv-folio button,.k-tm,.ml,.mx i,small,dt,.f-bot span,.m-foot span,.bt-from,.pill.pill-line{letter-spacing:var(--tr-caption)!important}
@@ -894,15 +879,7 @@ footer h2.f-h{font-family:var(--head)!important;text-transform:none!important;fo
 /* C-12: the menu's Close button reads like the bar's buttons (Jost 15/400) */
 .menu .close,.pill.close{font-size:15px!important;font-weight:400!important}
 
-/* ===== Page title sizes (Mark, 18 Nov: "smaller in contact and journal") =====
-   Main pages (Destinations, Weddings, Events, About) share one big title; Contact and the Journal (index, every article,
-   article pages) share one smaller title. Long article titles keep their own fit size so they stay on two or three lines. */
-body.dx:not(.ct):not(.jn) h1{font-size:clamp(52px,7.2vw,104px)!important;line-height:.98!important}
-body.ct h1,body.jn h1:not(.long){font-size:clamp(44px,5vw,72px)!important;line-height:1!important}
-@media (max-width:900px){
-  body.dx:not(.ct):not(.jn) h1{font-size:clamp(44px,12.4vw,54px)!important;line-height:1.02!important}
-  body.ct h1,body.jn h1:not(.long){font-size:clamp(34px,9.6vw,44px)!important;line-height:1.04!important}
-}
+/* Page title sizes: now in css/type-site.css (type system, 18 Nov) */
 
 /* ===== Blinds, direct open (Mark, 18 Nov: on its own the 1.3s opening was "too abrupt"; he picked take A) =====
    Page to page: close .62s ease-in-out, then open 1.3s cubic-bezier(.45,0,.2,1) (gentle start, long settle; 18 Nov).

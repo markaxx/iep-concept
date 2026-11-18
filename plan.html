@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Plan your wedding · Italian Event Planners</title>
-<link rel="preload" href="fonts/jost-300.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/jost-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/italiana.woff2" as="font" type="font/woff2" crossorigin><link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=37c96003">
+<link rel="preload" href="fonts/gilda-display-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/jost-var.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/cormorant-garamond-italic-var.woff2" as="font" type="font/woff2" crossorigin fetchpriority="low"><link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=a2df3b78"><link rel="stylesheet" href="css/type.css?v=0b0550ea">
 <style>
 .wizard footer,.wizard .wa{display:none}
 .wizard .bar{background:linear-gradient(180deg,rgba(10,8,6,.45),rgba(10,8,6,0))}
@@ -154,7 +154,6 @@
 #pl{display:none}.prog2{top:118px}
 .wizard .bar .pill{text-transform:none!important;letter-spacing:.02em!important;font-size:15px}.on-paper .bar .logo{opacity:0;pointer-events:none}.on-paper .bar .right{color:var(--ink)}
 .gdesc{font-family:var(--sans)!important;font-weight:300;font-size:20px!important;margin-top:10px}
-@font-face{font-family:CvMark;src:url(fonts/cormorant-400i.ttf);unicode-range:U+201C-201D;font-display:swap}
 @media (max-width:900px){
   .wz.reply .bg{right:0;bottom:auto;height:46vh}
   .wz.reply .stage{margin-left:0;margin-top:46vh;min-height:54vh;padding:40px 22px 120px}
@@ -710,6 +709,18 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
 .wz.arrive .go{animation:setin .9s cubic-bezier(.22,1,.36,1) 1.15s both}
 @media (max-width:900px){.wz.split.arrive .bg{left:16px;right:16px;top:84px;bottom:auto}.wz.split.arrive .stage{justify-content:flex-start}.wz.split.arrive .rl{font-size:clamp(44px,12vw,56px)}}
 @media (prefers-reduced-motion:reduce){.wz.arrive .bg,.wz.arrive .bg img.on,.wz.arrive .rl .w>span,.wz.arrive .rp,.wz.arrive .go{animation:none!important}}
+/* 18 Nov: open answers as a quiet link (samples 1A, made a bit smaller), and the season as lines with three-letter months (samples 2A) */
+.wz .un{display:inline-flex!important;align-items:baseline;width:auto!important;height:auto!important;margin-top:clamp(14px,2.2vh,22px);padding:4px 0!important;background:none!important;border:0!important;border-radius:0!important;font:400 15px var(--sans)!important;letter-spacing:var(--tr-caption)!important;color:var(--ink)!important;opacity:.68;transition:opacity .2s cubic-bezier(.25,1,.5,1)!important}
+.wz .un:hover,.wz .un:focus-visible,.wz .un[aria-pressed=true]{opacity:1}
+.wz .opt.un svg.ha{font-size:inherit!important;color:currentColor!important;margin-left:.3em}.wz .opt.un .th{display:none}
+.wz .un[aria-pressed=true]{color:var(--brand)!important}
+.wz.split.txt .tiles.lines{display:flex;flex-direction:column;gap:0}
+.wz.split.txt .tiles.lines .tile{display:flex;justify-content:space-between;align-items:baseline;height:auto;padding:clamp(7px,1.15vh,12px) 0;border:0;border-radius:0;background:transparent;font-size:clamp(24px,1.9vw,28px);font-weight:300;color:var(--ink);transition:opacity .22s cubic-bezier(.25,1,.5,1),color .22s cubic-bezier(.25,1,.5,1)}
+.wz.split.txt .tiles.lines .tile small{font-size:15px;font-weight:400;letter-spacing:var(--tr-caption);color:var(--ink-2)}
+.wz.split.txt .tiles.lines .tile:hover,.wz.split.txt .tiles.lines .tile:focus-visible{background:transparent;border:0}
+.wz.split.txt .tiles.lines .tile[aria-pressed=true]{background:transparent;color:var(--brand)}
+@media (hover:hover){.wz .tiles.lines:has(.tile:hover) .tile:not(:hover){opacity:.5}}
+.wz .tiles.lines:has(.tile:focus-visible) .tile:not(:focus-visible){opacity:.5}
 /* 18 Nov, Mark: "just a tad" more sign of which answer is under the pointer: the others ease to a lighter ink */
 .take-a .sq-opts .opt{transition:opacity .22s cubic-bezier(.25,1,.5,1),color .22s cubic-bezier(.25,1,.5,1)}
 @media (hover:hover){.take-a .sq-opts:has(.opt:hover) .opt:not(:hover){opacity:.5}}
@@ -730,6 +741,34 @@ addEventListener('DOMContentLoaded', () => {
   new MutationObserver(fix).observe(st, {childList:true}); fix();
 });
 </script>
+<style id="type">
+/* Type system (Mark, 18 Nov: Gilda Display, Jost, Cormorant Garamond italic). Spec: TYPE-SPEC.md, tokens in css/type.css.
+   Gilda only for each screen's one heading; everything a visitor reads or taps stays Jost (Mark, 16 Nov); the italic only in the quote (site.css .pq).
+   Jost 400 below 24 px, 300 from 24 px up. This block is the last word on wizard type, so it uses !important over the older layers above. */
+.wz .ql,.wz.split .rl,.wz p.ql,.wz.split p.rl{font-family:var(--head)!important;font-weight:400!important;font-style:normal!important;font-size:var(--t-48)!important;line-height:var(--lh-48)!important;letter-spacing:var(--tr-gilda)!important}
+.wz.split .rl .pn{font-family:var(--sans)!important;font-weight:300!important;letter-spacing:0!important}
+.wz.split.arrive .rl,.wz.split.arrive p.rl{font-size:var(--t-76)!important;line-height:var(--lh-76)!important;letter-spacing:var(--tr-display)!important;max-width:8.5ch}
+.take-a .wz .sq-opts .opt,.take-a .wz .opt .nm,.take-a .wz .opt.pl .nm,.wz.split.txt .tiles.lines .tile:not(.un){font-family:var(--sans)!important;font-size:var(--t-24)!important;line-height:var(--lh-24)!important;font-weight:300!important;letter-spacing:var(--tr-heading)!important}
+.wz.split.txt .tiles.lines .tile small{font-size:var(--t-13)!important;line-height:var(--lh-13)!important;font-weight:400!important;letter-spacing:var(--tr-caption)!important}
+.wz .tile:not(.lines .tile):not(.un){font-size:var(--t-20)!important;font-weight:400!important}
+.wz .qs,.wz .bk-x,.wz .k-note,.wz.split.late .who b,.wz .k-sent p+p{font-size:var(--t-16)!important;line-height:var(--lh-16)!important;font-weight:400!important;letter-spacing:var(--tr-body)!important}
+.wz .rb,.wz .gdesc,.wz .k-l,.wz .k-sent p:first-child,.wz .est3 span,.wz .pday h4{font-size:var(--t-20)!important;line-height:var(--lh-20)!important;font-weight:400!important;letter-spacing:var(--tr-body)!important}
+.wz .rp,.wz .k-place{font-family:var(--sans)!important;font-size:var(--t-24)!important;line-height:var(--lh-24)!important;font-weight:300!important;letter-spacing:var(--tr-heading)!important}
+.wz .rs,.wz .echo:not(.rz),.wz.split.late .who span,.wz .pday small,.wz .est3 small,.wz .cf-r label span,.wz .cf-r .fld>span,.wz .cf-r .err,.wz .tile small{font-size:var(--t-13)!important;line-height:var(--lh-13)!important;font-weight:400!important;letter-spacing:var(--tr-caption)!important}
+.wz .echo.rz,.wz .pday p{font-size:var(--t-16)!important;line-height:var(--lh-16)!important;font-weight:400!important}
+.wz .go,.wz .soft,.wz .soft:not(.resume),.wz .alt-back,.wz .un,.wz .k-edit,.wz .back2{font-size:var(--t-16)!important;font-weight:400!important}
+.wz .cf-r input,.wz .cf-r textarea,.wz .pp>button,.wz .fnd-o input{font-size:var(--t-20)!important;font-weight:400!important}
+.wz .gst output,.wz.split.txt .gst output{font-family:var(--sans)!important;font-size:var(--t-40)!important;line-height:var(--lh-40)!important;font-weight:300!important;font-variant-numeric:tabular-nums;letter-spacing:.04em!important}
+.wz .k-who{font-family:var(--head)!important;font-weight:400!important;font-size:var(--t-76)!important;line-height:var(--lh-76)!important;letter-spacing:var(--tr-display)!important}
+/* quote: the face and marks come from the shared .pq in site.css; the wizard takes the spec's S size because M runs to seven lines on the pause screens */
+.wz .pq.rq p{font-size:var(--t-24)!important;line-height:var(--lh-q24)!important}
+@media (max-width:900px){
+  .wz .ql,.wz.split .rl,.wz p.ql,.wz.split p.rl{font-size:var(--t-32)!important;line-height:var(--lh-32)!important}
+  .wz .rp{font-size:var(--t-20)!important;line-height:var(--lh-20)!important;font-weight:400!important;letter-spacing:var(--tr-body)!important}
+  .wz.split.arrive .rl,.wz.split.arrive p.rl,.wz .k-who{font-size:var(--t-48)!important;line-height:var(--lh-48)!important;letter-spacing:var(--tr-gilda)!important}
+  .take-a .wz .sq-opts .opt,.take-a .wz .opt .nm,.take-a .wz .opt.pl .nm,.wz.split.txt .tiles.lines .tile:not(.un){font-size:var(--t-20)!important;line-height:var(--lh-20)!important;font-weight:400!important;letter-spacing:var(--tr-body)!important}
+}
+</style>
 </head>
 <body class="wizard">
 <div class="page">
@@ -1023,8 +1062,12 @@ addEventListener('DOMContentLoaded', () => {
     if (kind === 'q') {
       const q = Q[i];
       h = (ec ? `<p class="echo${rz ? ' rz' : ''}">${ec}</p>` : n === 0 && resumable() ? `<button class="soft resume" id="resume">Continue the plan you started ${arrow}</button>` : '') + `<p role="heading" aria-level="1" class="ql">${q.k === 'when' && st.type && st.type !== 'wedding' ? 'When would you like to celebrate?' : q.q}</p>${q.s ? `<p class="qs">${q.s}</p>` : ''}`;
-      if (q.opts) h += `<div class="sq-opts n${opts(q).length}" role="group" aria-label="${q.q}">${opts(q).map(([v, l, img]) => `<button class="opt${q.k === 'where' && v !== 'Italy' ? ' pl' : ''}" data-v="${v}" data-img="${img}" aria-pressed="${st[q.k] === v}"><i class="th"><img src="${TI(img)}" alt="" decoding="async"></i><span class="nm">${l}</span><svg class="oa" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>`).join('')}</div>`;
-      else if (q.tiles) h += `<div class="tiles">${q.tiles.map(([v, l]) => `<button class="tile" data-v="${v}" aria-pressed="${st[q.k] === v}">${l}</button>`).join('')}</div>`;
+      // 18 Nov, Mark's pick (samples 1A, a bit smaller): the open answer is a quiet text link under the answers, worded as an action, never one more answer
+      const OPEN = {where:['Italy', 'Help me choose'], when:['unsure', 'Help me pick a season'], budget:['0', 'I\u2019m not sure yet']}[q.k], isOpen = v => OPEN && v === OPEN[0];
+      const openBtn = (cls, extra) => OPEN ? `<button class="${cls} un" data-v="${OPEN[0]}"${extra || ''} aria-pressed="${st[q.k] === OPEN[0]}">${OPEN[1]} ${arrow}</button>` : '';
+      const SM = {spring:'Mar to May', summer:'Jun to Aug', autumn:'Sep and Oct', winter:'Nov to Feb'};   // Mark, 18 Nov: three-letter months, less clutter than words
+      if (q.opts) h += `<div class="sq-opts n${opts(q).filter(o => !isOpen(o[0])).length}" role="group" aria-label="${q.q}">${opts(q).filter(o => !isOpen(o[0])).map(([v, l, img]) => `<button class="opt${q.k === 'where' && v !== 'Italy' ? ' pl' : ''}" data-v="${v}" data-img="${img}" aria-pressed="${st[q.k] === v}"><i class="th"><img src="${TI(img)}" alt="" decoding="async"></i><span class="nm">${l}</span><svg class="oa" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>`).join('')}</div>` + openBtn('opt', (o => o ? ` data-img="${o[2]}"` : '')(opts(q).find(o => isOpen(o[0]))));
+      else if (q.tiles) h += `<div class="tiles${q.k === 'when' ? ' lines' : ''}">${q.tiles.filter(t => !isOpen(t[0])).map(([v, l]) => `<button class="tile" data-v="${v}" aria-pressed="${st[q.k] === v}">${q.k === 'when' ? `<span>${l}</span><small>${SM[v] || ''}</small>` : l}</button>`).join('')}</div>` + openBtn('tile');
       else h += `<div class="gst"><button id="gm" aria-label="Fewer guests">−</button><output id="go">${st.guests}</output><button id="gp" aria-label="More guests">+</button></div><p class="gdesc" id="gd">${gdesc(st.guests)}</p><button class="go" id="gnext">Continue</button>`;
     } else if (kind === 'pause') {
       const r = guestPause(); bg(gpimg(st.guests));
@@ -1136,7 +1179,7 @@ addEventListener('DOMContentLoaded', () => {
       // Winter (Mark, 17 Nov 00:45): never blocked; where most hotels and villas close for the winter, one calm line says so on hover or focus
       const WNOTE = {'Lake Como':'Many of the lake\u2019s villas close for the winter. We\u2019ll suggest the ones that stay open, or a date in early spring.', 'Ravello':'Most hotels on the coast close from November to March. We\u2019ll suggest the few that stay open, or a date in early spring.', 'Positano':'Most hotels on the coast close from November to March. We\u2019ll suggest the few that stay open, or a date in early spring.', 'Capri':'Most of the island\u2019s hotels close from November to March. We\u2019ll suggest the few that stay open, or a date in early spring.'}[st.where];
       const wt = stage.querySelector('.tile[data-v=winter]');
-      if (WNOTE && wt) { const note = document.createElement('p'); note.className = 'qs wnote'; note.textContent = WNOTE; stage.querySelector('.tiles').after(note);
+      if (WNOTE && wt) { const note = document.createElement('p'); note.className = 'qs wnote'; note.textContent = WNOTE; (stage.querySelector('.tile.un') || stage.querySelector('.tiles')).after(note);
         const sh = on => note.classList.toggle('on', on); wt.addEventListener('pointerenter', () => sh(true)); wt.addEventListener('pointerleave', () => sh(false)); wt.addEventListener('focus', () => sh(true)); wt.addEventListener('blur', () => sh(false)); }
       stage.querySelector('.tiles').addEventListener('pointerleave', () => s(home, 120));
     }

@@ -14,7 +14,7 @@
   // real client quotes: the site-wide pink quote (.pq in css/site.css), marks added by CSS; invented spoken lines: large ink type
   const after = b => b.after ? `<p class="after">${b.after}</p>` : '';
   const q = (b, real) => real
-    ? `<div class="bt-q"><blockquote class="pq"><p>${b.text}</p><cite>&mdash; ${b.by}</cite></blockquote>${after(b)}</div>`
+    ? `<div class="bt-q"><blockquote class="pq${String(b.text).length <= 110 && !b.small ? ' l' : ''}"><p>${b.text}</p><cite>&mdash; ${b.by}</cite></blockquote>${after(b)}</div>`
     : `<blockquote class="spoken"><p>&ldquo;${b.text}&rdquo;</p>${cite(b)}${b.after ? `<p class="after">${b.after}</p>` : ''}</blockquote>`;
   // a message someone sent, set as plain type with who and when beneath it: never a card or box
   const msg = b => `<div class="bt-said"><p class="said">${b.msg}</p><span class="bt-from">${b.from}, ${b.time}</span></div>`;

@@ -1,0 +1,92 @@
+/* Type system applied to the site (Mark, 18 Nov 15:45: "Gilda, Jost, Cormorant italic. lets take it."). Spec: TYPE-SPEC.md.
+   Loaded LAST on every page outside the wizard, after css/type.css (faces and tokens). This layer is the last word on face,
+   size, line height and weight; tracking stays in the tracking layer of site.css, except where Gilda needs its own.
+   Desktop sizes from 1280px; from 761 to 1279px every Gilda size of 60 and up drops one step; 760px and below is the phone column. */
+
+/* ---------- Gilda Display: titles. 400 only, never italic ---------- */
+:root body :is(h1,h2,h3,.bt-ch,.cv-names,.cv-names *,.bt-end .nx b,.ev figcaption b,.ev-in figcaption b,.ca-pl b,footer h2.f-h,footer h5){font-weight:400!important}
+:root body :is(.bt-ch,.bt-cover h1,.cv-names) i{font-style:normal!important}
+
+/* 120 */ :root body .bt-cover h1{font-size:var(--t-120)!important;line-height:var(--lh-120)!important}
+/* 96  */ :root body.dx:not(.ct):not(.jn) h1,:root body .cv-names,:root body .cv-names *{font-size:var(--t-96)!important;line-height:var(--lh-96)!important}
+/* 76  */ :root body.ct h1,:root body.jn:not(.jp) h1,:root body.jp .jp-head h1:not(.long),:root body.dx h2:not(.f-h):not(.jp-text h2),:root body .bt-ch,:root body .ca-head h2{font-size:var(--t-76)!important;line-height:var(--lh-76)!important}
+/* 60  */ :root body .bt.five .bt-ch,:root body .bt-end .nx b,:root body.home .hand-t h2,:root body.home .k1 h2,:root body.home .ar h2{font-size:var(--t-60)!important;line-height:var(--lh-60)!important}
+/* 48  */ :root body.jp .jp-head h1.long{font-size:var(--t-48)!important;line-height:var(--lh-48)!important}
+/* 40  */ :root body.home .ev-in h2,:root body.home .ev h2{font-size:var(--t-40)!important;line-height:var(--lh-40)!important}
+/* 32  */ :root body.home .ca-pl figcaption b{font-size:var(--t-32)!important;line-height:var(--lh-32)!important}
+/* 24  */ :root body.home .ev-in figcaption b,:root body footer h2.f-h,:root body footer h5{font-size:var(--t-24)!important}
+:root body.home .ev-in figcaption b{line-height:var(--lh-24)!important}
+
+/* Gilda tracking: -0.01em from 60px up, 0 below (Italiana's -0.04em made Gilda's letters touch) */
+:root body :is(h1,h1 *,.dx h2:not(.f-h),.bt-ch,.ca-head h2,.hand-t h2,.k1 h2,.k1 h2 *,.cv-names,.cv-names *,.bt-end .nx b){letter-spacing:var(--tr-display)!important}
+:root body :is(.ev-in h2,.ev-in figcaption b,.ca-pl figcaption b,footer h2.f-h,footer h5,.jp-head h1.long){letter-spacing:var(--tr-gilda)!important}
+
+/* ---------- Jost: everything else. 400 below 24px, 300 from 24px up ---------- */
+:root body{font-weight:400}
+/* 24 lead lines and subheading lines */
+:root body :is(p.line,.hv-line,p.lead,.lead){font-family:var(--sans)!important;font-size:var(--t-24)!important;line-height:var(--lh-24)!important;font-weight:300!important}
+/* 16 body, meta, buttons, links */
+:root body :where(p,.meta,dd,.ca-aside p,.jp-text p,footer p,footer a,.f-col a,.wd-sw button,.tx b,dd a,.bt-plan a,.cv-read,.ca-help,.ca-help *,.go,.go .ha-run,.pill,.pill *,.see,figcaption b,.jr-list b,.jn-more):not(:where(.line,.lead,.hv-line,.cont,.said,.gr,.en,.pq,.pq *,.spoken,.spoken *,.bt-plan p,.bt p,.bt-lede p,.ev-in figcaption b,.ca-pl figcaption b)){font-size:var(--t-16)!important;line-height:var(--lh-16)!important;font-weight:400!important}
+:root body :is(.ev-in figcaption b,.ca-pl figcaption b){font-family:var(--head)!important}
+:root body .pill,:root body .pill *{line-height:inherit!important}
+/* 13 captions, attributions, counts, months, footer lines, language switch */
+:root body :where(figcaption span:not(.see):not(.ha-run),figcaption em,small,small *,dt,.ml,.mx i,.f-bot span,.cv-count,.cv-folio button,.cv-folio button *,.k-tm,.k-tm *,.jsub,.jsub *,.bt-from,.says p.en,.lang,.lang *,.m-lang,.m-lang *){font-size:var(--t-13)!important;line-height:var(--lh-13)!important;font-weight:400!important}
+:root body .mx i.on{font-weight:500!important}
+/* Home: the hero line and the big "Plan your wedding" link keep their steps (24 and 20); the eight places list and its link are 32, at the weight Mark approved */
+:root body.home .k1 .go,:root body.home .k1 .go *,:root body.home .k1 li button{font-size:var(--t-32)!important;line-height:var(--lh-32)!important;font-weight:400!important}
+:root body.home .ca .go,:root body.home .ca .go *,:root body.home .hand .go,:root body.home .hand .go *{font-size:var(--t-20)!important;line-height:var(--lh-20)!important}
+:root body.home .hero-v .hv-line{font-size:var(--t-24)!important;line-height:var(--lh-24)!important;font-weight:300!important}
+:root body .wd-stories a>span{font-size:var(--t-20)!important;line-height:var(--lh-20)!important;font-weight:400!important}
+:root body .spoken cite{font-size:var(--t-13)!important;line-height:var(--lh-13)!important}
+:root body :is(.bt-end .nx span,.jp-back){font-size:var(--t-16)!important;line-height:var(--lh-16)!important;font-weight:400!important}
+:root body .bt-lede small.byl,:root body .bt-lede small.byl *{font-size:var(--t-13)!important}
+/* journal article subheads: Jost 24 */
+:root body.jp .jp-text h2{font-family:var(--sans)!important;font-size:var(--t-24)!important;line-height:var(--lh-24)!important;font-weight:400!important;letter-spacing:var(--tr-heading)!important}
+/* larger Jost lines */
+:root body p.cont{font-size:var(--t-32)!important;line-height:var(--lh-32)!important;font-weight:300!important}
+:root body .bt-lede p{font-size:var(--t-32)!important;line-height:var(--lh-32)!important;font-weight:300!important}
+:root body .bt .bt-said .said{font-size:var(--t-32)!important;line-height:var(--lh-32)!important;font-weight:300!important}
+:root body .bt-plan p{font-size:var(--t-48)!important;line-height:var(--lh-48)!important;font-weight:300!important}
+:root body .says p.gr{font-size:var(--t-76)!important;line-height:var(--lh-76)!important;font-weight:300!important}
+/* the menu stays Jost (Mark, 16 Nov), on the 32 step */
+:root body .menu nav a{font-size:var(--t-32)!important;line-height:48px!important}
+/* the bar's buttons */
+:root body .bar .pill,:root body .bar .pill .mt{font-size:var(--t-16)!important}
+
+/* stories: reading text 20, leads 24, spoken lines 60 */
+:root body.beats{--f-body:400 20px/28px var(--sans);--f-lead:300 24px/32px var(--sans);--f-spoken:300 60px/60px var(--sans)}
+:root body.beats .bt p.lead{font:var(--f-lead)!important}
+:root body.beats .spoken p:not(.after){font:var(--f-spoken)!important}
+:root body.beats .spoken p.after,:root body.beats .bt-q p.after{font:var(--f-body)!important}
+
+/* ---------- Cormorant Garamond italic: quotes (one shared style, raspberry) ---------- */
+:root body .pq p{font-family:var(--accent)!important;font-style:italic!important;font-weight:400!important;font-size:var(--t-32)!important;line-height:var(--lh-q32)!important;letter-spacing:var(--tr-quote)!important}
+:root body .pq.l p{font-size:var(--t-40)!important;line-height:var(--lh-q40)!important}
+:root body .pq.s p{font-size:var(--t-32)!important;line-height:var(--lh-q32)!important}
+:root body .pq p::before{font-family:var(--accent)!important;font-style:italic!important;font-weight:400!important}
+:root body .pq p::after{font-family:var(--accent)!important;font-style:italic!important;font-size:1em!important}
+:root body .pq cite{font-family:var(--sans)!important;font-style:normal!important;font-size:var(--t-13)!important;line-height:var(--lh-13)!important;font-weight:400!important;letter-spacing:var(--tr-caption)!important}
+
+/* L (40) is for short feature quotes in the stories (110 characters or fewer, set in js/beats.js); longer quotes stay M so they never run past five lines */
+/* ---------- Cormorant italic subheadings: only where TYPE-SPEC section 4 allows (today: the two Events lines) ---------- */
+:root body p.line.it-sub{font-family:var(--accent)!important;font-style:italic!important;font-weight:400!important;font-size:var(--t-32)!important;line-height:var(--lh-32)!important;letter-spacing:0!important;color:var(--ink);text-wrap:balance}
+
+/* ---------- 761 to 1279px: Gilda 60 and up drops one step ---------- */
+@media (max-width:1279px){
+  :root body .bt-cover h1{font-size:var(--t-96)!important;line-height:var(--lh-96)!important}
+  :root body.dx:not(.ct):not(.jn) h1,:root body .cv-names,:root body .cv-names *{font-size:var(--t-76)!important;line-height:var(--lh-76)!important}
+  :root body.ct h1,:root body.jn:not(.jp) h1,:root body.jp .jp-head h1:not(.long),:root body.dx h2:not(.f-h):not(.jp-text h2),:root body .bt-ch,:root body .ca-head h2{font-size:var(--t-60)!important;line-height:var(--lh-60)!important}
+  :root body .bt.five .bt-ch,:root body .bt-end .nx b,:root body.home .hand-t h2,:root body.home .k1 h2,:root body.home .ar h2{font-size:var(--t-48)!important;line-height:var(--lh-48)!important}
+}
+/* ---------- phones (760px and below) ---------- */
+@media (max-width:760px){
+  :root body .bt-cover h1{font-size:var(--t-60)!important;line-height:var(--lh-60)!important}
+  :root body.dx:not(.ct):not(.jn) h1,:root body .cv-names,:root body .cv-names *{font-size:var(--t-48)!important;line-height:var(--lh-48)!important}
+  :root body.ct h1,:root body.jn:not(.jp) h1,:root body.jp .jp-head h1:not(.long),:root body.dx h2:not(.f-h):not(.jp-text h2),:root body .bt-ch,:root body .ca-head h2,:root body .bt.five .bt-ch,:root body .bt-end .nx b,:root body.home .hand-t h2,:root body.home .k1 h2,:root body.home .ar h2{font-size:var(--t-40)!important;line-height:var(--lh-40)!important}
+  :root body.jp .jp-head h1.long,:root body.home .ev-in h2,:root body.home .ev h2{font-size:var(--t-32)!important;line-height:var(--lh-32)!important}
+  :root body .pq p,:root body .pq.l p,:root body p.line.it-sub{font-size:var(--t-24)!important;line-height:var(--lh-q24)!important}
+  :root body :is(p.line,.hv-line,p.lead,.lead),:root body .bt-lede p,:root body p.cont,:root body .bt .bt-said .said,:root body.home .k1 .go,:root body.home .k1 .go *,:root body.home .k1 li button{font-size:var(--t-20)!important;line-height:var(--lh-20)!important}
+  :root body .bt-plan p,:root body.beats .spoken p:not(.after){font-size:var(--t-40)!important;line-height:var(--lh-40)!important}
+  :root body .says p.gr{font-size:var(--t-48)!important;line-height:var(--lh-48)!important}
+  :root body .menu nav a{font-size:var(--t-24)!important;line-height:40px!important}
+}
