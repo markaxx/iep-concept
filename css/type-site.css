@@ -62,7 +62,6 @@
 /* ---------- Cormorant Garamond italic: quotes (one shared style, raspberry) ---------- */
 :root body .pq p{font-family:var(--accent)!important;font-style:italic!important;font-weight:400!important;font-size:var(--t-32)!important;line-height:var(--lh-q32)!important;letter-spacing:var(--tr-quote)!important}
 :root body .pq.l p{font-size:var(--t-40)!important;line-height:var(--lh-q40)!important}
-:root body .pq.s p{font-size:var(--t-32)!important;line-height:var(--lh-q32)!important}
 :root body .pq p::before{font-family:var(--accent)!important;font-style:italic!important;font-weight:400!important}
 :root body .pq p::after{font-family:var(--accent)!important;font-style:italic!important;font-size:1em!important}
 :root body .pq cite{font-family:var(--sans)!important;font-style:normal!important;font-size:var(--t-13)!important;line-height:var(--lh-13)!important;font-weight:400!important;letter-spacing:var(--tr-caption)!important}
