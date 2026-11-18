@@ -23,12 +23,12 @@
     <nav>
       <a href="home-v3.html">Home</a><a href="weddings-v3.html">Weddings</a><a href="events-v3.html">Corporate events</a>
       <a href="events-v3.html#private">Private celebrations</a><a href="destinations-v3.html">Destinations</a>
-      <a href="about-v3.html">About us</a><a href="journal-v3.html">Journal</a><a href="contact.html">Contact</a><a href="plan.html">Start planning</a>
+      <a href="about-v3.html">About us</a><a href="journal-v3.html">Journal</a><a href="contact.html">Contact</a><a href="plan.html">Plan your wedding</a>
       <div class="m-foot"><span class="m-lang" aria-label="Languages: English (current); Italian, German and French in the full site"><span aria-current="true">EN</span><span>IT</span><span>DE</span><span>FR</span></span><span>+39 346 688 2388</span><span>Instagram</span></div>
     </nav>
     <div class="m-img"><img src="img/menu.jpg" srcset="img/x900/menu.webp 900w, img/x1600/menu.webp 1600w, img/x2400/menu.webp 1800w" sizes="50vw" alt="" decoding="async"></div>
   </div>
-  <a class="wa" href="https://wa.me/393466882388" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.2z"/></svg></a>`);
+`);
 
   page.insertAdjacentHTML('beforeend', `
   <footer>

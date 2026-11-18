@@ -893,3 +893,13 @@ footer h2.f-h{font-family:var(--head)!important;text-transform:none!important;fo
 ::selection{background:rgba(173,0,66,.16);color:var(--ink)}
 /* C-12: the menu's Close button reads like the bar's buttons (Jost 15/400) */
 .menu .close,.pill.close{font-size:15px!important;font-weight:400!important}
+
+/* ===== Page title sizes (Mark, 18 Nov: "smaller in contact and journal") =====
+   Main pages (Destinations, Weddings, Events, About) share one big title; Contact and the Journal (index, every article,
+   article pages) share one smaller title. Long article titles keep their own fit size so they stay on two or three lines. */
+body.dx:not(.ct):not(.jn) h1{font-size:clamp(52px,7.2vw,104px)!important;line-height:.98!important}
+body.ct h1,body.jn h1:not(.long){font-size:clamp(44px,5vw,72px)!important;line-height:1!important}
+@media (max-width:900px){
+  body.dx:not(.ct):not(.jn) h1{font-size:clamp(44px,12.4vw,54px)!important;line-height:1.02!important}
+  body.ct h1,body.jn h1:not(.long){font-size:clamp(34px,9.6vw,44px)!important;line-height:1.04!important}
+}

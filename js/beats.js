@@ -56,7 +56,7 @@
   ${factsShown ? '' : `<section class="bt closing nofig"><div class="txt">${facts()}</div></section>`}
   <section class="bt-end">
     ${nx ? `<a class="nx" href="${nx.href}"><figure><img loading="lazy" decoding="async" src="${I(nx.cover)}" alt=""></figure><div><b>${nx.title}</b><span>${nx.dek || 'Read the next wedding'} <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>` : ''}
-    <div class="bt-plan"><p>Tell us about yours.</p><a href="plan.html">Start planning</a></div>
+    <div class="bt-plan"><p>Tell us about yours.</p><a href="plan.html">Plan your wedding</a></div>
   </section>`;
 
   // two flat text bands of the same colour never touch: a text-only beat takes the other surface
