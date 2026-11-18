@@ -27,7 +27,7 @@
 (function () {
   var C = window.IEP_REVIEW; if (!C) return;
   var path = location.pathname;
-  if (/\/(plan|story[^/]*)\.html$/.test(path)) return;          // never in the wizard or the stories
+  if (/\/(plan[^/]*|story[^/]*)\.html$/.test(path)) return;          // never in the wizard or the stories
   var K = 'iep-review', S;
   try { S = sessionStorage; } catch (e) { S = null; }
   var get = function (k) { try { return S && S.getItem(k); } catch (e) { return null; } };
