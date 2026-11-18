@@ -801,7 +801,7 @@ body.wizard .bar::after{display:none}
    Leaving: closes at once, over the open menu as well. A CSS fallback opens the page after 2.4s even if no script runs. */
 :root{--arch:1}
 html.arch-ready,html.arch-leave{background:var(--paper)}
-html.arch-ready .page{clip-path:inset(0 50% 0 50%);animation:archopen 1.3s cubic-bezier(.22,1,.36,1) 2.4s forwards}
+html.arch-ready .page{clip-path:inset(0 50% 0 50%);animation:archopen 1.3s cubic-bezier(.45,0,.2,1) 2.4s forwards}   /* page to page (Mark, 18 Nov): starts from rest, as the close ends at rest, then a long settle; was cubic-bezier(.22,1,.36,1), a burst */
 html.arch-ready.arch-go .page{animation-delay:0s}
 @keyframes archopen{from{clip-path:inset(0 50% 0 50%)}to{clip-path:inset(0 0 0 0)}}
 html.arch-leave .page,html.arch-leave .menu.open{animation:archclose .62s cubic-bezier(.65,0,.35,1) forwards}
@@ -904,14 +904,11 @@ body.ct h1,body.jn h1:not(.long){font-size:clamp(44px,5vw,72px)!important;line-h
   body.ct h1,body.jn h1:not(.long){font-size:clamp(34px,9.6vw,44px)!important;line-height:1.04!important}
 }
 
-/* ===== Blinds, direct open (Mark, 18 Nov: on its own the 1.3s opening is "too abrupt"; first load stays fast) =====
-   Page to page is unchanged: close .62s ease-in-out, then open 1.3s cubic-bezier(.22,1,.36,1), whose fast start continues the close.
-   Opened directly, nothing leads into that fast start, so it jumps from stillness. These takes start gently instead (ease-in-out).
-   a (default): 1.0s, the close's own curve, so a direct open reads as the second half of a page-to-page move.
-   b: 1.3s, softer ease-in-out.   c: 0.8s ease-in-out, quickest.   ?open=off restores the old opening. */
+/* ===== Blinds, direct open (Mark, 18 Nov: on its own the 1.3s opening was "too abrupt"; he picked take A) =====
+   Page to page: close .62s ease-in-out, then open 1.3s cubic-bezier(.45,0,.2,1) (gentle start, long settle; 18 Nov).
+   Opened directly, nothing leads into that fast start, so it jumped from stillness. Now 1.0s on the close's own ease-in-out curve,
+   so a direct open reads as the second half of a page-to-page move. */
 html.arch-ready.arch-direct .page{animation-duration:1s;animation-timing-function:cubic-bezier(.65,0,.35,1)}
-html.arch-ready.arch-direct.op-b .page{animation-duration:1.3s;animation-timing-function:cubic-bezier(.45,0,.25,1)}
-html.arch-ready.arch-direct.op-c .page{animation-duration:.8s;animation-timing-function:cubic-bezier(.65,0,.35,1)}
 
 /* ===== Hover arrow speed (Mark, 18 Nov: "a bit faster", it looked jittery near the end) =====
    Was: chevron slide .5s cubic-bezier(.33,1,.68,1) (ease-out cubic), line fade .4s. The chevron travels only about 5px, so that
@@ -920,3 +917,12 @@ html.arch-ready.arch-direct.op-c .page{animation-duration:.8s;animation-timing-f
 svg.ha .ha-mv{transition:transform .3s cubic-bezier(.25,.1,.25,1)}
 svg.ha .ha-bar{transition:opacity .3s cubic-bezier(.25,.1,.25,1)}
 @media (prefers-reduced-motion:reduce){svg.ha .ha-mv,svg.ha .ha-bar{transition:none}}
+
+/* ===== Arrow links (Mark, 18 Nov) =====
+   The inline run that joins words and arrow is structure only: it takes the link's colour, never a page's "span" colour
+   (that turned "Help me choose" the grey of "Not sure yet?"). */
+.ha-run{color:inherit!important}
+/* one word-to-arrow gap everywhere: .46em, the gap Mark called perfect on "Plan your wedding" and "See Sardinia"
+   (the eight places link reaches it as flex gap + .15em). Typed spaces before the arrow are removed in js/site.js. */
+svg.ha:not(.ha-left){margin-left:.46em!important}
+.k1 .go svg.ha{margin-left:.15em!important}

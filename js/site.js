@@ -14,7 +14,7 @@
   <div class="bar${dark ? ' dark' : ''}">
     <div><button class="pill pill-glass mbtn" data-menu aria-label="Menu">${waves}<span class="mt">Menu</span></button></div>
     <a class="logo" href="home-v3.html"><img class="lw" src="brand/logo-white.svg" alt="Italian Event Planners"><img class="lk" src="brand/logo-brand.svg" alt=""></a>
-    <div class="right"><span class="lang" aria-label="Languages: English (current); Italian, German and French in the full site"><span aria-current="true">EN</span><span>IT</span><span>DE</span><span>FR</span></span><a class="pill pill-glass plan-cta" href="plan.html">Plan your wedding</a></div>
+    <div class="right"><span class="lang" aria-label="Languages: English (current); Italian in the full site"><span aria-current="true">EN</span><span>IT</span></span><a class="pill pill-glass plan-cta" href="plan.html">Plan your wedding</a></div>
   </div>`);
 
   document.body.insertAdjacentHTML('beforeend', `
@@ -24,7 +24,7 @@
       <a href="home-v3.html">Home</a><a href="weddings-v3.html">Weddings</a><a href="events-v3.html">Corporate events</a>
       <a href="events-v3.html#private">Private celebrations</a><a href="destinations-v3.html">Destinations</a>
       <a href="about-v3.html">About us</a><a href="journal-v3.html">Journal</a><a href="contact.html">Contact</a><a href="plan.html">Plan your wedding</a>
-      <div class="m-foot"><span class="m-lang" aria-label="Languages: English (current); Italian, German and French in the full site"><span aria-current="true">EN</span><span>IT</span><span>DE</span><span>FR</span></span><span>+39 346 688 2388</span><span>Instagram</span></div>
+      <div class="m-foot"><span class="m-lang" aria-label="Languages: English (current); Italian in the full site"><span aria-current="true">EN</span><span>IT</span></span></div>
     </nav>
     <div class="m-img"><img src="img/menu.jpg" srcset="img/x900/menu.webp 900w, img/x1600/menu.webp 1600w, img/x2400/menu.webp 1800w" sizes="50vw" alt="" decoding="async"></div>
   </div>
@@ -113,6 +113,11 @@
       // Sit the arrow on the baseline like a letter (Mark: its foot aligns with the bottoms of a, b, c). When the words before it are
       // a bare text node in a flex row, wrap the two in one inline run, so the arrow is laid out in the same line as the words.
       let prev = s.previousSibling; while (prev && prev.nodeType === 3 && !prev.textContent.trim()) prev = prev.previousSibling;
+      // one gap everywhere (Mark, 18 Nov): a space typed before the arrow would add itself to the arrow's margin, so drop it
+      if (!left && !/flex/.test(getComputedStyle(s.parentNode).display)) {
+        while (s.previousSibling && s.previousSibling !== prev) s.previousSibling.remove();
+        if (prev && prev.nodeType === 3) prev.textContent = prev.textContent.replace(/\s+$/, '');
+      }
       if (/flex/.test(getComputedStyle(s.parentNode).display) && prev && prev.nodeType === 3) {
         const run = document.createElement('span'); run.className = 'ha-run'; prev.textContent = prev.textContent.replace(/\s+$/, '');
         s.parentNode.insertBefore(run, prev); run.appendChild(prev); run.appendChild(s);
@@ -129,8 +134,30 @@
       host.classList.add('ha-host');
     });
   }
+  // Optical gap (Mark, 18 Nov): the space he sees runs from the ink of the last letter to the ink of the chevron, not between boxes.
+  // Match every arrow link to "Plan your wedding" on Home (0.514 em of clear space at the link's own size); letters with open
+  // right sides (a, e, r) would otherwise look further away than closed ones (y, o). The big Home places list keeps its own gap.
+  const OPT = .514, cv = document.createElement('canvas').getContext('2d');
+  function optical(root) {
+    if (/plan\.html$/.test(location.pathname)) return;
+    (root.querySelectorAll ? root.querySelectorAll('svg.ha:not(.ha-left)') : []).forEach(s => {
+      if (s.closest('.k1 .go')) return;
+      const host = s.closest('a,button') || s.parentNode, w = document.createTreeWalker(host, NodeFilter.SHOW_TEXT);
+      let last = null, t; while ((t = w.nextNode())) if (t.textContent.trim() && (t.compareDocumentPosition(s) & Node.DOCUMENT_POSITION_FOLLOWING)) last = t;
+      if (!last) return;
+      const txt = last.textContent.replace(/\s+$/, ''), rg = document.createRange(); rg.setStart(last, txt.length - 1); rg.setEnd(last, txt.length);
+      const lr = rg.getBoundingClientRect(), ink = [...s.querySelectorAll('path')].map(e => e.getBoundingClientRect()).filter(q => q.width > 0);
+      if (!lr.width || !ink.length) return;   // not laid out yet (closed menu): it keeps the even 0.46 em margin
+      const cs = getComputedStyle(last.parentElement), fs = parseFloat(getComputedStyle(s).fontSize);
+      cv.font = cs.fontStyle + ' ' + cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
+      const gap = Math.min(...ink.map(q => q.left)) - (lr.left + cv.measureText(txt.slice(-1)).actualBoundingBoxRight);
+      const ml = parseFloat(getComputedStyle(s).marginLeft) + OPT * parseFloat(cs.fontSize) - gap;
+      s.style.setProperty('margin-left', r(ml / fs) + 'em', 'important');
+    });
+  }
   upgrade(document);
-  new MutationObserver(ms => ms.forEach(m => m.addedNodes.forEach(x => { if (x.nodeType === 1) { if (x.tagName === 'svg') upgrade(x.parentNode); else upgrade(x); } })))
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(() => optical(document)));
+  new MutationObserver(ms => ms.forEach(m => m.addedNodes.forEach(x => { if (x.nodeType === 1) { if (x.tagName === 'svg') { upgrade(x.parentNode); optical(x.parentNode); } else { upgrade(x); optical(x); } } })))
     .observe(document.body, {childList: true, subtree: true});
 })();
 
@@ -143,11 +170,10 @@
   const h = document.documentElement, page = document.querySelector('.page');
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches, shot = location.search.includes('shot');
   const on = getComputedStyle(h).getPropertyValue('--arch').trim() === '1' && !still && !shot;
-  // direct open (no page closed into this one: first visit, typed address, refresh, outside link) gets its own gentler opening;
-  // ?open=a|b|c|off picks a take for the visit (a is the default; off = the page-to-page opening everywhere). CSS in site.css.
-  let fromLeave = false, take = 'a';
-  try { fromLeave = sessionStorage.getItem('iep-arch') === '1'; const q = new URLSearchParams(location.search).get('open'); if (q) sessionStorage.setItem('iep-open', q); take = sessionStorage.getItem('iep-open') || 'a'; } catch (e) {}
-  if (!fromLeave && take !== 'off') h.classList.add('arch-direct', 'op-' + take);
+  // direct open (no page closed into this one: first visit, typed address, refresh, outside link) gets its own gentler opening (Mark, 18 Nov: take A). CSS in site.css.
+  let fromLeave = false;
+  try { fromLeave = sessionStorage.getItem('iep-arch') === '1'; sessionStorage.removeItem('iep-open'); } catch (e) {}
+  if (!fromLeave) h.classList.add('arch-direct');
   try { sessionStorage.removeItem('iep-arch'); } catch (e) {}
   let leaving = false;
   const open = () => h.classList.remove('arch-ready', 'arch-go', 'arch-leave');
@@ -227,8 +253,10 @@
       const s0 = Math.round(innerHeight * .1);                                    // linger before it starts to move
       const s1 = line ? Math.max(s0 + 1, line.getBoundingClientRect().top + y - D.bottom - 14) : Math.max(s0 + 1, N.top + y - D.top);
       let p = clamp((y - s0) / (s1 - s0)); if (still) p = p >= 1 ? 1 : 0;
-      const k = lerp(1, D.width / N.width, p);
-      const cx = lerp(N.left + N.width / 2, D.left + D.width / 2, p), cy = lerp(N.top + N.height / 2, D.top + D.height / 2, p);
+      // still tied to the scroll, but on a curve (Mark, 18 Nov): ease-in-out cubic, GSAP's power2.inOut, so it leaves the page gently and settles into the bar
+      const e = p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+      const k = lerp(1, D.width / N.width, e);
+      const cx = lerp(N.left + N.width / 2, D.left + D.width / 2, e), cy = lerp(N.top + N.height / 2, D.top + D.height / 2, e);
       fly.style.width = N.width + 'px'; fly.style.height = N.height + 'px';
       fly.style.transform = `translate(${cx - k * N.width / 2}px,${cy - k * N.height / 2}px) scale(${k})`;
       const c = clamp((p - .75) / .25); fb.style.opacity = c; fw.style.opacity = 1 - c;

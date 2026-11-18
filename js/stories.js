@@ -28,6 +28,6 @@ window.STORIES = [
      {steps:[
        {img:'g7', n:'03', h:'10 June 2016', p:['Then the file became an afternoon above the bay.', '&ldquo;Big thanks to wedding planners Ilaria, Silvia, Serena and team for making our wedding in beautiful Sorrento on June 10th 2016 very special.&rdquo;']},
        {img:'svc-private', n:'04', h:'Nothing left to carry', p:['On the day, the only document the couple held was the register they signed.']}]}],
-   quote:['We certainly gave them a challenge with the documentation side with groom being from Scotland, bride being from Kazakhstan but both live in Azerbaijan and marrying in Italy !', 'Kevin & Olga'],
+   quote:['We certainly gave them a challenge with the documentation side, with the groom being from Scotland, the bride being from Kazakhstan, but both living in Azerbaijan and marrying in Italy!', 'Kevin & Olga'],
    facts:[['Couple','Kevin & Olga'],['From','Scotland and Kazakhstan, living in Azerbaijan'],['Where','Sorrento'],['Date','10 June 2016']],
    note:NOTE}];

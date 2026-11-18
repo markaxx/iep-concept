@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Plan your wedding · Italian Event Planners</title>
-<link rel="preload" href="fonts/jost-300.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/jost-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/italiana.woff2" as="font" type="font/woff2" crossorigin><link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=cdd94462">
+<link rel="preload" href="fonts/jost-300.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/jost-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/italiana.woff2" as="font" type="font/woff2" crossorigin><link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=37c96003">
 <style>
 .wizard footer,.wizard .wa{display:none}
 .wizard .bar{background:linear-gradient(180deg,rgba(10,8,6,.45),rgba(10,8,6,0))}
@@ -696,7 +696,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     <button class="back2" id="back">Back</button>
   </section>
 </div>
-<script src="js/site.js?v=4f2f81e9"></script>
+<script src="js/site.js?v=f7f43c1f"></script>
 <script src="js/prefetch.js?v=e788ada9" defer></script>
 <script src="js/countries.js?v=4b133cd4"></script>
 <script src="vendor/gsap.min.js?v=ff86cb55"></script><script src="vendor/ScrollTrigger.min.js?v=2e3b8c36"></script><script src="vendor/lenis.min.js?v=5a44a112"></script><script src="js/motion.js?v=ef56d6a3"></script>
@@ -773,14 +773,14 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     const g = st.guests, b = band(g), wed = (st.type || 'wedding') === 'wedding';
     if (b === 'elope') return wed
       ? {line:'An elopement.', body:'With two of you, you can marry at sunrise and take a boat to an empty cove for lunch. We take care of the documents and the town hall, so the day stays yours.',
-         quote:['The IEP team met us the day before our wedding day to meet at the town hall, and we sat down afterwards over lunch to go through some last minute details.','Amy and Gareth']}
+         quote:['The IEP team met us the day before our wedding day to meet at the town hall, and we sat down afterwards over lunch to go through some last-minute details.','Amy and Gareth']}
       : {line:'Just the two of you.', body:'A celebration for two can go anywhere: one table on a terrace, a boat for the afternoon. We will suggest the places that do it best.'};
     if (b === 'intimate') return {line:`An intimate table for ${g}.`, body:'At this size everyone hears every toast, and we can book places that would never take a hundred guests, such as a family\u2019s private garden.',
-      quote:wed && ['They gave us various options for the different services required and looked after us and our guests on our big day which helped make it the most memorable day of our lives.','Iain']};
+      quote:wed && ['They gave us various options for the different services required and looked after us and our guests on our big day, which helped make it the most memorable day of our lives.','Iain']};
     if (b === 'long') return {line:`One long table for ${g}.`, body:'A real party that still fits around one table. We plan the weekend around it, down to the boat that brings everyone back after dinner.',
-      quote:wed && ['All of our guests mentioned how well planned and co ordinated our wedding was and noticed that the planners were very professional. While being professional, they make you feel like they are your friends and really go above and beyond to cater to your needs.','Divya']};
+      quote:wed && ['All of our guests mentioned how well planned and co-ordinated our wedding was and noticed that the planners were very professional. While being professional, they make you feel like they are your friends and really go above and beyond to cater to your needs.','Divya']};
     return {line:`${g} guests.`, body:'At this size the work is in the logistics: boats, rooms, late flights and every guest\u2019s dietary needs. We arrange all of it, and we are there on the day.',
-      quote:wed && ['Our wedding was a 3 day event, and they were with us the entire time making sure guests arrived to their hotels safely, and even ensuring that gift bags we created for everyone got into the correct rooms.','Amanda and Giacomo']};
+      quote:wed && ['Our wedding was a 3-day event, and they were with us the entire time making sure guests arrived to their hotels safely, and even ensuring that gift bags we created for everyone got into the correct rooms.','Amanda and Giacomo']};
   }
   const ON = {'Capri':'on Capri', 'Lake Como':'on Lake Como', 'Italy':'somewhere in Italy'};
   const FEEL = {beach:'by the sea', lake:'on a lake', terrace:'a terrace at sunset', stone:'a castle or old villa', garden:'a garden under the trees'};
@@ -818,7 +818,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
   function shot(name){   // show a photo already in the box; the newest sits on top so a crossfade never dips to dark
     want = name; const box = $('#bg'), im = [...box.children].find(x => x.dataset.n === name); if (!im) return false;
     const show = () => { if (want !== name || im.classList.contains('on')) return; im.style.zIndex = ++Z; [...box.children].forEach(x => x.classList.toggle('on', x === im)); };
-    const ready = () => (im.decode ? im.decode().catch(() => {}) : Promise.resolve()).then(show);   // decoded before the crossfade starts, so the fade never stalls mid-way
+    const ready = () => im.dataset.dec ? show() : (im.decode ? im.decode().catch(() => {}) : Promise.resolve()).then(() => { im.dataset.dec = 1; show(); });   // decoded before the crossfade starts, so the fade never stalls mid-way; once decoded, it starts in the same frame (18 Nov)
     if (im.complete && im.naturalWidth) ready(); else im.addEventListener('load', ready, {once:true});   // a photo still loading never fades in blank; the current one stays until it is ready
     return true;
   }
@@ -834,6 +834,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
     const box = $('#bg'); box.classList.add('quick');
     [...names, show].forEach(nm => { if (![...box.children].some(x => x.dataset.n === nm)) { const im = new Image(); im.alt = ''; im.dataset.n = nm; im.decoding = 'async'; const go = () => { im.src = `${GI(nm)}`; };
       if (nm === show || document.readyState === 'complete') go(); else addEventListener('load', go, {once:true});   // the photo on show loads now; the other answers' photos wait for the page to finish loading (speed work 17 Nov)
+      im.addEventListener('load', () => { if (im.decode) im.decode().then(() => { im.dataset.dec = 1; }).catch(() => {}); }, {once:true});   // decode each answer's photo ahead, so hover never waits on it (18 Nov)
       box.appendChild(im); } });
     shot(show);
   }
@@ -1026,6 +1027,16 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
       const per = {wedding:520, corporate:380, private:330, other:350}[st.type || 'wedding'];
       const mid = Math.max(15000, per * st.guests * r * (st.when === 'summer' ? 1.12 : 1)),   // a floor, so two guests never read as a token sum
         k = v => '€' + Math.round(v / 1000) + 'k';
+      // 18 Nov (critique D-37, Mark: not accurate, but never misleading): the shown range always sits inside the budget band the visitor chose.
+      // Above the band, it takes the band's top; below it, the band's bottom. "Not sure" or skipped keeps the plain estimate.
+      const band = {'1':[10000, 40000], '2':[40000, 80000], '3':[80000, 150000], '4':[150000, 0]}[st.budget];
+      let elo = mid * .85, ehi = mid * 1.15;
+      if (band) {
+        const [A, B] = band, top = B || Infinity;
+        if (elo >= top) { ehi = B; elo = Math.max(A, B * .8); }
+        else if (ehi <= A) { elo = A; ehi = Math.min(top, A * 1.25); }
+        else { elo = Math.max(elo, A); ehi = Math.min(ehi, top); if (ehi - elo < A * .15) { if (ehi >= top) elo = Math.max(A, top * .8); else ehi = Math.min(top, elo * 1.25); } }
+      }
       // Mark, 16 Nov late: each day is its name and one short plain line, set by the place and setting
       const by0 = ({beach:'by the sea', lake:'by the water', terrace:'on a terrace', stone:'at the villa', garden:'in the garden'})[st.feel] || ({'Tuscany':'among the vines', 'Florence':'in the hills'})[w] || ''; const by = by0 ? ' ' + by0 : '';
       const two = st.guests <= 2, t0 = st.type || 'wedding';
@@ -1037,7 +1048,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
       const sum = [WHEN[st.when] && st.when !== 'unsure' ? WHEN[st.when] : '', st.guests <= 2 ? 'just the two of you' : st.guests + ' guests', FEEL[st.feel] || ''].filter(Boolean).join(', ');
       h = `<p role="heading" aria-level="1" class="ql">${{corporate:'Your three days', private:'Your weekend', other:'Your weekend', wedding:'Your wedding weekend'}[st.type || 'wedding']} ${w === 'Italy' ? 'in Italy' : (ON[w] || 'in ' + w)}</p><p class="qs">${sum[0].toUpperCase() + sum.slice(1)}.</p>
         <div class="pdays">${d.map(([day], x) => `<div class="pday"><h4>${day}</h4><p>${lines[x]}</p></div>`).join('')}</div>
-        <p class="est3"><small>First estimate</small><span>${k(mid * .85)} to ${k(mid * 1.15)}</span></p><button class="go" data-next>Plan it with us</button>`;
+        <p class="est3"><small>${band ? 'First estimate, within your budget' : 'First estimate'}</small><span>${k(elo)} to ${k(ehi)}</span></p><button class="go" data-next>Plan it with us</button>`;
       window.__pim = pim;
     } else if (kind === 'book') {
       bg('ilaria');
@@ -1072,7 +1083,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
       const home = whenRest(), sp = v => v === 'unsure' ? home : seasonImg(v, st.where), tiles = [...stage.querySelectorAll('.tile[data-v]')];
       stack(tiles.map(b => sp(b.dataset.v)), home);
       let hv; const s = (nm, d) => { clearTimeout(hv); hv = setTimeout(() => { if ($('#bg').classList.contains('quick')) shot(nm); }, d); };
-      tiles.forEach(b => { b.addEventListener('pointerenter', () => s(sp(b.dataset.v), 70)); b.addEventListener('focus', () => s(sp(b.dataset.v), 0)); });
+      tiles.forEach(b => { b.addEventListener('pointerenter', () => s(sp(b.dataset.v), 30)); b.addEventListener('focus', () => s(sp(b.dataset.v), 0)); });
       // Winter (Mark, 17 Nov 00:45): never blocked; where most hotels and villas close for the winter, one calm line says so on hover or focus
       const WNOTE = {'Lake Como':'Many of the lake\u2019s villas close for the winter. We\u2019ll suggest the ones that stay open, or a date in early spring.', 'Ravello':'Most hotels on the coast close from November to March. We\u2019ll suggest the few that stay open, or a date in early spring.', 'Positano':'Most hotels on the coast close from November to March. We\u2019ll suggest the few that stay open, or a date in early spring.', 'Capri':'Most of the island\u2019s hotels close from November to March. We\u2019ll suggest the few that stay open, or a date in early spring.'}[st.where];
       const wt = stage.querySelector('.tile[data-v=winter]');
@@ -1090,7 +1101,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
         const rows = [...stage.querySelectorAll('.opt')], follow = () => { if (!$('#bg').classList.contains('quick') || !rows[0].isConnected) return; const mx = Math.max(1, document.documentElement.scrollHeight - innerHeight), y = innerHeight * (.6 + .32 * Math.min(1, scrollY / mx)); let best = rows[0], d = 1e9; rows.forEach(r => { const b = r.getBoundingClientRect(), k = Math.abs(b.top + b.height / 2 - y); if (k < d) { d = k; best = r; } }); shot(best.dataset.img); };
         removeEventListener('scroll', window.__follow || (() => {})); window.__follow = follow; addEventListener('scroll', follow, {passive:true});
       }
-      let hv; stage.querySelectorAll('.opt').forEach(b => { const s = d => { clearTimeout(hv); hv = setTimeout(() => { if ($('#bg').classList.contains('quick')) shot(b.dataset.img); }, d); }; b.addEventListener('pointerenter', () => s(70)); b.addEventListener('focus', () => s(0)); });
+      let hv; stage.querySelectorAll('.opt').forEach(b => { const s = d => { clearTimeout(hv); hv = setTimeout(() => { if ($('#bg').classList.contains('quick')) shot(b.dataset.img); }, d); }; b.addEventListener('pointerenter', () => s(30)); /* 18 Nov: 70 to 30 ms, so the photo answers inside 0.1 s while a fast sweep still skips the rows it crosses */ b.addEventListener('focus', () => s(0)); });
     }
     if ($('#keep')) $('#keep').onclick = () => { st.sent = true; save(); $('.k-act').classList.add('sent'); $('#keep').outerHTML = SENT; };
     if ($('#edit')) $('#edit').onclick = () => { st.sent = false; go(0); };   // back to the first question; every answer stays chosen
