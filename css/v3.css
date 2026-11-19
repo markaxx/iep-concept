@@ -4,7 +4,7 @@
 /* no drawn flourishes */
 h2.flair .s::after{display:none!important}
 /* hero: the line returns, set with care */
-.v3 .hero-v .hv-line{font-family:var(--sans)!important;font-weight:300!important;font-style:normal!important;font-size:clamp(20px,1.6vw,24px)!important;letter-spacing:.02em;text-transform:none;margin-top:34px!important;color:#fff!important;text-shadow:0 1px 18px rgba(34,34,35,.45),0 0 2px rgba(34,34,35,.25)}
+.v3 .hero-v .hv-line{font-family:var(--sans)!important;font-weight:300!important;font-style:normal!important;font-size:clamp(20px,1.6vw,24px)!important;letter-spacing:.02em;text-transform:none;margin-top:34px!important;color:#fff!important;text-shadow:0 1px 18px rgba(20,14,10,.45),0 0 2px rgba(20,14,10,.25)}
 /* a soft, wide shade behind the logo and line so the words hold on the sky and stone */
 
-.v3 .hero-v .hero-copy::after{content:"";position:absolute;left:50%;top:50%;width:150%;height:190%;transform:translate(-50%,-50%);z-index:-1;pointer-events:none;background:radial-gradient(closest-side,rgba(34,34,35,.34),rgba(34,34,35,.16) 55%,rgba(34,34,35,0))}
+.v3 .hero-v .hero-copy::after{content:"";position:absolute;left:50%;top:50%;width:150%;height:190%;transform:translate(-50%,-50%);z-index:-1;pointer-events:none;background:radial-gradient(closest-side,rgba(24,18,12,.34),rgba(24,18,12,.16) 55%,rgba(24,18,12,0))}
