@@ -13,13 +13,13 @@
 .intent .by a{border-bottom:1px solid var(--brand);padding-bottom:4px;margin-left:18px;color:var(--ink)}
 /* 3. arcade: as approved, no changes beyond grade */
 /* 4. stories */
-.stories{position:relative;height:100vh;min-height:720px;overflow:hidden;background:#15110E;color:#fff}
+.stories{position:relative;height:100vh;min-height:720px;overflow:hidden;background:#222223;color:#fff}
 .st-track{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .st-track::-webkit-scrollbar{display:none}
 .st-cover{position:relative;flex:0 0 100%;height:100%;scroll-snap-align:start;overflow:hidden;color:#fff}
 .st-cover img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;transform:scale(1.04);transition:transform 6s cubic-bezier(.2,.7,.2,1)}
 .st-cover.on img{transform:scale(1)}
-.st-cover::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,9,7,.7) 0%,rgba(12,9,7,.35) 45%,rgba(12,9,7,0) 75%),linear-gradient(0deg,rgba(12,9,7,.45),rgba(12,9,7,0) 40%)}
+.st-cover::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(34,34,35,.7) 0%,rgba(34,34,35,.35) 45%,rgba(34,34,35,0) 75%),linear-gradient(0deg,rgba(34,34,35,.45),rgba(34,34,35,0) 40%)}
 .st-copy{position:absolute;left:var(--gut);bottom:15vh;z-index:2;max-width:min(760px,80vw)}
 .st-kicker{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.75)}
 .st-title{font-family:var(--head);font-size:clamp(56px,7vw,124px);line-height:.98;margin-top:22px;letter-spacing:-.01em}
@@ -38,12 +38,12 @@
 /* 5. invitation */
 .invite{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;overflow:hidden}
 .invite>img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover}
-.invite::after{content:"";position:absolute;inset:0;background:rgba(14,11,8,.42)}
+.invite::after{content:"";position:absolute;inset:0;background:rgba(34,34,35,.42)}
 .invite .in{position:relative;z-index:2;padding:0 var(--gut)}
 .invite h2{font-family:var(--head);font-weight:400;font-size:clamp(64px,8vw,150px);line-height:1;color:#fff}
 .invite h2 .s{color:#fff!important}
 .invite .choice{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:6vh}
-.invite .choice button{height:60px;padding:0 30px;background:rgba(16,12,9,.4);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.45);color:#fff;font-family:Jost,sans-serif;font-size:16px;letter-spacing:.01em;text-transform:none;transition:background .35s,color .35s}
+.invite .choice button{height:60px;padding:0 30px;background:rgba(34,34,35,.4);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.45);color:#fff;font-family:Jost,sans-serif;font-size:16px;letter-spacing:.01em;text-transform:none;transition:background .35s,color .35s}
 .invite .choice button:hover{background:#fff;color:var(--ink)}
 .v2 footer{margin-top:0}
 @media (max-width:900px){.st-nav{right:auto;left:var(--gut);bottom:5vh}.st-copy{bottom:16vh}.st-title{font-size:52px}}
@@ -59,7 +59,7 @@
 .st-kicker{margin-top:18px;font-size:15px;letter-spacing:.01em;text-transform:none;color:rgba(255,255,255,.7)}
 .st-read{font-size:16px;letter-spacing:.01em;text-transform:none;font-weight:400}
 .invite>img{object-position:50% 36%}
-.invite::after{background:linear-gradient(180deg,rgba(14,11,8,.5),rgba(14,11,8,.38) 45%,rgba(14,11,8,.62))}
+.invite::after{background:linear-gradient(180deg,rgba(34,34,35,.5),rgba(34,34,35,.38) 45%,rgba(34,34,35,.62))}
 .invite .choice button{background:var(--paper);color:var(--ink);border:0;-webkit-backdrop-filter:none;backdrop-filter:none}
 .invite .choice button:hover{background:var(--brand);color:#fff}
 .v2 .arcade .dest .arr{display:none}

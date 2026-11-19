@@ -35,7 +35,7 @@
     <div class="wrap">
       <div class="f-top">
         <div><a class="logo" href="home-v3.html"><img src="brand/logo-white.svg" alt="Italian Event Planners"></a>
-          <p style="margin-top:22px;max-width:30ch;color:#BFB09B;font-size:16px">Weddings, corporate events and private celebrations across Italy since 2009.</p></div>
+          <p style="margin-top:22px;max-width:30ch;color:#BBBCBC;font-size:16px">Weddings, corporate events and private celebrations across Italy since 2009.</p></div>
         <div><h2 class="f-h">Celebrate</h2><a href="weddings-v3.html">Weddings</a><a href="events-v3.html">Corporate events</a><a href="events-v3.html#private">Private celebrations</a><a href="destinations-v3.html">Destinations</a></div>
         <div><h2 class="f-h">Studio</h2><a href="about-v3.html">About us</a><a href="journal-v3.html">Journal</a><a href="home-v3.html#stories">Kind words</a></div>
         <div><h2 class="f-h">Say hello</h2><a href="contact.html">Contact</a><a href="tel:+393466882388">+39 346 688 2388</a><a href="https://wa.me/393466882388">WhatsApp</a><a href="https://instagram.com/italianeventplanners">Instagram</a><a href="https://facebook.com/italianeventplanners">Facebook</a></div>
@@ -274,6 +274,8 @@
     });
     const want = photos >= 2;
     if (want !== dark) { dark = want; bar.classList.toggle('dark', !dark); bar.classList.toggle('over-photo', dark); }
+    // top bar take C (Mark, 19 Nov): clear at rest; the blur and scrim fade in once content has moved under the bar
+    const mv = scrollY > 2; if (bar._mv !== mv) { bar._mv = mv; bar.classList.toggle('moved', mv); }
   }
   const req = () => { if (!queued) { queued = true; requestAnimationFrame(frame); } };
   addEventListener('scroll', req, {passive: true}); addEventListener('resize', req); addEventListener('load', req);

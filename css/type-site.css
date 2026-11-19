@@ -89,3 +89,4 @@
   :root body .says p.gr{font-size:var(--t-48)!important;line-height:var(--lh-48)!important}
   :root body .menu nav a{font-size:var(--t-24)!important;line-height:40px!important}
 }
+:root body.ev h1{text-wrap:balance}   /* "For all of your big days." (Mark, 19 Nov): breaks For all / of your / big days. instead of leaving "days." alone */
