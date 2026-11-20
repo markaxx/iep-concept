@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Plan your wedding · Italian Event Planners</title>
-<link rel="preload" href="fonts/gilda-display-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/jost-var.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/cormorant-garamond-italic-var.woff2" as="font" type="font/woff2" crossorigin fetchpriority="low"><link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=a2df3b78"><link rel="stylesheet" href="css/type.css?v=0b0550ea">
+<link rel="preload" href="fonts/gilda-display-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/jost-var.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/cormorant-garamond-italic-var.woff2" as="font" type="font/woff2" crossorigin fetchpriority="low"><link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=170a7f8b"><link rel="stylesheet" href="css/type.css?v=a3353428">
 <style>
 .wizard footer,.wizard .wa{display:none}
 .wizard .bar{background:linear-gradient(180deg,rgba(10,8,6,.45),rgba(10,8,6,0))}
-.wz{position:relative;min-height:100vh;color:#fff;background:#14100D;padding:0!important;overflow:hidden}
+.wz{position:relative;min-height:100vh;color:#fff;background:#222223;padding:0!important;overflow:hidden}
 .bg{position:fixed;inset:0;z-index:0}
 .bg img{position:absolute;inset:-4%;width:108%;height:108%;max-width:none;object-fit:cover;opacity:0;transition:opacity 1.3s var(--ease),filter 1.3s var(--ease),transform 8s ease-out;filter:blur(26px) brightness(.36) saturate(.7);transform:scale(1.04)}
 .bg img.on{opacity:1;transform:scale(1)}
 .wz.sharp .bg img{filter:none}
-.bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,9,7,.2),rgba(12,9,7,0) 40%,rgba(12,9,7,.25));transition:background 1s}
-.wz.sharp .bg::after{background:linear-gradient(180deg,rgba(12,9,7,.35) 0%,rgba(12,9,7,0) 30%,rgba(12,9,7,.15) 50%,rgba(12,9,7,.78) 100%)}
+.bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,17,18,.2),rgba(17,17,18,0) 40%,rgba(17,17,18,.25));transition:background 1s}
+.wz.sharp .bg::after{background:linear-gradient(180deg,rgba(17,17,18,.35) 0%,rgba(17,17,18,0) 30%,rgba(17,17,18,.15) 50%,rgba(17,17,18,.78) 100%)}
 .stage{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:150px 6vw 170px}
 .scr{width:100%;display:flex;flex-direction:column;align-items:center;animation:rise .9s var(--ease)}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}}
@@ -43,7 +43,7 @@
 .card:focus-visible{outline:2px solid #fff}
 /* text tiles (budget) */
 .tiles{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:44px;max-width:760px}
-.tile{height:62px;padding:0 30px;background:rgba(16,12,9,.5);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.22);color:#fff;font-family:Jost,sans-serif;font-size:17px;transition:background .35s,color .35s,border-color .35s}
+.tile{height:62px;padding:0 30px;background:rgba(17,17,18,.5);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.22);color:#fff;font-family:Jost,sans-serif;font-size:17px;transition:background .35s,color .35s,border-color .35s}
 .tile:hover{background:#fff;color:var(--ink);border-color:#fff}
 .tile[aria-pressed=true]{background:var(--brand);border-color:var(--brand);color:#fff}
 /* guests */
@@ -140,7 +140,7 @@
 .wz.reply .bg{right:50%}
 .wz.reply .bg img{inset:0;width:100%;height:100%}
 .wz.sharp.reply .bg::after{background:none}
-.wz.reply .stage{margin-left:50%;min-height:100vh;background:#FAF7F2;color:var(--ink);align-items:flex-start;justify-content:center;text-align:left;padding:150px clamp(32px,6vw,110px) 120px}
+.wz.reply .stage{margin-left:50%;min-height:100vh;background:#FFFFFF;color:var(--ink);align-items:flex-start;justify-content:center;text-align:left;padding:150px clamp(32px,6vw,110px) 120px}
 .wz.reply .scr{align-items:flex-start}
 .wz.reply .prog2{display:none}
 .rl{font-family:var(--sans)!important;font-weight:300;font-size:clamp(30px,2.6vw,42px);line-height:1.22;letter-spacing:-.01em;max-width:17em;text-shadow:none;color:var(--ink)}
@@ -148,7 +148,7 @@
 .rq{margin-top:clamp(40px,5vh,64px)}
 .wz.split .rq{max-width:100%;margin-top:clamp(28px,4vh,44px)}
 .wz.split.reply .stage{padding-bottom:clamp(96px,12vh,120px)}
-.wz.reply .go{background:var(--ink);color:#FAF7F2}
+.wz.reply .go{background:var(--ink);color:#FFFFFF}
 .wz.reply .go:hover{background:var(--brand);color:#fff}
 .on-paper .bar{background:none!important}
 #pl{display:none}.prog2{top:118px}
@@ -170,14 +170,14 @@
 .strip.trail span{white-space:pre}
 .strip.trail span.new{display:inline-block;animation:inkin 1.2s cubic-bezier(.2,.7,.2,1) both}
 @keyframes inkin{from{opacity:0;filter:blur(6px);transform:translateY(4px)}}
-.strip.pcard{left:auto;right:28px;bottom:32px;transform:none;width:200px;text-align:left;background:rgba(250,247,242,.96);color:var(--ink);padding:20px 22px 12px}
+.strip.pcard{left:auto;right:28px;bottom:32px;transform:none;width:200px;text-align:left;background:rgba(255,255,255,.96);color:var(--ink);padding:20px 22px 12px}
 .strip.pcard .ct{font-family:var(--head);font-size:24px;margin-bottom:8px}
 .strip.pcard div{display:flex;justify-content:space-between;gap:12px;padding:6px 0;opacity:.38;transition:opacity .8s}
 .strip.pcard div.on{opacity:1}
 .strip.pcard small{font-size:13px;color:var(--ink-2)}
 .strip.pcard b{font-weight:400;font-size:15px;text-align:right}
 .final .strip,.reply .strip,.form .strip{display:none!important}
-.strip.pcard{background:#FAF7F2}.strip.pcard b{font-family:var(--sans);color:var(--ink);margin:0;white-space:normal}
+.strip.pcard{background:#FFFFFF}.strip.pcard b{font-family:var(--sans);color:var(--ink);margin:0;white-space:normal}
 .wz.end .bg{opacity:0;transition:opacity .4s}
 .wz.end .bg img:not(.on){opacity:0!important;transition:none}
 .card{transition:transform .9s cubic-bezier(.2,.7,.2,1),box-shadow .9s cubic-bezier(.2,.7,.2,1)}
@@ -200,11 +200,11 @@
 .bk{display:flex;align-items:center;gap:34px;margin-top:44px}
 .bk .go,.bk .soft{margin-top:0}
 @media (hover:none){.card:active img{transform:scale(1.04)}}
-.wz.form{background:#FAF7F2}
+.wz.form{background:#FFFFFF}
 .wz.form .bg{opacity:0}
 .wz.form .stage{color:var(--ink);align-items:stretch;text-align:left;padding:150px clamp(24px,7vw,140px) 110px}
 .wz.form .scr{align-items:stretch}
-.wz.form .prog2{color:var(--ink-2)}.wz.form .prog2 .tr{background:rgba(42,36,32,.12)}
+.wz.form .prog2{color:var(--ink-2)}.wz.form .prog2 .tr{background:rgba(34,34,35,.12)}
 .wz.form .back2{color:var(--ink-2)}
 .cf{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);column-gap:clamp(40px,7vw,130px);align-items:start;width:min(1240px,100%);margin:0 auto}
 .cf .ql{max-width:12ch}
@@ -214,16 +214,16 @@
 .cf-r label{display:flex;flex-direction:column;gap:10px}
 .cf-r label.wide{grid-column:1/-1}
 .cf-r label span{font-family:var(--sans);font-size:15px;color:var(--ink-2)}
-.cf-r input,.cf-r textarea{font:inherit;font-family:var(--sans);font-weight:300;font-size:20px;color:var(--ink);background:transparent;border:0;border-bottom:1px solid rgba(42,36,32,.28);padding:8px 0 12px;outline:0;resize:vertical;transition:border-color .5s;text-align:left}
+.cf-r input,.cf-r textarea{font:inherit;font-family:var(--sans);font-weight:300;font-size:20px;color:var(--ink);background:transparent;border:0;border-bottom:1px solid rgba(34,34,35,.28);padding:8px 0 12px;outline:0;resize:vertical;transition:border-color .5s;text-align:left}
 .cf-r input:focus,.cf-r textarea:focus{border-color:var(--brand)}
-.cf-r input::placeholder{color:rgba(42,36,32,.32)}
-.cf-r .go{grid-column:1/-1;justify-self:start;margin-top:8px;background:var(--ink);color:#FAF7F2}
+.cf-r input::placeholder{color:rgba(34,34,35,.32)}
+.cf-r .go{grid-column:1/-1;justify-self:start;margin-top:8px;background:var(--ink);color:#FFFFFF}
 .cf-r .go:hover{background:var(--brand)}
 .on-paper .bar{background:none!important}
-.wz.end{background:#14100D}
+.wz.end{background:#222223}
 .wz.end .bg img{filter:none!important}
 .wz.end .bg::after{background:none!important}
-.wz.end::before{content:"";position:fixed;inset:0;z-index:1;background:#FAF7F2;clip-path:inset(100% 0 0 0);animation:paperup 1.1s cubic-bezier(.7,0,.2,1) .55s forwards}
+.wz.end::before{content:"";position:fixed;inset:0;z-index:1;background:#FFFFFF;clip-path:inset(100% 0 0 0);animation:paperup 1.1s cubic-bezier(.7,0,.2,1) .55s forwards}
 @keyframes paperup{to{clip-path:inset(0 0 0 0)}}
 .wz.end .stage{align-items:stretch;text-align:left;padding:120px clamp(24px,6vw,120px) 80px}
 .wz.end .scr{align-items:stretch;animation:none}
@@ -239,7 +239,7 @@
 .k-l.k-call{color:var(--brand);animation-delay:2.45s}
 .k-note{margin-top:34px;max-width:30em;font-size:16px;line-height:1.55;color:var(--ink-2);animation:setin .9s ease 3.1s both}
 .k-act{display:flex;align-items:center;gap:30px;margin-top:30px;animation:setin .9s ease 3.3s both}
-.k-act .go{margin-top:0;background:var(--ink);color:#FAF7F2}.k-act .go:hover{background:var(--brand)}
+.k-act .go{margin-top:0;background:var(--ink);color:#FFFFFF}.k-act .go:hover{background:var(--brand)}
 .k-act .soft{margin-top:0;color:var(--ink);padding:0}
 @keyframes setin{from{opacity:0;transform:translateY(14px)}}
 .end .prog2,.end .back2,.end .strip{display:none!important}
@@ -253,7 +253,7 @@
   .gst{gap:14px}.gst output{font-size:88px!important;min-width:2.4ch}.gst button{width:52px;height:52px}
   }
 /* contact v2 (Mark, 16 Nov): the chosen place in a photo, the plan on a card laid over it, the form on warm paper */
-.wz.form{background:#EFE6D9 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .25 0 0 0 0 .2 0 0 0 0 .15 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wz.form{background:#FFFFFF url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .25 0 0 0 0 .2 0 0 0 0 .15 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .wz.form .stage{padding:140px clamp(24px,6vw,120px) 100px}
 .cf2{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);column-gap:clamp(64px,8vw,150px);align-items:center;width:min(1260px,100%);margin:0 auto;color:var(--ink)}
 .cf-ph{position:relative;margin:0;height:clamp(460px,calc(100vh - 250px),660px)}
@@ -261,10 +261,10 @@
 .cf-im img{width:100%;height:100%;object-fit:cover;transform:scale(1.14);animation:phzoom 4s cubic-bezier(.2,.7,.2,1) .15s forwards}
 @keyframes phup{to{clip-path:inset(0 0 0 0)}}
 @keyframes phzoom{to{transform:scale(1)}}
-.cf-card{position:absolute;right:clamp(-72px,-4.5vw,-36px);bottom:-44px;width:min(310px,76%);padding:30px 32px 32px;background:#FAF7F2;box-shadow:0 34px 60px -30px rgba(42,36,32,.55),0 2px 6px rgba(42,36,32,.06);animation:cardin 1.2s cubic-bezier(.2,.7,.2,1) 1s both}
+.cf-card{position:absolute;right:clamp(-72px,-4.5vw,-36px);bottom:-44px;width:min(310px,76%);padding:30px 32px 32px;background:#FFFFFF;box-shadow:0 34px 60px -30px rgba(34,34,35,.55),0 2px 6px rgba(34,34,35,.06);animation:cardin 1.2s cubic-bezier(.2,.7,.2,1) 1s both}
 @keyframes cardin{from{opacity:0;transform:translate(-70px,36px) rotate(-3deg)}}
 .cc-place{font-family:var(--head);font-size:clamp(34px,2.8vw,42px);line-height:1;margin-bottom:16px}
-.cf-card p:not(.cc-place){font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.55;color:#4a3f37}
+.cf-card p:not(.cc-place){font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.55;color:#53565A}
 .cf-f .ql{font-size:clamp(44px,4vw,64px);max-width:13ch;animation:setin .9s cubic-bezier(.2,.7,.2,1) .35s both}
 .cf-f .qs{color:var(--ink-2);font-size:19px;margin-top:14px;animation:setin .9s cubic-bezier(.2,.7,.2,1) .5s both}
 .cf-f .cf-r{margin-top:44px;padding-top:0;row-gap:30px}
@@ -275,8 +275,8 @@
 .cf-r .fld>span{font-family:var(--sans);font-size:15px;color:var(--ink-2)}
 .cf-r label span,.cf-r .fld>span{transition:color .4s}
 .cf-r label:focus-within span,.cf-r .fld:focus-within>span{color:var(--ink)}
-.cf-r input,.cf-r textarea{border-bottom-color:rgba(42,36,32,.3)}
-.cf-r input:hover,.cf-r textarea:hover{border-bottom-color:rgba(42,36,32,.6)}
+.cf-r input,.cf-r textarea{border-bottom-color:rgba(34,34,35,.3)}
+.cf-r input:hover,.cf-r textarea:hover{border-bottom-color:rgba(34,34,35,.6)}
 .cf-r textarea{min-height:58px}
 /* pickers */
 .cp{position:relative}
@@ -284,18 +284,18 @@
 .cp>input:focus{cursor:text}
 .chev{position:absolute;right:2px;bottom:17px;width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.4;opacity:.6;pointer-events:none;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
 .cp.open .chev{transform:rotate(180deg)}
-.cp-l,.cp-pop{position:absolute;top:calc(100% + 8px);left:0;right:0;z-index:40;background:#FAF7F2;box-shadow:0 28px 50px -24px rgba(42,36,32,.5),0 1px 4px rgba(42,36,32,.08);opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .35s,transform .45s cubic-bezier(.2,.7,.2,1),visibility 0s .45s}
+.cp-l,.cp-pop{position:absolute;top:calc(100% + 8px);left:0;right:0;z-index:40;background:#FFFFFF;box-shadow:0 28px 50px -24px rgba(34,34,35,.5),0 1px 4px rgba(34,34,35,.08);opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .35s,transform .45s cubic-bezier(.2,.7,.2,1),visibility 0s .45s}
 .cp-l{max-height:300px;overflow-y:auto;list-style:none;margin:0;padding:8px 0;overscroll-behavior:contain}
 .cp.open>.cp-l,.cp.open>.cp-pop{opacity:1;visibility:visible;transform:none;transition:opacity .35s,transform .45s cubic-bezier(.2,.7,.2,1),visibility 0s}
 .cp-l li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:10px 20px;font-family:var(--sans);font-weight:300;font-size:17px;cursor:pointer;transition:background .25s}
-.cp-l li em{font-style:normal;font-size:15px;color:#8a7d72}
+.cp-l li em{font-style:normal;font-size:15px;color:#53565A}
 .cp-l li.act,.cp-l li:hover{background:#E8D9C5}
 .cp-l li[aria-selected=true] span{color:var(--brand)}
 .cp-l li.gap{height:10px;padding:0;pointer-events:none;background:none!important}
-.cp-l li.none{color:#8a7d72;cursor:default}
+.cp-l li.none{color:#53565A;cursor:default}
 .tel{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:18px;align-items:end}
-.pp>button{display:flex;align-items:center;gap:10px;height:100%;font-family:var(--sans);font-weight:300;font-size:20px;color:var(--ink);padding:8px 0 12px;border-bottom:1px solid rgba(42,36,32,.3);transition:border-color .4s}
-.pp>button:hover{border-color:rgba(42,36,32,.6)}.pp.open>button{border-color:var(--brand)}
+.pp>button{display:flex;align-items:center;gap:10px;height:100%;font-family:var(--sans);font-weight:300;font-size:20px;color:var(--ink);padding:8px 0 12px;border-bottom:1px solid rgba(34,34,35,.3);transition:border-color .4s}
+.pp>button:hover{border-color:rgba(34,34,35,.6)}.pp.open>button{border-color:var(--brand)}
 .pp>button b{font-weight:300}
 .pp>button .chev{position:static;width:14px;height:14px}
 .pp.open>button .chev{transform:rotate(180deg)}
@@ -354,14 +354,14 @@
 .cf-ph{height:clamp(340px,calc(100vh - 440px),520px)!important}
 .cf-sum2{margin-top:30px;animation:setin .9s cubic-bezier(.2,.7,.2,1) 1s both}
 .cf-sum2 .cc-place{font-family:var(--head);font-size:clamp(30px,2.4vw,38px);line-height:1;margin-bottom:12px}
-.cf-sum2 p:not(.cc-place){font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.6;color:#4a3f37}
-.cp-l,.cp-pop{box-shadow:none!important;border:1px solid rgba(42,36,32,.16)}
+.cf-sum2 p:not(.cc-place){font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.6;color:#53565A}
+.cp-l,.cp-pop{box-shadow:none!important;border:1px solid rgba(34,34,35,.16)}
 .cp-pop .cp-l{border:0}
 @media (max-width:900px){.cf-ph{height:auto!important}.cf-sum2{margin-top:24px}.cf-f{margin-top:44px}}
 /* progress, v3 (Mark, 16 Nov): one full-width raspberry line on the edge of the screen, no words */
 .prog2,.wz.form .prog2,.final .prog2,.wz.reply .prog2{display:block;position:fixed!important;left:0;right:0;top:0;bottom:auto;transform:none;width:100%;z-index:30;pointer-events:none}
 .prog2 .tr,.wz.form .prog2 .tr{width:100%;height:8px;background:rgba(255,255,255,.16);overflow:hidden;transition:background .8s}
-.on-paper .prog2 .tr,.wz.form .prog2 .tr{background:rgba(42,36,32,.1)}
+.on-paper .prog2 .tr,.wz.form .prog2 .tr{background:rgba(34,34,35,.1)}
 .prog2 .tr i{height:100%;background:var(--brand);transition:width 1.6s cubic-bezier(.7,0,.15,1);transform-origin:left center}
 .prog2.tick .tr{animation:bartick 1.5s cubic-bezier(.2,.7,.2,1)}
 @keyframes bartick{0%{height:8px}35%{height:14px}100%{height:8px}}
@@ -373,7 +373,7 @@
 /* Split screen (Mark, 16 Nov). The words sit on paper in the left five twelfths, set low so they share the photograph's bottom edge.
    One photograph bleeds off the top, right and bottom edges, square. Picture questions and their replies share it, so the photo never changes side.
    Answers are plain typed lines; the photo follows the line under the pointer or focus, and that change is the only hover response. */
-.wz.split{display:flow-root;background:#FAF7F2}
+.wz.split{display:flow-root;background:#FFFFFF}
 .wz.split .bg{left:41.667%;right:0;top:0;bottom:0;border-radius:0;overflow:hidden;opacity:1}
 .wz.split .bg::after{display:none}
 .wz.split .bg img{inset:0;width:100%;height:100%;filter:none!important;transform:none!important}
@@ -397,7 +397,7 @@
   /* phone: the photo sits inset under the header, so the menu stays ink on paper and nothing white lies on the photo */
   .wz.split .bg{left:0;right:0;top:72px;bottom:auto;height:40vh}
   .wz.split.pick .bg{height:31vh;z-index:4}   /* pinned above the list, so a tap low on the list still shows its picture */
-  .wz.split.pick::before{content:"";position:fixed;left:0;right:0;top:0;height:calc(72px + 31vh + 6px);background:#FAF7F2;z-index:3}
+  .wz.split.pick::before{content:"";position:fixed;left:0;right:0;top:0;height:calc(72px + 31vh + 6px);background:#FFFFFF;z-index:3}
   .wz.split .stage{width:100%;margin-top:calc(72px + 40vh);min-height:0;justify-content:flex-start;padding:30px 22px 96px;background:transparent}
   .wz.split.pick .stage{margin-top:calc(72px + 31vh)}
   .wz.split .ql{font-size:38px;max-width:none}
@@ -417,23 +417,23 @@
 .take-a .sq-opts{align-items:stretch;width:100%;margin-top:clamp(22px,3.4vh,40px)}
 .take-a .opt{display:flex;align-items:center;justify-content:space-between;width:100%;padding:clamp(7px,1.15vh,12px) 0;color:var(--ink);font-size:clamp(22px,1.7vw,26px)}
 .take-a .opt.pl .nm{font-family:var(--head);font-size:clamp(32px,2.75vw,44px);line-height:1.04;letter-spacing:-.01em}
-.take-a .opt svg.ha{font-size:clamp(28px,2.3vw,36px);margin-left:24px;color:#9b8d80;transition:color .3s cubic-bezier(.25,1,.5,1)}
+.take-a .opt svg.ha{font-size:clamp(28px,2.3vw,36px);margin-left:24px;color:#53565A;transition:color .3s cubic-bezier(.25,1,.5,1)}
 .take-a .opt .nm{transition:transform .45s cubic-bezier(.25,1,.5,1),color .3s cubic-bezier(.25,1,.5,1)}
 .take-a .opt:hover svg.ha,.take-a .opt:focus-visible svg.ha{color:var(--ink)}
 .take-a .opt[aria-pressed=true],.take-a .opt[aria-pressed=true] svg.ha{color:var(--brand)}
 .take-a .opt:not(.pl) .nm{font-size:clamp(24px,1.9vw,28px)}
 
 /* B. The photograph is the hero: it fills the screen between the question and a solid bar of answer buttons. */
-.take-b .wz.split.pick{background:#FAF7F2}
+.take-b .wz.split.pick{background:#FFFFFF}
 .take-b .wz.split.pick .bg{left:clamp(20px,3.9vw,56px);right:clamp(20px,3.9vw,56px);top:clamp(178px,21vh,196px);bottom:calc(56px + clamp(28px,4vh,40px) + 20px);border-radius:8px}
 .take-b .wz.split.pick .stage{width:100%;min-height:100vh;justify-content:space-between;padding:clamp(104px,13vh,120px) clamp(20px,3.9vw,56px) clamp(28px,4vh,40px)}
 .take-b .wz.pick .ql{max-width:none;font-size:clamp(36px,3vw,48px)}
 .take-b .wz.pick .scr{height:calc(100vh - clamp(104px,13vh,120px) - clamp(28px,4vh,40px));justify-content:space-between}
 .take-b .sq-opts{flex-direction:row;flex-wrap:wrap;align-items:stretch;gap:10px;width:100%;margin:0}
-.take-b .sq-opts .opt{flex:1 1 0;min-width:max-content;justify-content:center;align-items:center;height:56px;padding:0 20px;border:1px solid rgba(42,36,32,.28);border-radius:6px;font-size:17px;font-weight:400;color:var(--ink);background:transparent;transition:background .3s cubic-bezier(.25,1,.5,1),color .3s cubic-bezier(.25,1,.5,1),border-color .3s cubic-bezier(.25,1,.5,1)}
+.take-b .sq-opts .opt{flex:1 1 0;min-width:max-content;justify-content:center;align-items:center;height:56px;padding:0 20px;border:1px solid rgba(34,34,35,.28);border-radius:6px;font-size:17px;font-weight:400;color:var(--ink);background:transparent;transition:background .3s cubic-bezier(.25,1,.5,1),color .3s cubic-bezier(.25,1,.5,1),border-color .3s cubic-bezier(.25,1,.5,1)}
 .take-b .sq-opts.n8{display:grid;grid-template-columns:repeat(8,auto)}
 .take-b .opt svg.ha{display:none}
-.take-b .opt:hover,.take-b .opt:focus-visible{background:var(--ink);border-color:var(--ink);color:#FAF7F2}
+.take-b .opt:hover,.take-b .opt:focus-visible{background:var(--ink);border-color:var(--ink);color:#FFFFFF}
 .take-b .opt[aria-pressed=true]{background:var(--brand);border-color:var(--brand);color:#fff}
 .take-b .opt:active{transform:scale(.98)}
 .take-b .wz.split.pick .back2{bottom:auto;top:clamp(104px,13vh,120px);left:auto;right:clamp(20px,3.9vw,56px);line-height:clamp(36px,3vw,48px)}
@@ -442,12 +442,12 @@
 .take-c .wz.pick .stage{justify-content:center;padding-top:120px;padding-bottom:100px}
 .take-c .sq-opts{display:grid;grid-template-columns:1fr;gap:8px;width:100%;margin-top:clamp(22px,3.4vh,36px)}
 .take-c .sq-opts.n8{grid-template-columns:1fr 1fr}
-.take-c .opt{display:flex;align-items:center;gap:14px;width:100%;padding:8px 16px 8px 8px;border:1px solid rgba(42,36,32,.2);border-radius:8px;font-size:17px;font-weight:400;color:var(--ink);transition:border-color .3s cubic-bezier(.25,1,.5,1),background .3s cubic-bezier(.25,1,.5,1)}
+.take-c .opt{display:flex;align-items:center;gap:14px;width:100%;padding:8px 16px 8px 8px;border:1px solid rgba(34,34,35,.2);border-radius:8px;font-size:17px;font-weight:400;color:var(--ink);transition:border-color .3s cubic-bezier(.25,1,.5,1),background .3s cubic-bezier(.25,1,.5,1)}
 .take-c .opt .th{display:block;flex:none;width:56px;height:56px;border-radius:5px;overflow:hidden;background:#E4D9CA}
 .take-c .opt .th img{width:100%;height:100%;object-fit:cover}
 .take-c .opt .nm{flex:1;line-height:1.25}
-.take-c .opt svg.ha{color:#9b8d80}
-.take-c .opt:hover,.take-c .opt:focus-visible{border-color:var(--ink);background:#F1EBE2}
+.take-c .opt svg.ha{color:#53565A}
+.take-c .opt:hover,.take-c .opt:focus-visible{border-color:var(--ink);background:var(--band,#F8EEEF)}
 .take-c .opt:hover svg.ha{color:var(--ink)}
 .take-c .opt[aria-pressed=true]{border-color:var(--brand);background:#F6E9EC}
 .take-c .opt[aria-pressed=true] svg.ha{color:var(--brand)}
@@ -472,7 +472,7 @@
 
 /* Flow v4 (Mark, 16 Nov 18:40): the last answer is acknowledged in one line at the top of the next question, so it costs no tap. */
 .echo{max-width:34em;margin:0 0 clamp(18px,2.6vh,28px);font-family:var(--sans);font-weight:300;font-size:clamp(17px,1.25vw,19px);line-height:1.5;color:rgba(255,255,255,.9);animation:setin .9s cubic-bezier(.2,.7,.2,1) .15s both}
-.wz.split .echo,.wz.form .echo{color:#4a3f37}
+.wz.split .echo,.wz.form .echo{color:#53565A}
 .wz.split .echo.rz{color:var(--ink-2);font-weight:400;font-size:16px;letter-spacing:var(--tr-caption)}
 .resume{margin:0 0 22px;opacity:.9}
 .rb{margin-top:22px;max-width:30em;font-family:var(--sans);font-weight:300;font-size:clamp(18px,1.4vw,21px);line-height:1.5;color:var(--ink)}
@@ -498,20 +498,20 @@
 .wz.split.txt .qs{color:var(--ink-2);margin-top:14px}
 .wz.split.txt .tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));justify-content:stretch;gap:8px;width:100%;max-width:none;margin-top:clamp(24px,3.4vh,36px)}
 .wz.split.txt .tiles .tile:last-child:nth-child(odd){grid-column:1/-1}
-.wz.split.txt .tile{height:60px;padding:0 18px;text-align:left;background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none;border:1px solid rgba(42,36,32,.2);border-radius:8px;color:var(--ink);font-size:17px;transform:none;transition:border-color .3s cubic-bezier(.25,1,.5,1),background .3s cubic-bezier(.25,1,.5,1)}
-.wz.split.txt .tile:hover,.wz.split.txt .tile:focus-visible{background:#F1EBE2;border-color:var(--ink);color:var(--ink);transform:none}
+.wz.split.txt .tile{height:60px;padding:0 18px;text-align:left;background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none;border:1px solid rgba(34,34,35,.2);border-radius:8px;color:var(--ink);font-size:17px;transform:none;transition:border-color .3s cubic-bezier(.25,1,.5,1),background .3s cubic-bezier(.25,1,.5,1)}
+.wz.split.txt .tile:hover,.wz.split.txt .tile:focus-visible{background:var(--band,#F8EEEF);border-color:var(--ink);color:var(--ink);transform:none}
 .wz.split.txt .tile[aria-pressed=true]{border-color:var(--brand);background:#F6E9EC;color:var(--ink)}
 .wz.split.txt .gst{justify-content:flex-start;margin-top:clamp(24px,3.4vh,36px)}
 .wz.split.txt .gst output{color:var(--ink)}
-.wz.split.txt .gst button{border-color:rgba(42,36,32,.3);color:var(--ink);background:transparent}
-.wz.split.txt .gdesc{color:#4a3f37;text-align:left}
+.wz.split.txt .gst button{border-color:rgba(34,34,35,.3);color:var(--ink);background:transparent}
+.wz.split.txt .gdesc{color:#53565A;text-align:left}
 .wz.split.txt .go{margin-top:clamp(24px,3.4vh,36px)}
-.wz.split.txt .go{background:var(--ink);color:#FAF7F2}
+.wz.split.txt .go{background:var(--ink);color:#FFFFFF}
 @media (hover:hover){.wz.split.txt .go:hover{background:var(--brand);color:#fff}}
 .wz.split.txt .stage{justify-content:flex-start;padding-top:clamp(128px,16vh,160px)}
 .wz.split.txt .gst{gap:26px}.wz.split.txt .gst output{min-width:2.4ch;text-align:center}
-@media (hover:hover){.wz.split.txt .gst button:hover{background:#F1EBE2;border-color:var(--ink)}}
-@media (hover:none){.gst button:hover{background:transparent;color:inherit}.wz.split.txt .tile:hover{background:transparent;border-color:rgba(42,36,32,.2)}}
+@media (hover:hover){.wz.split.txt .gst button:hover{background:var(--band,#F8EEEF);border-color:var(--ink)}}
+@media (hover:none){.gst button:hover{background:transparent;color:inherit}.wz.split.txt .tile:hover{background:transparent;border-color:rgba(34,34,35,.2)}}
 @media (max-width:900px){
   .wz.split.reply .bg,.wz.split.txt .bg{position:absolute}
   .wz.split.txt .stage{padding-top:30px}
@@ -538,14 +538,14 @@
 .wz.split.late .soft{color:var(--ink-2);margin-top:18px;padding:0;background:none;border:0}
 .wz.split.late .soft:hover{color:var(--ink)}
 .wz.split.late .fnd-o{display:flex;gap:8px;width:100%;margin-top:12px}.wz.split.late .fnd-o[hidden]{display:none}
-.wz.split.late .fnd-o input{flex:1;height:56px;padding:0 14px;border:1px solid rgba(42,36,32,.3);border-radius:6px;background:transparent;color:var(--ink);font:300 17px var(--sans)}
+.wz.split.late .fnd-o input{flex:1;height:56px;padding:0 14px;border:1px solid rgba(34,34,35,.3);border-radius:6px;background:transparent;color:var(--ink);font:300 17px var(--sans)}
 .wz.split.late .fnd-o .go{margin-top:0}
 .pdays{width:100%;margin-top:clamp(22px,3vh,32px)}
 .pday{padding:14px 0;cursor:default}
 .pday small{display:block;font:400 14px/1.3 var(--sans);color:var(--ink-2)}
 .pday h4{margin:4px 0 0;font:400 clamp(26px,2vw,32px)/1.1 var(--head);color:var(--ink)}
-.pday p{margin:6px 0 0;font:300 16px/1.45 var(--sans);color:#4a3f37}
-.est3{margin-top:clamp(18px,2.6vh,26px);font:300 16px var(--sans);color:#4a3f37}
+.pday p{margin:6px 0 0;font:300 16px/1.45 var(--sans);color:#53565A}
+.est3{margin-top:clamp(18px,2.6vh,26px);font:300 16px var(--sans);color:#53565A}
 .est3 b{margin-left:10px;font:400 clamp(24px,1.9vw,30px) var(--head);color:var(--ink)}
 .wz.split.late .who{display:flex;align-items:center;gap:14px;margin-top:24px;color:var(--ink);text-align:left}
 .wz.split.late .who img{width:56px;height:56px;border-radius:50%;object-fit:cover}
@@ -559,7 +559,7 @@
 .wz.split.late .qs{text-align:left}
 @media (max-width:900px){.wz.split.late .tiles.fnd{grid-template-columns:1fr 1fr}.pday h4{font-size:26px}}
 
-body.on-paper,html:has(body.on-paper){background:#FAF7F2}
+body.on-paper,html:has(body.on-paper){background:#FFFFFF}
 .bg img[data-n="ilaria"]{object-position:50% 18%}
 
 /* Second review (16 Nov ~20:30) */
@@ -605,8 +605,8 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
 .pday{cursor:auto}
 .est3 small{display:block;font:400 14px/1.3 var(--sans);color:var(--ink-2)}
 .est3 span{display:block;margin-top:4px;font:400 20px/1.3 var(--sans);color:var(--ink)}
-.wz.split.late .bk-x{margin-top:16px;max-width:30em;font:300 16px/1.5 var(--sans);color:#4a3f37;text-align:left}
-.wz.end{background:#FAF7F2}.wz.end::before{animation:none;clip-path:none}
+.wz.split.late .bk-x{margin-top:16px;max-width:30em;font:300 16px/1.5 var(--sans);color:#53565A;text-align:left}
+.wz.end{background:#FFFFFF}.wz.end::before{animation:none;clip-path:none}
 .k-door{clip-path:none;animation:setin 1s cubic-bezier(.2,.7,.2,1) .1s both}
 .k-door img{transform:scale(1.06);animation:doorzoom 2.4s cubic-bezier(.2,.7,.2,1) .1s both}
 .k-who{animation:setin .9s cubic-bezier(.2,.7,.2,1) .35s both}
@@ -616,9 +616,9 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
 .k-act.sent{flex-direction:column;align-items:flex-start;row-gap:18px}
 .k-sent{max-width:30em;animation:setin .7s cubic-bezier(.2,.7,.2,1) both}
 .k-sent p{font:400 20px/1.4 var(--sans);color:var(--ink)}
-.k-sent p+p{margin-top:6px;font:300 16px/1.5 var(--sans);color:#4a3f37}
+.k-sent p+p{margin-top:6px;font:300 16px/1.5 var(--sans);color:#53565A}
 /* framed option rows: a small static chevron (the expanding arrow is for inline links only; Mark 16 Nov 21:13) */
-.opt svg.oa{flex:none;width:14px;height:14px;margin-left:auto;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;color:#9b8d80;transition:color .3s cubic-bezier(.25,1,.5,1)}
+.opt svg.oa{flex:none;width:14px;height:14px;margin-left:auto;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;color:#53565A;transition:color .3s cubic-bezier(.25,1,.5,1)}
 .opt:hover svg.oa,.opt:focus-visible svg.oa{color:var(--ink)}.opt[aria-pressed=true] svg.oa{color:var(--brand)}
 /* the site bar's soft blur greys the paper and smears the top of the wizard photo; nothing scrolls under it here on desktop */
 @media (min-width:901px){.bar::before{display:none!important}}
@@ -652,14 +652,14 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
 .cform .cf-r{margin-top:clamp(22px,3.2vh,34px);padding-top:0;column-gap:24px;row-gap:clamp(16px,2.4vh,24px)}
 .cform .cf-r label,.cform .cf-r .fld{gap:0}
 .cform .cf-r label span,.cform .cf-r .fld>span{font-size:14px;line-height:1.3;color:var(--ink-2);letter-spacing:var(--tr-caption,.01em)}
-.cform .cf-r input,.cform .cf-r textarea{font-size:18px;font-weight:400;padding:6px 0 9px;border-bottom-color:rgba(42,36,32,.26)}
+.cform .cf-r input,.cform .cf-r textarea{font-size:18px;font-weight:400;padding:6px 0 9px;border-bottom-color:rgba(34,34,35,.26)}
 .cform .cf-r textarea{min-height:0;height:auto;resize:none;overflow:hidden;line-height:1.4;display:block}
 .cform .chev{bottom:13px}
-.cform .tel{column-gap:0;border-bottom:1px solid rgba(42,36,32,.26);transition:border-color .4s}
-.cform .tel:hover{border-bottom-color:rgba(42,36,32,.6)}.cform .tel:focus-within{border-bottom-color:var(--brand)}
+.cform .tel{column-gap:0;border-bottom:1px solid rgba(34,34,35,.26);transition:border-color .4s}
+.cform .tel:hover{border-bottom-color:rgba(34,34,35,.6)}.cform .tel:focus-within{border-bottom-color:var(--brand)}
 .cform .tel input,.cform .tel input:hover,.cform .pp>button{border-bottom:0!important}
 .cform .pp>button{font-size:18px;font-weight:400;padding:6px 14px 9px 0;margin-right:14px;position:relative}
-.cform .pp>button::after{content:"";position:absolute;right:0;top:9px;bottom:11px;width:1px;background:rgba(42,36,32,.2)}
+.cform .pp>button::after{content:"";position:absolute;right:0;top:9px;bottom:11px;width:1px;background:rgba(34,34,35,.2)}
 .cform .pp>button b{font-weight:400}
 .cform .cf-act{flex-direction:row;align-items:center;gap:28px;margin-top:clamp(4px,1vh,10px)}
 .wz.split.cform .cf-act .go{margin-top:0}
@@ -691,7 +691,7 @@ body.on-paper,html:has(body.on-paper){background:#FAF7F2}
 .back2.alt-hide{display:none!important}
 .alt-back{display:block;margin-top:clamp(22px,3.4vh,36px);padding:0;background:none;border:0;font:400 15px var(--sans);letter-spacing:var(--tr-caption);color:var(--ink);opacity:.68;cursor:pointer}
 .alt-back:hover{opacity:1}
-.wz.split .go{background:var(--ink)!important;color:#FAF7F2!important}
+.wz.split .go{background:var(--ink)!important;color:#FFFFFF!important}
 .cform .cf-act{flex-direction:column;align-items:flex-start;gap:16px!important}
 /* 18 Nov, Mark: "Your plan is ready." is an arrival, not another question. The photo sits inset on the paper like a print and opens with a mask reveal
    (the clip-path reveal used across hospitality and editorial sites), the progress bar sweeps to full, the title rises word by word from behind a line, then the summary and button. */
@@ -769,7 +769,53 @@ addEventListener('DOMContentLoaded', () => {
   .take-a .wz .sq-opts .opt,.take-a .wz .opt .nm,.take-a .wz .opt.pl .nm,.wz.split.txt .tiles.lines .tile:not(.un){font-size:var(--t-20)!important;line-height:var(--lh-20)!important;font-weight:400!important;letter-spacing:var(--tr-body)!important}
 }
 </style>
-</head>
+<style id="r2">
+/* Round 2 picks (Mark, 19 Nov). Wheel A: the budget figures roll and glide; each figure's size, weight and colour are set per frame from its distance to the centre */
+.wz .bw{position:relative;margin-top:28px;height:270px;outline:none;touch-action:none;cursor:ns-resize;user-select:none;-webkit-user-select:none}
+.wz .bw ol{list-style:none;padding:0;margin:0;position:absolute;inset:0}
+.wz .bw li{position:absolute;left:0;top:50%;height:60px;margin:-30px 0 0;padding:0;display:flex;align-items:center;white-space:nowrap;font:440 48px/60px var(--sans);font-variant-numeric:tabular-nums;letter-spacing:-.01em;color:var(--ink);transform-origin:0 50%;cursor:pointer;will-change:transform}
+.wz .bw:focus-visible{outline:1px solid var(--brand);outline-offset:8px}
+.wz .bw-act{display:flex;flex-wrap:wrap;align-items:center;column-gap:28px;row-gap:14px;margin-top:24px}
+.wz .bw-act .go,.wz .bw-act .un{margin-top:0!important;align-self:center!important}
+/* Skip B: "How did you find us?" is the last, optional line of the contact form */
+.cf-r .sel{position:relative;display:block;font-style:normal}
+.wz .cf-r select{width:100%;-webkit-appearance:none;appearance:none;font-family:var(--sans);font-size:var(--t-20);font-weight:400;color:var(--ink);background:transparent;border:0;border-bottom:1px solid rgba(34,34,35,.26);border-radius:0;padding:6px 28px 9px 0;outline:0;cursor:pointer;transition:border-color .5s}
+.wz .cf-r select:hover{border-bottom-color:rgba(34,34,35,.6)}.wz .cf-r select:focus{border-color:var(--brand)}
+.cf-r .sel .chev{position:absolute;right:0;top:50%;width:18px;height:18px;margin-top:-11px;pointer-events:none;fill:none;stroke:var(--ink-2);stroke-width:1.5}
+.cf-r .fnd-l #fot{margin-top:10px}.cf-r .fnd-l #fot[hidden]{display:none}
+/* Last page C: the keepsake. The chosen place as a printed photo with its caption, beside the thank-you */
+.keep.kc{grid-template-columns:minmax(0,46fr) minmax(0,54fr);column-gap:clamp(40px,6vw,96px)}
+.k-print{margin:0;justify-self:end;width:min(100%,560px);background:#fff;padding:14px 14px 0;animation:setin 1s cubic-bezier(.2,.7,.2,1) .1s both}
+.k-print img{display:block;width:100%;aspect-ratio:8/7;max-height:58vh;object-fit:cover}
+.k-print figcaption{padding:14px 2px 16px;font:400 var(--t-24)/var(--lh-24) var(--head);letter-spacing:var(--tr-gilda);color:var(--ink)}
+.k-print small{display:block;margin-top:2px;font:400 var(--t-13)/var(--lh-13) var(--sans);letter-spacing:var(--tr-caption);color:var(--ink-2)}
+.wz .kc .k-who{font-size:var(--t-48)!important;line-height:var(--lh-48)!important;letter-spacing:var(--tr-gilda)!important;max-width:11em}
+.kc .k-l{margin-top:18px;max-width:22em}
+.kc .k-act{margin-top:34px}
+.kc .k-act .k-edit{margin-top:0;align-self:auto;animation:none}
+@media (max-width:900px){.keep.kc{grid-template-columns:1fr;row-gap:32px}.k-print{justify-self:start;width:min(340px,86vw)}.wz .kc .k-who{font-size:var(--t-32)!important;line-height:var(--lh-32)!important}}
+/* Reimplementation check, 19 Nov: old and new at 1440 */
+/* Gilda is wider than Italiana: 12ch broke the contact title onto three lines; 8.4em keeps the two lines it had */
+.wz.cform .cf3 .ql{max-width:8.4em}
+/* Last page C on the band tint (coordinator check, 19 Nov): the white print and its caption read as a card again, as in the sample; no shadow */
+.wz.end,.wz.end::before{background:var(--band,#F8EEEF)!important}.wz.end .bg{visibility:hidden}body.wizard:has(.wz.end){background:var(--band,#F8EEEF)}
+/* Title width (20 Nov): 15ch measured on Gilda is narrower than it was on Italiana (396 against 488 px), so "Where do you see it?" broke onto two lines; the titles take the column width again, as on 18 Nov */
+.wz.split .ql{max-width:488px}
+/* the weekend plan title ("Your wedding weekend" is 505 px in Gilda 48) takes 24 px of the gutter, so it stays on two lines as on 18 Nov */
+@media (min-width:901px){.wz.split .scr:has(.pdays) .ql{max-width:512px;margin-right:-24px}}
+/* Gilda line heights (Mark, 19 Nov: tighten line spacing on every use of this font): 32/36, 40/40, 48/48, 60 and up unchanged, as in css/type.css.
+   The padding keeps the gap under each title to the next element where it was (half of the 4 px taken out of the last line). */
+.wz .ql,.wz.split .rl,.wz p.ql,.wz.split p.rl,.wz .kc .k-who{line-height:var(--lh-g48)!important;padding-bottom:2px}
+.wz.split.arrive .rl,.wz.split.arrive p.rl{line-height:var(--lh-76)!important;padding-bottom:0}
+@media (max-width:900px){.wz .ql,.wz.split .rl,.wz p.ql,.wz.split p.rl,.wz .kc .k-who{line-height:var(--lh-g32)!important;padding-bottom:2px}.wz.split.arrive .rl,.wz.split.arrive p.rl,.wz .k-who:not(.kc .k-who){line-height:var(--lh-g48)!important}}
+</style>
+<style id="btn">
+/* Buttons A (Mark, 19 Nov, screens/ui/buttons.html): one solid ink button on paper; hover raspberry, 200 ms ease-out; pressed 97 %, 100 ms; one focus ring; 48 px tall */
+.wz.wz .go{border-radius:0!important;height:48px!important;padding:0 24px!important;background:var(--ink)!important;color:#FFFFFF!important;transition:background-color .2s cubic-bezier(0,0,.2,1),color .2s cubic-bezier(0,0,.2,1),transform .1s cubic-bezier(0,0,.2,1)!important}
+@media (hover:hover){.wz.wz .go:hover{background:var(--brand)!important;color:#FFFFFF!important}}
+.wz.wz .go:active{transform:scale(.97)}
+.wz button:focus-visible,.wz .bw:focus-visible,.wz a:focus-visible{outline:2px solid var(--brand)!important;outline-offset:3px!important}
+</style></head>
 <body class="wizard">
 <div class="page">
   <section class="wz" id="wz">
@@ -780,7 +826,7 @@ addEventListener('DOMContentLoaded', () => {
     <button class="back2" id="back">Back</button>
   </section>
 </div>
-<script src="js/site.js?v=f7f43c1f"></script>
+<script src="js/site.js?v=868924d0"></script>
 <script src="js/prefetch.js?v=e788ada9" defer></script>
 <script src="js/countries.js?v=4b133cd4"></script>
 <script src="vendor/gsap.min.js?v=ff86cb55"></script><script src="vendor/ScrollTrigger.min.js?v=2e3b8c36"></script><script src="vendor/lenis.min.js?v=5a44a112"></script><script src="js/motion.js?v=ef56d6a3"></script>
@@ -820,7 +866,7 @@ addEventListener('DOMContentLoaded', () => {
     {k:'guests', q:'How many guests are you expecting?', s:'A rough number is fine.', guests:true},
     {k:'feel', q:'What setting do you picture?', s:'', opts:[
       ['beach','By the sea','n/wq-sea'],['lake','On a lake','n/wq-lake'],['terrace','A terrace at sunset','n/wq-sunset-deck'],['stone','A castle or old villa','n/set-castle-rock'],['garden','A garden under the trees','n/wq-garden-terrace']],},
-    {k:'budget', q:'What budget do you have in mind?', s:'So we only suggest what fits. It stays between us.', tiles:[['1','Under €40k'],['2','€40k to €80k'],['3','€80k to €150k'],['4','Over €150k'],['0','Not sure yet']]},
+    {k:'budget', q:'What budget do you have in mind?', s:'So we only suggest what fits. It stays between us.', wheel:true},   // Mark, 19 Nov: wheel A from samples round 2 (a flat roll that glides); the answer is a figure, kept with its band for the copy and the photo
   ];
   const VOICE = new URLSearchParams(location.search).get('voice') === '2' ? 1 : 0;   // two registers for the place lines, for Mark to choose
   const ECHO = {
@@ -895,7 +941,7 @@ addEventListener('DOMContentLoaded', () => {
 
   const COVER = {where:'n/wq-cover'};   // the photo a picture question opens on, before the visitor points at anything
   PQ.later(Q.flatMap(q => (q.opts || []).map(o => o[2])));   // every question's option photos, in question order, after load (was: all at once on first run)
-  const SCR = [['q',0],['q',1],['q',2],['q',3],['pause'],['q',4],['q',5],['bpause'],['ready'],['contact'],['found'],['plan'],['book'],['done']];
+  const SCR = [['q',0],['q',1],['q',2],['q',3],['pause'],['q',4],['q',5],['bpause'],['ready'],['contact'],['plan'],['book'],['done']];
   let n = 0;
 
   let Z = 1;
@@ -965,6 +1011,8 @@ addEventListener('DOMContentLoaded', () => {
   const BIMG = {'Lake Como':'n/wq-como-2', 'Ravello':'n/wq-coast-lemons', 'Positano':'n/wq-coast-lemons', 'Capri':'n/wq-coast-lemons', 'Tuscany':'n/wq-season-autumn', 'Florence':'n/wq-olive-avenue', 'Puglia':'n/pug-sea-arch', 'Italy':'n/wq-coast-lemons'};
   const PIMG = {'Lake Como':'n/como-headland-villa', 'Ravello':'n/wq-ravello-2', 'Positano':'n/pos-cypress-coast', 'Capri':'wz-capri-tile', 'Tuscany':'wz-italy', 'Florence':'wz-italy', 'Puglia':'n/pug-polignano-day', 'Italy':'wz-italy'};
   const RIMG = 'n/rd-marquee-table';
+  // the keepsake on the last page (19 Nov): a photo of the place not shown earlier in the run. Florence has no second photo yet, so it repeats its "Where" photo.
+  const KIMG = w => ({'Lake Como':'n/como-cypress-villa', 'Ravello':'wz-c-ravello', 'Positano':'n/positano-bay', 'Capri':'n/capri-faraglioni', 'Tuscany':'wz-tuscany-tile', 'Florence':'wz-c-florence', 'Puglia':'n/pug-trulli-lane'})[w] || 'n/spare-cinque-terre';
   // "When would you like to marry?": pointing at a season shows it. The chosen place in that season where we hold one, otherwise Italy in that season (ledger: Wizard: when).
   const SEASON = {spring:'n/wq-season-spring', summer:'n/wq-season-summer', autumn:'n/wq-season-autumn', winter:'n/wq-season-winter'};
   const SEASON_AT = {'Italy':{spring:'n/it-spring-tulips', autumn:'n/it-autumn-slope', winter:'n/it-winter-vineyard'}, 'Lake Como':{spring:'n/como-spring-garden', summer:'n/wq-season-como-summer'}, 'Ravello':{spring:'n/wq-season-ravello-spring', summer:'n/wq-season-summer'}, 'Positano':{spring:'n/wq-season-coast-spring', summer:'n/wq-season-positano-summer'}, 'Capri':{spring:'n/wq-season-coast-spring', summer:'wz-c-capri'}, 'Tuscany':{summer:'wz-c-tuscany', autumn:'n/wq-season-tuscany-autumn'}};
@@ -972,7 +1020,7 @@ addEventListener('DOMContentLoaded', () => {
   PQ.later(['wz-t-wedding', 'n/ev-candelabra-hall', 'n/sd-sea-table', 'n/bud-gazebo', 'n/sd-lantern-table', 'n/wq-guests-elope', 'n/gx-intimate-candle', 'n/gx-long-candle', 'n/gx-grand-library', 'n/px-lunch-two', 'n/wq-terrace', 'n/wq-garden', 'w-coast', 'ilaria', RIMG, ...Object.values(SEASON)]);
   // the chosen place's own photos (contact, budget, plan, its seasons) jump the queue once the place is known, instead of all eight places' photos up front (speed work 17 Nov)
   const WIMG = {'Lake Como':'n/como-varenna-dusk', 'Ravello':'n/wq-ravello-3', 'Positano':'n/pos-pastel-hillside', 'Capri':'n/capri-dawn', 'Tuscany':'n/wq-olive-avenue', 'Florence':'wz-florence', 'Puglia':'wz-c-puglia', 'Italy':'n/como-cypress-villa'};
-  const placeFor = w => w ? [WIMG[w] || WIMG.Italy, BIMG[w], ...Object.values(SEASON_AT[w] || {}), CIMG[w], PIMG[w]] : [];   // later screens' photos arrive in the background, so no screen waits on one
+  const placeFor = w => w ? [WIMG[w] || WIMG.Italy, BIMG[w], ...Object.values(SEASON_AT[w] || {}), CIMG[w], PIMG[w], KIMG(w)] : [];   // later screens' photos arrive in the background, so no screen waits on one
   const FOUND = [['friend','A friend or family'],['instagram','Instagram'],['google','Google'],['press','A magazine or blog'],['venue','A venue or supplier'],['other','Somewhere else']];
   // Silent attribution, kept for the whole visit: UTM tags and referrer from the first page the visitor landed on.
   const SRC = (() => {
@@ -986,7 +1034,7 @@ addEventListener('DOMContentLoaded', () => {
   })();
   // What a submitted enquiry carries (the prototype logs it; the live site would post it to the CRM).
   function lead(){
-    return {submitted_at: new Date().toISOString(), type: st.type || 'wedding', place: st.where, season: st.when, guests: st.guests, setting: st.feel, budget: st.budget,
+    return {submitted_at: new Date().toISOString(), type: st.type || 'wedding', place: st.where, season: st.when, guests: st.guests, setting: st.feel, budget: st.budget, budget_eur: st.budgetK ? st.budgetK * 1000 : null,
       name: st.name, partner: st.partner || '', company: st.company || '', email: st.email || '', country: st.country, phone: st.tel ? st.dial + ' ' + st.tel : '', notes: st.notes || '',
       found_answer: st.found || '', found_other: st.foundText || '', ...SRC, variant_end: END};
   }
@@ -1051,6 +1099,44 @@ addEventListener('DOMContentLoaded', () => {
         g.animate([{transform:'none', opacity:1, filter:'blur(0)'}, {transform:`translateY(${-.42 * up}em)`, opacity:0, filter:'blur(3px)'}], {duration:D * .8, easing:E, fill:'forwards'}).onfinish = () => g.remove(); }
     }
   }
+  // Budget wheel (samples round 2, A): five figures in three tiers; each figure's size, weight and colour follow its distance to the centre on every frame.
+  const BV = [20,25,30,35,40,45,50,60,70,80,90,100,120,150,180,200,250,300], bfmt = v => '\u20ac' + v + 'k' + (v === 300 ? '+' : '');
+  const bcode = v => v < 40 ? '1' : v < 80 ? '2' : v < 150 ? '3' : '4';   // the figure's band picks the answer screen's copy and photo
+  function wheel(el, start, onPick){
+    const TR = {y:[0,58,102,136], s:[1,.56,.42,.36], w:[440,330,280,260], a:[1,.72,.34,0], c:[0,1,1,1]}, rgb = (v, d) => { const m = getComputedStyle(document.documentElement).getPropertyValue(v).trim().match(/^#([0-9a-f]{6})$/i); return m ? [0, 2, 4].map(i => parseInt(m[1].slice(i, i + 2), 16)) : d; }, INK = rgb('--ink', [34,34,35]), INK2 = rgb('--ink-2', [83,86,90]);
+    const lerp = (arr, d) => { const a = Math.min(Math.abs(d), arr.length - 1), i = Math.floor(a), f = a - i; return i >= arr.length - 1 ? arr[arr.length - 1] : arr[i] + (arr[i + 1] - arr[i]) * f; };
+    const ol = el.querySelector('ol'); ol.innerHTML = BV.map(v => `<li>${bfmt(v)}</li>`).join(''); const li = [...ol.children];
+    const max = BV.length - 1, clamp = (x, lo = 0, hi = max) => Math.max(lo, Math.min(hi, x));
+    let p = start, t = start, raf = 0, last = 0, idle = 0, dragging = false;
+    const paint = () => {
+      for (let k = 0; k < li.length; k++) { const d = k - p, st2 = li[k].style;
+        if (Math.abs(d) > 3.2) { if (st2.visibility !== 'hidden') st2.visibility = 'hidden'; continue; }
+        st2.visibility = ''; const cm = lerp(TR.c, d);
+        st2.transform = `translate3d(0,${(Math.sign(d) * lerp(TR.y, d)).toFixed(2)}px,0) scale(${lerp(TR.s, d).toFixed(4)})`;
+        st2.opacity = lerp(TR.a, d).toFixed(3); st2.fontWeight = Math.round(lerp(TR.w, d));
+        st2.color = `rgb(${INK.map((c, j) => Math.round(c + (INK2[j] - c) * cm)).join(',')})`;
+      }
+      const i = Math.round(clamp(t)); el.setAttribute('aria-valuenow', BV[i] * 1000); el.setAttribute('aria-valuetext', bfmt(BV[i]));
+    };
+    const tick = now => { const dt = Math.min(.05, (now - last) / 1000 || .016); last = now; if (dragging || !el.isConnected) { raf = 0; return; }
+      p += (t - p) * (1 - Math.exp(-dt / .085)); if (Math.abs(t - p) < .0015) p = t; paint(); raf = p === t ? 0 : requestAnimationFrame(tick); };   // critically damped glide, no overshoot
+    const go = () => { if (RM.matches) { p = t; paint(); return; } if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); } };
+    const setT = x => { t = x; go(); };
+    el.addEventListener('wheel', e => { e.preventDefault(); const dy = e.deltaY * (e.deltaMode === 1 ? 40 : 1);
+      t = clamp(t + dy / 110, -.25, max + .25); go(); clearTimeout(idle); idle = setTimeout(() => { t = clamp(Math.round(t)); go(); }, 130); }, {passive:false});
+    let y0 = 0, p0 = 0, hist = [];
+    el.addEventListener('pointerdown', e => { dragging = true; y0 = e.clientY; p0 = p; hist = [[e.timeStamp, p0]]; el.setPointerCapture(e.pointerId); });
+    el.addEventListener('pointermove', e => { if (!dragging) return; let x = p0 + (y0 - e.clientY) / 56; if (x < 0) x = -Math.min(.3, -x * .35); if (x > max) x = max + Math.min(.3, (x - max) * .35);
+      p = t = x; paint(); hist.push([e.timeStamp, x]); if (hist.length > 6) hist.shift(); });
+    const up = e => { if (!dragging) return; dragging = false;
+      if (Math.abs(e.clientY - y0) <= 4) { const hit = document.elementFromPoint(e.clientX, e.clientY), l = hit && hit.closest('li'); if (l && li.includes(l)) setT(li.indexOf(l)); else setT(clamp(Math.round(p))); return; }
+      const [t0, x0] = hist[0], [t1, x1] = hist[hist.length - 1], v = t1 > t0 ? (x1 - x0) / ((t1 - t0) / 1000) : 0;
+      t = clamp(Math.round(p + v * .16)); go(); };
+    el.addEventListener('pointerup', up); el.addEventListener('pointercancel', up);
+    el.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); onPick(BV[Math.round(clamp(t))]); return; }
+      const d = {ArrowUp:-1, ArrowLeft:-1, ArrowDown:1, ArrowRight:1, PageUp:-4, PageDown:4, Home:-99, End:99}[e.key]; if (d === undefined) return; e.preventDefault(); setT(clamp(Math.round(t) + d)); });
+    paint(); return {value: () => BV[Math.round(clamp(t))]};
+  }
   function render(){
     const [kind, i] = SCR[n]; let h = '';
     const pause = kind === 'pause' || kind === 'bpause' || kind === 'ready'; wz.classList.toggle('sharp', pause); wz.classList.toggle('reply', pause); wz.classList.toggle('final', kind === 'done'); wz.classList.toggle('form', false); wz.classList.toggle('cform', kind === 'contact'); wz.classList.toggle('end', kind === 'done'); wz.classList.toggle('arrive', kind === 'ready'); const pickQ = kind === 'q' && !!Q[i].opts, textQ = kind === 'q' && !Q[i].opts && TXT === 'split', late = ['contact','found','plan','book'].includes(kind), split = pause || pickQ || textQ || late; wz.classList.toggle('txt', textQ || late); wz.classList.toggle('late', late); wz.classList.toggle('pause-g', kind === 'pause'); wz.classList.toggle('split', split); wz.classList.toggle('pick', pickQ); document.body.classList.toggle('split-on', split);
@@ -1068,6 +1154,7 @@ addEventListener('DOMContentLoaded', () => {
       const SM = {spring:'Mar to May', summer:'Jun to Aug', autumn:'Sep and Oct', winter:'Nov to Feb'};   // Mark, 18 Nov: three-letter months, less clutter than words
       if (q.opts) h += `<div class="sq-opts n${opts(q).filter(o => !isOpen(o[0])).length}" role="group" aria-label="${q.q}">${opts(q).filter(o => !isOpen(o[0])).map(([v, l, img]) => `<button class="opt${q.k === 'where' && v !== 'Italy' ? ' pl' : ''}" data-v="${v}" data-img="${img}" aria-pressed="${st[q.k] === v}"><i class="th"><img src="${TI(img)}" alt="" decoding="async"></i><span class="nm">${l}</span><svg class="oa" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>`).join('')}</div>` + openBtn('opt', (o => o ? ` data-img="${o[2]}"` : '')(opts(q).find(o => isOpen(o[0]))));
       else if (q.tiles) h += `<div class="tiles${q.k === 'when' ? ' lines' : ''}">${q.tiles.filter(t => !isOpen(t[0])).map(([v, l]) => `<button class="tile" data-v="${v}" aria-pressed="${st[q.k] === v}">${q.k === 'when' ? `<span>${l}</span><small>${SM[v] || ''}</small>` : l}</button>`).join('')}</div>` + openBtn('tile');
+      else if (q.wheel) h += `<div class="bw" id="bw" tabindex="0" role="slider" aria-label="Budget" aria-valuemin="${BV[0] * 1000}" aria-valuemax="${BV[BV.length - 1] * 1000}" data-lenis-prevent><ol></ol></div><div class="bw-act"><button class="go" id="bnext">Continue</button>${openBtn('tile')}</div>`;
       else h += `<div class="gst"><button id="gm" aria-label="Fewer guests">−</button><output id="go">${st.guests}</output><button id="gp" aria-label="More guests">+</button></div><p class="gdesc" id="gd">${gdesc(st.guests)}</p><button class="go" id="gnext">Continue</button>`;
     } else if (kind === 'pause') {
       const r = guestPause(); bg(gpimg(st.guests));
@@ -1106,6 +1193,7 @@ addEventListener('DOMContentLoaded', () => {
           <div class="fld"><span id="ccl-l">Your country</span><div class="cp" id="cp"><input id="cci" role="combobox" aria-labelledby="ccl-l" aria-expanded="false" aria-controls="ccl" aria-autocomplete="list" autocomplete="off" spellcheck="false"><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg><ul class="cp-l" id="ccl" role="listbox" data-lenis-prevent></ul></div></div>
           <div class="fld"><span id="tel-l">Phone number</span><div class="tel"><div class="cp pp" id="pp"><button type="button" id="ppb" aria-haspopup="listbox" aria-expanded="false" aria-label="Country dialling code"><b id="ppv">+44</b><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button><div class="cp-pop" id="ppp"><input id="pps" placeholder="Country or code" autocomplete="off" spellcheck="false" aria-label="Search dialling codes"><ul class="cp-l" id="ppl" role="listbox" data-lenis-prevent></ul></div></div><input type="tel" id="tel" autocomplete="tel-national" aria-labelledby="tel-l"></div></div>
           <label class="wide"><span>Anything we should know? (optional)</span><textarea rows="1" id="nt"></textarea></label>
+          <label class="wide fnd-l"><span>How did you find us? (optional)</span><i class="sel"><select id="fd"><option value=""></option>${FOUND.map(([k, l]) => `<option value="${k}"${st.found === k ? ' selected' : ''}>${l}</option>`).join('')}</select><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></i><input id="fot" placeholder="Tell us where" aria-label="Where you found us" value="${v('foundText')}"${st.found === 'other' ? '' : ' hidden'}></label>
           <div class="cf-act"><button class="go" data-next>Send me my plan</button><button type="button" class="soft" data-cskip>Skip for now</button></div></div></div>`;
     } else if (kind === 'found') {
       bg('w-coast');
@@ -1121,7 +1209,7 @@ addEventListener('DOMContentLoaded', () => {
         k = v => '€' + Math.round(v / 1000) + 'k';
       // 18 Nov (critique D-37, Mark: not accurate, but never misleading): the shown range always sits inside the budget band the visitor chose.
       // Above the band, it takes the band's top; below it, the band's bottom. "Not sure" or skipped keeps the plain estimate.
-      const band = {'1':[10000, 40000], '2':[40000, 80000], '3':[80000, 150000], '4':[150000, 0]}[st.budget];
+      const band = st.budgetK ? (st.budgetK >= 300 ? [300000, 0] : [st.budgetK * 700, st.budgetK * 1000]) : {'1':[10000, 40000], '2':[40000, 80000], '3':[80000, 150000], '4':[150000, 0]}[st.budget];   // 19 Nov: the wheel gives a figure, so the estimate stays at or under it
       let elo = mid * .85, ehi = mid * 1.15;
       if (band) {
         const [A, B] = band, top = B || Infinity;
@@ -1152,20 +1240,22 @@ addEventListener('DOMContentLoaded', () => {
         <div class="slots2">${sl.map(([d, t, iso]) => `<button class="tile" data-slot="${d} at ${t}" data-when="${iso}" aria-pressed="${st.slot === d + ' at ' + t}"><small>${d}</small>${t}</button>`).join('')}</div>
         <p class="qs">Times listed according to ${tz} (Rome).</p><div class="bk"><button class="go" data-next id="cfm"${st.slot ? '' : ' disabled'}>Confirm my call</button><button class="soft" data-skip>Not yet, just send my plan</button></div>`;
     } else {
-      const img = ENDIMG[st.type || 'wedding'], where = !st.where || st.where === 'Italy' ? 'Italy' : st.where;
+      // Mark, 19 Nov: the last page is samples round 2, C, "the keepsake": the chosen place returns as a printed photo with its caption, beside the thank-you
+      const where = !st.where || st.where === 'Italy' ? 'Italy' : st.where, img = KIMG(st.where);
       bg(img);
-      const who = st.type === 'corporate' && st.company ? st.company : st.name && st.partner ? st.name + ' &amp; ' + st.partner : st.name ? st.name.replace(/\s+(and|&)\s+/i, ' &amp; ') : ({wedding:'Your wedding', private:'Your celebration', corporate:'Your gathering', other:'Your celebration'})[st.type || 'wedding'];
-      const season = st.when && st.when !== 'unsure' ? ', in ' + WHEN[st.when].toLowerCase() : '';
-      const lines = [where + season, (st.guests <= 2 ? 'Just the two of you' : st.guests + ' guests, ' + gdesc(st.guests).replace(/^./, c => c.toLowerCase())), FEEL[st.feel] ? FEEL[st.feel][0].toUpperCase() + FEEL[st.feel].slice(1) : 'The setting, still to choose'];
-      const call = st.slot ? `A call with Ilaria, ${st.slot}` : '';
-      const after = st.slot ? 'After the call we send the first venues.' : 'Whenever you are ready, we can talk it through.';
-      const acts = `<div class="k-act${st.sent ? ' sent' : ''}">${st.sent ? SENT : `<button class="go" id="keep">Email me this plan</button>`}${st.slot ? '<button class="soft" id="ics">Add the call to my calendar</button>' : '<button class="soft" id="rebook">Book a call with Ilaria</button>'}</div>`;
-      const text = `<p class="k-who">${who}</p><p class="k-place">${lines[0]}</p><p class="k-l">${lines[1]}</p><p class="k-l">${lines[2]}</p>${call ? `<p class="k-l k-call">${call}</p>` : ''}<button class="k-edit" id="edit">Change my answers ${arrow}</button><p class="k-note">${after}</p>${acts}`;
-      h = `<div class="keep"><figure class="k-door"><img src="${GI(img)}" alt=""></figure><div class="k-text">${text}</div></div>`;
+      const nm = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+      const who = st.type === 'corporate' && st.company ? nm(st.company) : st.name && st.partner ? nm(st.name) + ' and ' + nm(st.partner) : st.name ? nm(st.name).replace(/\s+(&amp;|&)\s+/i, ' and ') : '';
+      const cap1 = (where === 'Italy' ? 'Somewhere in Italy' : where) + (st.when && st.when !== 'unsure' ? ', in ' + WHEN[st.when].toLowerCase() : '');
+      const by = ({beach:'by the sea', lake:'by the water', terrace:'on a terrace at sunset', stone:'in an old villa', garden:'in a garden'})[st.feel] || '';
+      const cap2 = (st.guests <= 2 ? 'Just the two of you' : st.guests + ' guests') + (by ? ', ' + by : '');
+      const DAY = {Mon:'Monday', Tue:'Tuesday', Wed:'Wednesday', Thu:'Thursday', Fri:'Friday'}, slot = st.slot ? (DAY[st.slot.split(' ')[0]] || st.slot.split(' ')[0]) + ' at ' + st.slot.split(' at ')[1] : '';
+      const lead1 = slot ? 'We have your plan, and Ilaria will call you on ' + slot + '.' : 'We have your plan. Whenever you’re ready, Ilaria can talk it through with you.';
+      const acts = `<div class="k-act${st.sent ? ' sent' : ''}">${st.sent ? SENT : `<button class="go" id="keep">Email me this plan</button>`}<button class="soft k-edit" id="edit">Change my answers</button></div>`;
+      h = `<div class="keep kc"><figure class="k-print"><img src="${GI(img)}" alt=""><figcaption>${cap1}<small>${cap2}</small></figcaption></figure><div class="k-text"><p role="heading" aria-level="1" class="k-who">Thank you${who ? ', ' + who : ''}.</p><p class="k-l">${lead1}</p>${acts}</div></div>`;
     }
     stage.innerHTML = `<div class="scr">${h}</div>`;
     const kd = stage.querySelector('.k-door'); if (kd) { const ki = kd.querySelector('img'), ld = () => kd.classList.add('ld'); if (ki.complete && ki.naturalWidth) ld(); else ki.onload = ki.onerror = ld; }   // the door opens once its photo is there
-    if (['plan', 'book'].includes(kind)) { const pre = new Image(); pre.src = `${GI(ENDIMG[st.type || 'wedding'])}`; }   // warm the ending's photo while the visitor reads
+    if (['plan', 'book'].includes(kind)) { const pre = new Image(); pre.src = `${GI(KIMG(st.where))}`; }   // warm the ending's photo while the visitor reads
     progress(); strip();
     // "When" rests on (and "Not sure yet" shows) a photo of its own, never one of the season photos (Mark, 17 Nov 00:44)
     // WIMG moved to the top level (speed work 17 Nov) so the place's "When" photo can be loaded as soon as the place is chosen
@@ -1204,19 +1294,21 @@ addEventListener('DOMContentLoaded', () => {
     };
     const q = Q[i];
     stage.querySelectorAll('.opt,.tile[data-v]').forEach(b => b.onclick = () => {
-      st[q.k] = b.dataset.v; ans.add(q.k); if (b.dataset.img) pick[q.k] = b.dataset.img;
+      st[q.k] = b.dataset.v; ans.add(q.k); if (q.k === 'budget') st.budgetK = 0; if (b.dataset.img) pick[q.k] = b.dataset.img;
       if (!st.reassured && ((q.k === 'where' && b.dataset.v === 'Italy') || b.dataset.v === 'unsure' || (q.k === 'budget' && b.dataset.v === '0'))) { st.reassured = 1; st.rzPending = q.k !== 'budget' ? 1 : 0; }   // budget's own answer screen already says "We'll work it out together."
       stage.querySelectorAll('.opt,.tile').forEach(x => x.setAttribute('aria-pressed', x === b));
       strip(); if (b.dataset.img) { shot(b.dataset.img); $('#bg').classList.remove('quick'); }
       setTimeout(() => go(n + 1), b.dataset.img && matchMedia('(hover:none)').matches ? 420 : 300);   // the choice registers, then the flow moves on
     });
     stage.querySelectorAll('[data-slot]').forEach(b => b.onclick = () => { st.slot = b.dataset.slot; st.slotIso = b.dataset.when; if ($('#cfm')) $('#cfm').disabled = false; stage.querySelectorAll('[data-slot]').forEach(x => x.setAttribute('aria-pressed', x === b)); });
-    stage.querySelectorAll('[data-next]').forEach(b => b.onclick = () => { if ($('#nm')) { st.name = $('#nm').value.trim(); st.partner = $('#pn') ? $('#pn').value.trim() : ''; st.company = $('#co') ? $('#co').value.trim() : ''; st.email = $('#em').value.trim(); st.tel = $('#tel').value.trim(); st.notes = $('#nt').value.trim(); if (!cfOk()) return; } go(n + 1); });
+    stage.querySelectorAll('[data-next]').forEach(b => b.onclick = () => { if ($('#nm')) { st.name = $('#nm').value.trim(); st.partner = $('#pn') ? $('#pn').value.trim() : ''; st.company = $('#co') ? $('#co').value.trim() : ''; st.email = $('#em').value.trim(); st.tel = $('#tel').value.trim(); st.notes = $('#nt').value.trim(); if (!cfOk()) return; foundIn(); } go(n + 1); });
+    function foundIn(){ if (!$('#fd')) return; st.found = $('#fd').value; st.foundText = st.found === 'other' ? $('#fot').value.trim() : ''; window.IEP_LEAD = lead(); console.log('[IEP lead]', window.IEP_LEAD); }
+    if ($('#fd')) $('#fd').onchange = () => { const o = $('#fd').value === 'other'; $('#fot').hidden = !o; if (o) $('#fot').focus(); };
     // Contact form: names and a valid email are required (partner for weddings, company for corporate); country, phone and notes stay optional. Skip moves on without details.
     function cfMsg(el, msg){ const w = el.closest('label'), old = w.querySelector('.err'); w.classList.toggle('bad', !!msg); if (old) old.remove(); el.removeAttribute('aria-invalid'); el.removeAttribute('aria-describedby'); if (!msg) return; const e = document.createElement('small'); e.className = 'err'; e.id = el.id + '-err'; e.textContent = msg; w.append(e); el.setAttribute('aria-invalid', 'true'); el.setAttribute('aria-describedby', e.id); }
     function cfOk(){ const t = st.type || 'wedding', em = st.email, chk = [['#nm', st.name ? '' : 'Please add your name.'], ['#pn', t === 'wedding' && !st.partner ? 'Please add your partner\u2019s name.' : ''], ['#co', t === 'corporate' && !st.company ? 'Please add your company name.' : ''], ['#em', !em ? 'Please add your email so we can send the plan.' : /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)*\.[^\s@.]{2,}$/.test(em) ? '' : 'That email doesn\u2019t look complete.']].filter(([s]) => $(s)); chk.forEach(([s, m]) => cfMsg($(s), m)); const bad = chk.find(([, m]) => m); if (bad) $(bad[0]).focus(); return !bad; }
     ['#nm', '#pn', '#co', '#em'].forEach(s => { const el = $(s); if (el) el.addEventListener('input', () => { if (el.closest('label').classList.contains('bad')) cfMsg(el, ''); }); });
-    stage.querySelectorAll('[data-cskip]').forEach(b => b.onclick = () => { Object.assign(st, {name: '', partner: '', company: '', email: '', tel: '', notes: ''}); go(n + 1); });
+    stage.querySelectorAll('[data-cskip]').forEach(b => b.onclick = () => { Object.assign(st, {name: '', partner: '', company: '', email: '', tel: '', notes: ''}); foundIn(); go(n + 1); });
     if ($('#cp')) countryPicker();
     const fdone = () => { window.IEP_LEAD = lead(); console.log('[IEP lead]', window.IEP_LEAD); go(n + 1); };
     stage.querySelectorAll('[data-f]').forEach(b => b.onclick = () => {
@@ -1235,11 +1327,16 @@ addEventListener('DOMContentLoaded', () => {
       $('#gm').onclick = () => set(S[Math.max(0, S.indexOf(st.guests) - 1)]); $('#gp').onclick = () => set(S[Math.min(S.length - 1, S.indexOf(st.guests) + 1)]);
       $('#gnext').onclick = () => { pick.guests = gimg(st.guests); ans.add('guests'); go(n + 1); };
     }
+    if ($('#bw')) {
+      const pickB = v => { st.budgetK = v; st.budget = bcode(v); ans.add('budget'); go(n + 1); };
+      const w = wheel($('#bw'), Math.max(0, BV.indexOf(st.budgetK || 80)), pickB);   // opens on \u20ac80k, or the figure chosen before
+      $('#bnext').onclick = () => pickB(w.value());
+    }
     if ($('#resume')) $('#resume').onclick = () => { const d = saved(); Object.assign(st, d.st); Object.assign(pick, d.pick); d.ans.forEach(a => ans.add(a)); go(d.n); };
   }
   // Corporate is a shorter flow (coordinator spec, 16 Nov): no guest pause and no setting question, which are written for couples.
   const skip = k => SCR[k] && ((SCR[k][0] === 'q' && pre.has(SCR[k][1])) || (st.type === 'corporate' && (SCR[k][0] === 'pause' || (SCR[k][0] === 'q' && Q[SCR[k][1]].k === 'feel'))));
-  function go(k){ PQ.want(placeFor(st.where)); const d = k > n ? 1 : -1; while (skip(k)) k += d; n = Math.max(0, Math.min(SCR.length - 1, k)); render(); scrollTo({top: 0, behavior: "instant"}); save(); }
+  function go(k){ PQ.want(placeFor(st.where)); const d = k > n ? 1 : -1; while (skip(k)) k += d; n = Math.max(0, Math.min(SCR.length - 1, k)); render(); scrollTo({top: 0, behavior: "instant"}); save(); [0, 450, 1300].forEach(t => setTimeout(() => dispatchEvent(new Event('scroll')), t)); }   // the top bar re-reads what is under it (site.js listens to scroll); a new wizard screen changes the page without scrolling
   // Resilience: answers persist in this browser; coming back offers to continue.
   const KEY = 'iep-plan';
   function save(){ try { if (n > 0) localStorage.setItem(KEY, JSON.stringify({st, pick, ans:[...ans], n, at:Date.now()})); } catch (e) {} }

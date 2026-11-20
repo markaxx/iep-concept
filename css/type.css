@@ -7,6 +7,10 @@
 @font-face{font-family:"Cormorant Garamond";src:url(../fonts/cormorant-garamond-italic-var.woff2) format("woff2");font-weight:300 700;font-style:italic;font-display:swap}
 
 :root{
+  /* spacing scale (SPACING-SPEC.md, Mark 19 Nov): every gap in a rebuilt piece is one of these; gaps never come from a line height */
+  --s-4:4px; --s-8:8px; --s-12:12px; --s-16:16px; --s-24:24px; --s-32:32px;
+  --s-48:48px; --s-64:64px; --s-96:96px; --s-128:128px;
+
   /* faces */
   --head:"Gilda Display",Didot,"Bodoni 72",Georgia,serif;
   --sans:Jost,"Futura","Century Gothic",system-ui,sans-serif;
@@ -27,6 +31,8 @@
   --t-120:120px; --lh-120:108px;
 
   /* quotes are italic and need more air than titles */
+  /* Gilda titles at 32 to 48 (Mark 19 Nov: "tighten line spacing on elements like this"): their own leading, Jost at these sizes keeps --lh-* */
+  --lh-g32:36px; --lh-g40:40px; --lh-g48:48px;
   --lh-q40:48px; --lh-q32:40px; --lh-q24:32px;
 
   /* tracking: Gilda is heavier and wider than Italiana, so display tracking drops from -0.04em to -0.01em (as rendered on the page Mark chose) */

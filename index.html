@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Italian Event Planners</title>
 <meta name="description" content="Weddings and celebrations across Italy since 2009.">
-<link rel="preload" href="fonts/gilda-display-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/jost-var.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/cormorant-garamond-italic-var.woff2" as="font" type="font/woff2" crossorigin fetchpriority="low"><link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=a2df3b78"><link rel="stylesheet" href="css/v2.css?v=f826ce25"><link rel="stylesheet" href="css/v3.css?v=b418b175">
+<link rel="preload" href="fonts/gilda-display-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/jost-var.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/cormorant-garamond-italic-var.woff2" as="font" type="font/woff2" crossorigin fetchpriority="low"><link rel="icon" href="brand/logo-brand.svg"><link rel="stylesheet" href="vendor/lenis.css?v=e2d7eba5"><link rel="stylesheet" href="css/site.css?v=170a7f8b"><link rel="stylesheet" href="css/v2.css?v=67433d64"><link rel="stylesheet" href="css/v3.css?v=d46a03aa">
 <style>
 /* events */
 section.ev{
@@ -70,106 +70,83 @@ section.ev{
 }
 
 /* stories */
-/* ---------- Real weddings, one cover at a time ---------- */
+/* ---------- Real weddings: version A (Mark 20 Nov, after Harvey; samples in screens/stories-redo) ----------
+   Photo left, one size on every slide (9:10, 8px corners); the couple's words centred on the photo's height as the main element
+   (Cormorant italic 48/56, raspberry, opening mark hung in the margin, as in the approved sample); names and place small under it;
+   one progress line per couple under the whole row: past ones full, the current one fills over the dwell, each one opens its couple. */
 .cv{
   --ease:cubic-bezier(.2,.7,.2,1);
-  --h:clamp(540px,80vh,820px);            /* print height */
-  --w:calc(var(--h) * .8);                /* 4:5 print */
-  --gap:calc(var(--w) * .236);            /* print width / phi^3 */
-  --lead:clamp(48px,7vw,128px);           /* left margin before the print */
-  position:relative;background:var(--stone);color:var(--ink);
-  padding:calc((100vh - var(--h)) / 2 - 18px) 0 calc((100vh - var(--h)) / 2 + 18px)!important;
+  --h:clamp(520px,71vh,640px);            /* print height: 640 at 900 */
+  --w:calc(var(--h) * .9);                /* 9:10 print */
+  --lead:clamp(48px,7vw,128px);           /* left and right margin */
+  position:relative;background:var(--band);color:var(--ink);
+  padding:calc((100vh - var(--h) - var(--s-24) - 48px) / 2 + 36px) 0 calc((100vh - var(--h) - var(--s-24) - 48px) / 2 - 36px)!important;   /* print, then the 48px progress row whose line sits 48 under the print; 36px below centre so the top bar clears the print (130px at 900, as in the sample) */
   min-height:100vh;overflow:hidden;
 }
-/* a faint, warmer linen layer so the stone is not a flat fill (grain itself comes from body::after) */
-.cv::before{content:"";position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(120% 90% at 22% 40%,rgba(251,248,244,.55),rgba(251,248,244,0) 60%)}
-
 .cv-stage{position:relative;display:grid;touch-action:pan-y}
 .cv-slide{grid-area:1/1;position:relative;visibility:hidden}
 .cv-slide.is-on,.cv-slide.is-out{visibility:visible}
 .cv-slide.is-out{pointer-events:none}
-
-.cv-link{display:grid;grid-template-columns:var(--lead) var(--w) var(--gap) minmax(0,1fr) var(--lead);
-  grid-template-rows:var(--h) auto;color:inherit}
+.cv-slide.is-on{z-index:2}.cv-slide.is-out{z-index:1}
+.cv-link{display:grid;grid-template-columns:var(--lead) var(--w) var(--s-96) minmax(0,1fr) var(--lead);grid-template-rows:var(--h);color:inherit}
 
 /* the print */
-.cv-fig{grid-column:2;grid-row:1/3;margin:0;display:grid;grid-template-rows:var(--h) auto}
-.cv-img{position:relative;overflow:hidden;background:#d9cfc1}
-.cv-slide.is-on{z-index:2}.cv-slide.is-out{z-index:1}
-.cv-img img{width:100%;height:100%;max-width:none;object-fit:cover;
-  transform:scale(1.02);opacity:0;
+.cv-fig{grid-column:2;grid-row:1;margin:0;height:var(--h)}
+.cv-img{position:relative;display:block;height:100%;overflow:hidden;border-radius:8px;background:var(--band)}
+.cv-img img{width:100%;height:100%;max-width:none;object-fit:cover;transform:scale(1.02);opacity:0;
   transition:opacity .9s cubic-bezier(.22,1,.36,1),transform 2.2s cubic-bezier(.22,1,.36,1)}
 .cv-slide.is-on .cv-img img{opacity:1;transform:scale(1)}
 .cv-slide.is-out .cv-img img{opacity:1;transform:scale(1);transition:none}
 
-.cv-fig figcaption{margin-top:16px;font-size:15px;line-height:1.4;letter-spacing:.02em;color:#6E6357;
-  opacity:0;transition:opacity 1s var(--ease) .2s}
-.cv-slide.is-on figcaption{opacity:1;transition-delay:.66s}
-.cv-slide.is-out figcaption{opacity:0;transition:opacity .35s var(--ease)}
-
-/* the type: anchored to the bottom edge of the print */
-.cv-type{grid-column:4;grid-row:1;align-self:end;max-width:600px}
+/* the words, centred on the print's height */
+.cv-type{grid-column:4;grid-row:1;align-self:center;max-width:574px}
+/* take D (Mark 20 Nov 12:49, "lets do D"): the couple's names large in Gilda (76/72), then the site's own large quote, .pq.l (Cormorant 40/48 in raspberry,
+   big opening mark above the first line), place, link; the block centred on the print's height. Mark: A had lost "the large quote style" and "the large couple title" */
+.cv-nm{margin:0;font-family:var(--head);font-weight:400;font-size:var(--t-76);line-height:var(--lh-76);letter-spacing:var(--tr-display,-.01em);color:var(--ink)}
+.cv-nm span{display:block;white-space:nowrap}
+.cv-type .pq{margin-top:var(--s-96);max-width:none}   /* the big opening mark hangs inside the 96 */
+.cv-where{margin-top:var(--s-24);color:var(--ink-2)}
+.cv-read{display:inline-flex;align-items:center;gap:12px;margin-top:var(--s-32);color:var(--ink)}
+.cv-read svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.3;transition:transform .8s var(--ease)}
+.cv-hit{color:inherit}
+@media (hover:hover){.cv-read:hover{color:var(--brand)}}   /* hover lives on the link only (Mark, 18 Nov) */
+.cv-read:focus-visible{color:var(--brand);outline:none}.cv-read:focus-visible svg{transform:translateX(5px)}
 .cv-type>*{opacity:0;transform:translateY(8px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
 .cv-slide.is-on .cv-type>*{opacity:1;transform:none}
-.cv-slide.is-on .cv-names{transition-delay:.3s}.cv-slide.is-on .cv-line{transition-delay:.42s}.cv-slide.is-on .cv-read{transition-delay:.54s,.54s,0s}
+.cv-slide.is-on .cv-nm{transition-delay:.3s}.cv-slide.is-on .cv-type .pq{transition-delay:.38s}.cv-slide.is-on .cv-where{transition-delay:.46s}
+.cv-slide.is-on .cv-read{transition-property:opacity,transform,color;transition-duration:.7s,.7s,.15s;transition-delay:.54s,.54s,0s}
 .cv-slide.is-out .cv-type>*{opacity:0;transform:none;transition:opacity .3s ease-out}
-/* type leaves first, the next couple's names arrive once it has gone: never two names on screen at once */
+/* the words leave first; the next couple's arrive once they have gone, so two quotes are never on screen at once */
 
-.cv-names{font-family:var(--head);font-weight:400;font-size:clamp(60px,7.2vw,104px);line-height:.94;letter-spacing:-.02em;color:var(--ink)}
-.cv-names span{display:block;white-space:nowrap}
-.cv-line{margin:clamp(28px,4.4vh,44px) 0 0}
-/* the couple's own words in the client's raspberry, in Jost; Italiana is kept for names only */
-/* the opening mark is set large in Cormorant italic and hung in the margin, so the words keep a clean left edge */
-.cv-read{display:inline-flex;align-items:center;gap:12px;margin-top:clamp(30px,4.6vh,46px);font-size:17px;font-weight:400;letter-spacing:.01em;color:var(--ink)}
-.cv-slide.is-on .cv-read{transition-property:opacity,transform,color;transition-duration:.7s,.7s,.15s}
-.cv-read svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.3;transition:transform .8s var(--ease)}
-.cv-hit{color:inherit;display:block}.cv-names a{display:inline}
-@media (hover:hover){.cv-read:hover{color:var(--brand)}}   /* hover lives on the link only (Mark, 18 Nov): the names and photo stay clickable without lighting it */
-.cv-read:focus-visible{color:var(--brand);outline:none}.cv-read:focus-visible svg{transform:translateX(5px)}
+/* progress: one line per couple, 2px on a darker track, each a 48px tall button */
+.cv-segs{display:flex;gap:var(--s-12);margin:var(--s-24) var(--lead) 0}   /* the 2px line sits 48 under the print, as in the sample */
+.cv-seg{flex:1;height:48px;display:flex;align-items:center;padding:0;cursor:pointer}
+.cv-seg i{position:relative;display:block;width:100%;height:2px;background:rgba(34,34,35,.2);transition:background .2s cubic-bezier(0,0,.2,1)}
+.cv-seg b{position:absolute;inset:0;background:var(--brand);transform-origin:0 0;transform:scaleX(0)}
+@media (hover:hover){.cv-seg:hover i{background:rgba(34,34,35,.45)}}
+.cv-seg:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
 
-/* folio: aligned to the top edge of the print, same left edge as the names */
-.cv-folio{position:absolute;z-index:3;top:calc((100vh - var(--h)) / 2 - 18px - 10px);
-  left:calc(var(--lead) + var(--w) + var(--gap));right:var(--lead);
-  display:flex;align-items:baseline;gap:28px;font-size:15px;letter-spacing:.02em;color:#6E6357}
-.cv-count{font-variant-numeric:lining-nums;min-width:4.2em}
-.cv-tm{display:flex;align-items:center;margin:0 6px 0 -10px}
-.cv-folio button{font-size:15px;letter-spacing:.02em;color:#6E6357;padding:6px 0;transition:color .5s var(--ease)}
-.cv-folio button:hover,.cv-folio button:focus-visible{color:var(--brand)}
-.cv-next b{font-weight:300;color:var(--ink);transition:color .5s var(--ease)}
-.cv-next:hover b{color:var(--brand)}
-.cv-prev{margin-left:auto}
-
-/* proto page only: room for the site bar above the section */
-.proto-head{height:120px;background:var(--cream)}
-
-/* ---------- phone: picture, names, line, then the control ---------- */
+/* ---------- phone: photo, words, then the progress row ---------- */
 @media (max-width:760px){
-    .cv{--h:auto;padding:40px 0 44px!important;min-height:0;display:flex;flex-direction:column}
-  .cv-stage{order:1;display:block}
-  /* phone: the stage takes the height of the couple on screen, so the control always sits right under their line */
+  .cv{--h:auto;padding:40px 0 32px!important;min-height:0}
+  .cv-stage{display:block}
   .cv-slide{position:absolute;inset:0 0 auto 0}
   .cv-slide.is-on{position:relative}
   .cv-link{display:block;padding:0 20px}
-  .cv-fig{display:block}
-  .cv-img{aspect-ratio:4/5}
-  .cv-fig figcaption{margin-top:12px;font-size:14px}
-  .cv-type{margin-top:34px;max-width:none}
-  .cv-names{font-size:clamp(50px,14.5vw,64px);line-height:.95}
-  .cv-names span{padding-left:0}
-  .cv-line{margin-top:22px}
-  .cv-read{margin-top:26px;font-size:16px}
-  .cv-folio{order:2;position:static;margin:30px 20px 0;gap:22px;font-size:14px}
-  .cv-folio button{font-size:14px;padding:10px 0}
-  .cv-next span{display:none}
-  .proto-head{height:96px}
+  .cv-fig{height:auto}
+  .cv-img{aspect-ratio:9/10;height:auto}
+  .cv-type{margin-top:var(--s-32);max-width:none}
+  .cv-nm{font-size:var(--t-48);line-height:var(--lh-48)}
+  .cv-type .pq{margin-top:var(--s-32)}
+  .cv-segs{margin:var(--s-8) 20px 0}
 }
 @media (max-width:1100px) and (min-width:761px){
-  .cv{--h:clamp(480px,70vh,700px);--lead:var(--gut)}
-  .cv-names{font-size:clamp(54px,7vw,80px)}
+  .cv{--lead:var(--gut,40px);--h:clamp(460px,64vh,600px)}
+  .cv-link{grid-template-columns:var(--lead) var(--w) var(--s-48) minmax(0,1fr) var(--lead)}
+  .cv-nm{font-size:var(--t-60);line-height:var(--lh-60)}
 }
 @media (prefers-reduced-motion:reduce){
-  .cv-img img,.cv-type>*,.cv-fig figcaption,.cv-read svg{transition:opacity .25s linear!important;transform:none!important}
+  .cv-img img,.cv-type>*,.cv-read svg{transition:opacity .25s linear!important;transform:none!important}
 }
 
 /* arcade */
@@ -183,11 +160,11 @@ section.ev{
 .ar ul{list-style:none;margin:0;padding:0}
 .ar li a{font-family:var(--head);color:var(--ink);transition:color .6s var(--e)}
 .ar li a:hover,.ar li a:focus-visible{color:var(--brand)}
-.ar figure{margin:0;overflow:hidden;background:#E4D9CA}
+.ar figure{margin:0;overflow:hidden;background:var(--band)}
 .ar figure img{filter:saturate(.8) sepia(.06);display:block;width:100%;height:100%;max-width:none;object-fit:cover}
 
 /* A, threshold: the colonnade full width, then the eight names on paper beneath */
-.ar-a{background:#FAF7F2;padding:0 0 clamp(96px,8.5vw,136px)!important}
+.ar-a{background:#FFFFFF;padding:0 0 clamp(96px,8.5vw,136px)!important}
 .ar-a .bleed{height:clamp(520px,60vw,880px)}
 .ar-a .grid{margin-top:clamp(48px,4.4vw,64px)}
 .ar-a .t{grid-column:1/6}
@@ -197,7 +174,7 @@ section.ev{
 .ar-a ul{grid-column:7/13;display:block}
 .ar-a li a{display:grid;grid-template-columns:minmax(0,clamp(180px,15vw,224px)) minmax(0,1fr);align-items:baseline;column-gap:24px;padding:11px 0;font-family:var(--sans)}
 .ar-a li b{font-family:var(--head);font-weight:400;font-size:clamp(28px,2.35vw,34px);line-height:1.05;letter-spacing:-.01em;color:var(--ink);transition:color .6s var(--e)}
-.ar-a li span{font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.4;color:#5E5249;transition:color .6s var(--e)}
+.ar-a li span{font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.4;color:#53565A;transition:color .6s var(--e)}
 .ar-a li a:hover b,.ar-a li a:focus-visible b{color:var(--brand)}
 .ar-a li a:hover span{color:var(--ink)}
 @media (max-width:760px){.ar-a li a{grid-template-columns:1fr;row-gap:4px;padding:10px 0}.ar-a li b{font-size:28px}.ar-a li span{font-size:15px}}
@@ -208,19 +185,19 @@ section.ev{
 .ca-head{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:end;column-gap:clamp(40px,6vw,110px)} /* aside starts on the Tuscany image edge */
 .ca h2{font-family:var(--head);font-weight:400;font-size:clamp(52px,6vw,96px);line-height:1;letter-spacing:-.02em;white-space:nowrap}
 .ca-aside{padding-bottom:.9vw}
-.ca-aside p{font-size:18px;line-height:1.55;letter-spacing:.005em;color:#6B6155}
+.ca-aside p{font-size:18px;line-height:1.55;letter-spacing:.005em;color:#53565A}
 .ca-help{display:inline-flex;align-items:center;gap:10px;margin-top:22px;font-size:15px;letter-spacing:.02em;color:var(--ink);transition:color .8s var(--e)}
-.ca-help span{color:#6B6155}
+.ca-help span{color:#53565A}
 .ca-help svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.3;transition:transform .8s var(--e)}
 .ca-help:hover{color:var(--brand)}.ca-help:hover svg{transform:translateX(5px)}
 .ca-row{display:flex;gap:14px;margin-top:6.5vh;height:clamp(360px,48vh,560px)}
 .ca-pl{flex:1 1 0;min-width:0;display:flex;flex-direction:column;color:var(--ink);transition:flex-grow .7s var(--e),opacity .5s var(--e)}
 .ca-pl:first-child{flex-grow:1.618}
-.ca-pl figure{position:relative;flex:1;min-height:0;margin:0;overflow:hidden;background:#E9E1D6}
+.ca-pl figure{position:relative;flex:1;min-height:0;margin:0;overflow:hidden;background:var(--band)}
 .ca-pl img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;transform:scale(1.001);transition:transform .9s var(--e),filter .5s var(--e)}
 .ca-pl figcaption{display:flex;flex-direction:column;gap:8px;padding-top:16px;white-space:nowrap;overflow:hidden}
 .ca-pl b{font-family:var(--head);font-weight:400;font-size:30px;line-height:1;letter-spacing:-.005em}
-.ca-pl em{font-style:normal;font-size:15px;letter-spacing:.01em;color:#6B6155;overflow:hidden;text-overflow:ellipsis;opacity:.9;transition:opacity .5s var(--e)}
+.ca-pl em{font-style:normal;font-size:15px;letter-spacing:.01em;color:#53565A;overflow:hidden;text-overflow:ellipsis;opacity:.9;transition:opacity .5s var(--e)}
 @media (hover:hover){
   .ca-row:hover .ca-pl{flex-grow:1}
   .ca-row:hover .ca-pl:hover{flex-grow:1.618}
@@ -252,7 +229,7 @@ html.shot .ca .reveal{transition:none}
 }
 
 /* eight names: one place at a time, after KOBU's "Where we're traveling" and destination index (Mark picked 16 Nov 20:38) */
-.k{--e:cubic-bezier(.2,.7,.2,1);--grey:#8E857B;background:#FAF7F2;color:var(--ink);position:relative}
+.k{--e:cubic-bezier(.2,.7,.2,1);--grey:#888B8D;background:#FFFFFF;color:var(--ink);position:relative}
 .k a{color:inherit}
 .k .go,.k figcaption,.k .all a{gap:.3em}   /* a word space before the arrow, as in the reference */
 
@@ -263,7 +240,7 @@ html.shot .ca .reveal{transition:none}
 .k1 h2 .g{display:block;color:var(--grey)}
 .k1 h2 a{display:block;color:var(--ink);transition:color .45s var(--e)}
 .k1 h2 a:hover,.k1 h2 a:focus-visible{color:var(--brand)}
-.k1 .ph{position:absolute;left:11.3vw;top:16.7vw;width:37.4vw;height:38.7vw;margin:0;overflow:hidden;background:#E4D9CA;display:block}
+.k1 .ph{position:absolute;left:11.3vw;top:16.7vw;width:37.4vw;height:38.7vw;margin:0;overflow:hidden;background:var(--band);display:block}
 .k1 .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0}
 /* the new photo fades in over the one on screen (a true crossfade, no dip to the background); Home rhythm, HANDOFF.md */
 .k1 .ph img.on{opacity:1;transition:opacity 1.2s cubic-bezier(.22,1,.36,1)}
@@ -296,7 +273,7 @@ html.shot .ca .reveal{transition:none}
 /* The couple photo, 17 Nov (Mark: "a wedding picture that says nothing"): it now sits beside what the planners take off the couple's
    hands, with a way into the wizard halfway down the page. Photo left, words right (the eight places below mirror it). */
 .hand{display:grid;grid-template-columns:minmax(0,62fr) minmax(0,38fr);column-gap:5.4vw;align-items:end;padding:6vw 4.2vw 2vw!important}
-.hand-ph{margin:0;aspect-ratio:4/3.4;overflow:hidden;background:#E4D9CA}
+.hand-ph{margin:0;aspect-ratio:4/3.4;overflow:hidden;background:var(--band)}
 .hand-ph img{width:100%;height:100%;object-fit:cover;display:block}
 .hand-t{padding-bottom:.6vw}
 .hand .go{margin-top:26px;font-size:clamp(17px,1.4vw,21px)}
@@ -320,11 +297,11 @@ html.shot .ca .reveal{transition:none}
 @media (max-width:900px){.tm-a .k1 ul{padding-left:0}.tm-a .k1 ul::before,.tm-a .k1 .k-tm-a{display:none!important}.tm-a .k1 .k-tm-b{display:flex;align-items:center;gap:12px;margin-top:16px;font-family:var(--sans);font-size:13px;color:var(--grey)}}
 .k-tm{display:none}
 .tm-a .k1 ul{padding-left:22px}
-.tm-a .k1 ul::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:rgba(30,24,18,.14)}
+.tm-a .k1 ul::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:rgba(34,34,35,.14)}
 .tm-a .k1 .k-tm-a{display:block;position:absolute;left:0;width:1px;background:var(--brand);transform-origin:0 0;transform:scaleY(0);transition:opacity .2s linear}
 /* timer, take B: "4 / 8" in Jost beside a short hairline that fills, after the "See …" link */
 .tm-b .k1 .k-tm-b{display:flex;align-items:center;gap:12px;margin-top:1.6vw;font-family:var(--sans);font-size:14px;letter-spacing:.04em;color:var(--grey);font-variant-numeric:lining-nums tabular-nums}
-.k-tm-b i,.cv-tm i{position:relative;display:block;width:56px;height:1px;background:rgba(30,24,18,.14)}
+.k-tm-b i,.cv-tm i{position:relative;display:block;width:56px;height:1px;background:rgba(34,34,35,.14)}
 .k-tm-b i b,.cv-tm i b{position:absolute;inset:0;background:var(--brand);transform-origin:0 0;transform:scaleX(0)}
 /* transition, take "reveal": the new photo is uncovered from the centre line outwards, like the page blinds, settling from a slight scale */
 .k1.fx-reveal .ph img{opacity:1;clip-path:inset(0 50% 0 50%);transform:scale(1.035)}
@@ -339,8 +316,8 @@ html.shot .ca .reveal{transition:none}
    holds a place (hover, click, focus, a tap) its name eases to full ink and stays so until the next place. */
 @property --f{syntax:'<number>';inherits:false;initial-value:0}
 @property --d{syntax:'<number>';inherits:false;initial-value:0}
-@property --kc{syntax:'<color>';inherits:false;initial-value:#2a241e}
-@property --uc{syntax:'<color>';inherits:false;initial-value:#9a9086}
+@property --kc{syntax:'<color>';inherits:false;initial-value:#222223}
+@property --uc{syntax:'<color>';inherits:false;initial-value:#888B8D}
 .tm-fill .k1 li button{--kc:var(--ink);--uc:var(--grey);color:transparent;-webkit-background-clip:text;background-clip:text;
   background-image:linear-gradient(to bottom,var(--uc) calc(var(--d) * 112% - 12%),var(--kc) calc(var(--d) * 112%),var(--kc) calc(var(--f) * 112% - 12%),var(--uc) calc(var(--f) * 112%));
   transition:--kc .45s var(--e),--uc .45s var(--e)}
@@ -349,7 +326,7 @@ html.shot .ca .reveal{transition:none}
 @media (hover:hover){.tm-fill .k1 li button:hover{--kc:var(--brand);--uc:var(--brand)}}
 .tm-fill .k1 li button:focus-visible{--kc:var(--brand);--uc:var(--brand)}
 </style>
-<meta name="robots" content="noindex"><script>try{if(!document.prerendering&&!matchMedia("(prefers-reduced-motion: reduce)").matches&&!location.search.includes("shot"))document.documentElement.classList.add("arch-ready")}catch(e){}</script><link rel="stylesheet" href="css/type.css?v=0b0550ea"><link rel="stylesheet" href="css/type-site.css?v=9998f70e"><style>/* Professor note strip: fixed to the bottom edge, paper and ink, no shadow, no motion; body gets matching bottom padding while it is open. */
+<meta name="robots" content="noindex"><script>try{if(!document.prerendering&&!matchMedia("(prefers-reduced-motion: reduce)").matches&&!location.search.includes("shot"))document.documentElement.classList.add("arch-ready")}catch(e){}</script><link rel="stylesheet" href="css/type.css?v=a3353428"><link rel="stylesheet" href="css/type-site.css?v=fc434f8f"><style>/* Professor note strip: fixed to the bottom edge, paper and ink, no shadow, no motion; body gets matching bottom padding while it is open. */
 .rn{position:fixed;left:0;right:0;bottom:0;z-index:58;display:flex;align-items:center;gap:16px;padding:12px 26px;background:var(--paper,#FBF8F4);color:var(--ink,#2A2420);border-top:1px solid var(--line,#DCCFBC);font-family:Jost,system-ui,sans-serif;font-size:14px;line-height:1.45;font-weight:400}
 .rn p{margin:0;flex:1;max-width:none;text-align:left}
 .rn a,.rn-foot a{color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
@@ -450,12 +427,8 @@ html.shot .ca .reveal{transition:none}
     </div>
   </section>
   <section class="cv" id="stories" aria-roledescription="carousel" aria-label="Real weddings">
-    <div class="cv-folio">
-      <span class="cv-count" id="cv-count" aria-live="polite">1 of 3</span>
-      <button class="cv-prev" type="button" data-cv-prev>Previous</button>
-      <button class="cv-next" type="button" data-cv-next aria-label="Next story">Next<span>, <b id="cv-nextname"></b></span></button>
-    </div>
     <div class="cv-stage" id="cv-stage"></div>
+    <div class="cv-segs" id="cv-segs"></div>
   </section>
   <section class="ca" aria-labelledby="ca-q">
     <div class="ca-head reveal">
@@ -572,21 +545,22 @@ html.shot .ca .reveal{transition:none}
 
 })();
 </script>
-<script src="js/site.js?v=f7f43c1f"></script>
+<script src="js/site.js?v=868924d0"></script>
 <script src="js/prefetch.js?v=e788ada9" defer></script>
 <script>
 
 
 (() => {
   const S = window.STORIES || [], N = S.length;
-  const stage = document.getElementById('cv-stage'), cnt = document.getElementById('cv-count'), nextName = document.getElementById('cv-nextname');
+  const stage = document.getElementById('cv-stage');
   const sec = document.getElementById('stories');
   if (!N) { sec.hidden = true; return; }
   // where each cover's couple sits in the frame, for the 4:5 crop (default: centre)
   const FOCUS = {hero:'100% 50%', intro2:'60% 40%', 'd-sardinia':'50% 45%'};
   const esc = t => String(t || '').replace(/&(?![a-z#0-9]+;)/gi, '&amp;').replace(/</g, '&lt;');
   const names = c => { const m = String(c || '').split(/\s*&\s*/); return m.length === 2 ? `${esc(m[0])} <span>&amp; ${esc(m[1])}</span>` : esc(c); };
-  const place = s => esc(String(s.kicker || '').split('·')[0].trim());
+  // the place line, without the separator character: "Capri and Positano · Late September" -> "Capri and Positano, late September"
+  const where = s => esc(String(s.kicker || '').split('·').map(x => x.trim()).filter(Boolean).map((x, i) => i && /^(Late|Early|Mid)\b/.test(x) ? x[0].toLowerCase() + x.slice(1) : x).join(', '));
   const href = s => s.id === 'capri' ? 'story-capri.html' : s.id === 'sardinia' ? 'story-sardinia.html' : s.id === 'sorrento' ? 'story-sorrento.html' : 'story.html?s=' + encodeURIComponent(s.id);
   const arrow = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h17M14 6l6 6-6 6"/></svg>';
 
@@ -597,17 +571,21 @@ html.shot .ca .reveal{transition:none}
           <a class="cv-img cv-hit" href="${href(s)}" tabindex="-1" aria-hidden="true"><img src="img/g/${s.cover}.jpg" alt="${esc(s.alt)}" style="object-position:${FOCUS[s.cover] || '50% 50%'}" ${i ? 'loading="lazy"' : ''}></a>
         </figure>
         <div class="cv-type">
-          <h3 class="cv-names"><a class="cv-hit" href="${href(s)}" tabindex="-1">${names(s.couple)}</a></h3>
-          ${s.quote && s.quote[0] ? `<blockquote class="pq cv-line"><p>${esc(s.quote[0])}</p></blockquote>` : ''}
+          <h3 class="cv-nm"><a class="cv-hit" href="${href(s)}" tabindex="-1">${names(s.couple)}</a></h3>
+          ${s.quote && s.quote[0] ? `<blockquote class="pq l"><p>${esc(s.quote[0])}</p></blockquote>` : ''}
+          <p class="cv-where">${where(s)}</p>
           <a class="cv-read cv-hit" href="${href(s)}">Read their story ${arrow}</a>
         </div>
       </div>
     </article>`).join('');
 
   const slides = [...stage.children];
+  const segRow = document.getElementById('cv-segs');
+  segRow.innerHTML = S.map((s, i) => `<button class="cv-seg" type="button" aria-label="${esc(s.couple)}, ${i + 1} of ${N}"${i ? '' : ' aria-current="true"'}><i><b></b></i></button>`).join('');
+  const segs = [...segRow.children];
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let cur = 0, outT;
-  const label = k => { cnt.textContent = `${k + 1} of ${N}`; const n = S[(k + 1) % N]; nextName.textContent = n.couple || ''; };
+  const label = k => segs.forEach((b, j) => b.toggleAttribute('aria-current', j === k));
   const go = k => {
     k = (k + N) % N; if (k === cur) return;
     const prev = slides[cur], next = slides[k];
@@ -635,11 +613,14 @@ html.shot .ca .reveal{transition:none}
   if (!reduce) { let last = performance.now();
     const tick = now => { const dt = Math.min(100, now - last); last = now;
       if (seen && !document.hidden && !over && !focused && !tapped) { t += dt; if (t >= DWELL) { t = 0; go(cur + 1); } }
+      // one line per couple (version A): past couples full, the current one fills in raspberry over the dwell, the rest empty; held full once the visitor has chosen
+      const fill = tapped ? 1 : Math.max(0, Math.min(1, t / DWELL));
+      segs.forEach((b, j) => { b.firstChild.firstChild.style.transform = 'scaleX(' + (j < cur ? 1 : j === cur ? fill : 0) + ')'; });
       requestAnimationFrame(tick); };
     requestAnimationFrame(tick); }
   const pick = k => { go(k); t = DWELL - HOLD; };
-  sec.querySelector('[data-cv-next]').addEventListener('click', () => pick(cur + 1));
-  sec.querySelector('[data-cv-prev]').addEventListener('click', () => pick(cur - 1));
+  segRow.addEventListener('click', e => { const b = e.target.closest('.cv-seg'); if (b) pick(segs.indexOf(b)); });
+  if (reduce) { const still = () => segs.forEach((b, j) => b.firstChild.firstChild.style.transform = 'scaleX(' + (j <= cur ? 1 : 0) + ')'); still(); segRow.addEventListener('click', () => requestAnimationFrame(still)); addEventListener('keydown', () => requestAnimationFrame(still)); }
 
   // keyboard: arrows while the section holds most of the screen
   let inView = false;

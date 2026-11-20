@@ -31,7 +31,7 @@
 
 /* ceremony switch: three words; the chosen one in ink, the others pale, like the months line */
 .wd-sw{display:flex;gap:30px;margin-top:30px}
-.wd-sw button{display:inline-flex;align-items:center;padding:6px 0;background:none;border:0;cursor:pointer;font:inherit;font-size:16px;letter-spacing:.01em;font-size:17px;color:#B5A691;transition:color .6s var(--e)}
+.wd-sw button{display:inline-flex;align-items:center;padding:6px 0;background:none;border:0;cursor:pointer;font:inherit;font-size:16px;letter-spacing:.01em;font-size:17px;color:#BBBCBC;transition:color .6s var(--e)}
 .wd-sw button[aria-selected=true]{color:var(--ink)}
 .wd-sw button:hover{color:var(--ink)}
 .wd-sw button:focus-visible{outline:1px solid var(--ink);outline-offset:4px}

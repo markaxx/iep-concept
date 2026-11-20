@@ -11,9 +11,9 @@
 /* 96  */ :root body.dx:not(.ct):not(.jn) h1,:root body .cv-names,:root body .cv-names *{font-size:var(--t-96)!important;line-height:var(--lh-96)!important}
 /* 76  */ :root body.ct h1,:root body.jn:not(.jp) h1,:root body.jp .jp-head h1:not(.long),:root body.dx h2:not(.f-h):not(.jp-text h2),:root body .bt-ch,:root body .ca-head h2{font-size:var(--t-76)!important;line-height:var(--lh-76)!important}
 /* 60  */ :root body .bt.five .bt-ch,:root body .bt-end .nx b,:root body.home .hand-t h2,:root body.home .k1 h2,:root body.home .ar h2{font-size:var(--t-60)!important;line-height:var(--lh-60)!important}
-/* 48  */ :root body.jp .jp-head h1.long{font-size:var(--t-48)!important;line-height:var(--lh-48)!important}
-/* 40  */ :root body.home .ev-in h2,:root body.home .ev h2{font-size:var(--t-40)!important;line-height:var(--lh-40)!important}
-/* 32  */ :root body.home .ca-pl figcaption b{font-size:var(--t-32)!important;line-height:var(--lh-32)!important}
+/* 48  */ :root body.jp .jp-head h1.long{font-size:var(--t-48)!important;line-height:var(--lh-g48)!important}
+/* 40  */ :root body.home .ev-in h2,:root body.home .ev h2{font-size:var(--t-40)!important;line-height:var(--lh-g40)!important}
+/* 32  */ :root body.home .ca-pl figcaption b{font-size:var(--t-32)!important;line-height:var(--lh-g32)!important}
 /* 24  */ :root body.home .ev-in figcaption b,:root body footer h2.f-h,:root body footer h5{font-size:var(--t-24)!important}
 :root body.home .ev-in figcaption b{line-height:var(--lh-24)!important}
 
@@ -33,7 +33,11 @@
 :root body :where(figcaption span:not(.see):not(.ha-run),figcaption em,small,small *,dt,.ml,.mx i,.f-bot span,.cv-count,.cv-folio button,.cv-folio button *,.k-tm,.k-tm *,.jsub,.jsub *,.bt-from,.says p.en,.lang,.lang *,.m-lang,.m-lang *){font-size:var(--t-13)!important;line-height:var(--lh-13)!important;font-weight:400!important}
 :root body .mx i.on{font-weight:500!important}
 /* Home: the hero line and the big "Plan your wedding" link keep their steps (24 and 20); the eight places list and its link are 32, at the weight Mark approved */
-:root body.home .k1 .go,:root body.home .k1 .go *,:root body.home .k1 li button{font-size:var(--t-32)!important;line-height:var(--lh-32)!important;font-weight:400!important}
+/* (the eight places names themselves: next rule) */
+:root body.home .k1 .go,:root body.home .k1 .go *{font-size:var(--t-32)!important;line-height:var(--lh-32)!important;font-weight:400!important}
+:root body.home .k1 li button{font-size:clamp(19px,2.45vw,36px)!important;line-height:40px!important;font-weight:400!important}
+:root body.home .k1 li+li{margin-top:var(--s-12)}   /* eight places (Mark 19 Nov, pinned the pre-type picture, "the slightest bit tighter"): original 35.3px names, rows 40 + 12 = 52px apart (SPACING-SPEC 3c) */
+:root body.home .k1 .side>.go{margin-top:var(--s-48)!important}   /* list to its link: 48, not tighter than the 37 it was */
 :root body.home .ca .go,:root body.home .ca .go *,:root body.home .hand .go,:root body.home .hand .go *{font-size:var(--t-20)!important;line-height:var(--lh-20)!important}
 :root body.home .hero-v .hv-line{font-size:var(--t-24)!important;line-height:var(--lh-24)!important;font-weight:300!important}
 :root body .wd-stories a>span{font-size:var(--t-20)!important;line-height:var(--lh-20)!important;font-weight:400!important}
@@ -75,17 +79,22 @@
   :root body .bt-cover h1{font-size:var(--t-96)!important;line-height:var(--lh-96)!important}
   :root body.dx:not(.ct):not(.jn) h1,:root body .cv-names,:root body .cv-names *{font-size:var(--t-76)!important;line-height:var(--lh-76)!important}
   :root body.ct h1,:root body.jn:not(.jp) h1,:root body.jp .jp-head h1:not(.long),:root body.dx h2:not(.f-h):not(.jp-text h2),:root body .bt-ch,:root body .ca-head h2{font-size:var(--t-60)!important;line-height:var(--lh-60)!important}
-  :root body .bt.five .bt-ch,:root body .bt-end .nx b,:root body.home .hand-t h2,:root body.home .k1 h2,:root body.home .ar h2{font-size:var(--t-48)!important;line-height:var(--lh-48)!important}
+  :root body .bt.five .bt-ch,:root body .bt-end .nx b,:root body.home .hand-t h2,:root body.home .k1 h2,:root body.home .ar h2{font-size:var(--t-48)!important;line-height:var(--lh-g48)!important}
 }
 /* ---------- phones (760px and below) ---------- */
 @media (max-width:760px){
   :root body .bt-cover h1{font-size:var(--t-60)!important;line-height:var(--lh-60)!important}
   :root body.dx:not(.ct):not(.jn) h1,:root body .cv-names,:root body .cv-names *{font-size:var(--t-48)!important;line-height:var(--lh-48)!important}
-  :root body.ct h1,:root body.jn:not(.jp) h1,:root body.jp .jp-head h1:not(.long),:root body.dx h2:not(.f-h):not(.jp-text h2),:root body .bt-ch,:root body .ca-head h2,:root body .bt.five .bt-ch,:root body .bt-end .nx b,:root body.home .hand-t h2,:root body.home .k1 h2,:root body.home .ar h2{font-size:var(--t-40)!important;line-height:var(--lh-40)!important}
-  :root body.jp .jp-head h1.long,:root body.home .ev-in h2,:root body.home .ev h2{font-size:var(--t-32)!important;line-height:var(--lh-32)!important}
+  :root body.ct h1,:root body.jn:not(.jp) h1,:root body.jp .jp-head h1:not(.long),:root body.dx h2:not(.f-h):not(.jp-text h2),:root body .bt-ch,:root body .ca-head h2,:root body .bt.five .bt-ch,:root body .bt-end .nx b,:root body.home .hand-t h2,:root body.home .k1 h2,:root body.home .ar h2{font-size:var(--t-40)!important;line-height:var(--lh-g40)!important}
+  :root body.jp .jp-head h1.long,:root body.home .ev-in h2,:root body.home .ev h2{font-size:var(--t-32)!important;line-height:var(--lh-g32)!important}
   :root body .pq p,:root body .pq.l p,:root body p.line.it-sub{font-size:var(--t-24)!important;line-height:var(--lh-q24)!important}
   :root body :is(p.line,.hv-line,p.lead,.lead),:root body .bt-lede p,:root body p.cont,:root body .bt .bt-said .said,:root body.home .k1 .go,:root body.home .k1 .go *,:root body.home .k1 li button{font-size:var(--t-20)!important;line-height:var(--lh-20)!important}
   :root body .bt-plan p,:root body.beats .spoken p:not(.after){font-size:var(--t-40)!important;line-height:var(--lh-40)!important}
   :root body .says p.gr{font-size:var(--t-48)!important;line-height:var(--lh-48)!important}
   :root body .menu nav a{font-size:var(--t-24)!important;line-height:40px!important}
 }
+:root body.ev h1{text-wrap:balance}   /* "For all of your big days." (Mark, 19 Nov): breaks For all / of your / big days. instead of leaving "days." alone */
+/* Gilda leading at 32 to 48 (Mark 19 Nov): the 2px of half-leading each title loses at its top and bottom is given back as margin, so the
+   space above the first line and below the last line stays exactly as it was; only the space between a title's own lines gets tighter */
+:root body.home .ca-pl figcaption b{margin-top:2px;margin-bottom:2px}
+:root body.jp .jp-head h1.long{margin-top:2px!important;margin-bottom:2px!important}

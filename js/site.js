@@ -35,7 +35,7 @@
     <div class="wrap">
       <div class="f-top">
         <div><a class="logo" href="home-v3.html"><img src="brand/logo-white.svg" alt="Italian Event Planners"></a>
-          <p style="margin-top:22px;max-width:30ch;color:#BFB09B;font-size:16px">Weddings, corporate events and private celebrations across Italy since 2009.</p></div>
+          <p style="margin-top:22px;max-width:30ch;color:#BBBCBC;font-size:16px">Weddings, corporate events and private celebrations across Italy since 2009.</p></div>
         <div><h2 class="f-h">Celebrate</h2><a href="weddings-v3.html">Weddings</a><a href="events-v3.html">Corporate events</a><a href="events-v3.html#private">Private celebrations</a><a href="destinations-v3.html">Destinations</a></div>
         <div><h2 class="f-h">Studio</h2><a href="about-v3.html">About us</a><a href="journal-v3.html">Journal</a><a href="home-v3.html#stories">Kind words</a></div>
         <div><h2 class="f-h">Say hello</h2><a href="contact.html">Contact</a><a href="tel:+393466882388">+39 346 688 2388</a><a href="https://wa.me/393466882388">WhatsApp</a><a href="https://instagram.com/italianeventplanners">Instagram</a><a href="https://facebook.com/italianeventplanners">Facebook</a></div>
@@ -267,18 +267,47 @@
     // Sampled at the part's left, middle and right; nothing here changes the bar's size, so no position can oscillate.
     let photos = 0;
     zones.forEach(z => {
-      const r = z.getBoundingClientRect(), yy = Math.min(innerHeight - 1, r.top + r.height / 2);
-      const n = [.1, .5, .9].reduce((s, f) => s + (darkAt(r.left + r.width * f, yy) ? 1 : 0), 0), on = n >= 2;
+      // sample over what is drawn in the part (its children), not the whole grid cell: the menu cell is 600px wide but the button is 70px, and the word Menu decides for its icon
+      const kids = [...(z.querySelector('.mbtn .mt') ? [z.querySelector('.mbtn .mt')] : z.children)].map(k => k.getBoundingClientRect()).filter(q => q.width > 0);
+      const r = kids.length ? {left: Math.min(...kids.map(q => q.left)), width: Math.max(...kids.map(q => q.right)) - Math.min(...kids.map(q => q.left)), top: Math.min(...kids.map(q => q.top)), height: Math.max(...kids.map(q => q.bottom)) - Math.min(...kids.map(q => q.top))} : z.getBoundingClientRect();
+      const yy = Math.min(innerHeight - 1, r.top + r.height / 2);
+      const n = [.05, .2, .35, .5, .65, .8, .95].reduce((s, f) => s + (darkAt(r.left + r.width * f, yy) ? 1 : 0), 0), on = n >= 4;
       if (z._on !== on) { z._on = on; z.classList.toggle('z-photo', on); z.classList.toggle('z-paper', !on); }
       photos += on;
     });
     const want = photos >= 2;
+    // the shade follows the photo across the bar, and stops at the photo's own edge: 32 samples find where photos are, a short
+    // search finds each edge to 1px, and the shade fades in over 8px INSIDE the photo, so paper never gets any of it (wizard thread, 19 Nov)
+    { const R = bar.getBoundingClientRect(), yy = Math.min(innerHeight - 1, R.top + R.height / 2), N = 32, X = i => R.left + R.width * (i + .5) / N;
+      const st = []; for (let i = 0; i < N; i++) st.push(darkAt(X(i), yy));
+      const any = st.some(Boolean), pct = x => ((x - R.left) / R.width * 100).toFixed(2) + '%', stops = [];
+      if (any) { stops.push('rgba(0,0,0,' + (st[0] ? 1 : 0) + ') 0%');
+        for (let i = 0; i < N - 1; i++) if (st[i] !== st[i + 1]) {
+          let lo = X(i), hi = X(i + 1); for (let k = 0; k < 6; k++) { const m = (lo + hi) / 2; if (darkAt(m, yy) === st[i]) lo = m; else hi = m; }
+          const e = (lo + hi) / 2, into = st[i + 1] ? 1 : -1;   // fade inside the photo side
+          stops.push('rgba(0,0,0,' + (st[i] ? 1 : 0) + ') ' + pct(into > 0 ? e : e - 8), 'rgba(0,0,0,' + (st[i + 1] ? 1 : 0) + ') ' + pct(into > 0 ? e + 8 : e)); }
+        stops.push('rgba(0,0,0,' + (st[N - 1] ? 1 : 0) + ') 100%'); }
+      const m = any ? 'linear-gradient(90deg,' + stops.join(',') + ')' : 'none';
+      if (bar._m !== m) { bar._m = m; bar.style.setProperty('--shade', m); bar.classList.toggle('has-photo', any); } }
     if (want !== dark) { dark = want; bar.classList.toggle('dark', !dark); bar.classList.toggle('over-photo', dark); }
+    // top bar take C (Mark, 19 Nov): clear at rest; the blur and scrim fade in once content has moved under the bar
+    const mv = scrollY > 2; if (bar._mv !== mv) { bar._mv = mv; bar.classList.toggle('moved', mv); }
   }
   const req = () => { if (!queued) { queued = true; requestAnimationFrame(frame); } };
   addEventListener('scroll', req, {passive: true}); addEventListener('resize', req); addEventListener('load', req);
   if (document.fonts) document.fonts.ready.then(req);
   frame();
+  // the first frame can run while the opening blinds still hide the page, so it reads paper and leaves the bar dark over the hero photo
+  // (Mark 19 Nov: "navbar content is black, not white on first load"). Read again while the page opens, until the blinds are long gone.
+  { let n = 0; const iv = setInterval(() => { req(); if (++n >= 16) clearInterval(iv); }, 250); }
+  // and whenever the content under it changes without a scroll (a wizard step, a story slide, a photo swap, a panel opening):
+  // structural and class changes anywhere except the bar itself, finished transitions and animations, and images that finish loading.
+  // Inline style changes are left out on purpose: timers and the arrow pass write styles every frame. req() runs at most once a frame.
+  new MutationObserver(ms => { if (ms.some(m => !bar.contains(m.target))) req(); })
+    .observe(document.body, {subtree: true, childList: true, attributes: true, attributeFilter: ['class', 'src', 'srcset', 'hidden', 'open']});
+  addEventListener('transitionend', e => { if (!bar.contains(e.target)) req(); }, true);
+  addEventListener('animationend', e => { if (!bar.contains(e.target)) req(); }, true);
+  addEventListener('load', e => { if (e.target && e.target.tagName === 'IMG') req(); }, true);
   // the hero copy rises into place on arrival (js/motion.js): follow it every frame until the logo has settled, so the first scroll never jumps
   const settle = () => { if (!fly) return; let last = null, calm = 0; const t0 = performance.now();
     const tick = () => { frame(); const t = Math.round((hl.getBoundingClientRect().top + scrollY) * 10);
